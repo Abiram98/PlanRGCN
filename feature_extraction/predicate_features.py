@@ -20,6 +20,8 @@ class PredicateFeaturesQuery(Query):
                 self.set_query_unique_literal_predicate(pred, number=pred_no)
             except json.decoder.JSONDecodeError:
                 decode_errors.append(pred)
+            except (Exception) as e:
+                decode_errors.append(pred)
         json.dump(predicates,open(save_decode_err_preds,'w'))
     
     def set_query_unique_literal_predicate(self, predicate, number=None):
@@ -34,6 +36,7 @@ class PredicateFeaturesQuery(Query):
         unique_literals = set()
         unique_ents = set()
         pattern_count = 0
+        print(f"Total binding for {predicate}: {len(sparql_result['results']['bindings'])}")
         for x in sparql_result['results']['bindings']:
             pattern_count += 1
             if x['o']['type'] == 'literal':

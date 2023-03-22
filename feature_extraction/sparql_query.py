@@ -1,10 +1,11 @@
-from SPARQLWrapper import SPARQLWrapper, JSON
+from SPARQLWrapper import SPARQLWrapper, JSON, POST
 
 class Query:
     def __init__(self, endpoint_url):
         pass
         self.sparql = SPARQLWrapper(endpoint_url)
         self.sparql.setReturnFormat(JSON)
+        self.sparql.setMethod(POST)
         
     def run_query(self, query_str: str):
         self.query_str = query_str
