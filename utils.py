@@ -1,4 +1,5 @@
 import json
+import networkx as nx, numpy as np
 
 class BGP:
     def __init__(self, BGP_string:str, ground_truth):
@@ -23,8 +24,11 @@ class TriplePattern:
         assert len(splits) == 3
      
         self.subject = Node(splits[0])
+        self.subject.nodetype = 0
         self.predicate = Node(splits[1])
+        self.predicate.nodetype = 1
         self.object = Node(splits[2])
+        self.object.nodetype = 2
     def __str__(self):
         return f'Triple ({str(self.subject)} {str(self.predicate)} {str(self.object)} )'
     def __eq__(self, other):
@@ -37,8 +41,14 @@ class Node:
             self.type = 'VAR'
         elif node_label.startswith('http'):
             self.type = 'URI'
+        elif node_label.startswith('join'):
+            self.type = 'JOIN'  
         else:
             self.type = None
+        
+        self.pred_freq = 0
+        self.pred_literals = 0
+        self.pred_entities= 0
     def __str__(self):
         if self.type == None:
             return self.node_label
@@ -48,6 +58,16 @@ class Node:
         return self.node_label == other.node_label
     def __hash__(self) -> int:
         return hash(self.node_label)
+    
+    def get_features(self):
+        nodetype = np.zeros(4)
+        nodetype[self.nodetype] = 1
+        predicate_features = np.zeros(3)
+        if self.nodetype == 1:
+            predicate_features[0] = self.pred_freq
+            predicate_features[1] = self.pred_literals
+            predicate_features[2] = self.pred_entities
+        return np.concatenate((nodetype ,predicate_features))
 
 def load_BGPS_from_json(path):
     data = None
@@ -83,11 +103,65 @@ def get_entities(bgps: list):
 class BGPGraph:
     def __init__(self, bgp : BGP):
         self.bgp = bgp
+        self.nodes = []
+        self.edges = []
+        self.graph = nx.DiGraph()
+        self.node_to_idx = {}
+        self.current_id = 0
+        self.join_id = 0
+        
+    
+    def create_graph(self):
+        prev_join = None
+        for trp in self.bgp.triples:
+            subject_id = self.node_id(trp.subject)
+            predicate_id = self.node_id(trp.predicate)
+            object_id = self.node_id(trp.object)
+            self.graph.add_edge(subject_id,predicate_id)
+            self.graph.add_edge(predicate_id, object_id)
+            
+            join = self.create_join_node()
+            join_id = self.node_id(join)
+            self.graph.add_edge(subject_id,join_id)
+            self.graph.add_edge(predicate_id,join_id)
+            self.graph.add_edge(object_id,join_id)
+            if prev_join != None:
+                self.graph.add_edge(prev_join,join_id)
+                prev_join = join_id
+            
+    
+    def node_id(self, node: Node):
+        if node in self.node_to_idx.keys():
+            return self.node_to_idx[node]
+        self.node_to_idx[node] = self.current_id
+        self.current_id += 1
+        self.nodes.append(node)
+        return self.current_id-1
+    
+    def create_join_node(self):
+        join_node = Node(f"join{self.join_id}")
+        join_node.nodetype = 3
+        self.join_id += 1
+        return join_node
+    
+    def get_edge_list(self):
+        in_vertex, out_vertex = [],[]
+        for (x,y) in self.graph.edges():
+            in_vertex.append(x)
+            out_vertex.append(y)
+        return in_vertex,out_vertex
+    def get_node_representation(self):
+        return np.stack([x.get_features() for x in self.nodes])
+    
 
-bgps = load_BGPS_from_json('/work/data/train_data.json')
-print(f'BGPS loaded : {len(bgps)}')
-ents = get_entities(bgps)
-preds = get_predicates(bgps)
+if __name__ == "__main__":
+    bgps = load_BGPS_from_json('/work/data/train_data.json')
+    print(f'BGPS loaded : {len(bgps)}')
+    bgp_g = BGPGraph(bgps[0])
+    bgp_g.create_graph()
+    print(bgp_g.get_node_representation())
+    #ents = get_entities(bgps)
+    #preds = get_predicates(bgps)
 
-print(f'Entities extracted: {len(ents)}')
-print(f'Preds extracted: {len(preds)}')
+    #print(f'Entities extracted: {len(ents)}')
+    #print(f'Preds extracted: {len(preds)}')
