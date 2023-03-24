@@ -1,4 +1,4 @@
-from sparql_query import Query
+from feature_extraction.sparql_query import Query
 
 class EntityFeatures(Query):
     def __init__(self, endpoint_url):

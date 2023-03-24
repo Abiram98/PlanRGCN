@@ -1,13 +1,18 @@
 import json
 import networkx as nx, numpy as np
-
+from feature_extraction.predicate_features import PredicateFeaturesQuery
 class BGP:
-    def __init__(self, BGP_string:str, ground_truth):
+    def __init__(self, BGP_string:str, ground_truth, predicate_stat: PredicateFeaturesQuery = None):
         triple_strings = BGP_string[1:-1].split(',')
         self.triples = []
         for t in triple_strings:
-            self.triples.append(TriplePattern(t))
+            self.triples.append(TriplePattern(t, predicate_stat))
+        if predicate_stat != None:
+            self.total_bins = predicate_stat.total_bin
         self.ground_truth = 1 if ground_truth else 0
+    
+    def set_predicate_feat_gen(self,predicate_stat: PredicateFeaturesQuery):
+        self.predicate_stat = predicate_stat
     
     def __str__(self):
         temp_str = 'BGP( '
@@ -18,7 +23,7 @@ class BGP:
         
 
 class TriplePattern:
-    def __init__(self, triple_string:str):
+    def __init__(self, triple_string:str, predicate_stat:PredicateFeaturesQuery = None):
         splits = triple_string.split(' ')
         splits = [s for s in splits if s != '']
         assert len(splits) == 3
@@ -29,6 +34,12 @@ class TriplePattern:
         self.predicate.nodetype = 1
         self.object = Node(splits[2])
         self.object.nodetype = 2
+        
+        if predicate_stat != None:
+            self.predicate_stat = predicate_stat
+            if self.predicate.type == 'URI':
+                self.predicate.bucket = predicate_stat.get_bin(self.predicate.node_label)
+    
     def __str__(self):
         return f'Triple ({str(self.subject)} {str(self.predicate)} {str(self.object)} )'
     def __eq__(self, other):
@@ -59,15 +70,17 @@ class Node:
     def __hash__(self) -> int:
         return hash(self.node_label)
     
-    def get_features(self):
+    def get_features(self, pred_bins):
         nodetype = np.zeros(4)
         nodetype[self.nodetype] = 1
         predicate_features = np.zeros(3)
+        predicate_bins = np.zeros(pred_bins)
         if self.nodetype == 1:
             predicate_features[0] = self.pred_freq
             predicate_features[1] = self.pred_literals
             predicate_features[2] = self.pred_entities
-        return np.concatenate((nodetype ,predicate_features))
+            pred_bins[self.bucket] = 1
+        return np.concatenate((nodetype ,predicate_features, pred_bins))
 
 def load_BGPS_from_json(path):
     data = None
@@ -110,7 +123,6 @@ class BGPGraph:
         self.current_id = 0
         self.join_id = 0
         
-    
     def create_graph(self):
         prev_join = None
         for trp in self.bgp.triples:
@@ -151,7 +163,7 @@ class BGPGraph:
             out_vertex.append(y)
         return in_vertex,out_vertex
     def get_node_representation(self):
-        return np.stack([x.get_features() for x in self.nodes])
+        return np.stack([x.get_features(pred_bins) for x in self.nodes])
     
 
 if __name__ == "__main__":
