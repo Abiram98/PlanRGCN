@@ -168,12 +168,24 @@ class BGPGraph:
 
 if __name__ == "__main__":
     bgps = load_BGPS_from_json('/work/data/train_data.json')
+    
+    
     print(f'BGPS loaded : {len(bgps)}')
-    bgp_g = BGPGraph(bgps[0])
-    bgp_g.create_graph()
-    print(bgp_g.get_node_representation())
-    #ents = get_entities(bgps)
-    #preds = get_predicates(bgps)
+    #bgp_g = BGPGraph(bgps[0])
+    #bgp_g.create_graph()
+    #print(bgp_g.get_node_representation())
+    
+    ground_truth_1 = 0
+    ground_truth_0 = 0
+    for bgp in bgps:
+        if bgp.ground_truth == 1:
+            ground_truth_1 += 1
+        elif bgp.ground_truth == 0:
+            ground_truth_0 += 1
+    print(f"Ground truth distribtution:\n\t1: {ground_truth_1}/{ground_truth_1+ground_truth_0}, {ground_truth_1/(ground_truth_1+ground_truth_0)}")
+    print(f"\t0: {ground_truth_0}/{ground_truth_1+ground_truth_0}, {ground_truth_0/(ground_truth_1+ground_truth_0)}")
+    ents = get_entities(bgps)
+    preds = get_predicates(bgps)
 
-    #print(f'Entities extracted: {len(ents)}')
-    #print(f'Preds extracted: {len(preds)}')
+    print(f'Entities extracted: {len(ents)}')
+    print(f'Preds extracted: {len(preds)}')
