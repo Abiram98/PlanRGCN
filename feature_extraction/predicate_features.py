@@ -1,17 +1,20 @@
 from feature_extraction.sparql_query import Query
 import json
 import pickle as pcl
-import time, pandas as pd
+import time, pandas as pd, numpy as np
 import traceback
 
+# Class definitions for extracting predicate features
+
 class PredicateFeaturesQuery(Query):
-    def __init__(self, endpoint_url, timeout=30):
+    def __init__(self, endpoint_url = None, timeout=30):
         super().__init__(endpoint_url)
         self.start = time.time()
         self.uniqueLiteralCounter = {}
         self.unique_entities_counter = {}
         self.predicate_freq = {}
-        self.sparql.setTimeout(timeout)
+        if hasattr(self, 'sparql'):
+            self.sparql.setTimeout(timeout)
     #    
     def extract_predicate_features(self, predicates=None, save_decode_err_preds= '/work/data/decode_error_pred.json', save_path=None):
         if predicates == None:
@@ -20,20 +23,20 @@ class PredicateFeaturesQuery(Query):
         for pred_no,pred in enumerate(predicates):
             try:
                 self.set_query_unique_literal_predicate_v2(pred, number=pred_no)
-            except json.decoder.JSONDecodeError or Exception:
+            except (json.decoder.JSONDecodeError,Exception, TimeoutError):
                 #traceback.print_exc()
                 decode_errors.append(pred)
             try:
                 self.set_query_unique_entity_predicate(pred, number=pred_no)
-            except json.decoder.JSONDecodeError or Exception:
+            except (json.decoder.JSONDecodeError,Exception, TimeoutError):
                 #traceback.print_exc()
                 decode_errors.append(pred)
             try:
                 self.set_predicate_freq(pred, number=pred_no)
-            except json.decoder.JSONDecodeError or Exception:
+            except (json.decoder.JSONDecodeError,Exception, TimeoutError):
                 #traceback.print_exc()
                 decode_errors.append(pred)
-            if save_path != None and (pred_no % 1000 == 1):
+            if save_path != None and (pred_no % 50 == 1):
                 self.save(save_path)
         json.dump(predicates,open(save_decode_err_preds,'w'))
     #
@@ -110,10 +113,7 @@ class PredicateFeaturesQuery(Query):
     def save(self, path):
         with open(path,'wb') as f:
             pcl.dump(self, f) 
-    #
-    def load(self, path):
-        with open(path,'rb') as f:
-            self = pcl.load(f) 
+    
     #
     def print_predicat_stat(self,predicate : str, unique_literals : int, \
                             unique_ents : int, pattern_count : int, number=None):
@@ -150,14 +150,15 @@ class PredicateFeaturesQuery(Query):
             dct['predicate'].append(k)
             dct['freq'].append(self.predicate_freq[k])
         df = pd.DataFrame.from_dict(dct)
+        print(df)
         df['bin'], cut_bin = pd.qcut(df['freq'], q = bins, labels = [x for x in range(bins)], retbins = True)
         df = df.set_index('predicate')
-        self.predicate_binner = df
+        self.predicate_bin_df = df
         self.bin_vals = cut_bin
         self.total_bin = bins
     #
     def get_bin(self, predicate):
-        return self.predicate_binner.loc[predicate]['bin']
+        return self.predicate_bin_df.loc[predicate]['bin']
     #
     #deprecated
     def binnify(self,predicate_freq):
@@ -167,6 +168,26 @@ class PredicateFeaturesQuery(Query):
                 return bin_counter
             bin_counter += 1
         return bin_counter
+    
+    def convert_dict_vals_to_int(self, dct:dict):
+        for k in dct.keys():
+            dct[k] = int(dct[k])
+        return dct
+    
+    #Used to load existing object
+    def load(path):
+        obj = load_pickle(path)
+        if hasattr(obj,'endpoint_url'):
+            endpoint_url = obj.endpoint_url
+        else:
+            endpoint_url = None
+        i = PredicateFeaturesQuery(endpoint_url)
+        i.uniqueLiteralCounter = i.convert_dict_vals_to_int( obj.uniqueLiteralCounter)
+        i.predicate_freq = i.convert_dict_vals_to_int(obj.predicate_freq)
+        i.unique_entities_counter = i.convert_dict_vals_to_int(obj.unique_entities_counter)
+        
+        return i
+        
         
         
 def iterate_results(sparql_results):
@@ -181,6 +202,17 @@ def print_bindings_stats(sparql_results):
         binding_count +=1
     print(f"number of bindings are {binding_count}")
 
+
+# Functions for extracting statistics:
+
+def load_pickle(path):
+    with open(path, 'rb') as f:
+        obj = pcl.load(f)
+        return obj
+    return None
+
+# Procedures for extracting differrent statistics.
+
 def test():
     q = Query("http://dbpedia.org/sparql")
     q.run_query("SELECT * WHERE { ?s ?p ?o} LIMIT 1")
@@ -191,8 +223,8 @@ def test():
     #        print(v,x[v])
 
 def testUniqueLiteralQuery():
-    q = PredicateFeaturesQuery("https://query.wikidata.org/sparql")
-    #q = PredicateFeaturesQuery("http://172.21.232.208:3030/jena/sparql")
+    #q = PredicateFeaturesQuery("https://query.wikidata.org/sparql")
+    q = PredicateFeaturesQuery("http://172.21.232.208:3030/jena/sparql")
     #preds = q.get_rdf_predicates(save_path='/work/data/predicates.json')
     preds = q.load_predicates('/work/data/specific_graph/predicates.json')
     print(f"# preds {len(preds)}")
@@ -201,8 +233,57 @@ def testUniqueLiteralQuery():
     #q.set_query_unique_literal_predicate("<http://www.wikidata.org/prop/direct/P5395>")
     #iterate_results(q.results)
     #print_bindings_stats(q.results)
+def run_continued():
+    #q = PredicateFeaturesQuery("https://query.wikidata.org/sparql")
+    #q = PredicateFeaturesQuery("http://172.21.232.208:3030/jena/sparql")
+    #preds = q.get_rdf_predicates(save_path='/work/data/predicates.json')
+    #preds = q.load_predicates('/work/data/specific_graph/predicates.json')
+    #print(f"# preds {len(preds)}")
+    with open('/work/data/specific_graph/pred_feat.pickle','rb') as f:
+        q = pcl.load(f)
+    return q
+    #q.extract_predicate_features(preds, save_path='/work/data/specific_graph/pred_feat.pickle')
+    #q.save('/work/data/pred_feat.pickle')
+    #q.set_query_unique_literal_predicate("<http://www.wikidata.org/prop/direct/P5395>")
+    #iterate_results(q.results)
+    #print_bindings_stats(q.results)
+
+def extract_meta_pred_freq_stats(pred_feats):
+    predicates = list(pred_feats.predicate_freq.keys())
+    no_feat = []
+    freqs = []
+    for x in predicates:
+        if pred_feats.predicate_freq[x] == '-1':
+            no_feat.append(x)
+        freqs.append(int(pred_feats.predicate_freq[x]))
+    freqs = np.array(freqs)
+    return np.min(freqs), np.max(freqs), int( np.quantile(freqs,q=0.25)), int( np.quantile(freqs,q=0.5) ), int( np.quantile(freqs,q=0.75) )
     
+
+
+def check_stats():
+    pred_features = PredicateFeaturesQuery.load('/work/data/pred_feat.pickle')
+    #pred_features = load_pickle('/work/data/pred_feat.pickle')
+    print('Pred Features succesfully extracted')
+    freq_min, freq_max, q_25,q_50,q_75 = extract_meta_pred_freq_stats(pred_features)
+    
+    print(f"Meta statistics of Predicate Frequencies")
+    print(f"\t Min: {freq_min:10d}\n\t 25%: {q_25:10d}\n\t 50%: {q_50:10d}\n\t 75%: {q_75:10d}\n\t Max: {freq_max:10d}")
+    
+    predicates = list(pred_features.predicate_freq.keys())
+    pred_features.predicate_binner()
+    for x in range(10):
+        print(pred_features.get_bin(predicates[x]))
+    print(f"binned predicate count: {len(pred_features.predicate_bin_df.index)}")
+    
+    
+    
+    
+            
 if __name__ == "__main__":
     #test()
-    testUniqueLiteralQuery()
+    #testUniqueLiteralQuery()
+    check_stats()
+    pass
+    #q =run_continued()
     
