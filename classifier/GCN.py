@@ -2,17 +2,19 @@
 
 from torch.nn import Linear
 import torch.nn.functional as F
+import torch_geometric
 from torch_geometric.nn import GCNConv
 from torch_geometric.nn import global_mean_pool
 import torch, numpy as np
-from utils import BGP
 
 
 
 class GNN(torch.nn.Module):
     def __init__(self, input_size, hidden_channels, no_embeddings=None, hidden_dimension=50):
         super(GNN, self).__init__()
-
+        self.add_layers(input_size,hidden_channels)
+        
+    def add_layers(self, input_size,hidden_channels):
         self.conv1 = GCNConv(
             input_size, hidden_channels)
         
@@ -20,6 +22,7 @@ class GNN(torch.nn.Module):
             hidden_channels, hidden_channels*2)
         
         self.lin = Linear(hidden_channels*2, 1)
+    
     
     def forward(self, x, edge_index, join_index, batch = None,  edge_col = None):
 

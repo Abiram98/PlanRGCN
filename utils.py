@@ -1,88 +1,20 @@
 import json
 import networkx as nx, numpy as np
 from feature_extraction.predicate_features import PredicateFeaturesQuery
-class BGP:
-    def __init__(self, BGP_string:str, ground_truth, predicate_stat: PredicateFeaturesQuery = None):
-        triple_strings = BGP_string[1:-1].split(',')
-        self.triples = []
-        for t in triple_strings:
-            self.triples.append(TriplePattern(t, predicate_stat))
-        if predicate_stat != None:
-            self.total_bins = predicate_stat.total_bin
-        self.ground_truth = 1 if ground_truth else 0
-    
-    def set_predicate_feat_gen(self,predicate_stat: PredicateFeaturesQuery):
-        self.predicate_stat = predicate_stat
-    
-    def __str__(self):
-        temp_str = 'BGP( '
-        for t in self.triples:
-            temp_str = temp_str +' '+ str(t)
-        temp_str = temp_str +' )'
-        return temp_str
-        
+import os
+import pickle as pcl
+from graph_construction.node import Node
+from graph_construction.bgp import BGP
+from graph_construction.triple_pattern import TriplePattern
+from graph_construction.bgp_graph import BGPGraph
+from glb_vars import PREDS_W_NO_BIN
 
-class TriplePattern:
-    def __init__(self, triple_string:str, predicate_stat:PredicateFeaturesQuery = None):
-        splits = triple_string.split(' ')
-        splits = [s for s in splits if s != '']
-        assert len(splits) == 3
+
+def load_BGPS_from_json(path,pred_feat=None, path_predicate_feat_gen= None, bins = 30, limit_bgp=None):
+    #pred_feat = None
+    #if not path_predicate_feat_gen == None:
+    #    pred_feat = PredicateFeaturesQuery.prepare_pred_featues_for_bgp(path_predicate_feat_gen, bins=bins)
      
-        self.subject = Node(splits[0])
-        self.subject.nodetype = 0
-        self.predicate = Node(splits[1])
-        self.predicate.nodetype = 1
-        self.object = Node(splits[2])
-        self.object.nodetype = 2
-        
-        if predicate_stat != None:
-            self.predicate_stat = predicate_stat
-            if self.predicate.type == 'URI':
-                self.predicate.bucket = predicate_stat.get_bin(self.predicate.node_label)
-    
-    def __str__(self):
-        return f'Triple ({str(self.subject)} {str(self.predicate)} {str(self.object)} )'
-    def __eq__(self, other):
-        return self.subject == other.subject and self.predicate == other.predicate and self.object == other.object
-
-class Node:
-    def __init__(self, node_label:str) -> None:
-        self.node_label = node_label
-        if node_label.startswith('?'):
-            self.type = 'VAR'
-        elif node_label.startswith('http'):
-            self.type = 'URI'
-        elif node_label.startswith('join'):
-            self.type = 'JOIN'  
-        else:
-            self.type = None
-        
-        self.pred_freq = 0
-        self.pred_literals = 0
-        self.pred_entities= 0
-    def __str__(self):
-        if self.type == None:
-            return self.node_label
-        else:
-            return f'{self.type} {self.node_label}'
-    def __eq__(self, other):
-        return self.node_label == other.node_label
-    def __hash__(self) -> int:
-        return hash(self.node_label)
-    
-    def get_features(self, pred_bins):
-        nodetype = np.zeros(4)
-        nodetype[self.nodetype] = 1
-        predicate_features = np.zeros(3)
-        predicate_bins = np.zeros(pred_bins)
-        if self.nodetype == 1:
-            predicate_features[0] = self.pred_freq
-            predicate_features[1] = self.pred_literals
-            predicate_features[2] = self.pred_entities
-            pred_bins[self.bucket] = 1
-        return np.concatenate((nodetype ,predicate_features, pred_bins))
-
-def load_BGPS_from_json(path):
     data = None
     with open(path,'rb') as f:
         data = json.load(f)
@@ -90,10 +22,13 @@ def load_BGPS_from_json(path):
     if data == None:
         print('Data could not be loaded!')
         return
+    
     BGP_strings = list(data.keys())
+    if limit_bgp != None:
+        BGP_strings = BGP_strings[:limit_bgp]
     BGPs = []
     for bgp_string in BGP_strings:
-        BGPs.append(BGP(bgp_string, data[bgp_string]))
+        BGPs.append(BGP(bgp_string, data[bgp_string],predicate_stat=pred_feat))
     return BGPs
 
 def get_predicates(bgps: list):
@@ -113,68 +48,16 @@ def get_entities(bgps: list):
                     entities.add(e)
     return list(entities)
 
-class BGPGraph:
-    def __init__(self, bgp : BGP):
-        self.bgp = bgp
-        self.nodes = []
-        self.edges = []
-        self.graph = nx.DiGraph()
-        self.node_to_idx = {}
-        self.current_id = 0
-        self.join_id = 0
-        
-    def create_graph(self):
-        prev_join = None
-        for trp in self.bgp.triples:
-            subject_id = self.node_id(trp.subject)
-            predicate_id = self.node_id(trp.predicate)
-            object_id = self.node_id(trp.object)
-            self.graph.add_edge(subject_id,predicate_id)
-            self.graph.add_edge(predicate_id, object_id)
-            
-            join = self.create_join_node()
-            join_id = self.node_id(join)
-            self.graph.add_edge(subject_id,join_id)
-            self.graph.add_edge(predicate_id,join_id)
-            self.graph.add_edge(object_id,join_id)
-            if prev_join != None:
-                self.graph.add_edge(prev_join,join_id)
-                prev_join = join_id
-            
-    
-    def node_id(self, node: Node):
-        if node in self.node_to_idx.keys():
-            return self.node_to_idx[node]
-        self.node_to_idx[node] = self.current_id
-        self.current_id += 1
-        self.nodes.append(node)
-        return self.current_id-1
-    
-    def create_join_node(self):
-        join_node = Node(f"join{self.join_id}")
-        join_node.nodetype = 3
-        self.join_id += 1
-        return join_node
-    
-    def get_edge_list(self):
-        in_vertex, out_vertex = [],[]
-        for (x,y) in self.graph.edges():
-            in_vertex.append(x)
-            out_vertex.append(y)
-        return in_vertex,out_vertex
-    def get_node_representation(self):
-        return np.stack([x.get_features(pred_bins) for x in self.nodes])
-    
 
-if __name__ == "__main__":
-    bgps = load_BGPS_from_json('/work/data/train_data.json')
-    
-    
-    print(f'BGPS loaded : {len(bgps)}')
-    #bgp_g = BGPGraph(bgps[0])
-    #bgp_g.create_graph()
-    #print(bgp_g.get_node_representation())
-    
+
+#Assumes a PREDS_W_NO_BIN global variable
+def get_predicate_with_no_bin():
+    preds = set()
+    for x in PREDS_W_NO_BIN:
+        preds.add(str(x))
+    return list(preds), len(preds)
+
+def ground_truth_distibution(bgps, verbose= False):
     ground_truth_1 = 0
     ground_truth_0 = 0
     for bgp in bgps:
@@ -182,8 +65,89 @@ if __name__ == "__main__":
             ground_truth_1 += 1
         elif bgp.ground_truth == 0:
             ground_truth_0 += 1
-    print(f"Ground truth distribtution:\n\t1: {ground_truth_1}/{ground_truth_1+ground_truth_0}, {ground_truth_1/(ground_truth_1+ground_truth_0)}")
-    print(f"\t0: {ground_truth_0}/{ground_truth_1+ground_truth_0}, {ground_truth_0/(ground_truth_1+ground_truth_0)}")
+    if verbose:
+        print(f"Ground truth distribtution:\n\t1: {ground_truth_1}/{ground_truth_1+ground_truth_0}, {ground_truth_1/(ground_truth_1+ground_truth_0)}")
+        print(f"\t0: {ground_truth_0}/{ground_truth_1+ground_truth_0}, {ground_truth_0/(ground_truth_1+ground_truth_0)}")
+    return ground_truth_0, ground_truth_1
+    
+def unpickle_obj(path):
+    if os.path.isfile(path):
+        with open(path, 'rb') as f:
+            return pcl.load(f)
+    return None
+
+def pickle_obj(obj,path):
+    with open(path, 'wb') as f:
+        pcl.dump(obj,f)
+def numpy_to_string(nparr):
+    return nparr.tostring()
+
+def string_to_numpy(string:str):
+    return np.fromstring( string, dtype=np.int32)
+    
+def filter_bgps_w_missing_pred_feat(bgps: list, return_graphs=False):
+    def is_trp_legal(tp: TriplePattern) -> bool:
+        if tp.predicate.pred_freq == -1 or tp.predicate.pred_freq == -1 or tp.predicate.pred_literals == -1:
+            return False
+        return True
+    
+    def is_bpg_legal(bgp:BGP) -> bool:
+        for tp in bgp.triples:
+            if not is_trp_legal(tp):
+                return False
+        return True
+    
+    new_bgps = []
+    for x in bgps:
+        if is_bpg_legal(x):
+            if return_graphs:
+                new_bgps.append(BGPGraph(x))
+            else:
+                new_bgps.append(x)
+    return new_bgps
+
+# first argument of loading function should be data_path
+def load_obj_w_function(path, pickle_file, function, *args, **kwargs):
+    bgps  = unpickle_obj(pickle_file)
+    if bgps == None:
+        bgps = function(path, *args, **kwargs)
+        pickle_obj(bgps, pickle_file)
+    return bgps
+            
+if __name__ == "__main__":
+    path_to_bgps = '/work/data/bgps.pickle'
+    path_predicate_feat_gen = '/work/data/pred_feat.pickle'
+    bgps = unpickle_obj(path_to_bgps)
+    bins = 30
+    limit_BGPs = None
+    if bgps == None:
+        bgps = load_BGPS_from_json('/work/data/train_data.json', pred_feat=PredicateFeaturesQuery.prepare_pred_featues_for_bgp( path_predicate_feat_gen, bins=bins),limit_bgp=limit_BGPs, bins=bins)
+        pickle_obj(bgps,path_to_bgps)
+    bgp_count = len(bgps)
+    pred_featurizer = PredicateFeaturesQuery.prepare_pred_featues_for_bgp(path_predicate_feat_gen, bins=bins)
+    bgps = filter_bgps_w_missing_pred_feat(bgps)
+    print(f"Filtered {bgp_count-len(bgps)} of {bgp_count}")   
+    
+    exit()
+    preds, no_unique_preds = get_predicate_with_no_bin()
+    print(preds,no_unique_preds)
+    
+    
+    print(f'BGPS loaded : {len(bgps)}')
+    single_bgp_path = '/work/data/temp_bgp.pickle'
+    
+    bgp_g = BGPGraph(bgps[0])
+    #pickle_obj(bgp_g,single_bgp_path)
+    
+    #bgp_g = unpickle_obj(single_bgp_path)
+    bgp_g.create_graph()
+    print('node representation')
+    print(bgp_g.get_node_representation(pred_bins=bins))
+    print(bgp_g.get_edge_list())
+    print(f'Ground truth is {bgp_g.gt}')
+    #ground_truth_distibution(bgps,verbose=True)
+    
+    
     ents = get_entities(bgps)
     preds = get_predicates(bgps)
 

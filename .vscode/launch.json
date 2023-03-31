@@ -1,0 +1,41 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        
+        {
+            "name": "utils",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "module": "utils"
+        },
+
+        {
+            "name": "predicate stats",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "module": "feature_extraction.predicate_features"
+        },
+
+        {
+            "name": "dataset (torch)",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "module": "classifier.bgp_dataset"
+        },
+        {
+            "name": "train (torch)",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "module": "classifier.trainer"
+        }
+
+    ]
+}

@@ -150,7 +150,6 @@ class PredicateFeaturesQuery(Query):
             dct['predicate'].append(k)
             dct['freq'].append(self.predicate_freq[k])
         df = pd.DataFrame.from_dict(dct)
-        print(df)
         df['bin'], cut_bin = pd.qcut(df['freq'], q = bins, labels = [x for x in range(bins)], retbins = True)
         df = df.set_index('predicate')
         self.predicate_bin_df = df
@@ -158,7 +157,10 @@ class PredicateFeaturesQuery(Query):
         self.total_bin = bins
     #
     def get_bin(self, predicate):
-        return self.predicate_bin_df.loc[predicate]['bin']
+        try:
+            return self.predicate_bin_df.loc[predicate]['bin']
+        except KeyError as e:
+            return None
     #
     #deprecated
     def binnify(self,predicate_freq):
@@ -187,7 +189,11 @@ class PredicateFeaturesQuery(Query):
         i.unique_entities_counter = i.convert_dict_vals_to_int(obj.unique_entities_counter)
         
         return i
-        
+    
+    def prepare_pred_featues_for_bgp(path, bins = 30):
+        i = PredicateFeaturesQuery.load(path)
+        i.predicate_binner(bins=bins)
+        return i       
         
         
 def iterate_results(sparql_results):
@@ -248,32 +254,46 @@ def run_continued():
     #iterate_results(q.results)
     #print_bindings_stats(q.results)
 
-def extract_meta_pred_freq_stats(pred_feats):
-    predicates = list(pred_feats.predicate_freq.keys())
-    no_feat = []
+def get_value_array( dct: dict):
+    keys = list(dct.keys())
     freqs = []
-    for x in predicates:
-        if pred_feats.predicate_freq[x] == '-1':
+    no_feat = []
+    for x in keys:
+        if dct[x] == '-1':
             no_feat.append(x)
-        freqs.append(int(pred_feats.predicate_freq[x]))
+        freqs.append(int(dct[x]))
+    return freqs, no_feat, len(keys)
+
+def extract_meta_pred_freq_stats(pred_feats):
+    freqs, no_feat, els = get_value_array(pred_feats.predicate_freq)
     freqs = np.array(freqs)
-    return np.min(freqs), np.max(freqs), int( np.quantile(freqs,q=0.25)), int( np.quantile(freqs,q=0.5) ), int( np.quantile(freqs,q=0.75) )
+    return np.min(freqs), np.max(freqs), int( np.quantile(freqs,q=0.25)), int( np.quantile(freqs,q=0.5) ), int( np.quantile(freqs,q=0.75) ), no_feat,els
     
+def extract_meta_pred_literal_stats(pred_feats):
+    freqs, no_feat,els = get_value_array(pred_feats.uniqueLiteralCounter)
+    freqs = np.array(freqs)
+    return np.min(freqs), np.max(freqs), int( np.quantile(freqs,q=0.25)), int( np.quantile(freqs,q=0.5) ), int( np.quantile(freqs,q=0.75) ), no_feat,els
 
+def extract_meta_pred_entity_stats(pred_feats):
+    freqs, no_feat,els = get_value_array(pred_feats.unique_entities_counter)
+    freqs = np.array(freqs)
+    return np.min(freqs), np.max(freqs), int( np.quantile(freqs,q=0.25)), int( np.quantile(freqs,q=0.5) ), int( np.quantile(freqs,q=0.75) ), no_feat,els
 
+    
 def check_stats():
     pred_features = PredicateFeaturesQuery.load('/work/data/pred_feat.pickle')
     #pred_features = load_pickle('/work/data/pred_feat.pickle')
     print('Pred Features succesfully extracted')
-    freq_min, freq_max, q_25,q_50,q_75 = extract_meta_pred_freq_stats(pred_features)
     
-    print(f"Meta statistics of Predicate Frequencies")
-    print(f"\t Min: {freq_min:10d}\n\t 25%: {q_25:10d}\n\t 50%: {q_50:10d}\n\t 75%: {q_75:10d}\n\t Max: {freq_max:10d}")
+    
+    for function, f_name in zip([extract_meta_pred_freq_stats,extract_meta_pred_literal_stats,extract_meta_pred_entity_stats],['Predicate Frequencies','Literals', 'Entities']):
+        freq_min, freq_max, q_25,q_50,q_75, no_feat,els = function(pred_features)
+        print(f"Meta statistics of {f_name}")
+        print(f"\t Min: {freq_min:10d}\n\t 25%: {q_25:10d}\n\t 50%: {q_50:10d}\n\t 75%: {q_75:10d}\n\t Max: {freq_max:10d}\n\tkeys: {els:10d}")
+        print('\n\n')
     
     predicates = list(pred_features.predicate_freq.keys())
     pred_features.predicate_binner()
-    for x in range(10):
-        print(pred_features.get_bin(predicates[x]))
     print(f"binned predicate count: {len(pred_features.predicate_bin_df.index)}")
     
     
