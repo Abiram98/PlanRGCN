@@ -3,6 +3,7 @@ from graph_construction.triple_pattern import TriplePattern
 
 class BGP:
     def __init__(self, BGP_string:str, ground_truth, predicate_stat: PredicateFeaturesQuery = None):
+        self.bgp_string = BGP_string
         triple_strings = BGP_string[1:-1].split(',')
         self.triples = []
         for t in triple_strings:

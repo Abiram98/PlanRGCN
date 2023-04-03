@@ -18,6 +18,11 @@ docker run --rm -it --name BGPClassifier -v "$(pwd)"/:/work qpp_image:1 bin/bash
 ```
 
 ### Python code to run
+
 ``` 
-python3 -m classifier.GCN
+python3 -m classifier.trainer
 ```
+
+Running the current code
+Removed 7263 of 464556 training data
+Removed 149 of 57588 test data uased as validation

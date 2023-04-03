@@ -1,5 +1,6 @@
 from graph_construction.node import Node
 from feature_extraction.predicate_features import PredicateFeaturesQuery
+from feature_extraction.predicate_features_sub_obj import Predicate_Featurizer_Sub_Obj
 from glb_vars import PREDS_W_NO_BIN
 
 class TriplePattern:
@@ -23,6 +24,7 @@ class TriplePattern:
             #self.predicate_stat = predicate_stat
             if self.predicate.type == 'URI':
                 self.predicate.bucket = predicate_stat.get_bin(self.predicate.node_label)
+                self.predicate.topK = predicate_stat.top_k_predicate(self.predicate.node_label)
                 if self.predicate.bucket == None:
                     PREDS_W_NO_BIN.append(self.predicate)
                     self.predicate.bucket = 0
@@ -35,8 +37,11 @@ class TriplePattern:
                     self.predicate.pred_literals = predicate_stat.uniqueLiteralCounter[self.predicate.node_label]
                     
                 
-                if self.predicate.node_label in predicate_stat.unique_entities_counter.keys():
+                if (not isinstance(predicate_stat,Predicate_Featurizer_Sub_Obj)) and (self.predicate.node_label in predicate_stat.unique_entities_counter.keys()):
                     self.predicate.pred_entities = predicate_stat.unique_entities_counter[self.predicate.node_label]
+                
+                if (isinstance(predicate_stat,Predicate_Featurizer_Sub_Obj)) and (self.predicate.node_label in predicate_stat.unique_entities_counter.keys()):
+                    self.predicate.pred_subject_count,self.predicate.pred_object_count = predicate_stat.unique_entities_counter[self.predicate.node_label]
                 
                 #for pred_feat,dct in zip([self.predicate.pred_freq,self.predicate.pred_literals,self.predicate.pred_entities],[predicate_stat.predicate_freq,predicate_stat.uniqueLiteralCounter,predicate_stat.unique_entities_counter]):
                 #    if self.predicate.node_label in dct.keys():

@@ -2,7 +2,7 @@ from graph_construction.bgp import BGP
 import networkx as nx
 from graph_construction.node import Node
 import numpy as np
-
+import copy
 
 class BGPGraph:
     def __init__(self, bgp : BGP):
@@ -53,13 +53,14 @@ class BGPGraph:
     
     def variable_node_check(self, node:Node):
         if node.type == 'VAR':
-            node2 = node
+            #node2 = copy.deepcopy( node)
+            node2 = copy.deepcopy(node)
             if not node.node_label in self.vars.keys():
                 node2.node_label = node2.node_label + '0'
                 self.vars[node.node_label] = [node2]
                 return node2
             else:
-                node2.node_label = node2.node_label + str(len(self.vars[node]))
+                node2.node_label = node2.node_label + str(len(self.vars[node.node_label]))
                 self.vars[node.node_label].append(node2)
                 return node2
         return node
@@ -87,5 +88,5 @@ class BGPGraph:
             out_vertex.append(y)
         return in_vertex,out_vertex
     
-    def get_node_representation(self, pred_bins):
-        return np.stack([x.get_features(pred_bins) for x in self.nodes])
+    def get_node_representation(self, pred_bins, topk, pred_feat_sub_obj_no=True):
+        return np.stack([x.get_features(pred_bins=pred_bins,topk=topk,pred_feat_sub_obj_no=pred_feat_sub_obj_no) for x in self.nodes])

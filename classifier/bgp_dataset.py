@@ -3,34 +3,50 @@ from utils import unpickle_obj,pickle_obj, filter_bgps_w_missing_pred_feat, load
 from feature_extraction.predicate_features import PredicateFeaturesQuery
 from graph_construction.bgp_graph import BGPGraph
 import torch, math
-
+from torch_geometric.data import HeteroData, Data
+from torch_geometric.loader import HGTLoader, DataLoader
 
 class BGPDataset(Dataset):
-    def __init__(self, data_file,feat_generation_path, pickle_file,bin=30, transform=None, target_transform=None) -> None:
-        pred_feature_rizer = PredicateFeaturesQuery.prepare_pred_featues_for_bgp( feat_generation_path, bins=bin)
+    def __init__(self, data_file,feat_generation_path, pickle_file,bin=30, topk=15, transform=None, target_transform=None, pred_feat_sub_obj_no=False) -> None:
+        pred_feature_rizer = PredicateFeaturesQuery.prepare_pred_featues_for_bgp( feat_generation_path, bins=bin, topk=topk)
         bgps = load_obj_w_function(data_file,pickle_file,load_BGPS_from_json, pred_feat=pred_feature_rizer)
         #bgps  = unpickle_obj(pickle_file)
         #if bgps == None:
         #    bgps = load_BGPS_from_json(data_file, pred_feat=pred_feature_rizer)
         #    pickle_obj(bgps, data_file)
+        
         total_bgps = len(bgps)
+        #TODO outcomment this
+        
         bgp_graphs = filter_bgps_w_missing_pred_feat(bgps, return_graphs=True)
-        print(f"Filtered {total_bgps-len(bgp_graphs)} of {total_bgps}")
+        #bgp_graphs = bgp_graphs[:5]
+        #print(f"Removed {total_bgps-len(bgp_graphs)} of {total_bgps}")
         
         self.node_features = []
         self.edge_lsts = []
         self.target = []
         self.join_indices:list[int] = []
+        
+        new_bgp_graph:list[BGPGraph] = []
         for bgp in bgp_graphs:
             bgp:BGPGraph
+            #Nan check
+            node_feat = torch.tensor( bgp.get_node_representation(bin,topk, pred_feat_sub_obj_no=pred_feat_sub_obj_no), dtype=torch.float32)
+            if torch.sum(torch.isnan( node_feat)) > 0:
+                continue
+            new_bgp_graph.append(bgp)
             self.target.append(bgp.gt)
             self.join_indices.append(bgp.last_join_index)
-            node_feat = torch.FloatTensor( bgp.get_node_representation(bin))
+            
+            
             #node_feat = torch.nan_to_num(node_feat,-1)
             self.node_features.append( node_feat)
-            self.edge_lsts.append( torch.IntTensor(bgp.get_edge_list()) )
+            self.edge_lsts.append( torch.tensor(bgp.get_edge_list(), dtype=torch.int64) )
         
-        self.target = torch.FloatTensor([self.target])
+        #self.target = self.target
+        self.bgp_graphs = new_bgp_graph
+        
+        print(f"Removed {total_bgps-len(self.bgp_graphs)} of {total_bgps}")
         
         self.transform = transform
         self.target_transform = target_transform
@@ -38,10 +54,10 @@ class BGPDataset(Dataset):
     def __len__(self):
         return len(self.target)
     
-    def __getitem__(self, index) -> tuple:
+    def __getitem__(self, index) -> dict:
         node_features = self.node_features[index]
         edges = self.edge_lsts[index]
-        target = self.target[index]
+        target = torch.tensor( [self.target[index]], dtype=torch.float32)
         join_index = self.join_indices[index]
         if self.transform != None:
             node_features = self.transform(node_features)
@@ -49,20 +65,36 @@ class BGPDataset(Dataset):
             target = self.target_transform(target)
         sample = {'nodes':node_features,'edges':edges,'target':target, 'join_index':join_index}
         return sample#(node_features,edges,target)
+    
+#This will not work    
+def return_graph_dataloader(dataset:BGPDataset, batch_size, shuffle=True) -> DataLoader:
+        lst_data:list[Data] = []
+        for i in range(len(dataset)):
+            sample = dataset[i]
+            node_feat, edges, target, join_index = sample['nodes'], sample['edges'], sample['target'], sample['join_index']
+            d1 = Data(x=node_feat,edge_index=edges, y=target)
+            d1.join_index = join_index
+            
+            lst_data.append(d1)
+            
+        return DataLoader(lst_data,batch_size=batch_size,shuffle=shuffle)
 
-from torch.utils.data import DataLoader
-if __name__ == "__main__":
+#from torch.utils.data import DataLoader
+"""if __name__ == "__main__":
     bins = 30
     el_in_batch= 200
+    topk = 15
     data_file = '/work/data/train_data.json'
-    feat_generation_path = '/work/data/pred_feat.pickle'
+    feat_generation_path = '/work/data/confs/newPredExtractionRun/pred_feat_01_04_2023_07_48.pickle'
     pickle_file = '/work/data/bgps.pickle'
-    dataset = BGPDataset(data_file,feat_generation_path, pickle_file,bin=bins)
+    dataset = BGPDataset(data_file,feat_generation_path, pickle_file,bin=bins, topk=topk)
+    sample = dataset[0]
+    print(sample)"""
     #print(dataset[0])
-    loader = DataLoader(dataset, batch_size=math.ceil(len(dataset)/el_in_batch), shuffle=True)
-    pickle_obj(loader,)
-    node_features,edges,target = next(iter(loader))
-    print(len(target))
+    #loader = DataLoader(dataset, batch_size=math.ceil(len(dataset)/el_in_batch), shuffle=True)
+    #pickle_obj(loader,)
+    #node_features,edges,target = next(iter(loader))
+    #print(len(target))
    
 #path_to_bgps = '/work/data/bgps.pickle'
 #path_predicate_feat_gen = '/work/data/pred_feat.pickle'

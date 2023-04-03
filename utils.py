@@ -119,6 +119,7 @@ if __name__ == "__main__":
     path_predicate_feat_gen = '/work/data/pred_feat.pickle'
     bgps = unpickle_obj(path_to_bgps)
     bins = 30
+    topk = 15
     limit_BGPs = None
     if bgps == None:
         bgps = load_BGPS_from_json('/work/data/train_data.json', pred_feat=PredicateFeaturesQuery.prepare_pred_featues_for_bgp( path_predicate_feat_gen, bins=bins),limit_bgp=limit_BGPs, bins=bins)
@@ -142,7 +143,7 @@ if __name__ == "__main__":
     #bgp_g = unpickle_obj(single_bgp_path)
     bgp_g.create_graph()
     print('node representation')
-    print(bgp_g.get_node_representation(pred_bins=bins))
+    print(bgp_g.get_node_representation(pred_bins=bins, topk=topk))
     print(bgp_g.get_edge_list())
     print(f'Ground truth is {bgp_g.gt}')
     #ground_truth_distibution(bgps,verbose=True)
