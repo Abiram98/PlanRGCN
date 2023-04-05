@@ -1,0 +1,1 @@
+PATH_TO_CONFIG = '/work/data/specific_graph/conf.ini'

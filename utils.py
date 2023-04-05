@@ -10,7 +10,7 @@ from graph_construction.bgp_graph import BGPGraph
 from glb_vars import PREDS_W_NO_BIN
 
 
-def load_BGPS_from_json(path,pred_feat=None, path_predicate_feat_gen= None, bins = 30, limit_bgp=None):
+def load_BGPS_from_json(path,pred_feat=None, path_predicate_feat_gen= None, bins = 30, limit_bgp=None, ent_feat = None):
     #pred_feat = None
     #if not path_predicate_feat_gen == None:
     #    pred_feat = PredicateFeaturesQuery.prepare_pred_featues_for_bgp(path_predicate_feat_gen, bins=bins)
@@ -28,7 +28,7 @@ def load_BGPS_from_json(path,pred_feat=None, path_predicate_feat_gen= None, bins
         BGP_strings = BGP_strings[:limit_bgp]
     BGPs = []
     for bgp_string in BGP_strings:
-        BGPs.append(BGP(bgp_string, data[bgp_string],predicate_stat=pred_feat))
+        BGPs.append(BGP(bgp_string, data[bgp_string],predicate_stat=pred_feat, ent_featurizer = ent_feat))
     return BGPs
 
 def get_predicates(bgps: list):
@@ -119,7 +119,7 @@ if __name__ == "__main__":
     path_predicate_feat_gen = '/work/data/pred_feat.pickle'
     bgps = unpickle_obj(path_to_bgps)
     bins = 30
-    topk = 15
+    pred_topk = 15
     limit_BGPs = None
     if bgps == None:
         bgps = load_BGPS_from_json('/work/data/train_data.json', pred_feat=PredicateFeaturesQuery.prepare_pred_featues_for_bgp( path_predicate_feat_gen, bins=bins),limit_bgp=limit_BGPs, bins=bins)
@@ -143,7 +143,7 @@ if __name__ == "__main__":
     #bgp_g = unpickle_obj(single_bgp_path)
     bgp_g.create_graph()
     print('node representation')
-    print(bgp_g.get_node_representation(pred_bins=bins, topk=topk))
+    print(bgp_g.get_node_representation(pred_bins=bins, topk=pred_topk))
     print(bgp_g.get_edge_list())
     print(f'Ground truth is {bgp_g.gt}')
     #ground_truth_distibution(bgps,verbose=True)

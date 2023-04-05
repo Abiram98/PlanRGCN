@@ -88,5 +88,5 @@ class BGPGraph:
             out_vertex.append(y)
         return in_vertex,out_vertex
     
-    def get_node_representation(self, pred_bins, topk, pred_feat_sub_obj_no=True):
-        return np.stack([x.get_features(pred_bins=pred_bins,topk=topk,pred_feat_sub_obj_no=pred_feat_sub_obj_no) for x in self.nodes])
+    def get_node_representation(self, pred_bins, topk, pred_feat_sub_obj_no=True,use_ent_feat=False, ent_bins = None):
+        return np.stack([x.get_features(pred_bins=pred_bins,pred_topk=topk,pred_feat_sub_obj_no=pred_feat_sub_obj_no,use_ent_feat=use_ent_feat, ent_bins = ent_bins) for x in self.nodes])

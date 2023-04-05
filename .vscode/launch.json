@@ -14,12 +14,21 @@
             "module": "utils"
         },
 
-        {
+        /*{
             "name": "predicate stats",
             "type": "python",
             "request": "launch",
             "console": "integratedTerminal",
             "module": "feature_extraction.predicate_features"
+        },*/
+
+        {
+            "name": "predicate feats",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "module": "feature_extraction.predicate_features_sub_obj",
+            "args": [""]
         },
 
         {
@@ -35,7 +44,32 @@
             "request": "launch",
             "console": "integratedTerminal",
             "module": "classifier.trainer"
+        },
+
+        {
+            "name": "ents stats",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "module": "feature_extraction.entity_features",
+            "args": ["binnify"]
         }
+        ,
+
+        {
+            "name": "literals stats",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "module": "feature_extraction.literal_features"
+        },
+        {
+            "name": "dataset v2",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "module": "classifier.bgp_dataset_v2"
+        },
 
     ]
 }

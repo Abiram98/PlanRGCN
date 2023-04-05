@@ -4,8 +4,13 @@ import pickle as pcl
 import time, pandas as pd, numpy as np
 import traceback
 from datetime import datetime
+from feature_extraction.constants import PATH_TO_CONFIG
+import configparser
+import os
 # Class definitions for extracting predicate features
 import copy
+from SPARQLWrapper import SPARQLWrapper,JSON,POST
+import pathlib
 
 class PredicateFeaturesQuery(Query):
     def __init__(self, endpoint_url = None, timeout=30):
@@ -169,6 +174,8 @@ class PredicateFeaturesQuery(Query):
         for x in res['results']['bindings']:
             predicates.append(x['p']['value'])
         if save_path != None:
+            p = pathlib.Path(save_path)
+            pathlib.Path(str(p.parent)).mkdir(parents=True, exist_ok=True)
             with open(save_path,'w') as f:
                 json.dump(predicates,f)
         return predicates
@@ -183,7 +190,7 @@ class PredicateFeaturesQuery(Query):
             dct['predicate'].append(k)
             dct['freq'].append(self.predicate_freq[k])
         df = pd.DataFrame.from_dict(dct)
-        
+        df_freq = df['freq'].astype('int')
         df_freq = df.sort_values('freq',ascending=False)
         df_freq = df_freq.assign(row_number=range(len(df_freq)))
         df_freq = df_freq.set_index('row_number')
@@ -193,9 +200,8 @@ class PredicateFeaturesQuery(Query):
         df_freq = df_freq.loc[:k]
         df_freq = df_freq.reset_index().set_index('predicate')
         #print(df_freq.loc['http://www.wikidata.org/prop/direct/P577'])
-        
-        
-        df['bin'], cut_bin = pd.qcut(df['freq'], q = bins, labels = [x for x in range(bins)], retbins = True)
+        _, cut_bin= pd.qcut(df['freq'], q = bins, retbins = True, duplicates='drop')
+        df['bin'], cut_bin = pd.qcut(df['freq'], q = bins, labels = [x for x in range(len(cut_bin)-1)], retbins = True, duplicates='drop')
         df = df.set_index('predicate')
         self.predicate_bin_df = df
         self.bin_vals = cut_bin
@@ -213,7 +219,7 @@ class PredicateFeaturesQuery(Query):
         try:
             return self.predicate_bin_df.loc[predicate]['bin']
         except KeyError as e:
-            return None
+            return self.total_bin+1
     #
     #deprecated
     def binnify(self,predicate_freq):
@@ -281,17 +287,22 @@ def test():
     #    for v in q.results['head']['vars']:
     #        print(v,x[v])
 
-def testUniqueLiteralQuery():
-    #q = PredicateFeaturesQuery("https://query.wikidata.org/sparql")
-    q = PredicateFeaturesQuery("http://172.21.232.208:3030/jena/sparql")
-    #preds = q.get_rdf_predicates(save_path='/work/data/predicates.json')
-    preds = q.load_predicates('/work/data/specific_graph/predicates.json')
+def extractPredicateFeatures(parser:configparser.ConfigParser):
+    #q = PredicateFeaturesQuery("http://172.21.232.208:3030/jena/sparql")
+    q = PredicateFeaturesQuery(parser['endpoint']['endpoint_url'])
+    if os.path.isfile(parser['PredicateFeaturizer']['predicate_path']):
+        preds = q.load_predicates(parser['PredicateFeaturizer']['predicate_path'])
+    else:
+        preds = q.get_rdf_predicates(save_path=parser['PredicateFeaturizer']['predicate_path'])
+    
     print(f"# preds {len(preds)}")
-    q.extract_predicate_features(preds, save_path='/work/data/specific_graph/pred_feat.pickle')
-    q.save('/work/data/pred_feat.pickle')
+    q.extract_predicate_features(preds, save_path=parser['PredicateFeaturizer']['predicate_featurizer_path'], save_decode_err_preds=parser['PredicateFeaturizer']['failure_path'])
+    q.save(parser['PredicateFeaturizer']['predicate_featurizer_path'])
     #q.set_query_unique_literal_predicate("<http://www.wikidata.org/prop/direct/P5395>")
     #iterate_results(q.results)
     #print_bindings_stats(q.results)
+
+
 def run_continued():
     #q = PredicateFeaturesQuery("https://query.wikidata.org/sparql")
     #q = PredicateFeaturesQuery("http://172.21.232.208:3030/jena/sparql")
@@ -306,7 +317,8 @@ def run_continued():
     #q.set_query_unique_literal_predicate("<http://www.wikidata.org/prop/direct/P5395>")
     #iterate_results(q.results)
     #print_bindings_stats(q.results)
-from SPARQLWrapper import SPARQLWrapper,JSON,POST
+
+
 def run_last_predicates():
     predicates = json.load(open('/work/data/confs/newPredExtractionRun/predicates_only.json','r'))
     print(f"Number of total predicates: {len(predicates)}")
@@ -369,10 +381,13 @@ def check_stats(path='/work/data/pred_feat.pickle'):
     
             
 if __name__ == "__main__":
-    #test()
-    #testUniqueLiteralQuery()
-    check_stats(path='/work/data/confs/newPredExtractionRun/pred_feat_01_04_2023_07_48.json')
+    parser = configparser.ConfigParser()
+    parser.read(PATH_TO_CONFIG)
+    extractPredicateFeatures()
+    check_stats(path=parser['PredicateFeaturizer']['predicate_featurizer_path'])
+    #check_stats(path='/work/data/confs/newPredExtractionRun/pred_feat_01_04_2023_07_48.json')
+    
+    
     #run_last_predicates()
-    pass
     #q =run_continued()
     

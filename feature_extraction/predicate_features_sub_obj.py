@@ -1,6 +1,10 @@
-from feature_extraction.predicate_features import PredicateFeaturesQuery, check_stats
+from feature_extraction.predicate_features import PredicateFeaturesQuery, check_stats,load_pickle
 import json, SPARQLWrapper
 from datetime import datetime
+import configparser
+from feature_extraction.constants import PATH_TO_CONFIG
+import os
+import argparse
 
 class Predicate_Featurizer_Sub_Obj(PredicateFeaturesQuery):
     def __init__(self, endpoint_url=None, timeout=30):
@@ -34,18 +38,66 @@ class Predicate_Featurizer_Sub_Obj(PredicateFeaturesQuery):
             pass
         print(f"ENT {predicate}: (SUB) {subject_count} (OBJ) {object_count}")
         self.unique_entities_counter[predicate] = (subject_count,object_count)
+    def convert_dict_vals_to_int(self, dct:dict):
+        for k in dct.keys():
+            val = dct[k]
+            if isinstance(val, tuple):
+                val = (int(val[0]),int(val[1]) )
+            else:
+                val = int(val)
+            dct[k] = val
+        return dct
+    #Used to load existing object
+    def load(path):
+        obj = load_pickle(path)
+        if hasattr(obj,'endpoint_url'):
+            endpoint_url = obj.endpoint_url
+        else:
+            endpoint_url = None
+        i = Predicate_Featurizer_Sub_Obj(endpoint_url)
+        i.uniqueLiteralCounter = i.convert_dict_vals_to_int( obj.uniqueLiteralCounter)
+        i.predicate_freq = i.convert_dict_vals_to_int(obj.predicate_freq)
+        i.unique_entities_counter = i.convert_dict_vals_to_int(obj.unique_entities_counter)
+        return i
+    
+    def prepare_pred_featues_for_bgp(path, bins = 30, topk =15):
+        i = Predicate_Featurizer_Sub_Obj.load(path)
+        i.predicate_binner_and_topk_init(bins=bins,k=topk)
+        return i  
 
 #with virtuoso endpoint 33.93 s
-def run_featurizer():
-    predicates = json.load(open('/work/data/confs/newPredExtractionRun/predicates_only.json','r'))
-    print(f"Number of total predicates: {len(predicates)}")
-    path_featurizer ='/work/data/confs/newPredExtractionRun/pred_feat_w_sub_obj.pickle'
-    endpoint_url = 'http://172.21.233.23:8891/sparql/'
-    save_path = f'/work/data/confs/newPredExtractionRun/pred_feat__w_sub_obj{datetime.now().strftime("%d_%m_%Y_%H_%M")}.pickle'
-    decode_error_path = f'/work/data/confs/newPredExtractionRun/decode_error_pred_sub_obj{datetime.now().strftime("%d_%m_%Y_%H_%M")}.json'
+def run_featurizer(parser:configparser.ConfigParser):
+    endpoint_url = parser['endpoint']['endpoint_url']
+    #save_path = f'/work/data/confs/newPredExtractionRun/pred_feat__w_sub_obj{datetime.now().strftime("%d_%m_%Y_%H_%M")}.pickle'
+    p = parser['PredicateFeaturizerSubObj']['save_path']
+    save_path = f'{p}{datetime.now().strftime("%d_%m_%Y_%H_%M")}.pickle'
+    p = parser['PredicateFeaturizerSubObj']['error_path']
+    decode_error_path = f'{p}{datetime.now().strftime("%d_%m_%Y_%H_%M")}.json'
     q = Predicate_Featurizer_Sub_Obj(endpoint_url=endpoint_url,timeout=None)
+    
+    if os.path.isfile(parser['PredicateFeaturizerSubObj']['predicate_path']):
+        predicates = json.load(open(parser['PredicateFeaturizerSubObj']['predicate_path'],'r'))
+    else:
+        predicates = q.get_rdf_predicates(save_path=parser['PredicateFeaturizerSubObj']['predicate_path'])
+    
+    #predicates = json.load(open('/work/data/confs/newPredExtractionRun/predicates_only.json','r'))
+    print(f"Number of total predicates: {len(predicates)}")
+    #path_featurizer ='/work/data/confs/newPredExtractionRun/pred_feat_w_sub_obj.pickle'
+    
     q.extract_predicate_features(predicates=predicates,save_decode_err_preds=decode_error_path, save_path=save_path)
     
 if __name__ == "__main__":
-    run_featurizer()
+    arg_parse = argparse.ArgumentParser(prog='PredicateFeaturizer_subj_obj)')
+    arg_parse.add_argument('cmd')
+    args = arg_parse.parse_args()
+    
+    parser = configparser.ConfigParser()
+    parser.read(PATH_TO_CONFIG)
+    match( args.cmd): 
+        case 'run':
+            run_featurizer(parser)
+        case 'plot':
+            pass
+        case other:
+            print('Please choose a valid option')
     #Prepare predicate Featurizer
