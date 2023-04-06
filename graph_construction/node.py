@@ -44,12 +44,15 @@ class Node:
             else:
                 predicate_features[2] = self.pred_subject_count
                 predicate_features[3] = self.pred_object_count
-            predicate_bins[self.bucket] = 1
+            try:
+                predicate_bins[self.bucket] = 1
+            except AttributeError:
+                predicate_bins[pred_bins-1] = 1
             if self.topK != None and self.topK < pred_topk:
                 topk_vec[self.topK] = 1
         if np.sum(np.isnan( predicate_features)) > 0:
-            #predicate_features[np.isnan(predicate_features)] = 0
-            raise Exception
+            predicate_features[np.isnan(predicate_features)] = 0
+            #raise Exception
         if np.sum(np.isnan( predicate_bins)) > 0:
             raise Exception
         if np.sum(np.isnan( topk_vec)) > 0:

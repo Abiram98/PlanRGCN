@@ -202,10 +202,11 @@ class PredicateFeaturesQuery(Query):
         #print(df_freq.loc['http://www.wikidata.org/prop/direct/P577'])
         _, cut_bin= pd.qcut(df['freq'], q = bins, retbins = True, duplicates='drop')
         df['bin'], cut_bin = pd.qcut(df['freq'], q = bins, labels = [x for x in range(len(cut_bin)-1)], retbins = True, duplicates='drop')
+        #max_bin = df['bin'].max()
         df = df.set_index('predicate')
         self.predicate_bin_df = df
         self.bin_vals = cut_bin
-        self.total_bin = bins
+        self.total_bin = len(cut_bin)
         
         self.topk_df = df_freq
         

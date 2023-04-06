@@ -5,24 +5,26 @@ from feature_extraction.entity_features import EntityFeatures
 import torch
 from graph_construction.bgp_graph import BGPGraph
 from graph_construction.bgp import BGP
-from utils import unpickle_obj,pickle_obj, filter_bgps_w_missing_pred_feat, load_BGPS_from_json,load_obj_w_function
+from utils import unpickle_obj,pickle_obj, bgp_graph_construction, load_BGPS_from_json,load_obj_w_function
 from feature_extraction.constants import PATH_TO_CONFIG
 import configparser
 
 class BGPDataset_v2:
-    def __init__(self, parser, data_file, pickle_file, transform = None, target_transform = None) -> None:
-        feat_generation_path = parser['PredicateFeaturizerSubObj']['save_path_final']
+    def __init__(self, parser, data_file, pickle_file=None, transform = None, target_transform = None) -> None:
+        
+        feat_generation_path = parser['PredicateFeaturizerSubObj']['load_path']
         topk = int(parser['PredicateFeaturizerSubObj']['topk'])
         bin_no = int(parser['PredicateFeaturizerSubObj']['bin_no'])
-        #pred_feature_rizer = PredicateFeaturesQuery.prepare_pred_featues_for_bgp( feat_generation_path, bins=bin_no, topk=topk)
         pred_feature_rizer = Predicate_Featurizer_Sub_Obj.prepare_pred_featues_for_bgp(feat_generation_path, bins=bin_no, topk=topk)
-        entity_featurizer = EntityFeatures.load(parser)
-        entity_featurizer.get_topk_ents_and_bin(int(parser['EntityFeaturizer']['bin_no']))
-        bgps = load_obj_w_function(data_file,pickle_file,load_BGPS_from_json, pred_feat=pred_feature_rizer, ent_feat=entity_featurizer)
         
+        entity_featurizer = EntityFeatures.load(parser)
+        entity_featurizer.create_bins(int(parser['EntityFeaturizer']['bin_no']))
+        
+        #bgps = load_obj_w_function(data_file,pickle_file,load_BGPS_from_json, pred_feat=pred_feature_rizer, ent_feat=entity_featurizer)
+        bgps = load_BGPS_from_json(data_file,pred_feat=pred_feature_rizer,ent_feat=entity_featurizer)
         total_bgps = len(bgps)
         
-        bgp_graphs = filter_bgps_w_missing_pred_feat(bgps, return_graphs=True)
+        bgp_graphs = bgp_graph_construction(bgps, return_graphs=True, filter=True)
         #bgp_graphs = bgp_graphs[:5]
         #print(f"Removed {total_bgps-len(bgp_graphs)} of {total_bgps}")
         
@@ -32,20 +34,20 @@ class BGPDataset_v2:
         self.join_indices:list[int] = []
         
         new_bgp_graph:list[BGPGraph] = []
-        for bgp in bgp_graphs:
-            bgp:BGPGraph
+        for g in bgp_graphs:
+            g:BGPGraph
             #Nan check
-            node_feat = torch.tensor( bgp.get_node_representation(bin_no,topk, pred_feat_sub_obj_no=True, use_ent_feat=True, ent_bins = entity_featurizer.bin), dtype=torch.float32)
+            node_feat = torch.tensor( g.get_node_representation(bin_no,topk, pred_feat_sub_obj_no=True, use_ent_feat=True, ent_bins = entity_featurizer.buckets), dtype=torch.float32)
             #if torch.sum(torch.isnan( node_feat)) > 0:
             #    continue
-            new_bgp_graph.append(bgp)
-            self.target.append(bgp.gt)
-            self.join_indices.append(bgp.last_join_index)
+            new_bgp_graph.append(g)
+            self.target.append(g.gt)
+            self.join_indices.append(g.last_join_index)
             
             
             #node_feat = torch.nan_to_num(node_feat,-1)
             self.node_features.append( node_feat)
-            self.edge_lsts.append( torch.tensor(bgp.get_edge_list(), dtype=torch.int64) )
+            self.edge_lsts.append( torch.tensor(g.get_edge_list(), dtype=torch.int64) )
         
         #self.target = self.target
         self.bgp_graphs = new_bgp_graph

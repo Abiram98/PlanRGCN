@@ -26,3 +26,11 @@ python3 -m classifier.trainer
 Running the current code
 Removed 7263 of 464556 training data
 Removed 149 of 57588 test data uased as validation
+
+# Feature Extraction
+## Prerequsite
+1. have the rdf store running
+## Predicate Features
+```
+python3 -m 
+```

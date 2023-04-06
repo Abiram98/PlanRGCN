@@ -18,13 +18,13 @@ class TriplePattern:
         self.object.nodetype = 2
         
         self.predicate.pred_freq = -1
-        self.predicate.pred_freq = -1
         self.predicate.pred_literals = -1
+        self.predicate.pred_subject_count,self.predicate.pred_object_count =0,0
         self.set_entity_features(ent_featurizer)
         if predicate_stat != None:
             #self.predicate_stat = predicate_stat
             if self.predicate.type == 'URI':
-                self.predicate.bucket = predicate_stat.get_bin(self.predicate.node_label)
+                self.predicate.bucket = int(predicate_stat.get_bin(self.predicate.node_label))
                 self.predicate.topK = predicate_stat.top_k_predicate(self.predicate.node_label)
                 if self.predicate.bucket == None:
                     PREDS_W_NO_BIN.append(self.predicate)

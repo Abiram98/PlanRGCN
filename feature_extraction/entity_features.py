@@ -8,6 +8,8 @@ class EntityFeatures(Query):
     def __init__(self, endpoint_url):
         super().__init__(endpoint_url)
         self.freq = {}
+        self.buckets =None
+        self.binner = None
     
     def get_rdf_entities(self, save_path=None) -> list:
         query_str = f''' SELECT DISTINCT ?e WHERE {{
@@ -45,8 +47,8 @@ class EntityFeatures(Query):
                 json.dump(self.freq,f)
         return self.freq
     
-    def get_topk_ents_and_bin(self, bin, verbose=False):
-        self.bin = bin+1
+    def create_bins(self, buckets, verbose=False):
+        self.buckets = buckets+1
         freq_d = {'entity':[],'frequency':[]}
         for i in self.freq.keys():
             freq_d['entity'].append(i)
@@ -64,7 +66,7 @@ class EntityFeatures(Query):
         counts = pd.DataFrame({'frequency':counts})
         
         #print(f"Unique Frequencies of entities: {len(counts)}")
-        counts['bin'], cut_bin = pd.qcut(counts['frequency'], q = bin, labels = range(bin), retbins = True)
+        counts['bin'], cut_bin = pd.qcut(counts['frequency'], q = buckets, labels = range(buckets), retbins = True)
         counts = counts.set_index('frequency')
         df['bin'] = df['frequency'].apply(lambda x: counts.loc[x]['bin'])
         #df['bin'], cut_bin = pd.cut(df['frequency'], bins = bin, labels = range(bin), retbins = True)
@@ -84,7 +86,7 @@ class EntityFeatures(Query):
         try:
             bin_no,freq = self.binner.loc[entity]['bin'],self.binner.loc[entity]['frequency']
         except KeyError:
-            bin_no,freq = self.bin, 0
+            bin_no,freq = self.buckets, 0
         return bin_no,freq
     
     def load(parser: configparser.ConfigParser):
@@ -183,7 +185,7 @@ if __name__ == "__main__":
             keys = list(featurizer.freq.keys())
             keys = [x for x in keys if not '.openlinksw' in x]
             print(keys[:10])
-            featurizer.get_topk_ents_and_bin(bin=20)
+            featurizer.create_bins(buckets=20)
             print(featurizer.get_feature(keys[-1]))
             
         case other:

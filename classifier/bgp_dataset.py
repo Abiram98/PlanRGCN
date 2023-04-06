@@ -1,5 +1,5 @@
 from torch.utils.data import Dataset
-from utils import unpickle_obj,pickle_obj, filter_bgps_w_missing_pred_feat, load_BGPS_from_json,load_obj_w_function
+from utils import unpickle_obj,pickle_obj, bgp_graph_construction, load_BGPS_from_json,load_obj_w_function
 from feature_extraction.predicate_features import PredicateFeaturesQuery
 from graph_construction.bgp_graph import BGPGraph
 import torch, math
@@ -18,7 +18,7 @@ class BGPDataset(Dataset):
         total_bgps = len(bgps)
         #TODO outcomment this
         
-        bgp_graphs = filter_bgps_w_missing_pred_feat(bgps, return_graphs=True)
+        bgp_graphs = bgp_graph_construction(bgps, return_graphs=True, filter=True)
         #bgp_graphs = bgp_graphs[:5]
         #print(f"Removed {total_bgps-len(bgp_graphs)} of {total_bgps}")
         

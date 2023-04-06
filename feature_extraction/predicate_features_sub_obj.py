@@ -1,14 +1,20 @@
 from feature_extraction.predicate_features import PredicateFeaturesQuery, check_stats,load_pickle
-import json, SPARQLWrapper
+import json
 from datetime import datetime
 import configparser
 from feature_extraction.constants import PATH_TO_CONFIG
 import os
 import argparse
+from SPARQLWrapper import SPARQLWrapper,JSON,POST
 
 class Predicate_Featurizer_Sub_Obj(PredicateFeaturesQuery):
     def __init__(self, endpoint_url=None, timeout=30):
         super().__init__(endpoint_url, timeout)
+    
+    def initialise_sparql(self,endpoint_url):
+        self.sparql = SPARQLWrapper(endpoint_url)
+        self.sparql.setReturnFormat(JSON)
+        self.sparql.setMethod(POST)
     
     def set_query_unique_entity_predicate(self, predicate, number=None):
         subject_count, object_count = -1,-1

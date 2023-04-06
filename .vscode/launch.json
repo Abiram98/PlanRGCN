@@ -70,6 +70,20 @@
             "console": "integratedTerminal",
             "module": "classifier.bgp_dataset_v2"
         },
+        {
+            "name": "feature checker",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "module": "feature_check.entity_check"
+        },
+        {
+            "name": "debug dataset",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "module": "classifier.train_debug"
+        },
 
     ]
 }

@@ -1,5 +1,7 @@
 import json
 import networkx as nx, numpy as np
+#from feature_check.entity_check import filtered_query_missing_entity
+#from feature_check.predicate_check import filter_missing_query_predicate
 from feature_extraction.predicate_features import PredicateFeaturesQuery
 import os
 import pickle as pcl
@@ -8,9 +10,10 @@ from graph_construction.bgp import BGP
 from graph_construction.triple_pattern import TriplePattern
 from graph_construction.bgp_graph import BGPGraph
 from glb_vars import PREDS_W_NO_BIN
+import argparse, configparser
+from feature_extraction.constants import PATH_TO_CONFIG
 
-
-def load_BGPS_from_json(path,pred_feat=None, path_predicate_feat_gen= None, bins = 30, limit_bgp=None, ent_feat = None):
+def load_BGPS_from_json(path,pred_feat=None, limit_bgp=None, ent_feat = None):
     #pred_feat = None
     #if not path_predicate_feat_gen == None:
     #    pred_feat = PredicateFeaturesQuery.prepare_pred_featues_for_bgp(path_predicate_feat_gen, bins=bins)
@@ -85,7 +88,7 @@ def numpy_to_string(nparr):
 def string_to_numpy(string:str):
     return np.fromstring( string, dtype=np.int32)
     
-def filter_bgps_w_missing_pred_feat(bgps: list, return_graphs=False):
+def bgp_graph_construction(bgps: list, return_graphs=True, filter=False):
     def is_trp_legal(tp: TriplePattern) -> bool:
         if tp.predicate.pred_freq == -1 or tp.predicate.pred_freq == -1 or tp.predicate.pred_literals == -1:
             return False
@@ -99,7 +102,13 @@ def filter_bgps_w_missing_pred_feat(bgps: list, return_graphs=False):
     
     new_bgps = []
     for x in bgps:
-        if is_bpg_legal(x):
+        if filter:
+            if is_bpg_legal(x):
+                if return_graphs:
+                    new_bgps.append(BGPGraph(x))
+                else:
+                    new_bgps.append(x)
+        else:
             if return_graphs:
                 new_bgps.append(BGPGraph(x))
             else:
@@ -113,7 +122,15 @@ def load_obj_w_function(path, pickle_file, function, *args, **kwargs):
         bgps = function(path, *args, **kwargs)
         pickle_obj(bgps, pickle_file)
     return bgps
-            
+
+def stratified_split(parser:configparser.ConfigParser):
+    parser = configparser.ConfigParser()
+    parser.read(PATH_TO_CONFIG)
+    #bgps = load_BGPS_from_json('/work/data/train_data.json')
+    #bgps = filtered_query_missing_entity(parser)
+    bgps = filter_missing_query_predicate(bgps,parser)
+    
+
 if __name__ == "__main__":
     path_to_bgps = '/work/data/bgps.pickle'
     path_predicate_feat_gen = '/work/data/pred_feat.pickle'
@@ -126,7 +143,7 @@ if __name__ == "__main__":
         pickle_obj(bgps,path_to_bgps)
     bgp_count = len(bgps)
     pred_featurizer = PredicateFeaturesQuery.prepare_pred_featues_for_bgp(path_predicate_feat_gen, bins=bins)
-    bgps = filter_bgps_w_missing_pred_feat(bgps)
+    bgps = bgp_graph_construction(bgps)
     print(f"Filtered {bgp_count-len(bgps)} of {bgp_count}")   
     
     exit()
