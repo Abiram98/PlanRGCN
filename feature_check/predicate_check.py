@@ -23,6 +23,7 @@ def checker(config_path = PATH_TO_CONFIG):
     if os.path.isfile(parser['PredicateFeaturizerSubObj']['predicate_path']):
         predicates = json.load(open(parser['PredicateFeaturizerSubObj']['predicate_path'],'r'))
     else:
+        print("Extracting Predicates")
         predicates = q.get_rdf_predicates(save_path=parser['PredicateFeaturizerSubObj']['predicate_path'])
     q.predicates = predicates
     #predicates = json.load(open('/work/data/confs/newPredExtractionRun/predicates_only.json','r'))

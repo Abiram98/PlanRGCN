@@ -21,7 +21,6 @@ class Predicate_Featurizer_Sub_Obj(PredicateFeaturesQuery):
         query_str = f'''
         SELECT (COUNT(DISTINCT ?e) AS ?subjects) WHERE {{
             ?e <{predicate}> ?o .
-            FILTER(isURI(?e))
         }}
         '''
         try:
