@@ -16,6 +16,16 @@ In interactive mode:
 docker build -t qpp_image:1 .
 docker run --rm -it --name BGPClassifier -v "$(pwd)"/:/work qpp_image:1 bin/bash
 ```
+### Configuration File
+First step is to create a configuration file with the appropriate features.
+Rember to set the proper path in /work/feature_extraction/constants.py
+
+### Predicate Features
+
+to collect predicate features:
+```
+python3 -m feature_check.predicate_check
+```
 
 ### Python code to run
 

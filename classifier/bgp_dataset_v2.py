@@ -8,20 +8,22 @@ from graph_construction.bgp import BGP
 from utils import unpickle_obj,pickle_obj, bgp_graph_construction, load_BGPS_from_json,load_obj_w_function
 from feature_extraction.constants import PATH_TO_CONFIG
 import configparser
+from torch_geometric.data import Dataset
 
-class BGPDataset_v2:
+class BGPDataset_v2:#(Dataset):
     def __init__(self, parser, data_file, pickle_file=None, transform = None, target_transform = None) -> None:
-        
+        #super().__init__(parser, transform, pre_transform, pre_filter)
         feat_generation_path = parser['PredicateFeaturizerSubObj']['load_path']
         topk = int(parser['PredicateFeaturizerSubObj']['topk'])
         bin_no = int(parser['PredicateFeaturizerSubObj']['bin_no'])
         pred_feature_rizer = Predicate_Featurizer_Sub_Obj.prepare_pred_featues_for_bgp(feat_generation_path, bins=bin_no, topk=topk)
         
-        entity_featurizer = EntityFeatures.load(parser)
-        entity_featurizer.create_bins(int(parser['EntityFeaturizer']['bin_no']))
+        #TODO outcommented for now
+        #entity_featurizer = EntityFeatures.load(parser)
+        #entity_featurizer.create_bins(int(parser['EntityFeaturizer']['bin_no']))
         
         #bgps = load_obj_w_function(data_file,pickle_file,load_BGPS_from_json, pred_feat=pred_feature_rizer, ent_feat=entity_featurizer)
-        bgps = load_BGPS_from_json(data_file,pred_feat=pred_feature_rizer,ent_feat=entity_featurizer)
+        bgps = load_BGPS_from_json(data_file,pred_feat=pred_feature_rizer,ent_feat=None)
         total_bgps = len(bgps)
         
         bgp_graphs = bgp_graph_construction(bgps, return_graphs=True, filter=True)
@@ -37,7 +39,8 @@ class BGPDataset_v2:
         for g in bgp_graphs:
             g:BGPGraph
             #Nan check
-            node_feat = torch.tensor( g.get_node_representation(bin_no,topk, pred_feat_sub_obj_no=True, use_ent_feat=True, ent_bins = entity_featurizer.buckets), dtype=torch.float32)
+            #node_feat = torch.tensor( g.get_node_representation(bin_no,topk, pred_feat_sub_obj_no=True, use_ent_feat=True, ent_bins = entity_featurizer.buckets), dtype=torch.float32)
+            node_feat = torch.tensor( g.get_node_representation(bin_no,topk, pred_feat_sub_obj_no=True, use_ent_feat=False), dtype=torch.float32)
             #if torch.sum(torch.isnan( node_feat)) > 0:
             #    continue
             new_bgp_graph.append(g)

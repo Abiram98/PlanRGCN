@@ -32,23 +32,25 @@ def checker(config_path = PATH_TO_CONFIG):
     if os.path.isfile(parser['PredicateFeaturizerSubObj']['load_path']):
         q = Predicate_Featurizer_Sub_Obj.load(parser['PredicateFeaturizerSubObj']['load_path'])
     else:
+        q.sparql = SPARQLWrapper(endpoint_url)
+        q.sparql.setReturnFormat(JSON)
+        q.sparql.setMethod(POST)
         q.extract_predicate_features(predicates=predicates,save_decode_err_preds=decode_error_path, save_path=save_path)
-    q.sparql = SPARQLWrapper(endpoint_url)
-    q.sparql.setReturnFormat(JSON)
-    q.sparql.setMethod(POST)
+    
     error_preds = json.load(open(parser['PredicateFeaturizerSubObj']['load_error_path']))
     p = parser['PredicateFeaturizerSubObj']['save_path']
     save_path = f'{p}{datetime.now().strftime("%d_%m_%Y_%H_%M")}.pickle'
     p = parser['PredicateFeaturizerSubObj']['error_path']
     decode_error_path = f'{p}{datetime.now().strftime("%d_%m_%Y_%H_%M")}.json'
     #q.extract_features_for_remaining(predicates=error_preds, save_decode_err_preds= decode_error_path, save_path=save_path)
-    
-    no_pred_freq,no_pred_literal, no_pred_ent= missing_predicate_check(q, error_preds)
-    
-    missing_pred = check_missing_query_preds(parser,q)
-    print(missing_pred)
+    no_pred_freq,no_pred_literal, no_pred_ent= missing_predicate_check(q, predicates)
     print(f"Prediates: Missing frequency info for {len(no_pred_freq)}, Missing entity info for {len(no_pred_ent)}, Missing literals info for {len(no_pred_literal)}")
+    no_pred_freq,no_pred_literal, no_pred_ent= minus1_predicate_check(q, predicates)
+    print(f"Prediates: (-1) frequency info for {len(no_pred_freq)}, (-1) entity info for {len(no_pred_ent)}, (-1) literals info for {len(no_pred_literal)}")
+     
+    missing_pred = check_missing_query_preds(parser,q)
     print(f"Missing preds from queries : {len(missing_pred)}")
+    find_bgp_to_filter(parser,q)
     
 
 def check_missing_query_preds(parser:configparser.ConfigParser, q: Predicate_Featurizer_Sub_Obj):
@@ -64,25 +66,62 @@ def check_missing_query_preds(parser:configparser.ConfigParser, q: Predicate_Fea
             except KeyError:
                 missing_pred.add(t.predicate.node_label)
     return missing_pred
-        
+
+def find_bgp_to_filter(parser:configparser.ConfigParser, q: Predicate_Featurizer_Sub_Obj):
+    bgps = load_BGPS_from_json(parser['Dataset']['train_data_path'])
+    print(f"amount of bgps : {len(bgps)}")
+    filter_count = 0
+    for x in bgps:
+        x: BGP
+        try:
+            for t in x.triples:
+                t:TriplePattern
+                q.predicate_freq[t.predicate.node_label]
+        except KeyError:
+            filter_count +=1
+    print(f"BGPs without predicate features: {filter_count}")
+    return filter_count
+
 def missing_predicate_check(q, error_preds):
-    no_pred_freq = []
-    no_pred_literal = []
-    no_pred_ent = []
+    no_pred_freq = set()
+    no_pred_literal = set()
+    no_pred_ent = set()
     for e in error_preds:
         try:
             q.predicate_freq[e]
         except KeyError:
-            no_pred_freq.append(e)
+            no_pred_freq.add(e)
         try:
             q.unique_entities_counter[e]
         except KeyError:
-            no_pred_ent.append(e)
+            no_pred_ent.add(e)
         try:
             q.uniqueLiteralCounter[e]
         except KeyError:
-            no_pred_literal.append(e)
+            no_pred_literal.add(e)
     return no_pred_freq,no_pred_literal, no_pred_ent
+def minus1_predicate_check(q, error_preds):
+    no_pred_freq = set()
+    no_pred_literal = set()
+    no_pred_ent = set()
+    for e in error_preds:
+        try:
+            if q.predicate_freq[e] == -1:
+                no_pred_freq.add(e)
+        except KeyError:
+            pass
+        try:
+            if q.unique_entities_counter[e] == -1:
+                no_pred_ent.add(e)
+        except KeyError:
+            pass
+        try:
+            if q.uniqueLiteralCounter[e] == -1:
+                no_pred_literal.add(e)
+        except KeyError:
+            pass
+    return no_pred_freq,no_pred_literal, no_pred_ent
+
 
 def filter_missing_query_predicate(bgps:list[BGP], parser):
     parser = configparser.ConfigParser()

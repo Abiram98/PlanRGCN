@@ -3,13 +3,13 @@ from classifier.bgp_dataset_v2 import BGPDataset_v2
 #from torch.utils.data import DataLoader
 import math,os
 import torch.nn as nn, torch, numpy as np
-from classifier.GCN import GNN
+from classifier.graph_classification import GNN
 from feature_extraction.predicate_features import PredicateFeaturesQuery
 
 from torch_geometric.loader.dataloader import DataLoader
 from torch_geometric import seed_everything
 import configparser
-from feature_extraction.constants import PATH_TO_CONFIG
+from feature_extraction.constants import PATH_TO_CONFIG_GRAPH
 torch.manual_seed(12345)
 np.random.seed(12345)
 seed_everything(12345)
@@ -32,42 +32,45 @@ def train_loop(dataloader, model, loss_fn, optimizer):
             loss, current = loss.item(), (batch + 1) * len(nodefeatures)
             print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
 
-def train_epoch_loop02(dataset=None, model=None, loss_fn=None, optimizer=None, epoch:int=None):
+def train_epoch_loop02(dataset=None, loss_fn=None, optimizer=None, epoch:int=None):
+    global model
     size = len(dataset)
     train_loss = 0
     print(f'Training dataset size: {size}')
     model.train()
+    
     for sample_no, sample in enumerate(dataset):
         # Compute prediction and loss
         pred = model(sample['nodes'],sample['edges'],sample['join_index'])
-        loss = loss_fn(pred, sample['target'])
+        optimizer.zero_grad()
+        loss = loss_fn(pred, torch.reshape(sample['target'],(1,1)))
+        loss.backward()
+        optimizer.step()
         train_loss += loss.item()
         #print(f"Gt : {sample['target']}, pred: {pred}")
         #
         # Backpropagation
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+        
         #
         if sample_no % 5000 == 0:
             #loss_current, current = loss.item(), (sample_no + 1) * len(sample['nodes'])
             #print(f"Epoch: {epoch:4} {sample_no:5} loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
             print(f"Epoch: {epoch+1:4} {(sample_no+1):8} Average loss: {train_loss/(sample_no+1):>7f}  [{((sample_no+1)/size)*100:.2f}]")
 
-def val_loop02(dataset=None, model=None, loss_fn=None,epoch_no=None, prev_loss = None, path_to_save ='/work/data/confs/newPredExtractionRun/'):
-    size = len(dataset)
-    
-    test_loss, correct = 0, 0
+def val_loop02(dataset=None, loss_fn=None,epoch_no=None, prev_loss = None, path_to_save ='/work/data/confs/newPredExtractionRun/'):
+    global model
+    test_loss= 0
     with torch.no_grad():
         for no,sample in enumerate(dataset):
             pred = model(sample['nodes'],sample['edges'],sample['join_index'])
-            test_loss += loss_fn(pred, sample['target']).item()
-            #correct += (pred.argmax(1) == y).type(torch.float).sum().item()
+            test_loss += loss_fn(pred, torch.reshape(sample['target'],(1,1))).item()
+    test_loss= test_loss/len(dataset)
+    
     new_loss = prev_loss
     if path_to_save != None and (prev_loss == None or test_loss < new_loss):
         torch.save(model,f"{path_to_save}model_{epoch_no}.pt")
         new_loss = test_loss
-    print(f"Val Error {epoch_no+1:4}: Total Loss: {test_loss:>8f}  \n")
+    print(f"Val Error {epoch_no+1:4}: Avg Loss: {test_loss:>8f}  \n")
     return new_loss
     #test_loss /= num_batches
     #correct /= size
@@ -88,17 +91,73 @@ def test_loop(dataloader, model, loss_fn):
     correct /= size
     print(f"Test Error: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
 
-def run(dataset, test_dataset,model,loss_fn,optimizer, path_to_save ='/work/data/confs/newPredExtractionRun/', epoch=50):
+def run(dataset, test_dataset,loss_fn,optimizer, path_to_save ='/work/data/confs/newPredExtractionRun/', epoch=50):
     #global train_loader
     #train_loader = return_graph_dataloader(dataset, batch_size=BATCH_SIZE)
-    
+    global model
     prev_val_loss = None
     for t in range(epoch):
         print(f"Epoch {t+1}\n--------------------------------------------------------------")
         #train_loop(loader, model, loss_fn, optimizer)
-        train_epoch_loop02(dataset=dataset, model=model, loss_fn=loss_fn, optimizer=optimizer, epoch=t)
-        prev_val_loss = val_loop02(dataset=test_dataset, model=model, loss_fn=loss_fn,epoch_no=t, prev_loss = prev_val_loss, path_to_save =path_to_save)
+        train_epoch_loop02(dataset=dataset, loss_fn=loss_fn, optimizer=optimizer, epoch=t)
+        prev_val_loss = val_loop02(dataset=test_dataset, loss_fn=loss_fn,epoch_no=t, prev_loss = prev_val_loss, path_to_save =path_to_save)
         print(f"Optimal Val loss : {prev_val_loss}\n")
+        #test_loop(test_dataloader, model, loss_fn)
+    print("Done!")
+
+def run_undivided(dataset, test_dataset,loss_fn,optimizer, path_to_save ='/work/data/confs/newPredExtractionRun/', epoch=50, early_stop=10):
+    #global train_loader
+    #train_loader = return_graph_dataloader(dataset, batch_size=BATCH_SIZE)
+    global model
+    prev_val_loss = None
+    val_hist = []
+    for t in range(epoch):
+        print(f"Epoch {t+1}\n--------------------------------------------------------------")
+        #train_loop(loader, model, loss_fn, optimizer)
+        #train_epoch_loop02(dataset=dataset, loss_fn=loss_fn, optimizer=optimizer, epoch=t)
+        size = len(dataset)
+        train_loss = 0
+        print(f'Training dataset size: {size}')
+        model.train()
+        
+        for sample_no, sample in enumerate(dataset):
+            # Compute prediction and loss
+            pred = model(sample['nodes'],sample['edges'],sample['join_index'])
+            #optimizer.zero_grad()
+            loss = loss_fn(pred, torch.reshape(sample['target'],(1,1)))
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+            train_loss += loss.item()
+            #print(f"Gt : {sample['target']}, pred: {pred}")
+            #
+            # Backpropagation
+            
+            #
+            if sample_no % 5000 == 0:
+                #loss_current, current = loss.item(), (sample_no + 1) * len(sample['nodes'])
+                #print(f"Epoch: {epoch:4} {sample_no:5} loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
+                print(f"Epoch: {t+1:4} {(sample_no+1):8} Average loss: {train_loss/(sample_no+1):>7f}  [{((sample_no+1)/size)*100:.2f}]")
+        
+        #prev_val_loss = val_loop02(dataset=test_dataset, loss_fn=loss_fn,epoch_no=t, prev_loss = prev_val_loss, path_to_save =path_to_save)
+        test_loss= 0
+        with torch.no_grad():
+            for no,sample in enumerate(test_dataset):
+                pred = model(sample['nodes'],sample['edges'],sample['join_index'])
+                test_loss += loss_fn(pred, torch.reshape(sample['target'],(1,1))).item()
+        test_loss= test_loss/len(test_dataset)
+        p_val_hist = val_hist
+        val_hist.append(test_loss)
+        if path_to_save != None and (prev_val_loss == None or test_loss < prev_val_loss):
+            torch.save(model,f"{path_to_save}model_{t}.pt")
+            prev_val_loss = test_loss
+        
+        print(f"Val Error {t+1:4}: Avg Loss: {test_loss:>8f}  \n")
+        print(f"Optimal Val loss : {prev_val_loss}\n")
+        
+        if np.sum([1 for v_l in p_val_hist[early_stop:] if v_l <= test_loss]) == early_stop:
+            print(f"Early Stopping invoked after epoch {t}")
+            exit()
         #test_loop(test_dataloader, model, loss_fn)
     print("Done!")
 #TODO outcomment this
@@ -108,8 +167,9 @@ def run(dataset, test_dataset,model,loss_fn,optimizer, path_to_save ='/work/data
 #print(data)
 if __name__ == "__main__":
     #Model hyper parameters
+    
     parser = configparser.ConfigParser()
-    parser.read(PATH_TO_CONFIG)
+    parser.read(PATH_TO_CONFIG_GRAPH)
     
     EPOCHS = int(parser['Training']['EPOCHS'])
     BATCH_SIZE = int(parser['Training']['BATCH_SIZE'])
@@ -139,15 +199,18 @@ if __name__ == "__main__":
     pickle_testdataset = parser['DebugDataset']['pickle_testdataset']
     pickle_valdataset = parser['DebugDataset']['pickle_valdataset']
     
-    if not os.path.isfile(pickle_train_dataset):
-        """dataset = BGPDataset(data_file,feat_generation_path, train_bgp_file_pickle,bin=PREDICATE_BINS)
-        test_dataset = BGPDataset(test_file,feat_generation_path, test_bgp_file_pickle,bin=PREDICATE_BINS)
-        val_dataset = BGPDataset(val_file,feat_generation_path, val_bgp_file_pickle,bin=PREDICATE_BINS)"""
+    dataset = BGPDataset_v2(parser,data_file)
+    test_dataset = BGPDataset_v2(parser,test_file)
+    val_dataset = BGPDataset_v2(parser,val_file)
+    
+    torch.save(dataset,pickle_train_dataset)
+    torch.save(test_dataset,pickle_testdataset)
+    torch.save(val_dataset,pickle_valdataset)
+    """if not os.path.isfile(pickle_train_dataset):
         dataset = BGPDataset_v2(parser,data_file)
         test_dataset = BGPDataset_v2(parser,test_file)
         val_dataset = BGPDataset_v2(parser,val_file)
-        #loader = DataLoader(dataset, batch_size=math.ceil(len(dataset)/BATCH_SIZE))
-        #torch.save(loader,pickle_data_loader)
+        
         torch.save(dataset,pickle_train_dataset)
         torch.save(test_dataset,pickle_testdataset)
         torch.save(val_dataset,pickle_valdataset)
@@ -156,7 +219,8 @@ if __name__ == "__main__":
         dataset = torch.load(pickle_train_dataset)
         test_dataset= torch.load(pickle_testdataset)
         val_dataset= torch.load(pickle_valdataset)
-        print(f"Dataset size: (Train) {len(dataset)}, (Val) {len(val_dataset)}, (Test) {len(test_dataset)}")
+        print(f"Dataset size: (Train) {len(dataset)}, (Val) {len(val_dataset)}, (Test) {len(test_dataset)}")"""
+        
     #
     #temporary code
     #def nan_yielder(dataset):
@@ -173,5 +237,5 @@ if __name__ == "__main__":
     loss_fn = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=LR, weight_decay=WEIGHT_DECAY)
     
-    
-    run(dataset, val_dataset,model,loss_fn,optimizer, epoch=EPOCHS, path_to_save=parser['Results']['path_to_save_model'])
+    #run(dataset, test_dataset,loss_fn,optimizer, epoch=EPOCHS, path_to_save=parser['Results']['path_to_save_model'])
+    run_undivided(dataset, test_dataset,loss_fn,optimizer, epoch=EPOCHS, path_to_save=parser['Results']['path_to_save_model'])

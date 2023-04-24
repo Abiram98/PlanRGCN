@@ -29,6 +29,9 @@ class BGPGraph:
             self.graph.add_edge(predicate_id, object_id)
             
             join = self.create_join_node()
+            join.is_subject_var = True if trp.subject.type == 'VAR' else False
+            join.is_pred_var = True if trp.predicate.type == 'VAR' else False
+            join.is_object_var = True if trp.object.type == 'VAR' else False
             join_id = self.node_id(join)
             self.last_join_index = join_id
             self.graph.add_edge(subject_id,join_id)

@@ -190,8 +190,10 @@ class PredicateFeaturesQuery(Query):
             dct['predicate'].append(k)
             dct['freq'].append(self.predicate_freq[k])
         df = pd.DataFrame.from_dict(dct)
-        df_freq = df['freq'].astype('int')
+        #df_freq = df['freq'].astype('int')
+        df['freq'] = pd.to_numeric(df['freq'])
         df_freq = df.sort_values('freq',ascending=False)
+        df = df_freq
         df_freq = df_freq.assign(row_number=range(len(df_freq)))
         df_freq = df_freq.set_index('row_number')
         #print(df_freq)
@@ -199,14 +201,17 @@ class PredicateFeaturesQuery(Query):
         #print(df_freq.index)
         df_freq = df_freq.loc[:k]
         df_freq = df_freq.reset_index().set_index('predicate')
-        #print(df_freq.loc['http://www.wikidata.org/prop/direct/P577'])
-        _, cut_bin= pd.qcut(df['freq'], q = bins, retbins = True, duplicates='drop')
-        df['bin'], cut_bin = pd.qcut(df['freq'], q = bins, labels = [x for x in range(len(cut_bin)-1)], retbins = True, duplicates='drop')
+        
+        #unique value binning
+        #_, cut_bin= pd.qcut(df['freq'], q = bins, retbins = True, duplicates='drop')
+        #df['bin'], cut_bin = pd.qcut(df['freq'], q = bins, labels = [x for x in range(len(cut_bin)-1)], retbins = True, duplicates='drop')
+        df['bin'], cut_bin = pd.qcut(df['freq'], q = bins, labels = [x for x in range(bins)], retbins = True)
         #max_bin = df['bin'].max()
         df = df.set_index('predicate')
         self.predicate_bin_df = df
         self.bin_vals = cut_bin
-        self.total_bin = len(cut_bin)
+        self.freq_k = k
+        self.total_bin = len(cut_bin)+1
         
         self.topk_df = df_freq
         
@@ -220,6 +225,7 @@ class PredicateFeaturesQuery(Query):
         try:
             return self.predicate_bin_df.loc[predicate]['bin']
         except KeyError as e:
+            #print(predicate)
             return self.total_bin+1
     #
     #deprecated
