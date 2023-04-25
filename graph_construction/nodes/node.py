@@ -1,7 +1,20 @@
 import numpy as np
 import numpy as np
+from feature_extraction.entity_features import EntityFeatures
+from feature_extraction.predicate_features import PredicateFeaturesQuery
+
+from feature_extraction.predicate_features_sub_obj import Predicate_Featurizer_Sub_Obj
 
 class Node:
+    pred_bins=30
+    pred_topk=15
+    pred_feaurizer: PredicateFeaturesQuery=None
+    pred_feat_sub_obj_no: bool=None
+    use_ent_feat:bool=False
+    ent_bins:int = None
+    use_join_features:bool=True
+    ent_featurizer:EntityFeatures = None
+    
     def __init__(self, node_label:str) -> None:
         self.node_label = node_label
         if node_label.startswith('?'):
@@ -33,7 +46,9 @@ class Node:
     def __hash__(self) -> int:
         return hash(self.node_label)
     
-    def get_pred_features(self, pred_bins, pred_topk,pred_feat_sub_obj_no):
+    def get_pred_features(self):
+        pred_bins, pred_topk,pred_feat_sub_obj_no= Node.pred_bins, Node.pred_topk,Node.pred_feaurizer
+        
         predicate_bins = np.zeros(pred_bins)
         topk_vec = np.zeros(pred_topk)
         
@@ -62,7 +77,8 @@ class Node:
             raise Exception
         if np.sum(np.isnan( topk_vec)) > 0:
             raise Exception
-        return predicate_features,predicate_bins, topk_vec
+        return np.concatenate(( predicate_features, predicate_bins, topk_vec))
+        #return predicate_features,predicate_bins, topk_vec
     
     def get_ent_features(self, ent_bins):
         freq_vec_ent = np.zeros(1)
@@ -75,6 +91,7 @@ class Node:
         if np.sum(np.isnan( ent_bins_vec)) > 0:
             raise Exception
         return np.concatenate((freq_vec_ent,ent_bins_vec))
+    
     def get_join_features(self):
         join_feat = np.zeros(3)
         if self.nodetype == 3:
@@ -87,16 +104,54 @@ class Node:
             join_feat[2] =1
         return join_feat
     
-    def get_features(self, pred_bins=30, pred_topk=15,pred_feat_sub_obj_no=True, use_ent_feat=False, ent_bins = None, use_join_features=True):
+    def get_features(self):
         nodetype = np.zeros(4)
         nodetype[self.nodetype] = 1
-        predicate_features,predicate_bins, topk_vec = self.get_pred_features(pred_bins, pred_topk,pred_feat_sub_obj_no)
-        if use_ent_feat:
-            ent_features = self.get_ent_features(ent_bins)
+        predicate_features = self.get_pred_features()
+        if Node.use_ent_feat:
+            ent_features = self.get_ent_features(Node.ent_bins)
         else:
             ent_features = np.array([])
-        if use_join_features:
+        if Node.use_join_features:
             join_feat = self.get_join_features()
         else:
             join_feat = np.array([])
-        return np.concatenate((nodetype ,join_feat, predicate_features, predicate_bins, topk_vec, ent_features))
+        return np.concatenate((nodetype ,join_feat, predicate_features, ent_features))
+    
+    def set_predicate_features(self):
+        self.pred_freq = -1
+        self.pred_literals = -1
+        self.pred_subject_count,self.pred_object_count =0,0
+        predicate_stat = Node.pred_feaurizer
+        
+        if predicate_stat != None:
+            #self.predicate_stat = predicate_stat
+            if self.type == 'URI':
+                self.bucket = int(predicate_stat.get_bin(self.node_label))
+                self.topK = predicate_stat.top_k_predicate(self.node_label)
+                if self.bucket == None:
+                    self.bucket = 0
+                
+                if self.node_label in predicate_stat.predicate_freq.keys():
+                    self.pred_freq = predicate_stat.predicate_freq[self.node_label]
+                    
+                
+                if self.node_label in predicate_stat.uniqueLiteralCounter.keys():
+                    self.pred_literals = predicate_stat.uniqueLiteralCounter[self.node_label]
+                    
+                
+                if (not isinstance(predicate_stat,Predicate_Featurizer_Sub_Obj)) and (self.node_label in predicate_stat.unique_entities_counter.keys()):
+                    self.pred_entities = predicate_stat.unique_entities_counter[self.node_label]
+                
+                if (isinstance(predicate_stat,Predicate_Featurizer_Sub_Obj)) and (self.node_label in predicate_stat.unique_entities_counter.keys()):
+                    self.pred_subject_count,self.pred_object_count = predicate_stat.unique_entities_counter[self.node_label]
+    
+    def set_entity_feature(self):
+        ent_featurizer = Node.ent_featurizer
+        if ent_featurizer == None:
+            return self
+        if self.type == 'URI':
+            bin_no,freq = ent_featurizer.get_feature(self.node_label)
+            self.ent_bin = bin_no
+            self.ent_freq = freq
+            return self

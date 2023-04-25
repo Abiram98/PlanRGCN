@@ -1,4 +1,5 @@
 from torch.utils.data import Dataset
+from graph_construction.nodes.node import Node
 from utils import unpickle_obj,pickle_obj, bgp_graph_construction, load_BGPS_from_json,load_obj_w_function
 from feature_extraction.predicate_features import PredicateFeaturesQuery
 from graph_construction.bgp_graph import BGPGraph
@@ -7,9 +8,16 @@ from torch_geometric.data import HeteroData, Data
 from torch_geometric.loader import HGTLoader, DataLoader
 
 class BGPDataset(Dataset):
-    def __init__(self, data_file,feat_generation_path, pickle_file,bin=30, topk=15, transform=None, target_transform=None, pred_feat_sub_obj_no=False) -> None:
+    def __init__(self, data_file,feat_generation_path, pickle_file,bin=30, topk=15, transform=None, target_transform=None, pred_feat_sub_obj_no=False, node=Node) -> None:
         pred_feature_rizer = PredicateFeaturesQuery.prepare_pred_featues_for_bgp( feat_generation_path, bins=bin, topk=topk)
-        bgps = load_obj_w_function(data_file,pickle_file,load_BGPS_from_json, pred_feat=pred_feature_rizer)
+        #bgps = load_obj_w_function(data_file,pickle_file,load_BGPS_from_json, pred_feat=pred_feature_rizer)
+        node.pred_feaurizer = pred_feature_rizer
+        node.ent_featurizer = None
+        node.pred_bins = bin
+        node.pred_topk = topk
+        node.pred_feat_sub_obj_no = True
+        node.use_ent_feat = False
+        bgps = load_BGPS_from_json(data_file, node=node)
         #bgps  = unpickle_obj(pickle_file)
         #if bgps == None:
         #    bgps = load_BGPS_from_json(data_file, pred_feat=pred_feature_rizer)
@@ -31,7 +39,7 @@ class BGPDataset(Dataset):
         for bgp in bgp_graphs:
             bgp:BGPGraph
             #Nan check
-            node_feat = torch.tensor( bgp.get_node_representation(bin,topk, pred_feat_sub_obj_no=pred_feat_sub_obj_no), dtype=torch.float32)
+            node_feat = torch.tensor( bgp.get_node_representation(), dtype=torch.float32)
             if torch.sum(torch.isnan( node_feat)) > 0:
                 continue
             new_bgp_graph.append(bgp)

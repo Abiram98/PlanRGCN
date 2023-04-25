@@ -5,7 +5,7 @@ import networkx as nx, numpy as np
 from feature_extraction.predicate_features import PredicateFeaturesQuery
 import os
 import pickle as pcl
-from graph_construction.node import Node
+from graph_construction.nodes.node import Node
 from graph_construction.bgp import BGP
 from graph_construction.triple_pattern import TriplePattern
 from graph_construction.bgp_graph import BGPGraph
@@ -13,11 +13,11 @@ from glb_vars import PREDS_W_NO_BIN
 import argparse, configparser
 from feature_extraction.constants import PATH_TO_CONFIG
 
-def load_BGPS_from_json(path,pred_feat=None, limit_bgp=None, ent_feat = None):
+def load_BGPS_from_json(path,limit_bgp=None, node=Node):
     #pred_feat = None
     #if not path_predicate_feat_gen == None:
     #    pred_feat = PredicateFeaturesQuery.prepare_pred_featues_for_bgp(path_predicate_feat_gen, bins=bins)
-     
+    
     data = None
     with open(path,'rb') as f:
         data = json.load(f)
@@ -31,7 +31,7 @@ def load_BGPS_from_json(path,pred_feat=None, limit_bgp=None, ent_feat = None):
         BGP_strings = BGP_strings[:limit_bgp]
     BGPs = []
     for bgp_string in BGP_strings:
-        BGPs.append(BGP(bgp_string, data[bgp_string],predicate_stat=pred_feat, ent_featurizer = ent_feat))
+        BGPs.append(BGP(bgp_string, data[bgp_string],node_class=node))
     return BGPs
 
 def get_predicates(bgps: list):
@@ -138,11 +138,17 @@ if __name__ == "__main__":
     bins = 30
     pred_topk = 15
     limit_BGPs = None
+    Node.pred_feaurizer = PredicateFeaturesQuery.prepare_pred_featues_for_bgp( path_predicate_feat_gen, bins=bins)
+    Node.ent_featurizer = None
+    Node.pred_bins = bins
+    Node.pred_topk = pred_topk
+    Node.pred_feat_sub_obj_no = True
+    Node.use_ent_feat = False
     if bgps == None:
-        bgps = load_BGPS_from_json('/work/data/train_data.json', pred_feat=PredicateFeaturesQuery.prepare_pred_featues_for_bgp( path_predicate_feat_gen, bins=bins),limit_bgp=limit_BGPs, bins=bins)
+        bgps = load_BGPS_from_json('/work/data/train_data.json',limit_bgp=limit_BGPs, node=Node)
         pickle_obj(bgps,path_to_bgps)
     bgp_count = len(bgps)
-    pred_featurizer = PredicateFeaturesQuery.prepare_pred_featues_for_bgp(path_predicate_feat_gen, bins=bins)
+    #pred_featurizer = PredicateFeaturesQuery.prepare_pred_featues_for_bgp(path_predicate_feat_gen, bins=bins)
     bgps = bgp_graph_construction(bgps)
     print(f"Filtered {bgp_count-len(bgps)} of {bgp_count}")   
     
@@ -160,7 +166,7 @@ if __name__ == "__main__":
     #bgp_g = unpickle_obj(single_bgp_path)
     bgp_g.create_graph()
     print('node representation')
-    print(bgp_g.get_node_representation(pred_bins=bins, topk=pred_topk))
+    print(bgp_g.get_node_representation())
     print(bgp_g.get_edge_list())
     print(f'Ground truth is {bgp_g.gt}')
     #ground_truth_distibution(bgps,verbose=True)

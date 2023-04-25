@@ -5,6 +5,7 @@ import configparser
 from classifier.batched.gcn import GNN
 from feature_extraction.predicate_features_sub_obj import Predicate_Featurizer_Sub_Obj
 from graph_construction.bgp_graph import BGPGraph
+from graph_construction.nodes.node import Node
 from utils import bgp_graph_construction, load_BGPS_from_json
 from sklearn.metrics import f1_score,precision_score,recall_score, accuracy_score
 
@@ -13,10 +14,11 @@ def predict(model, graph_data):
     with torch.no_grad():
             prediction = model(graph_data)
     return prediction
-def get_metrics(bgp_graphs:list[BGPGraph], model, bin_no, topk):
+
+def get_metrics(bgp_graphs:list[BGPGraph], model, node=Node):
     preds, truths = [], []
     for i in bgp_graphs:
-        h_data = get_graph_for_single_sample(bgp_graph=i, bin_no=bin_no, topk=topk)
+        h_data = get_graph_for_single_sample(bgp_graph=i, node=node)
         preds.append(model(h_data).item())
         truths.append(h_data.y.item())
     def snap_pred(pred):
@@ -39,26 +41,34 @@ if __name__ == "__main__":
     topk = int(parser['PredicateFeaturizerSubObj']['topk'])
     bin_no = int(parser['PredicateFeaturizerSubObj']['bin_no'])
     pred_feature_rizer = Predicate_Featurizer_Sub_Obj.prepare_pred_featues_for_bgp(feat_generation_path, bins=bin_no, topk=topk)
-    
+    BGPGraph.node_type = Node
+    Node.pred_feaurizer = pred_feature_rizer
+    Node.ent_featurizer = None
+    Node.pred_bins = bin_no
+    Node.pred_topk = topk
+    Node.pred_feat_sub_obj_no = True
+    Node.use_ent_feat = False
     
     train_data_file = parser['DebugDataset']['train_data']
-    train_bgps = load_BGPS_from_json(train_data_file,pred_feat=pred_feature_rizer,ent_feat=None)
+    train_bgps = load_BGPS_from_json(train_data_file)
     train_bgp_graphs = bgp_graph_construction(train_bgps, return_graphs=True, filter=True)
-    
+    h_data = get_graph_for_single_sample(bgp_graph=train_bgp_graphs[0], node=Node)
+    print(h_data.x)
+    exit()
     print("Train")
-    get_metrics(train_bgp_graphs, model, bin_no, topk)
+    get_metrics(train_bgp_graphs, model, node=Node)
     #h_data = get_graph_for_single_sample(bgp_graph=bgp_graphs[0], bin_no=bin_no, topk=topk)
     #print(model(h_data).item(), h_data.y.item())
     #for batch in h_data:
         #print(model(batch))
     val_data_file = parser['DebugDataset']['val_data']
-    val_bgps = load_BGPS_from_json(val_data_file,pred_feat=pred_feature_rizer,ent_feat=None)
+    val_bgps = load_BGPS_from_json(val_data_file)
     val_bgp_graphs = bgp_graph_construction(val_bgps, return_graphs=True, filter=True)
     print("Val")
     get_metrics(val_bgp_graphs, model, bin_no, topk)
     
     test_data_file = parser['DebugDataset']['test_data']
-    test_bgps = load_BGPS_from_json(test_data_file,pred_feat=pred_feature_rizer,ent_feat=None)
+    test_bgps = load_BGPS_from_json(test_data_file)
     test_bgp_graphs = bgp_graph_construction(test_bgps, return_graphs=True, filter=True)
     print("Test")
     get_metrics(test_bgp_graphs, model, bin_no, topk)

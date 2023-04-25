@@ -1,10 +1,12 @@
 from graph_construction.bgp import BGP
 import networkx as nx
-from graph_construction.node import Node
+from graph_construction.nodes.node import Node
 import numpy as np
 import copy
 
 class BGPGraph:
+    node_type=Node
+    
     def __init__(self, bgp : BGP):
         self.bgp : BGP = bgp
         self.nodes : list[Node] = []
@@ -79,7 +81,7 @@ class BGPGraph:
                     self.graph.add_edge(prev,current_id)
         
     def create_join_node(self):
-        join_node = Node(f"join{self.join_id}")
+        join_node = BGPGraph.node_type(f"join{self.join_id}")
         join_node.nodetype = 3
         self.join_id += 1
         return join_node
@@ -91,5 +93,6 @@ class BGPGraph:
             out_vertex.append(y)
         return in_vertex,out_vertex
     
-    def get_node_representation(self, pred_bins, topk, pred_feat_sub_obj_no=True,use_ent_feat=False, ent_bins = None):
+    def get_node_representation(self): #pred_bins, topk, pred_feat_sub_obj_no=True,use_ent_feat=False, ent_bins = None
+        return np.stack([x.get_features() for x in self.nodes])
         return np.stack([x.get_features(pred_bins=pred_bins,pred_topk=topk,pred_feat_sub_obj_no=pred_feat_sub_obj_no,use_ent_feat=use_ent_feat, ent_bins = ent_bins) for x in self.nodes])

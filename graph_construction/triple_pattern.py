@@ -1,26 +1,33 @@
-from graph_construction.node import Node
+from graph_construction.nodes.node import Node
 from feature_extraction.predicate_features import PredicateFeaturesQuery
 from feature_extraction.predicate_features_sub_obj import Predicate_Featurizer_Sub_Obj
 from feature_extraction.entity_features import EntityFeatures
 from glb_vars import PREDS_W_NO_BIN
 
 class TriplePattern:
-    def __init__(self, triple_string:str, predicate_stat:PredicateFeaturesQuery = None, ent_featurizer:EntityFeatures =None):
+
+    def __init__(self, triple_string:str, node_class = Node):
         splits = triple_string.split(' ')
         splits = [s for s in splits if s != '']
         assert len(splits) == 3
-     
-        self.subject = Node(splits[0])
+        self.node_class = node_class
+        
+
+        self.subject = node_class(splits[0])
         self.subject.nodetype = 0
-        self.predicate = Node(splits[1])
+        self.predicate = node_class(splits[1])
         self.predicate.nodetype = 1
-        self.object = Node(splits[2])
+        self.object = node_class(splits[2])
         self.object.nodetype = 2
         
-        self.predicate.pred_freq = -1
+        #self.set_entity_features(ent_featurizer)
+        self.subject = self.subject.set_entity_feature()
+        self.object = self.object.set_entity_feature()
+        self.predicate.set_predicate_features()
+        
+        """self.predicate.pred_freq = -1
         self.predicate.pred_literals = -1
         self.predicate.pred_subject_count,self.predicate.pred_object_count =0,0
-        self.set_entity_features(ent_featurizer)
         if predicate_stat != None:
             #self.predicate_stat = predicate_stat
             if self.predicate.type == 'URI':
@@ -42,7 +49,7 @@ class TriplePattern:
                     self.predicate.pred_entities = predicate_stat.unique_entities_counter[self.predicate.node_label]
                 
                 if (isinstance(predicate_stat,Predicate_Featurizer_Sub_Obj)) and (self.predicate.node_label in predicate_stat.unique_entities_counter.keys()):
-                    self.predicate.pred_subject_count,self.predicate.pred_object_count = predicate_stat.unique_entities_counter[self.predicate.node_label]
+                    self.predicate.pred_subject_count,self.predicate.pred_object_count = predicate_stat.unique_entities_counter[self.predicate.node_label]"""
                 
                 #for pred_feat,dct in zip([self.predicate.pred_freq,self.predicate.pred_literals,self.predicate.pred_entities],[predicate_stat.predicate_freq,predicate_stat.uniqueLiteralCounter,predicate_stat.unique_entities_counter]):
                 #    if self.predicate.node_label in dct.keys():
@@ -50,7 +57,7 @@ class TriplePattern:
                 #    else:
                 #        pred_feat = 0
         
-    def set_entity_features(self,ent_featurizer:EntityFeatures):
+    """def set_entity_features(self,ent_featurizer:EntityFeatures):
         if ent_featurizer == None:
             return
         if self.subject.type == 'URI':
@@ -63,10 +70,15 @@ class TriplePattern:
         bin_no,freq = ent_featurizer.get_feature(node.node_label)
         node.ent_bin = bin_no
         node.ent_freq = freq
-        return node
+        return node"""
         
     
     def __str__(self):
         return f'Triple ({str(self.subject)} {str(self.predicate)} {str(self.object)} )'
     def __eq__(self, other):
         return self.subject == other.subject and self.predicate == other.predicate and self.object == other.object
+
+if __name__ == "__main__":
+    t = TriplePattern("?x http://www.wikidata.org/prop/direct/P5395 ?y")
+    t2 = TriplePattern("?x http://www.wikidata.org/prop/direct/P5395 ?y")
+    print(t.predicate.node_label)

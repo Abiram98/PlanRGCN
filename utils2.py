@@ -5,7 +5,7 @@ from feature_check.predicate_check import filter_missing_query_predicate
 from feature_extraction.predicate_features import PredicateFeaturesQuery
 import os
 import pickle as pcl
-from graph_construction.node import Node
+from graph_construction.nodes.node import Node
 from graph_construction.bgp import BGP
 from graph_construction.triple_pattern import TriplePattern
 from graph_construction.bgp_graph import BGPGraph
