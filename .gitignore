@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#data file extention
+**/*.pt
+**/*.pickle
+**/*.bak
+**/*.json
