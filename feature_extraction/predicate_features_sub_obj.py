@@ -1,4 +1,4 @@
-from feature_extraction.predicate_features import PredicateFeaturesQuery, check_stats,load_pickle
+from feature_extraction.predicates.predicate_features import PredicateFeaturesQuery, check_stats,load_pickle
 import json
 from datetime import datetime
 import configparser
@@ -53,21 +53,24 @@ class Predicate_Featurizer_Sub_Obj(PredicateFeaturesQuery):
             dct[k] = val
         return dct
     #Used to load existing object
-    def load(path):
+    def load(path, obj_type= None):
         obj = load_pickle(path)
         if hasattr(obj,'endpoint_url'):
             endpoint_url = obj.endpoint_url
         else:
             endpoint_url = None
-        i = Predicate_Featurizer_Sub_Obj(endpoint_url)
+        if obj_type != None:
+            i = obj_type(endpoint_url)
+        else:
+            i = Predicate_Featurizer_Sub_Obj(endpoint_url)
         i.uniqueLiteralCounter = i.convert_dict_vals_to_int( obj.uniqueLiteralCounter)
         i.predicate_freq = i.convert_dict_vals_to_int(obj.predicate_freq)
         i.unique_entities_counter = i.convert_dict_vals_to_int(obj.unique_entities_counter)
         return i
     
-    def prepare_pred_featues_for_bgp(path, bins = 30, topk =15):
-        i = Predicate_Featurizer_Sub_Obj.load(path)
-        i.predicate_binner_and_topk_init(bins=bins,k=topk)
+    def prepare_pred_featues_for_bgp(path, bins = 30, topk =15, obj_type=None):
+        i = Predicate_Featurizer_Sub_Obj.load(path, obj_type=obj_type)
+        i.prepare_pred_feat(bins=bins,k=topk)
         return i  
 
 #with virtuoso endpoint 33.93 s

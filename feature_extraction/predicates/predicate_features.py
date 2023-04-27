@@ -12,6 +12,7 @@ import copy
 from SPARQLWrapper import SPARQLWrapper,JSON,POST
 import pathlib
 
+
 class PredicateFeaturesQuery(Query):
     def __init__(self, endpoint_url = None, timeout=30):
         super().__init__(endpoint_url)
@@ -184,11 +185,11 @@ class PredicateFeaturesQuery(Query):
         self.predicates = json.loads(open(path,'r').read())
         return self.predicates
     #
-    def predicate_binner_and_topk_init(self, bins = 30, k=20):
+    def prepare_pred_feat(self, bins = 30, k=20):
         dct = {'predicate':[], 'freq':[]}
-        for k in self.predicate_freq.keys():
-            dct['predicate'].append(k)
-            dct['freq'].append(self.predicate_freq[k])
+        for key in self.predicate_freq.keys():
+            dct['predicate'].append(key)
+            dct['freq'].append(self.predicate_freq[key])
         df = pd.DataFrame.from_dict(dct)
         #df_freq = df['freq'].astype('int')
         df['freq'] = pd.to_numeric(df['freq'])
@@ -258,7 +259,7 @@ class PredicateFeaturesQuery(Query):
     
     def prepare_pred_featues_for_bgp(path, bins = 30, topk =15):
         i = PredicateFeaturesQuery.load(path)
-        i.predicate_binner_and_topk_init(bins=bins,k=topk)
+        i.prepare_pred_feat(bins=bins,k=topk)
         return i       
         
         
@@ -380,7 +381,7 @@ def check_stats(path='/work/data/pred_feat.pickle'):
         print('\n\n')
     
     predicates = list(pred_features.predicate_freq.keys())
-    pred_features.predicate_binner_and_topk_init()
+    pred_features.prepare_pred_feat()
     print(f"binned predicate count: {len(pred_features.predicate_bin_df.index)}")
     
     

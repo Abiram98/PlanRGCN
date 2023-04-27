@@ -1,6 +1,6 @@
 from classifier.bgp_dataset import BGPDataset
 from feature_extraction.predicate_features_sub_obj import Predicate_Featurizer_Sub_Obj
-from feature_extraction.predicate_features import PredicateFeaturesQuery
+from feature_extraction.predicates.predicate_features import PredicateFeaturesQuery
 from feature_extraction.entity_features import EntityFeatures
 import torch
 from graph_construction.bgp_graph import BGPGraph

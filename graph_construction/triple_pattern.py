@@ -1,5 +1,5 @@
 from graph_construction.nodes.node import Node
-from feature_extraction.predicate_features import PredicateFeaturesQuery
+from feature_extraction.predicates.predicate_features import PredicateFeaturesQuery
 from feature_extraction.predicate_features_sub_obj import Predicate_Featurizer_Sub_Obj
 from feature_extraction.entity_features import EntityFeatures
 from glb_vars import PREDS_W_NO_BIN

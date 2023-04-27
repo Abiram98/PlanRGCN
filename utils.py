@@ -2,7 +2,7 @@ import json
 import networkx as nx, numpy as np
 #from feature_check.entity_check import filtered_query_missing_entity
 #from feature_check.predicate_check import filter_missing_query_predicate
-from feature_extraction.predicate_features import PredicateFeaturesQuery
+from feature_extraction.predicates.predicate_features import PredicateFeaturesQuery
 import os
 import pickle as pcl
 from graph_construction.nodes.node import Node
@@ -33,6 +33,27 @@ def load_BGPS_from_json(path,limit_bgp=None, node=Node):
     for bgp_string in BGP_strings:
         BGPs.append(BGP(bgp_string, data[bgp_string],node_class=node))
     return BGPs
+
+def get_predicates_from_path(path):
+    data = None
+    with open(path,'rb') as f:
+        data = json.load(f)
+                
+    if data == None:
+        print('Data could not be loaded!')
+        return
+    
+    BGP_strings = list(data.keys())
+    
+    preds = []
+    for bgp_string in BGP_strings:
+        triple_strings = bgp_string[1:-1].split(',')
+        for triple_string in triple_strings:
+            splits = triple_string.split(' ')
+            splits = [s for s in splits if s != '']
+        
+            preds.append(splits[1])
+    return preds
 
 def get_predicates(bgps: list):
     predicates = set()
@@ -90,7 +111,7 @@ def string_to_numpy(string:str):
     
 def bgp_graph_construction(bgps: list, return_graphs=True, filter=False):
     def is_trp_legal(tp: TriplePattern) -> bool:
-        if tp.predicate.pred_freq == -1 or tp.predicate.pred_freq == -1 or tp.predicate.pred_literals == -1:
+        if tp.predicate.pred_freq == -1 or tp.predicate.pred_freq == -1 or tp.predicate.pred_literals == -1 or tp.predicate.pred_subject_count == -1 or tp.predicate.pred_object_count == -1:
             return False
         return True
     

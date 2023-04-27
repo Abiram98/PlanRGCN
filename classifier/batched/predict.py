@@ -1,5 +1,6 @@
 from feature_extraction.constants import PATH_TO_CONFIG_GRAPH
 from classifier.batched.hetero_dataset import get_graph_for_single_sample
+from classifier.batched.trainer import NODE
 import torch
 import configparser
 from classifier.batched.gcn import GNN
@@ -41,18 +42,18 @@ if __name__ == "__main__":
     topk = int(parser['PredicateFeaturizerSubObj']['topk'])
     bin_no = int(parser['PredicateFeaturizerSubObj']['bin_no'])
     pred_feature_rizer = Predicate_Featurizer_Sub_Obj.prepare_pred_featues_for_bgp(feat_generation_path, bins=bin_no, topk=topk)
-    BGPGraph.node_type = Node
-    Node.pred_feaurizer = pred_feature_rizer
-    Node.ent_featurizer = None
-    Node.pred_bins = bin_no
-    Node.pred_topk = topk
-    Node.pred_feat_sub_obj_no = True
-    Node.use_ent_feat = False
+    BGPGraph.node_type = NODE
+    NODE.pred_feaurizer = pred_feature_rizer
+    NODE.ent_featurizer = None
+    NODE.pred_bins = bin_no
+    NODE.pred_topk = topk
+    NODE.pred_feat_sub_obj_no = True
+    NODE.use_ent_feat = False
     
     train_data_file = parser['DebugDataset']['train_data']
     train_bgps = load_BGPS_from_json(train_data_file)
     train_bgp_graphs = bgp_graph_construction(train_bgps, return_graphs=True, filter=True)
-    h_data = get_graph_for_single_sample(bgp_graph=train_bgp_graphs[0], node=Node)
+    h_data = get_graph_for_single_sample(bgp_graph=train_bgp_graphs[0], node=NODE)
     print(h_data.x)
     exit()
     print("Train")

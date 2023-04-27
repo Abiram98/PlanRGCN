@@ -1,4 +1,4 @@
-from feature_extraction.predicate_features import PredicateFeaturesQuery
+from feature_extraction.predicates.predicate_features import PredicateFeaturesQuery
 from graph_construction.nodes.node import Node
 from graph_construction.triple_pattern import TriplePattern
 from feature_extraction.entity_features import EntityFeatures

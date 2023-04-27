@@ -1,6 +1,6 @@
 from classifier.bgp_dataset import BGPDataset
 from feature_extraction.predicate_features_sub_obj import Predicate_Featurizer_Sub_Obj
-from feature_extraction.predicate_features import PredicateFeaturesQuery
+from feature_extraction.predicates.predicate_features import PredicateFeaturesQuery
 from feature_extraction.entity_features import EntityFeatures
 import torch
 from graph_construction import triple_pattern
@@ -15,21 +15,9 @@ from torch_geometric.loader import DataLoader
 from torch_geometric.data import Data, HeteroData
 from feature_extraction.constants import PATH_TO_CONFIG_GRAPH
 
-def get_graph_representation(parser, data_file, node=Node) -> None:
+def get_graph_representation(data_file, node=Node):
     #super().__init__(parser, transform, pre_transform, pre_filter)
-    feat_generation_path = parser['PredicateFeaturizerSubObj']['load_path']
-    topk = int(parser['PredicateFeaturizerSubObj']['topk'])
-    bin_no = int(parser['PredicateFeaturizerSubObj']['bin_no'])
-    pred_feature_rizer = Predicate_Featurizer_Sub_Obj.prepare_pred_featues_for_bgp(feat_generation_path, bins=bin_no, topk=topk)
     
-    #node.pred_feaurizer = pred_feature_rizer
-    #bgps = load_BGPS_from_json(data_file, node=node)
-    node.pred_feaurizer = pred_feature_rizer
-    node.ent_featurizer = None
-    node.pred_bins = bin_no
-    node.pred_topk = topk
-    node.pred_feat_sub_obj_no = True
-    node.use_ent_feat = False
     bgps = load_BGPS_from_json(data_file, node=node)
     total_bgps = len(bgps)
     

@@ -1,7 +1,7 @@
 import numpy as np
 import numpy as np
 from feature_extraction.entity_features import EntityFeatures
-from feature_extraction.predicate_features import PredicateFeaturesQuery
+from feature_extraction.predicates.predicate_features import PredicateFeaturesQuery
 
 from feature_extraction.predicate_features_sub_obj import Predicate_Featurizer_Sub_Obj
 
@@ -121,7 +121,7 @@ class Node:
     def set_predicate_features(self):
         self.pred_freq = -1
         self.pred_literals = -1
-        self.pred_subject_count,self.pred_object_count =0,0
+        self.pred_subject_count,self.pred_object_count =-1,-1
         predicate_stat = Node.pred_feaurizer
         
         if predicate_stat != None:
@@ -134,17 +134,24 @@ class Node:
                 
                 if self.node_label in predicate_stat.predicate_freq.keys():
                     self.pred_freq = predicate_stat.predicate_freq[self.node_label]
-                    
+                else:
+                    self.pred_freq = -1    
                 
                 if self.node_label in predicate_stat.uniqueLiteralCounter.keys():
                     self.pred_literals = predicate_stat.uniqueLiteralCounter[self.node_label]
-                    
+                else:
+                    self.pred_literals = -1  
                 
                 if (not isinstance(predicate_stat,Predicate_Featurizer_Sub_Obj)) and (self.node_label in predicate_stat.unique_entities_counter.keys()):
                     self.pred_entities = predicate_stat.unique_entities_counter[self.node_label]
+                else:
+                    self.pred_entities = -1
                 
                 if (isinstance(predicate_stat,Predicate_Featurizer_Sub_Obj)) and (self.node_label in predicate_stat.unique_entities_counter.keys()):
                     self.pred_subject_count,self.pred_object_count = predicate_stat.unique_entities_counter[self.node_label]
+                else:
+                    self.pred_subject_count = -1
+                    self.pred_object_count = -1
     
     def set_entity_feature(self):
         ent_featurizer = Node.ent_featurizer
