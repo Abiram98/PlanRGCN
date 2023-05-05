@@ -7,7 +7,7 @@ from classifier.batched.gcn import GNN
 from feature_extraction.predicate_features_sub_obj import Predicate_Featurizer_Sub_Obj
 from graph_construction.bgp_graph import BGPGraph
 from graph_construction.nodes.node import Node
-from utils import bgp_graph_construction, load_BGPS_from_json
+from preprocessing.utils import bgp_graph_construction, load_BGPS_from_json
 from sklearn.metrics import f1_score,precision_score,recall_score, accuracy_score
 
 def predict(model, graph_data):

@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def bxplot_w_info(data, y_label, save= None):
+def bxplot_w_info(data, y_label, save= None, y_range = None, scale='log'):
     plt.clf()
    
     fig, ax = plt.subplots()
@@ -20,10 +20,13 @@ def bxplot_w_info(data, y_label, save= None):
         }
     
     ]"""
-    plt.yscale('log')
+    plt.yscale(scale)
     plt.subplots_adjust(wspace=0,hspace=0,left=0.31,bottom=0.067,right=0.62,top=0.974)
     ax.bxp(data, showfliers=False)
     ax.set_ylabel(y_label)
+    if y_range != None:
+        ax.set_ylim(y_range)
+        
     #ax.set_ylim(data[0]['whislo'],data[0]['whishi'],auto=True)
     #
     #

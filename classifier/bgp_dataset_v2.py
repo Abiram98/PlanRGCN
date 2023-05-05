@@ -6,7 +6,7 @@ import torch
 from graph_construction.bgp_graph import BGPGraph
 from graph_construction.bgp import BGP
 from graph_construction.nodes.node import Node
-from utils import unpickle_obj,pickle_obj, bgp_graph_construction, load_BGPS_from_json,load_obj_w_function
+from preprocessing.utils import unpickle_obj,pickle_obj, bgp_graph_construction, load_BGPS_from_json,load_obj_w_function
 from feature_extraction.constants import PATH_TO_CONFIG
 import configparser
 from torch_geometric.data import Dataset

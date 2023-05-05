@@ -19,6 +19,8 @@ class Pred_Feat_Num_Enc(Predicate_Featurizer_Sub_Obj):
         
         dct = {'predicate':[], 'freq':[]}
         for key in self.predicate_freq.keys():
+            if key.startswith('?'):
+                continue
             dct['predicate'].append(key)
             dct['freq'].append(self.predicate_freq[key])
         df = pd.DataFrame.from_dict(dct)
@@ -45,7 +47,7 @@ class Pred_Feat_Num_Enc(Predicate_Featurizer_Sub_Obj):
     #Min max scaling is not working
     def get_pred_feat2(self,pred_label):
         try:
-            return self.norm_df.loc[pred_label]['norm_freq']
+            return self.norm_df.loc[pred_label]['freq']
         except KeyError:
             return -1
     

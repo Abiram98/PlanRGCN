@@ -3,7 +3,7 @@ from graph_construction.nodes.node import Node
 from graph_construction.triple_pattern import TriplePattern
 from feature_extraction.entity_features import EntityFeatures
 class BGP:
-    def __init__(self, BGP_string:str, ground_truth, node_class = Node):
+    def __init__(self, BGP_string:str, info:dict, node_class = Node):
         self.bgp_string = BGP_string
         self.node_class = node_class
         
@@ -16,7 +16,11 @@ class BGP:
         #if predicate_stat != None:
         #    self.total_bins = predicate_stat.total_bin
         
-        self.ground_truth = 1 if ground_truth else 0
+        self.data_dict = info
+        #self.ground_truth = 1 if info['with_runtime']<info['without_runtime'] else 0
+        #self.ground_truth = float(info['with_runtime'])
+        #self.ground_truth = float(info['without_size'])
+        self.ground_truth = 1 if len(self.triples) == 4 else 0
     
     #def set_predicate_feat_gen(self,predicate_stat: PredicateFeaturesQuery):
     #    self.predicate_stat = predicate_stat

@@ -43,6 +43,7 @@ class Predicate_Featurizer_Sub_Obj(PredicateFeaturesQuery):
             pass
         print(f"ENT {predicate}: (SUB) {subject_count} (OBJ) {object_count}")
         self.unique_entities_counter[predicate] = (subject_count,object_count)
+    
     def convert_dict_vals_to_int(self, dct:dict):
         for k in dct.keys():
             val = dct[k]
@@ -52,6 +53,7 @@ class Predicate_Featurizer_Sub_Obj(PredicateFeaturesQuery):
                 val = int(val)
             dct[k] = val
         return dct
+    
     #Used to load existing object
     def load(path, obj_type= None):
         obj = load_pickle(path)

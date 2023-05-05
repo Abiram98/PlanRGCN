@@ -1,6 +1,6 @@
 from torch.utils.data import Dataset
 from graph_construction.nodes.node import Node
-from utils import unpickle_obj,pickle_obj, bgp_graph_construction, load_BGPS_from_json,load_obj_w_function
+from preprocessing.utils import unpickle_obj,pickle_obj, bgp_graph_construction, load_BGPS_from_json,load_obj_w_function
 from feature_extraction.predicates.predicate_features import PredicateFeaturesQuery
 from graph_construction.bgp_graph import BGPGraph
 import torch, math

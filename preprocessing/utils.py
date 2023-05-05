@@ -7,6 +7,7 @@ import os
 import pickle as pcl
 from graph_construction.nodes.node import Node
 from graph_construction.bgp import BGP
+from graph_construction.nodes.node_num_pred import Node_num_pred_encoding
 from graph_construction.triple_pattern import TriplePattern
 from graph_construction.bgp_graph import BGPGraph
 from glb_vars import PREDS_W_NO_BIN
@@ -51,8 +52,32 @@ def get_predicates_from_path(path):
         for triple_string in triple_strings:
             splits = triple_string.split(' ')
             splits = [s for s in splits if s != '']
-        
-            preds.append(splits[1])
+            if not splits[1].startswith('?'):
+               preds.append(splits[1])
+    return preds
+
+def get_bgp_predicates_from_path(path):
+    data = None
+    with open(path,'rb') as f:
+        data = json.load(f)
+                
+    if data == None:
+        print('Data could not be loaded!')
+        return
+    
+    BGP_strings = list(data.keys())
+    
+    preds = []
+    for bgp_string in BGP_strings:
+        triple_strings = bgp_string[1:-1].split(',')
+        bgp_pred = []
+        for triple_string in triple_strings:
+            splits = triple_string.split(' ')
+            splits = [s for s in splits if s != '']
+            if not splits[1].startswith('?'):
+               bgp_pred.append(splits[1])
+        preds.append(bgp_pred)
+        del bgp_pred
     return preds
 
 def get_predicates(bgps: list):
@@ -144,14 +169,20 @@ def load_obj_w_function(path, pickle_file, function, *args, **kwargs):
         pickle_obj(bgps, pickle_file)
     return bgps
 
-def stratified_split(parser:configparser.ConfigParser):
+"""def stratified_split(parser:configparser.ConfigParser):
     parser = configparser.ConfigParser()
     parser.read(PATH_TO_CONFIG)
     #bgps = load_BGPS_from_json('/work/data/train_data.json')
     #bgps = filtered_query_missing_entity(parser)
-    bgps = filter_missing_query_predicate(bgps,parser)
+    bgps = filter_missing_query_predicate(bgps,parser)"""
     
 
+
+def get_node_classes(string):
+    match string:
+        case "Node": return Node
+        case "node_num_pred": return Node_num_pred_encoding
+        
 if __name__ == "__main__":
     path_to_bgps = '/work/data/bgps.pickle'
     path_predicate_feat_gen = '/work/data/pred_feat.pickle'

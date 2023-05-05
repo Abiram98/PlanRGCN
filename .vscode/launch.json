@@ -4,8 +4,21 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
-        
+        {
+            "name": "utils Script",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "module": "preprocessing.utils_script",
+            "justMyCode": true
+        },
+        {
+            "name": "train (batched)",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "module": "classifier.batched.trainer"
+        },
         {
             "name": "utils",
             "type": "python",
@@ -13,7 +26,6 @@
             "console": "integratedTerminal",
             "module": "utils2"
         },
-
         /*{
             "name": "predicate stats",
             "type": "python",
@@ -21,16 +33,16 @@
             "console": "integratedTerminal",
             "module": "feature_extraction.predicate_features"
         },*/
-
         {
             "name": "predicate feats",
             "type": "python",
             "request": "launch",
             "console": "integratedTerminal",
             "module": "feature_extraction.predicate_features_sub_obj",
-            "args": [""]
+            "args": [
+                ""
+            ]
         },
-
         {
             "name": "dataset (torch)",
             "type": "python",
@@ -39,23 +51,15 @@
             "module": "classifier.bgp_dataset"
         },
         {
-            "name": "train (torch)",
-            "type": "python",
-            "request": "launch",
-            "console": "integratedTerminal",
-            "module": "classifier.trainer"
-        },
-
-        {
             "name": "ents stats",
             "type": "python",
             "request": "launch",
             "console": "integratedTerminal",
             "module": "feature_extraction.entity_features",
-            "args": ["binnify"]
-        }
-        ,
-
+            "args": [
+                "binnify"
+            ]
+        },
         {
             "name": "literals stats",
             "type": "python",
@@ -84,6 +88,5 @@
             "console": "integratedTerminal",
             "module": "classifier.train_debug"
         },
-
     ]
 }

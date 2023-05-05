@@ -15,7 +15,7 @@ class ql_node(Node):
         predicate_stat = ql_node.pred_feaurizer
         raw_pred_features = np.zeros(4)
         topk_features = np.zeros(predicate_stat.freq_k)
-        bin_features = np.zeros(predicate_stat.total_bin)
+        bin_features = np.zeros(predicate_stat.total_bin+1)
         
         if self.nodetype == 1:
             

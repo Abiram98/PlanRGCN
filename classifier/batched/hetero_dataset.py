@@ -1,3 +1,5 @@
+import numpy
+from sklearn.preprocessing import MinMaxScaler, QuantileTransformer
 from classifier.bgp_dataset import BGPDataset
 from feature_extraction.predicate_features_sub_obj import Predicate_Featurizer_Sub_Obj
 from feature_extraction.predicates.predicate_features import PredicateFeaturesQuery
@@ -7,7 +9,7 @@ from graph_construction import triple_pattern
 from graph_construction.bgp_graph import BGPGraph
 from graph_construction.bgp import BGP
 from graph_construction.nodes.node import Node
-from utils import bgp_graph_construction, load_BGPS_from_json
+from preprocessing.utils import bgp_graph_construction, load_BGPS_from_json
 
 import configparser
 from torch_geometric.data import Dataset
@@ -15,7 +17,7 @@ from torch_geometric.loader import DataLoader
 from torch_geometric.data import Data, HeteroData
 from feature_extraction.constants import PATH_TO_CONFIG_GRAPH
 
-def get_graph_representation(data_file, node=Node):
+def get_graph_representation(data_file, node=Node, norm='min_max', train=True):
     #super().__init__(parser, transform, pre_transform, pre_filter)
     
     bgps = load_BGPS_from_json(data_file, node=node)
@@ -32,6 +34,7 @@ def get_graph_representation(data_file, node=Node):
     
     new_bgp_graph:list[BGPGraph] = []
     hetero_data = []
+    gts = []
     for inum,g in enumerate(bgp_graphs):
         g:BGPGraph
         #Nan check
@@ -51,8 +54,31 @@ def get_graph_representation(data_file, node=Node):
         hetero_data.append(h_data)
         #node_feat = torch.nan_to_num(node_feat,-1)
         node_features.append( node_feat)
+        gts.append(g.gt)
         
-    
+    if norm=='min_max' and train:
+        gts = numpy.array(gts).reshape((-1,1))
+        #print(len(gts))
+        #print(len(gts.reshape((-1))))
+        #exit()
+        
+        scaler = MinMaxScaler()
+        scaler.fit(gts)
+        gts = scaler.transform(gts)
+        gts = gts.reshape((-1))
+        BGPGraph.scaler = scaler
+        for g,gt in zip(bgp_graphs, gts):
+            g:BGPGraph
+            g.gt = gt
+    if norm=='min_max' and not train:
+        gts = numpy.array(gts).reshape((-1,1))
+        scaler :MinMaxScaler = BGPGraph.scaler
+        gts = scaler.transform(gts)
+        gts = gts.reshape((-1))
+        for g,gt in zip(bgp_graphs, gts):
+            g:BGPGraph
+            g.gt = gt
+            
     #target = target
     bgp_graphs = new_bgp_graph
     

@@ -72,7 +72,8 @@ class TriplePattern:
         node.ent_freq = freq
         return node"""
         
-    
+    def __hash__(self):
+        return hash(self.subject) + hash(self.predicate) + hash(self.object)
     def __str__(self):
         return f'Triple ({str(self.subject)} {str(self.predicate)} {str(self.object)} )'
     def __eq__(self, other):

@@ -211,11 +211,16 @@ class PredicateFeaturesQuery(Query):
         df = df.set_index('predicate')
         self.predicate_bin_df = df
         self.bin_vals = cut_bin
+        #self.pretty_print_buckets()
         self.freq_k = k
         self.total_bin = len(cut_bin)+1
         
         self.topk_df = df_freq
-        
+    def pretty_print_buckets(self):
+        print(f"Used bucket intervas: ")
+        for i in range(0, len(self.bin_vals)-1):
+            print(f"{i+1} [{round(self.bin_vals[i])}, {round(self.bin_vals[i+1])}]", end='\n')
+        print('\n')
     def top_k_predicate(self, predicate):
         try:
             return self.topk_df.loc[predicate]['row_number']

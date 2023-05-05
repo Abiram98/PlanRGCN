@@ -9,7 +9,7 @@ import pandas as pd
 from graph_construction.bgp import BGP
 from graph_construction.nodes.node import Node
 from graph_construction.triple_pattern import TriplePattern
-from utils import get_predicates_from_path, load_BGPS_from_json
+from preprocessing.utils import get_predicates_from_path, load_BGPS_from_json
 from sklearn.preprocessing import KBinsDiscretizer
 import numpy as np
 
@@ -71,7 +71,7 @@ class ql_pred_featurizer(Predicate_Featurizer_Sub_Obj):
         df = df.set_index('predicate')
         self.predicate_bin_df = df
         #self.bin_vals = cut_bin
-        self.freq_k = k
+        self.freq_k = k+1
         #self.total_bin = len(cut_bin)+1
         self.total_bin = np.max(self.predicate_bin_df['bin'])+1
         self.topk_df = df_freq

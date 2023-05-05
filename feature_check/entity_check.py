@@ -5,7 +5,7 @@ import os
 import json
 from graph_construction.bgp import BGP
 from graph_construction.triple_pattern import TriplePattern
-from utils import load_BGPS_from_json
+from preprocessing.utils import load_BGPS_from_json
 
 def checker(config_path = PATH_TO_CONFIG):
     global entities, ent_freq
