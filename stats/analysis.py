@@ -24,7 +24,7 @@ def analyse_run_times():
     without_runtimes = []
     for bgp, info in data.items():
         #runtime is in nanoseconds
-        with_runtimes.append(info['with_runtime']/(1e9))
+        with_runtimes.append(info['with_runtime']/(1e9)) #nanosecond to second
         without_runtimes.append(info['without_runtime']/(1e9))
     with_runtimes,without_runtimes = np.array(with_runtimes), np.array(without_runtimes)
     print('Without BLF')
