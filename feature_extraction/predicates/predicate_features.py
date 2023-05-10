@@ -93,12 +93,16 @@ class PredicateFeaturesQuery(Query):
             FILTER(isLiteral(?o))
         }}
         '''
+        val = None
         try:
             res = self.run_query(query_str)
             self.uniqueLiteralCounter[predicate] = res['results']['bindings'][0]['literals']['value']
+            val = res['results']['bindings'][0]['literals']['value']
             print(f"{time.time()-self.start:.2f}{number}{predicate}: {res['results']['bindings'][0]['literals']['value']}")
-        except RuntimeError or Exception:
+            return val
+        except RuntimeError or Exception or TimeoutError:
             self.uniqueLiteralCounter[predicate] = -1
+            return None
         # self.process_freq_features(res, predicate, number=number)
     #
     def set_query_unique_entity_predicate(self, predicate, number=None):
@@ -114,7 +118,7 @@ class PredicateFeaturesQuery(Query):
             print(f"ENT {predicate}: {res['results']['bindings'][0]['entities']['value']}")
             self.unique_entities_counter[predicate] = res['results']['bindings'][0]['entities']['value']
             
-        except RuntimeError or Exception as e:
+        except RuntimeError or Exception or TimeoutError as e:
             print(e.pri)
             self.unique_entities_counter[predicate] = -1
     #
@@ -123,12 +127,16 @@ class PredicateFeaturesQuery(Query):
             ?s <{predicate}> ?o .
         }}
         '''
+        val = None
         try:
             res = self.run_query(query_str)
             self.predicate_freq[predicate] = res['results']['bindings'][0]['triples']['value']
+            val = res['results']['bindings'][0]['triples']['value']
             print(f"FREQ {predicate}: {res['results']['bindings'][0]['triples']['value']}")
-        except RuntimeError or Exception:
+            return val
+        except RuntimeError or Exception or TimeoutError:
             self.predicate_freq[predicate] = -1
+            return None
     #   
     def process_freq_features(self, sparql_result, predicate, verbose=True, number = None):
         unique_literals = set()

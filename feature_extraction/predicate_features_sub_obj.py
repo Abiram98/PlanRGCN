@@ -26,8 +26,9 @@ class Predicate_Featurizer_Sub_Obj(PredicateFeaturesQuery):
         try:
             res = self.run_query(query_str)
             subject_count = res['results']['bindings'][0]['subjects']['value']
-        except RuntimeError or Exception as e:
-            pass
+        except RuntimeError or Exception or TimeoutError as e:
+            return None
+
         
         query_str = f'''
         SELECT (COUNT(DISTINCT ?o) AS ?objects) WHERE {{
@@ -39,10 +40,12 @@ class Predicate_Featurizer_Sub_Obj(PredicateFeaturesQuery):
             res = self.run_query(query_str)
             
             object_count = res['results']['bindings'][0]['objects']['value']
-        except RuntimeError or Exception as e:
+        except RuntimeError or Exception or TimeoutError as e:
+            return None
             pass
         print(f"ENT {predicate}: (SUB) {subject_count} (OBJ) {object_count}")
         self.unique_entities_counter[predicate] = (subject_count,object_count)
+        return (subject_count,object_count)
     
     def convert_dict_vals_to_int(self, dct:dict):
         for k in dct.keys():

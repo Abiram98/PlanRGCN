@@ -21,12 +21,12 @@ from preprocessing.utils import get_predicates_from_path
 
 #NODE = ql_node
 #PRED_FEATURIZER = ql_pred_featurizer
-#NODE = Node
-#PRED_FEATURIZER = Predicate_Featurizer_Sub_Obj
+NODE = Node
+PRED_FEATURIZER = Predicate_Featurizer_Sub_Obj
 #NODE = Node_num_pred_encoding
 #PRED_FEATURIZER = Pred_Feat_Num_Enc
-NODE = Cluster_node
-PRED_FEATURIZER = Pred_clust_feat
+#NODE = Cluster_node
+#PRED_FEATURIZER = Pred_clust_feat
 
 
 torch.manual_seed(12345)
