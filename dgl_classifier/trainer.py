@@ -147,15 +147,23 @@ def extract_data(train_path, val_path, test_path, community_no=10, batch_size = 
         shuffle=True)
     return train_dataloader, val_dataloader, test_dataloader
 
-if __name__ == "__main__":
+
+def parse_arguments():
     parser = argparse.ArgumentParser('DGL trainer')
     parser.add_argument('--train_file','--train_file')
     parser.add_argument('--val_file','--val_file')
     parser.add_argument('--test_file','--test_file')
+    parser.add_argument('--result_path','--result_path')
     args = parser.parse_args()
+    return args
+
+if __name__ == "__main__":
+    args = parse_arguments()
+    
     train_file = args.train_file
     val_file = args.val_file
     test_file = args.test_file
+    
     train_dataloader, val_dataloader, test_dataloader = extract_data(train_file, val_file, test_file, community_no=30, batch_size = 50, verbose=False)
     
     path_to_save = '/work/data/models'
@@ -169,6 +177,11 @@ if __name__ == "__main__":
     
     prev_val_loss = None
     val_hist = []
+    
+    #F1 scores
+    train_f1_hist = []
+    val_f1_hist = []
+    
     best_epoch = 0
     for epoch in range(100):
         print(f"Epoch {epoch+1}\n--------------------------------------------------------------")
@@ -218,7 +231,10 @@ if __name__ == "__main__":
         val_f1= val_f1/len(val_dataloader)
         train_loss = train_loss/len(train_dataloader)
         train_f1 = train_f1/len(train_dataloader)
-    
+
+        train_f1_hist.append(train_f1)
+        val_f1_hist.append(val_f1)
+        
         p_val_hist = val_hist
         val_hist.append(val_loss)
         if path_to_save != None and (prev_val_loss == None or val_loss < prev_val_loss):

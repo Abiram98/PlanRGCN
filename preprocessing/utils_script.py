@@ -530,7 +530,22 @@ def triple_stat( input_path):
     keys = sorted(list(trpl.keys()))
     for k in keys:
         print(f"\t{k}: {trpl[k]} [{trpl[k]/len(bgps)}]")
+
+def print_latency_stats(path, runtime_field='jena_runtime'):
+    bgps = json.load(open(path, 'r'))
+    rt = []
+    for k in bgps.keys():
+        rt.append(int(bgps[k][runtime_field])) #without BloomFilter
+    rt = [(r*1e-9) for r in rt]
+    print(f'Statistics for {path}')
+    print(f'\tMedian: {np.median(rt)}')
+    print(f'\tAverage: {np.mean(rt)}')
+    print(f'\t25%-quantile: {np.quantile(rt,q=0.25)}')
+    print(f'\t75%-quantile: {np.quantile(rt,q=0.75)}')
+    print(json.dumps(rt))
+
     
+
 if __name__ == "__main__":
     arg_parse = argparse.ArgumentParser(prog='Util scripts')
     arg_parse.add_argument('task')
@@ -560,6 +575,8 @@ if __name__ == "__main__":
         convert_leaf_to_json(args.input, output)
     elif args.task == 'triple_stat':
         triple_stat(args.input)
+    elif args.task == 'lat_stat':
+        print_latency_stats(args.input)
     else:
         #dup_gen = bgps_duplicate_checker()
         #print(next(dup_gen))

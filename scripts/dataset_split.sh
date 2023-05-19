@@ -24,5 +24,10 @@ then
     --input /work/data/data_files/all_data.json \
     --output /work/data/data_files/converted_all_data.json)
     echo "Done converting Leapfrog data to usable format"
+elif [ $1 = "latency-stat" ]
+then
+    (cd ../ && python3 -m preprocessing.utils_script lat_stat \
+    --input /work/data/data_files/processed_gt.json )
+    echo "Done printing latency stats"
 fi
 #(cd ../ && python3 -m preprocessing.dataset_analysis)
