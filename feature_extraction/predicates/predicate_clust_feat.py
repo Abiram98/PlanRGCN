@@ -56,8 +56,8 @@ class Pred_clust_feat(Predicate_Featurizer_Sub_Obj):
                     if u != v:
                         pred_graph.add_edge(u,v)
         
-        print(f"Amount of component in input graph: {nx.number_connected_components(pred_graph)}")
-        exit()
+        #print(f"Amount of component in input graph: {nx.number_connected_components(pred_graph)}")
+        #exit()
         if save_pred_graph_png != None:
             net = Network()
             net.from_nx(pred_graph)

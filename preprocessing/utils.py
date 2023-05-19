@@ -69,11 +69,15 @@ def get_bgp_predicates_from_path(path):
     
     preds = []
     for bgp_string in BGP_strings:
+        #triple_strings = bgp_string[1:-1].split(',')
         triple_strings = bgp_string[1:-1].split(',')
         bgp_pred = []
         for triple_string in triple_strings:
             splits = triple_string.split(' ')
             splits = [s for s in splits if s != '']
+            if triple_string.strip() == '':
+                continue
+            assert len(splits) == 3
             if not splits[1].startswith('?'):
                bgp_pred.append(splits[1])
         preds.append(bgp_pred)
@@ -182,8 +186,48 @@ def get_node_classes(string):
     match string:
         case "Node": return Node
         case "node_num_pred": return Node_num_pred_encoding
+def process_bgp_str(string):
+    splits = string.split('{')
+    bgp_str = ''
+    for i in range(1,len(splits)):
+        bgp_str += splits[i].split('}')[0]
+        if i > 1:
+            bgp_str += ','
+    bgp_str = bgp_str.replace('OPTIONAL', '')
+    bgp_str = bgp_str.replace(' .',',')
+    bgp_str = ' '.join(bgp_str.split())
+    return '['+bgp_str.replace('\s', ' ') +']'
+
+def convert_leaf_to_json(input_path, output):
+    data = json.load(open(input_path,'r'))
+    optional_count = 0
+    clause_count = 0
+    json_data = {}
+    for d in data:
+        if d['query'] == '' or d['bloom_runtime'] == 'timeout' or d['jena_runtime'] == 'timeout':
+            continue
         
+        if 'OPTIONAL' in d['query']:
+            optional_count += 1
+        splits = d['query'].split('{')
+        if len(splits) != 2:
+            clause_count += 1
+        dct = {'bloom_runtime': int(d['bloom_runtime']), 'jena_runtime':int(d['jena_runtime'])}
+        json_data[process_bgp_str(d['query'])] = dct
+        
+    print(optional_count,clause_count)
+    json.dump(json_data, open(output,'w'))
+
 if __name__ == "__main__":
+    
+    query = "SELECT (COUNT(*) AS ?count) WHERE { <http://www.wikidata.org/entity/Q520713> ?p ?y . <http://www.wikidata.org/entity/Q520713> <http://www.wikidata.org/prop/direct/P2268> ?z . <http://www.wikidata.org/entity/Q520713> <http://www.wikidata.org/prop/direct-normalized/P269> ?u } LIMIT 10000"
+    query = "SELECT (COUNT(*) AS ?count) WHERE { ?x1 <http://www.wikidata.org/prop/direct/P268> ?x2 . ?x1 <http://www.wikidata.org/prop/direct/P166> ?x3 . OPTIONAL { ?x3 <http://www.wikidata.org/prop/direct/P991> ?x4 . ?x3 <http://www.wikidata.org/prop/direct/P585> ?x5 } } LIMIT 10000"
+    splits = query.split('{')
+    print(process_bgp_str(query))
+    input_path = '/work/data/data_files/all_data.json'
+    output_path = '/work/data/data_files/converted_all_data.json'
+    convert_leaf_to_json(input_path,output_path )
+    exit()
     path_to_bgps = '/work/data/bgps.pickle'
     path_predicate_feat_gen = '/work/data/pred_feat.pickle'
     bgps = unpickle_obj(path_to_bgps)

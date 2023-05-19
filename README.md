@@ -5,9 +5,22 @@ Docker should be installed
 Git lfs
 
 ## Data
-Data can be gotten from:
+
+### Leapfrog dataset
+First run the dataset_construction.py file on the leapfrog repo (git clone git@github.com:dkw-aau/leapfrog-rdf-benchmark.git) and mv the file to data/data_files folder.
+
+Then the following commands should be executed:
 ```
-git clone ...
+cd scripts
+bash dataset_split.sh convert-leaf
+bash dataset_split.sh gt-assign
+bash dataset_split.sh strat-split
+```
+This will create the training, validation and test splits in the folder, /work/data/splits.
+
+### Training of TP Graph
+```
+python3 -m dgl_classifier.trainer --train_file /work/data/splits/train.json --val_file /work/data/splits/val.json --test_file /work/data/splits/test.json
 ```
 
 ## To run

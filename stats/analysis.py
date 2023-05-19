@@ -66,8 +66,9 @@ def print_val_stat(arr, plot=None):
 def check_absnt_pred_feats(extracted_dir='/work/data/extracted_statistics'):
     all_preds = json.load(open(f"{extracted_dir}/predicates_only.json"))
     pred_freq = json.load(open(f"{extracted_dir}/updated_pred_freq.json"))
-    lits = json.load(open(f"{extracted_dir}/updated_pred_unique_lits.json"))
-    ents = json.load(open(f"{extracted_dir}/updated_pred_unique_subj_obj.json"))
+    #lits = json.load(open(f"{extracted_dir}/updated_pred_unique_lits.json"))
+    lits = json.load(open(f"{extracted_dir}/updated_nt_pred_unique_lits.json"))
+    ents = json.load(open(f"{extracted_dir}/updated_nt_pred_unique_subj_obj.json"))
     print(f"# of absent predicate frequencies {len(all_preds)-len(list(pred_freq.keys()))} of {len(all_preds)}")
     print(f"# of absent predicate lits {len(all_preds)-len(list(lits.keys()))} of {len(all_preds)}")
     print(f"# of absent predicate ents {len(all_preds)-len(list(ents.keys()))} of {len(all_preds)}")

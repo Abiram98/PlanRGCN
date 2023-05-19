@@ -1,4 +1,4 @@
-from classifier.trainer import run
+from classifier.deprecated.trainer import run
 import configparser
 from feature_extraction.constants import PATH_TO_CONFIG
 from classifier.bgp_dataset_v2 import BGPDataset_v2

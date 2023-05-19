@@ -78,6 +78,16 @@ class TriplePattern:
         return f'Triple ({str(self.subject)} {str(self.predicate)} {str(self.object)} )'
     def __eq__(self, other):
         return self.subject == other.subject and self.predicate == other.predicate and self.object == other.object
+    def get_variables(self):
+        v = []
+        if self.subject.type == 'VAR':
+            v.append(self.subject)
+        if self.predicate.type == 'VAR':
+            v.append(self.predicate)
+        if self.object.type == 'VAR':
+            v.append(self.object)
+        return v
+        
 
 if __name__ == "__main__":
     t = TriplePattern("?x http://www.wikidata.org/prop/direct/P5395 ?y")

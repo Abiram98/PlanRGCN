@@ -1,25 +1,18 @@
 import json
+import os
 import networkx as nx, numpy as np
-import torch
-from classifier.batched.trainer import get_debug_data_loader
 from feature_check.entity_check import filtered_query_missing_entity
 from feature_check.predicate_check import filter_missing_query_predicate
 from feature_extraction.predicate_features_sub_obj import Predicate_Featurizer_Sub_Obj
-from feature_extraction.predicates.predicate_features import PredicateFeaturesQuery
-import os
-import pickle as pcl
+
 from feature_extraction.predicates.ql_pred_featurizer import ql_pred_featurizer
 from graph_construction.nodes.node import Node
 from graph_construction.bgp import BGP
 from graph_construction.nodes.ql_node import ql_node
 from graph_construction.triple_pattern import TriplePattern
-from graph_construction.bgp_graph import BGPGraph
-from glb_vars import PREDS_W_NO_BIN
 import argparse, configparser
 from feature_extraction.constants import PATH_TO_CONFIG, PATH_TO_CONFIG_GRAPH
-from preprocessing.utils import get_predicates_from_path, ground_truth_distibution, load_BGPS_from_json
-import sys
-from sklearn.metrics import jaccard_score
+from preprocessing.utils import convert_leaf_to_json, get_predicates_from_path, ground_truth_distibution, load_BGPS_from_json
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -118,26 +111,46 @@ def get_predicate_freq_in_ql(bgps):
     exit()
     df_pred_id = df_pred_id.assign(row_number=range(len(df_freq)))
 
-def load_bgps():
+def load_bgps(input_path=None):
     parser = configparser.ConfigParser()
     #parser.read(PATH_TO_CONFIG)
     parser.read(PATH_TO_CONFIG_GRAPH)
     #bgps = load_BGPS_from_json(parser['Dataset']['train_data_path'])
-    bgps = load_BGPS_from_json(parser['data_files']['val_data'])
+    if input_path != None:
+        bgps = load_BGPS_from_json(input_path)
+    else:
+        bgps = load_BGPS_from_json(parser['data_files']['combined'])
     return bgps, parser
 
-def stratified_split_preds( equalise_triples = False, limit=1100):
-    bgps, parser = load_bgps()
+def stratified_split_preds(input_path=None, output=None, equalise_triples = False, limit=1100):
+    
+    bgps, parser = load_bgps(input_path=input_path)
     total_bgps = len(bgps)
-    print(total_bgps)
-    bgps = filter_missing_query_predicate(bgps,parser)
-    print(f"Remaining bgps {len(bgps)} of {total_bgps}")
+    #bgps = filter_missing_query_predicate(bgps,parser)
+    #print(f"Remaining bgps {len(bgps)} of {total_bgps}")
     df = pd.DataFrame(bgps ,columns=['bgp'])
     gts = [bgp.ground_truth for bgp in bgps]
     df['gt'] = gts
+    if equalise_triples:
+        uniq = df['gt'].unique()
+        dfs = []
+        min_els = None
+        for x in uniq:
+            temp = df[df['gt'] == x]
+            if min_els == None or min_els > len(temp):
+                min_els = len(temp)
+            dfs.append(  temp)
+        print(min_els)
+        dfs2 = []
+        for d in dfs:
+            d = d.sample(frac=1).reset_index(drop=True)
+            d = d.head(min_els)
+            dfs2.append(d)
+        df = pd.concat(dfs2)
     
     #number_samples = int(parser['DebugDataset']['LIMIT'])
-    number_samples = len(bgps)
+    #number_samples = len(bgps)
+    number_samples = len(df)
     train_per,  test_perc = 0.8, 0.2
     train_no, test_no = round(train_per*number_samples),round(test_perc*number_samples)    
     
@@ -155,10 +168,17 @@ def stratified_split_preds( equalise_triples = False, limit=1100):
     ground_truth_distibution(val_bgps, verbose=True)
     print("Test: Distribution of ground truth")
     ground_truth_distibution(test_bgps, verbose=True)
-    
-    json.dump(bgps_to_dict(train_bgps), open(parser['DebugDataset']['train_data'], 'w'))
-    json.dump(bgps_to_dict(val_bgps), open(parser['DebugDataset']['val_data'], 'w'))
-    json.dump(bgps_to_dict(test_bgps), open(parser['DebugDataset']['test_data'], 'w')) 
+    if output == None:
+        json.dump(bgps_to_dict(train_bgps), open(parser['DebugDataset']['train_data'], 'w'))
+        json.dump(bgps_to_dict(val_bgps), open(parser['DebugDataset']['val_data'], 'w'))
+        json.dump(bgps_to_dict(test_bgps), open(parser['DebugDataset']['test_data'], 'w'))
+    else:
+        if not os.path.isdir(output):
+            print(f"ERROR: Output should be a folder but was {output}")
+            exit()
+        json.dump(bgps_to_dict(train_bgps), open(f"{output}/train.json", 'w'))
+        json.dump(bgps_to_dict(val_bgps), open(f"{output}/val.json", 'w'))
+        json.dump(bgps_to_dict(test_bgps), open(f"{output}/test.json", 'w')) 
     
 
 def bgps_to_dict(bgps : list[BGP]):
@@ -431,18 +451,115 @@ def temp():
             else:
                 pred_buckets[bucket] = [bucket]
     return pred_buckets,pred_topk
+
+def relative_error(truth, pred):
+        truth = truth
+        pred = pred
+        act_mean = np.mean(truth)
+        r_e = [(abs(act_i - pred_i) )/act_mean for act_i, pred_i in zip (truth, pred)]
+        return np.sum(r_e)/len(r_e)
+
+def process_gt(path, output, gt_type= 're'):
+    bgps = json.load(open(path, 'r'))
+    
+    if gt_type == 'std':
+        rt, rt_without = [], []
+        for k in bgps.keys():
+            rt.append(int(bgps[k]['bloom_runtime'])) #with bloom filter
+            rt_without.append(int(bgps[k]['jena_runtime'])) #without BloomFilter
+        wo_std = np.std(rt_without)
+        w_std = np.std(rt)
+        print(wo_std, w_std)
+        for k in bgps.keys():
+            if bgps[k]['bloom_runtime']+w_std < bgps[k]['bloom_runtime'] - wo_std:
+                bgps[k]['gt'] = True
+            else:
+                bgps[k]['gt'] = False
+            """if bgps[k]['with_runtime'] > bgps[k]['without_runtime']:
+                if bgps[k]['with_runtime']-w_std > bgps[k]['without_runtime'] + wo_std:
+                    bgps[k]['gt'] = False
+                else:
+                    bgps[k]['gt'] = True
+            elif bgps[k]['without_runtime'] > bgps[k]['with_runtime']:
+                if bgps[k]['without_runtime']- wo_std > bgps[k]['with_runtime']+w_std :
+                    bgps[k]['gt'] = True
+                else:
+                    bgps[k]['gt'] = False"""
+    elif gt_type == 're':
+        rt, rt_without = [], []
+        for k in bgps.keys():
+            rt.append(int(bgps[k]['bloom_runtime'])) #with bloom filter
+            rt_without.append(int(bgps[k]['jena_runtime'])) #without BloomFilter
+        rel_err = relative_error(rt_without, rt)
+        print(rel_err)
+        exit()
+        rel_errs = []
+        for lf, jn in zip(rt, rt_without):
+            
+            pass
+    elif gt_type == 'avg_re':
+        bgps = gt_avg_re_assignment(bgps)
+    else:
+        print(f'Please provide a legal Ground Truth assignment type. "{gt_type}" is not legal.')
+        exit()
+    json.dump(bgps, open(output,'w'))
+
+def gt_avg_re_assignment(bgps, runtime_field='jena_runtime'):
+    n_bgps = {}
+    rt = []
+    for k in bgps.keys():
+        rt.append(int(bgps[k][runtime_field])) #without BloomFilter
+    median = np.median(rt)
+    print(f"Median for queries {median}")
+    for k in bgps.keys():
+        temp_dct = bgps[k]
+        temp_dct['gt'] = True if temp_dct[runtime_field] >= median else False
+        n_bgps[k] = temp_dct    
+    return n_bgps
+
+def triple_stat( input_path):
+    #bgps = json.load(open(input_path, 'r'))
+    bgps=load_BGPS_from_json(input_path)
+    trpl = {}
+    for b in bgps:
+        if len(b.triples) in trpl.keys():
+            trpl[len(b.triples)] +=1
+        else:
+            trpl[len(b.triples)] = 1
+    print(f"Triple count Statistics:")
+    keys = sorted(list(trpl.keys()))
+    for k in keys:
+        print(f"\t{k}: {trpl[k]} [{trpl[k]/len(bgps)}]")
+    
 if __name__ == "__main__":
+    arg_parse = argparse.ArgumentParser(prog='Util scripts')
+    arg_parse.add_argument('task')
+    arg_parse.add_argument('--val_path', '--val_path')
+    arg_parse.add_argument('--test_path', '--test_path')
+    arg_parse.add_argument('--input', '--input')
+    arg_parse.add_argument('--output', '--output')
+    arg_parse.add_argument('--gt_type', '--gt_type')
+    args = arg_parse.parse_args()
+    val_path, test_path = args.val_path, args.test_path
+    output = args.output
     #stratified_split()
-    if len(sys.argv) > 1 and sys.argv[1] == 'split':
+    if args.task == 'split':
         stratified_split_v2()
-    elif len(sys.argv) > 1 and sys.argv[1] == 'stat':
+    elif args.task == 'stat':
         data_stats()
-    elif len(sys.argv) > 1 and sys.argv[1] == 'dataset_stat':
+    elif args.task == 'dataset_stat':
         pred_bucket_analysis_rdf()
-    elif len(sys.argv) > 1 and sys.argv[1] == 'ql_pred_buckets':
+    elif args.task == 'ql_pred_buckets':
         pred_bucket_analysis_querylog()
-    elif len(sys.argv) > 1 and sys.argv[1] == 'stratified_split':
-        stratified_split_preds()
+    elif args.task == 'stratified_split':
+        #stratified_split_preds(equalise_triples=True)
+        stratified_split_preds(input_path=args.input, output=args.output ,equalise_triples=False)
+    elif args.task == 'gt_assign':
+        process_gt(args.input, output,gt_type=args.gt_type)
+    elif args.task == 'convert_leaf':
+        convert_leaf_to_json(args.input, output)
+    elif args.task == 'triple_stat':
+        triple_stat(args.input)
     else:
         #dup_gen = bgps_duplicate_checker()
         #print(next(dup_gen))

@@ -3,7 +3,7 @@ from classifier.bgp_dataset_v2 import BGPDataset_v2
 #from torch.utils.data import DataLoader
 import math,os
 import torch.nn as nn, torch, numpy as np
-from classifier.graph_classification import GNN
+from classifier.deprecated.graph_classification import GNN
 from feature_extraction.predicates.predicate_features import PredicateFeaturesQuery
 
 from torch_geometric.loader.dataloader import DataLoader

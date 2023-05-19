@@ -2,6 +2,29 @@ from feature_extraction.sparql_query import Query
 import json, os, configparser
 from feature_extraction.constants import PATH_TO_CONFIG
 
+
+"query to extract unique datatypes"
+"""
+SELECT DISTINCT (datatype(?o) AS ?datatype) WHERE
+{
+FILTER (datatype(?o) != '') .
+?s ?p ?o .
+}
+"""
+#query for string literal types:
+"""
+SELECT DISTINCT (lang(?o) as ?tag) WHERE {
+            ?s ?p ?o .
+            FILTER (lang(?o) != "")
+}
+"""
+class LitFeaturizer:
+    def __init__(self) -> None:
+        self.lit2type = {} #dictionary that maps literals to their type encoding
+        self.str2lan = {} # maps string literals
+
+
+
 class LiteralFeat(Query):
     def __init__(self, endpoint_url=None):
         super().__init__(endpoint_url)
