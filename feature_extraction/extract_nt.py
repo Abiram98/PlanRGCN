@@ -10,6 +10,8 @@ import subprocess
 import urllib
 import urllib.parse
 
+from preprocessing.utils import load_BGPS_from_json
+
 def extract_predicate_stats(preds, literals_mapper, path_to_nt, output_path, temp_path=None):
     t_file = open(f"{temp_path}/lit_temp.txt",'w')
     c_lines= 0
@@ -75,6 +77,19 @@ def get_absnt_pred(pred_file='/work/data/extracted_statistics/predicates_only.js
     
     #print(f"# of absent predicate frequencies {len(all_preds)-len(list(pred_freq.keys()))} of {len(all_preds)}")
     #print(f"# of absent predicate ents {len(all_preds)-len(list(ents.keys()))} of {len(all_preds)}")
+
+def get_entities(query_log_file):
+    entities = set()
+    bgps=load_BGPS_from_json(query_log_file)
+    
+    for bgp in bgps:
+        for t in bgp.triples:
+            if t.subject.type == 'URI':
+                entities.add(t.subject.node_label)
+            if t.object.type == 'URI':
+                entities.add(t.object.node_label)
+    return list(entities)
+    
 
 def extract_absnt_preds(mapper:dict, preds :list[str]):
     absnt_preds = []
@@ -177,6 +192,105 @@ def extract_literal_types(path_to_nt, output_path, temp_path=None):
     res_lit_file = open(f"{temp_path}/lit_pred_count.txt",'w')
     res_lit_file.close()
 
+def extract_ent_information(ents, temp_path, nt_file, output_dir):
+    temp_path += "/ents"
+    
+    for i, e in enumerate(ents):
+        print(f'beginning on {e} [{i+1}/{len(ents)}]')
+        os.system(f'grep \"{e}\" {nt_file} > {temp_path}/{urllib.parse.quote(e, safe="")}.txt')
+    subj_dct = {}
+    obj_dct = {}
+    for e in ents:
+        subj_dct[e] = 0
+        obj_dct[e] = 0
+    for e in ents:
+        path = f'{temp_path}/{urllib.parse.quote(e, safe="")}.txt'
+        with open(path,'r') as f:
+            for line in f:
+                line_splits = line.split(' ')
+                assert line_splits > 2
+                if e in line_splits[0]:
+                    subj_dct[e] += 1
+                if e in line_splits[2]:
+                    obj_dct[e] += 1
+    with open(f"{output_dir}/ent_subj.json",'a') as f:
+        json.dump(subj_dct,f)
+    with open(f"{output_dir}/ent_obj.json",'a') as f:
+        json.dump(obj_dct,f)
+
+def extract_ent_information(ents, temp_path, nt_file, output_dir):
+    temp_path += "/ents"
+    
+    for i, e in enumerate(ents):
+        print(f'beginning on {e} [{i+1}/{len(ents)}]')
+        os.system(f'grep \"{e}\" {nt_file} > {temp_path}/{urllib.parse.quote(e, safe="")}.txt')
+    subj_dct = {}
+    obj_dct = {}
+    for e in ents:
+        subj_dct[e] = 0
+        obj_dct[e] = 0
+    for e in ents:
+        path = f'{temp_path}/{urllib.parse.quote(e, safe="")}.txt'
+        with open(path,'r') as f:
+            for line in f:
+                line_splits = line.split(' ')
+                assert line_splits > 2
+                if e in line_splits[0]:
+                    subj_dct[e] += 1
+                if e in line_splits[2]:
+                    obj_dct[e] += 1
+    with open(f"{output_dir}/ent_subj.json",'a') as f:
+        json.dump(subj_dct,f)
+    with open(f"{output_dir}/ent_obj.json",'a') as f:
+        json.dump(obj_dct,f)
+
+def get_entities_in_split(split_dir):
+    ents = set()
+    train_bgps = load_BGPS_from_json(f"{split_dir}/train.json")
+    val_bgps = load_BGPS_from_json(f"{split_dir}/val.json")
+    test_bgps = load_BGPS_from_json(f"{split_dir}/test.json")
+    for b in train_bgps:
+        for t in b.triples:
+            if t.subject.type == 'URI':
+                ents.add(t.subject.node_label)
+            if t.object.type == 'URI':
+                ents.add(t.object.node_label)
+    print(len(ents))
+    return list(ents)
+
+def identify_missing_ent_in_dir(temp_dir, ents):
+    extracted_ents = [urllib.parse.unquote( x[:-4]) for x in os.listdir(temp_dir)]
+    miss_ents, not_miss = [], []
+    for x in ents:
+        if x not in extracted_ents:
+            miss_ents.append(x)
+        else:
+            not_miss.append(x)
+    print(len(miss_ents))
+    return miss_ents, not_miss
+def extract_ent_stats_from_temp(temp_dir_ent, ents, output):
+    ent_file_mapper = {}
+    for x in os.listdir(temp_dir_ent):
+        ent_file_mapper[urllib.parse.unquote( x[:-4])] = f"{temp_dir_ent}/{x}"
+    ent_dct = {}
+    for x in ents:
+        sub, obj = 0,0
+        with open(ent_file_mapper[x],'r') as f:
+            print(f'Starting entity {x}')
+            for line in f:
+                splits = line.split(' ')
+                if len(splits) != 4:
+                    continue
+                if x in splits[0]:
+                    sub += 1
+                elif x in splits[2]:
+                    obj += 1
+            print(f'Entity {x}: {sub}, {obj}')
+        ent_dct[x] = sub, obj
+    json.dump(ent_dct, open(output,'w'))
+    print('done')
+    pass
+
 def run():
     parser = argparse.ArgumentParser(
                     prog='extract_nt',
@@ -189,6 +303,9 @@ def run():
     parser.add_argument('--output', '--output')
     parser.add_argument('--temp', '--temp')
     parser.add_argument('--process_lines', '--process_lines')
+    parser.add_argument('--query_log', '--query_log')
+    parser.add_argument('--split_dir', '--split_dir')
+    parser.add_argument('--temp_dir', '--temp_dir')
     #parser.add_argument('--preds', '--preds')
     args = parser.parse_args()
     
@@ -221,7 +338,20 @@ def run():
     elif task == 'literals_feats':
         #not done
         extract_literal_types(path_to_nt, output_path=output, temp_path=temp_path)
-        
+    elif task == 'ent_feats':
+        ents = get_entities(args.query_log)
+        extract_ent_information(ents, temp_path, path_to_nt, output)
+    elif task == 'ent_feat_post':
+        ents = get_entities(args.query_log)
+        extract_ent_information(ents, temp_path, path_to_nt, output)
+    elif task == 'ent_in_split':
+        ents = get_entities_in_split(args.split_dir)
+        #extract_ent_information(ents, temp_path, path_to_nt, output)
+        miss_ents, not_miss = identify_missing_ent_in_dir(args.temp_dir, ents)
+        print('missing ents',len(miss_ents))
+        #exit()
+        extract_ent_stats_from_temp(args.temp_dir, not_miss, args.output)
+        #print(miss_ents)
 
 if __name__ == "__main__":
     run()

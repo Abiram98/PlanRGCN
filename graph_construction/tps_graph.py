@@ -9,6 +9,7 @@ from graph_construction.nodes.node import Node
 from graph_construction.triple_pattern import TriplePattern
 
 class tps_graph:
+    '''Class representing a execution of a BGP'''
     def __init__(self, bgp:BGP, featurizer:BaseFeaturizer) -> None:
         self.bgp = bgp
         for i, tp in enumerate(self.bgp.triples):
@@ -36,19 +37,34 @@ class tps_graph:
             
     def get_edges(self, triples:list[TriplePattern]):
         edges = []
+        c_vars_lst = []
         for i in range(len(triples)):
             for j in range(i+1, len(triples)):
                 c_vars = self.get_common_variable(triples[i],triples[j])
-                assert len(c_vars) > 0
+                c_vars_lst.append(len(c_vars))
+                #assert len(c_vars) > 0
+                """if not len(c_vars) > 0:
+                    i_vars = [x.node_label for x in triples[i].get_variables()]
+                    j_vars = [x.node_label for x in triples[j].get_variables()]
+                    print(i_vars,j_vars)
+                    print(c_vars)
+                    print(self.bgp.bgp_string)
+                    exit()"""
                 if len(c_vars) == 0:
                     continue
                 local_edges = self.get_common_edge_type(triples[i],triples[j], c_vars)
                 edges.extend( local_edges)
+        assert len(edges) > 0
+        """if len(edges) == 0:
+            print('something wrong')
+            print(c_vars_lst)
+            print(self.bgp.bgp_string)
+            exit()"""
         return edges
     
     def get_common_variable(self, trp1: TriplePattern, trp2: TriplePattern):
-        trp1_vars = set(trp1.get_variables())
-        trp2_vars = set(trp2.get_variables())
+        trp1_vars = set(trp1.get_joins())
+        trp2_vars = set(trp2.get_joins())
         c_vars = trp1_vars.intersection(trp2_vars)
         return list(c_vars)
     
@@ -79,6 +95,13 @@ class tps_graph:
             return 7
         if trp1.object == common_variable and trp2.object == common_variable:
             return 8
+
+# we treat constant the same as variables
+class tps_cons_graph(tps_graph):
+    '''Triple pattern graph where const joins are treated as the same as variable joins'''
+    def __init__(self, bgp: BGP, featurizer: BaseFeaturizer) -> None:
+        super().__init__(bgp, featurizer)
+
 
 def create_dummy_dgl_graph():
     bpgs_string = '{"[?x http://www.wikidata.org/prop/direct/P1936 ?z, ?y http://www.wikidata.org/prop/direct/P1652 ?x]": {"with_runtime": 421605504, "without_runtime": 290386128, "with_size": 0, "without_size": 0}}'

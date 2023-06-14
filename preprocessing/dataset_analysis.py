@@ -1,4 +1,4 @@
-# The goal with this script is to analyse the batching of the dataset (even distributions in the batches)
+''' The goal with this script is to analyse the batching of the dataset (even distributions in the batches)'''
 import os
 import configparser
 from classifier.batched.trainer import get_debug_data_loader

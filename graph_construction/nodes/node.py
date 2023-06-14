@@ -19,7 +19,7 @@ class Node:
         self.node_label = node_label
         if node_label.startswith('?'):
             self.type = 'VAR'
-        elif node_label.startswith('http'):
+        elif node_label.startswith('<http'):
             self.type = 'URI'
         elif node_label.startswith('join'):
             self.type = 'JOIN'

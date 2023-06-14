@@ -13,12 +13,14 @@ from graph_construction.bgp_graph import BGPGraph
 from glb_vars import PREDS_W_NO_BIN
 import argparse, configparser
 from feature_extraction.constants import PATH_TO_CONFIG
+import time
+
 
 def load_BGPS_from_json(path,limit_bgp=None, node=Node):
     #pred_feat = None
     #if not path_predicate_feat_gen == None:
     #    pred_feat = PredicateFeaturesQuery.prepare_pred_featues_for_bgp(path_predicate_feat_gen, bins=bins)
-    
+
     data = None
     with open(path,'rb') as f:
         data = json.load(f)
@@ -32,7 +34,11 @@ def load_BGPS_from_json(path,limit_bgp=None, node=Node):
         BGP_strings = BGP_strings[:limit_bgp]
     BGPs = []
     for bgp_string in BGP_strings:
-        BGPs.append(BGP(bgp_string, data[bgp_string],node_class=node))
+        start = time.time()
+        b = BGP(bgp_string, data[bgp_string],node_class=node)
+        duration = time.time() -start
+        b.data_dict['bgp_construction_duration'] = duration
+        BGPs.append(b)
     return BGPs
 
 def get_predicates_from_path(path):
@@ -198,21 +204,30 @@ def process_bgp_str(string):
     bgp_str = ' '.join(bgp_str.split())
     return '['+bgp_str.replace('\s', ' ') +']'
 
-def convert_leaf_to_json(input_path, output):
+def convert_leaf_to_json(input_path, output, time_out=None):
     data = json.load(open(input_path,'r'))
     optional_count = 0
     clause_count = 0
     json_data = {}
     for d in data:
-        if d['query'] == '' or d['bloom_runtime'] == 'timeout' or d['jena_runtime'] == 'timeout':
-            continue
-        
+        if isinstance(time_out, int):
+            if d['query'] == '':
+                continue
+            if d['bloom_runtime'] == 'timeout' :
+                d['bloom_runtime'] = time_out * 1e15
+            if d['jena_runtime'] == 'timeout':
+                d['jena_runtime'] = time_out* 1e15
+            if d['leapfrog'] == 'timeout':
+                d['leapfrog'] = time_out* 1e15
+        else:
+            if d['query'] == '' or d['bloom_runtime'] == 'timeout' or d['jena_runtime'] == 'timeout' or d['leapfrog'] == 'timeout':
+                continue
         if 'OPTIONAL' in d['query']:
             optional_count += 1
         splits = d['query'].split('{')
         if len(splits) != 2:
             clause_count += 1
-        dct = {'bloom_runtime': int(d['bloom_runtime']), 'jena_runtime':int(d['jena_runtime'])}
+        dct = {'bloom_runtime': int(d['bloom_runtime']), 'jena_runtime':int(d['jena_runtime']), 'leapfrog':int(d['leapfrog']), 'path':d['path']}
         json_data[process_bgp_str(d['query'])] = dct
         
     print(optional_count,clause_count)

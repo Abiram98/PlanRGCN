@@ -1,7 +1,5 @@
 import json
-import os
-import networkx as nx, numpy as np
-from feature_check.entity_check import filtered_query_missing_entity
+import numpy as np
 from feature_check.predicate_check import filter_missing_query_predicate
 from feature_extraction.predicate_features_sub_obj import Predicate_Featurizer_Sub_Obj
 
@@ -11,80 +9,13 @@ from graph_construction.bgp import BGP
 from graph_construction.nodes.ql_node import ql_node
 from graph_construction.triple_pattern import TriplePattern
 import argparse, configparser
-from feature_extraction.constants import PATH_TO_CONFIG, PATH_TO_CONFIG_GRAPH
+from feature_extraction.constants import PATH_TO_CONFIG_GRAPH
 from preprocessing.utils import convert_leaf_to_json, get_predicates_from_path, ground_truth_distibution, load_BGPS_from_json
 import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn.model_selection import train_test_split
+from preprocessing.split_utils import stratified_split_v2,stratified_split_preds
 
 np.random.seed(42)
-
-def stratified_split():
-    global bgps
-    parser = configparser.ConfigParser()
-    parser.read(PATH_TO_CONFIG)
-    bgps = load_BGPS_from_json('/work/data/train_data.json')
-    total_bgps = len(bgps)
-    bgps = filtered_query_missing_entity(parser)
-    bgps = filter_missing_query_predicate(bgps,parser)
-    print(f"Remaining bgps {len(bgps)} of {total_bgps}")
-    train_per, val_perc, test_perc = 0.6, 0.2, 0.2
-    
-    train_n, test_n = round(train_per*len(bgps)),round(test_perc*len(bgps))
-    
-    train_bgps = bgps[:train_n]
-    val_bgps = bgps[train_n:]
-    test_bgps = val_bgps[test_n :]
-    val_bgps = val_bgps[:test_n]
-    
-    print(f"Train {len(train_bgps)}, Val {len(val_bgps)}, Test {len(test_bgps)}")
-    
-    json.dump(bgps_to_dict(train_bgps), open(parser['DebugDataset']['train_data'], 'w'))
-    json.dump(bgps_to_dict(val_bgps), open(parser['DebugDataset']['val_data'], 'w'))
-    json.dump(bgps_to_dict(test_bgps), open(parser['DebugDataset']['test_data'], 'w'))
-
-
-def stratified_split_v2():
-    bgps, parser = load_bgps()
-    total_bgps = len(bgps)
-    print(total_bgps)
-    bgps = filter_missing_query_predicate(bgps,parser)
-    print(f"Remaining bgps {len(bgps)} of {total_bgps}")
-    
-    number_samples = int(np.floor(int(parser['DebugDataset']['LIMIT'])/2))
-    bgps_ones = [x for x in bgps if x.ground_truth == 1]
-    bgps_ones = bgps_ones[:number_samples]
-    bgps_zeros = [x for x in bgps if x.ground_truth == 0]
-    bgps_zeros = bgps_zeros[:number_samples]
-    #bgps = bgps[:int(parser['DebugDataset']['LIMIT'])]
-    
-    train_per, val_perc, test_perc = 0.6, 0.2, 0.2
-    
-    train_n_ones, test_n_ones = round(train_per*len(bgps_ones)),round(test_perc*len(bgps_ones))
-    train_n_zeros, test_n_zeroes = round(train_per*len(bgps_zeros)),round(test_perc*len(bgps_zeros))
-    
-    train_bgps = bgps_ones[:train_n_ones]
-    train_bgps.extend(bgps_zeros[:train_n_zeros])
-    
-    val_bgps = bgps_ones[train_n_ones:-test_n_ones]
-    val_bgps.extend(bgps_zeros[train_n_zeros:-test_n_zeroes])
-    
-    test_bgps = bgps_ones[train_n_ones +test_n_ones:]
-    test_bgps.extend(bgps_zeros[train_n_zeros+test_n_ones:])
-    
-    #val_bgps = val_bgps[:test_n_ones]
-    
-    print(f"Train {len(train_bgps)}, Val {len(val_bgps)}, Test {len(test_bgps)}")
-    print("Train: Distribution of ground truth")
-    ground_truth_distibution(train_bgps, verbose=True)
-    print("Val: Distribution of ground truth")
-    ground_truth_distibution(val_bgps, verbose=True)
-    print("Test: Distribution of ground truth")
-    ground_truth_distibution(test_bgps, verbose=True)
-    
-    json.dump(bgps_to_dict(train_bgps), open(parser['DebugDataset']['train_data'], 'w'))
-    json.dump(bgps_to_dict(val_bgps), open(parser['DebugDataset']['val_data'], 'w'))
-    json.dump(bgps_to_dict(test_bgps), open(parser['DebugDataset']['test_data'], 'w'))   
 
 def get_predicate_freq_in_ql(bgps):
     pred_mapper = {}
@@ -110,82 +41,6 @@ def get_predicate_freq_in_ql(bgps):
     print(df_pred_id.describe())
     exit()
     df_pred_id = df_pred_id.assign(row_number=range(len(df_freq)))
-
-def load_bgps(input_path=None):
-    parser = configparser.ConfigParser()
-    #parser.read(PATH_TO_CONFIG)
-    parser.read(PATH_TO_CONFIG_GRAPH)
-    #bgps = load_BGPS_from_json(parser['Dataset']['train_data_path'])
-    if input_path != None:
-        bgps = load_BGPS_from_json(input_path)
-    else:
-        bgps = load_BGPS_from_json(parser['data_files']['combined'])
-    return bgps, parser
-
-def stratified_split_preds(input_path=None, output=None, equalise_triples = False, limit=1100):
-    
-    bgps, parser = load_bgps(input_path=input_path)
-    total_bgps = len(bgps)
-    #bgps = filter_missing_query_predicate(bgps,parser)
-    #print(f"Remaining bgps {len(bgps)} of {total_bgps}")
-    df = pd.DataFrame(bgps ,columns=['bgp'])
-    gts = [bgp.ground_truth for bgp in bgps]
-    df['gt'] = gts
-    if equalise_triples:
-        uniq = df['gt'].unique()
-        dfs = []
-        min_els = None
-        for x in uniq:
-            temp = df[df['gt'] == x]
-            if min_els == None or min_els > len(temp):
-                min_els = len(temp)
-            dfs.append(  temp)
-        print(min_els)
-        dfs2 = []
-        for d in dfs:
-            d = d.sample(frac=1).reset_index(drop=True)
-            d = d.head(min_els)
-            dfs2.append(d)
-        df = pd.concat(dfs2)
-    
-    #number_samples = int(parser['DebugDataset']['LIMIT'])
-    #number_samples = len(bgps)
-    number_samples = len(df)
-    train_per,  test_perc = 0.8, 0.2
-    train_no, test_no = round(train_per*number_samples),round(test_perc*number_samples)    
-    
-    X_train, X_test, y_train, _ = train_test_split(df, df[['gt']], test_size=test_no, train_size=train_no)
-    X_train, X_val, y_train, _ = train_test_split(X_train, y_train, test_size=test_no)
-    
-    train_bgps = X_train['bgp'].tolist()
-    val_bgps = X_val['bgp'].tolist()
-    test_bgps = X_test['bgp'].tolist()
-    print(f"Train {len(train_bgps)}, Val {len(val_bgps)}, Test {len(test_bgps)}")
-
-    print("Train: Distribution of ground truth")
-    ground_truth_distibution(train_bgps, verbose=True)
-    print("Val: Distribution of ground truth")
-    ground_truth_distibution(val_bgps, verbose=True)
-    print("Test: Distribution of ground truth")
-    ground_truth_distibution(test_bgps, verbose=True)
-    if output == None:
-        json.dump(bgps_to_dict(train_bgps), open(parser['DebugDataset']['train_data'], 'w'))
-        json.dump(bgps_to_dict(val_bgps), open(parser['DebugDataset']['val_data'], 'w'))
-        json.dump(bgps_to_dict(test_bgps), open(parser['DebugDataset']['test_data'], 'w'))
-    else:
-        if not os.path.isdir(output):
-            print(f"ERROR: Output should be a folder but was {output}")
-            exit()
-        json.dump(bgps_to_dict(train_bgps), open(f"{output}/train.json", 'w'))
-        json.dump(bgps_to_dict(val_bgps), open(f"{output}/val.json", 'w'))
-        json.dump(bgps_to_dict(test_bgps), open(f"{output}/test.json", 'w')) 
-    
-
-def bgps_to_dict(bgps : list[BGP]):
-    j = {}
-    for x in bgps:
-        j[x.bgp_string] = x.data_dict
-    return j
 
 def jaccard(list1, list2):
     intersection = len(list(set(list1).intersection(list2)))
@@ -451,15 +306,39 @@ def temp():
             else:
                 pred_buckets[bucket] = [bucket]
     return pred_buckets,pred_topk
+def single_re(rt_jena, rt_bloom, mean_jena):
+    return (abs(rt_jena - rt_bloom) )/mean_jena
 
-def relative_error(truth, pred):
+def single_re(rt_jena, rt_bloom, mean_jena):
+    #return (abs(rt_jena - rt_bloom) )/mean_jena
+    return (abs(rt_jena - rt_bloom) )/rt_jena
+    return (abs(rt_jena - rt_bloom) )/rt_jena
+#deprecated relative error
+def relative_error(truth, pred, aggregate = True):
         truth = truth
         pred = pred
-        act_mean = np.mean(truth)
-        r_e = [(abs(act_i - pred_i) )/act_mean for act_i, pred_i in zip (truth, pred)]
-        return np.sum(r_e)/len(r_e)
+        #act_mean = np.mean(truth)
+        #print('Jena Mean: ',act_mean)
+        #r_e = [(abs(act_i - pred_i) )/act_mean for act_i, pred_i in zip (truth, pred)]
+        r_e = [(abs(act_i - pred_i) )/act_i for act_i, pred_i in zip (truth, pred)]
+        
+        if aggregate:
+            return np.sum(r_e)/len(r_e)
+        else:
+            return r_e
+#use this one
+def relative_error_v2(pred, gt):
+    return (gt- pred)/gt
 
-def process_gt(path, output, gt_type= 're'):
+def re_gt_analysis(bgps: dict, threshold, mean_jena):
+    ones, zeros = 0,0
+    for k in bgps.keys():
+        if relative_error_v2(int(bgps[k]['jena_runtime']),int(bgps[k]['bloom_runtime']),mean_jena) > threshold:
+            ones += 1
+        else:
+            zeros += 1
+    return ones, zeros
+def process_gt(path, output, gt_type= 're', th=None):
     bgps = json.load(open(path, 'r'))
     
     if gt_type == 'std':
@@ -486,35 +365,51 @@ def process_gt(path, output, gt_type= 're'):
                 else:
                     bgps[k]['gt'] = False"""
     elif gt_type == 're':
-        rt, rt_without = [], []
-        for k in bgps.keys():
-            rt.append(int(bgps[k]['bloom_runtime'])) #with bloom filter
-            rt_without.append(int(bgps[k]['jena_runtime'])) #without BloomFilter
-        rel_err = relative_error(rt_without, rt)
-        print(rel_err)
-        exit()
-        rel_errs = []
-        for lf, jn in zip(rt, rt_without):
-            
-            pass
-    elif gt_type == 'avg_re':
-        bgps = gt_avg_re_assignment(bgps)
+        assert th != None
+        th = float(th)
+        bgps = gt_re_assignemnt(bgps, th)
+    elif gt_type == 'median':
+        bgps = gt_median_assignment(bgps)
     else:
         print(f'Please provide a legal Ground Truth assignment type. "{gt_type}" is not legal.')
         exit()
     json.dump(bgps, open(output,'w'))
 
-def gt_avg_re_assignment(bgps, runtime_field='jena_runtime'):
+def gt_median_assignment(bgps, runtime_field='jena_runtime'):
     n_bgps = {}
     rt = []
     for k in bgps.keys():
         rt.append(int(bgps[k][runtime_field])) #without BloomFilter
     median = np.median(rt)
     print(f"Median for queries {median}")
+    ones, zeros = 0,0
     for k in bgps.keys():
         temp_dct = bgps[k]
         temp_dct['gt'] = True if temp_dct[runtime_field] >= median else False
-        n_bgps[k] = temp_dct    
+        if temp_dct['gt'] == True:
+            ones += 1
+        else:
+            zeros += 1
+        n_bgps[k] = temp_dct
+    print(f'Distribution of GT: 1:{ones} [{ones/(ones+zeros)}] 0:{zeros} [{zeros/(ones+zeros)}]')    
+    return n_bgps
+
+def gt_re_assignemnt(bgps, threshold= 0.1):
+    n_bgps = {}
+    rt = []
+    for k in bgps.keys():
+        rt.append(int(bgps[k]['jena_runtime']))
+    mean_jena = np.mean(rt)
+    ones, zeros = 0,0
+    for k in bgps.keys():
+        n_bgps[k] = bgps[k]
+        if relative_error_v2(int(bgps[k]['bloom_runtime']),int(bgps[k]['jena_runtime'])) >= threshold:
+            n_bgps[k]['gt'] = True
+            ones += 1
+        else:
+            n_bgps[k]['gt'] = False
+            zeros += 1
+    print(f'GT distribution: zero {zeros} [{zeros/(zeros+ones)}], ones {ones} [{ones/(zeros+ones)}] with threshold {threshold}')
     return n_bgps
 
 def triple_stat( input_path):
@@ -531,20 +426,26 @@ def triple_stat( input_path):
     for k in keys:
         print(f"\t{k}: {trpl[k]} [{trpl[k]/len(bgps)}]")
 
-def print_latency_stats(path, runtime_field='jena_runtime'):
-    bgps = json.load(open(path, 'r'))
+def get_runtimes(bgps,runtime_field='jena_runtime' , normalise = False):
     rt = []
     for k in bgps.keys():
         rt.append(int(bgps[k][runtime_field])) #without BloomFilter
-    rt = [(r*1e-9) for r in rt]
+    if normalise:
+        rt = [(r*1e-9) for r in rt]
+    
+    return rt
+
+def print_latency_stats(path, runtime_field='jena_runtime'):
+    bgps = json.load(open(path, 'r'))
+    rt = get_runtimes(bgps,runtime_field=runtime_field )
     print(f'Statistics for {path}')
     print(f'\tMedian: {np.median(rt)}')
+    print(f'\tStd: {np.std(rt)}')
     print(f'\tAverage: {np.mean(rt)}')
     print(f'\t25%-quantile: {np.quantile(rt,q=0.25)}')
     print(f'\t75%-quantile: {np.quantile(rt,q=0.75)}')
-    print(json.dumps(rt))
+    #print(json.dumps(rt))
 
-    
 
 if __name__ == "__main__":
     arg_parse = argparse.ArgumentParser(prog='Util scripts')
@@ -553,7 +454,9 @@ if __name__ == "__main__":
     arg_parse.add_argument('--test_path', '--test_path')
     arg_parse.add_argument('--input', '--input')
     arg_parse.add_argument('--output', '--output')
+    arg_parse.add_argument('--time_out', '--time_out')
     arg_parse.add_argument('--gt_type', '--gt_type')
+    arg_parse.add_argument('--threshold', '--threshold')
     args = arg_parse.parse_args()
     val_path, test_path = args.val_path, args.test_path
     output = args.output
@@ -568,11 +471,11 @@ if __name__ == "__main__":
         pred_bucket_analysis_querylog()
     elif args.task == 'stratified_split':
         #stratified_split_preds(equalise_triples=True)
-        stratified_split_preds(input_path=args.input, output=args.output ,equalise_triples=False)
+        stratified_split_preds(input_path=args.input, output=args.output ,equalise_gt=True)
     elif args.task == 'gt_assign':
-        process_gt(args.input, output,gt_type=args.gt_type)
+        process_gt(args.input, output,gt_type=args.gt_type, th=args.threshold)
     elif args.task == 'convert_leaf':
-        convert_leaf_to_json(args.input, output)
+        convert_leaf_to_json(args.input, output, time_out=args.time_out)
     elif args.task == 'triple_stat':
         triple_stat(args.input)
     elif args.task == 'lat_stat':

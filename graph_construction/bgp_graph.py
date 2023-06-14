@@ -5,6 +5,7 @@ import numpy as np
 import copy
 
 class BGPGraph:
+    '''Class representing graph where nodes include constants and variables (Did not work)'''
     node_type=Node
     
     def __init__(self, bgp : BGP):

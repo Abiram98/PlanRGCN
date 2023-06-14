@@ -5,7 +5,7 @@ from feature_extraction.entity_features import EntityFeatures
 from glb_vars import PREDS_W_NO_BIN
 
 class TriplePattern:
-
+    '''Class representing a triple pattern'''
     def __init__(self, triple_string:str, node_class = Node):
         splits = triple_string.split(' ')
         splits = [s for s in splits if s != '']
@@ -80,6 +80,9 @@ class TriplePattern:
         return self.subject == other.subject and self.predicate == other.predicate and self.object == other.object
     def get_variables(self):
         v = []
+        """v.append(self.subject)
+        v.append(self.predicate)
+        v.append(self.object)"""
         if self.subject.type == 'VAR':
             v.append(self.subject)
         if self.predicate.type == 'VAR':
@@ -87,6 +90,12 @@ class TriplePattern:
         if self.object.type == 'VAR':
             v.append(self.object)
         return v
+    def get_joins(self):
+        return self.get_variables()
+class TriplePatternWconst(TriplePattern):
+    '''Triple Pattern '''
+    def __init__(self, triple_string: str, node_class=Node):
+        super().__init__(triple_string, node_class)
         
 
 if __name__ == "__main__":

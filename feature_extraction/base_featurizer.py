@@ -7,20 +7,37 @@ from preprocessing.utils import get_bgp_predicates_from_path
 import networkx as nx
 import matplotlib.pyplot as plt
 from pyvis.network import Network
-
+from sklearn.preprocessing import MinMaxScaler
 import itertools
 
 class BaseFeaturizer:
+    samples_not_in_train_log = 0
+    
     def __init__(self, train_log = None, is_pred_clust_feat=True,save_pred_graph_png = None, community_no:int=10, pred_clust_verbose= False,
                  path_preds = {'pred_lits':'/work/data/extracted_statistics/updated_nt_pred_unique_lits.json',
                                'pred_ents':'/work/data/extracted_statistics/updated_nt_pred_unique_subj_obj.json',
                                'pred_freq':'/work/data/extracted_statistics/updated_pred_freq.json'},
                  path_pred_clust = { 'load_path':None, 'save_path':None},
-                 verbose=True) -> None:
+                 verbose=True,
+                 ent_feature_path = '/work/data/extracted_statistics/ent_stat_5re.json', use_ent=False) -> None:
         self.verbose = verbose
         self.pred_freq = json.load(open(path_preds['pred_freq'])) #contains freqency of predicates
         self.pred_ents = json.load(open(path_preds['pred_ents'])) #contians # of unique subject and object for predicates
         self.pred_lits = json.load(open(path_preds['pred_lits'])) #contains # of unique literal values for predicates
+        
+        
+        self.use_ent = use_ent
+        if use_ent:
+            self.ent_freq = json.load(open(ent_feature_path)) #contains # ent in subject and object
+            s_lst, o_lst = [],[]
+            for k in self.ent_freq.keys():
+                s, o = self.ent_freq[k]
+                s_lst.append(s), o_lst.append(o)
+            
+            self.min_max_s = MinMaxScaler()
+            self.min_max_s.fit(np.asarray(s_lst).reshape((-1,1)))
+            self.min_max_o = MinMaxScaler()
+            self.min_max_o.fit(np.asarray(o_lst).reshape((-1,1)))
         
         if is_pred_clust_feat:
             self.pred2index = None
@@ -43,28 +60,53 @@ class BaseFeaturizer:
         #predicate features
         raw_predicate_freq_feats = np.zeros(4)
         cluster_bucket_feat = np.zeros(self.max_clusters)
-        try:
-            raw_predicate_freq_feats[0] = int(self.pred_freq[tp.predicate.node_label])
-            unique_subj, unique_obj = self.pred_ents[tp.predicate.node_label]
-            raw_predicate_freq_feats[3] = int(self.pred_lits[tp.predicate.node_label])
-        except KeyError:
-            raw_predicate_freq_feats[0] = 0
-            unique_subj, unique_obj = 0,0
-            raw_predicate_freq_feats[3] = 0
-        
-        raw_predicate_freq_feats[1] = int(unique_subj)
-        raw_predicate_freq_feats[2] = int(unique_obj)
-        try:
-            pred_indices = self.pred2index[tp.predicate.node_label]
-            for idx in pred_indices:
-                cluster_bucket_feat[idx] = 1
-        except KeyError:
-            if self.verbose:
-                print(f'Clustering error {tp.predicate.node_label} not in train log')
+        if tp.predicate.type != 'VAR':
+            try:
+                raw_predicate_freq_feats[0] = int(self.pred_freq[tp.predicate.node_label])
+                unique_subj, unique_obj = self.pred_ents[tp.predicate.node_label]
+                raw_predicate_freq_feats[3] = int(self.pred_lits[tp.predicate.node_label])
+            except KeyError:
+                raw_predicate_freq_feats[0] = 0
+                unique_subj, unique_obj = 0,0
+                raw_predicate_freq_feats[3] = 0
+            
+            raw_predicate_freq_feats[1] = int(unique_subj)
+            raw_predicate_freq_feats[2] = int(unique_obj)
+            try:
+                pred_indices = self.pred2index[tp.predicate.node_label]
+                for idx in pred_indices:
+                    cluster_bucket_feat[idx] = 1
+            except KeyError:
+                BaseFeaturizer.samples_not_in_train_log += 1
+                if self.verbose:
+                    print(f'Clustering error {tp.predicate.node_label} not in train log')
                 
+        #ent features
+        if self.use_ent:
+            ent_feat = np.zeros(4)
+            if tp.subject.node_label in self.ent_freq.keys():
+                s, o = self.ent_freq[tp.subject.node_label]
+                ent_feat[0] = self.min_max_s.transform( np.asarray([int(s)]).reshape((-1,1)))
+                ent_feat[1] = self.min_max_o.transform(np.asarray([int(o)]).reshape((-1,1)))
+            else:
+                ent_feat[0] = 2
+                ent_feat[1] = 2
+                
+            if tp.object.node_label in self.ent_freq.keys():
+                s, o = self.ent_freq[tp.object.node_label]
+                ent_feat[2] = self.min_max_s.transform(np.asarray([int(s)]).reshape((-1,1)))
+                ent_feat[3] = self.min_max_o.transform(np.asarray([int(o)]).reshape((-1,1)))
+            else:
+                ent_feat[0] = 2
+                ent_feat[1] = 2
+            res =  np.concatenate( (var_pos, raw_predicate_freq_feats, cluster_bucket_feat, ent_feat)).astype(np.float32)
+        else:
+            res =  np.concatenate( (var_pos, raw_predicate_freq_feats, cluster_bucket_feat)).astype(np.float32)
+            
+        #resulting vec
         
-        res =  np.concatenate( (var_pos, raw_predicate_freq_feats, cluster_bucket_feat)).astype(np.float32)
         #return np.concatenate( (var_pos, raw_predicate_freq_feats, cluster_bucket_feat))
+        
         return res
         
         
