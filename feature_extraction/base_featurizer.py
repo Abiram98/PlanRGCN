@@ -2,8 +2,8 @@ import json
 
 import numpy as np
 from graph_construction.bgp import BGP
-from graph_construction.triple_pattern import TriplePattern
-from preprocessing.utils import get_bgp_predicates_from_path
+#from graph_construction.triple_pattern import TriplePattern
+from preprocessing.utils_tp import get_bgp_predicates_from_path
 import networkx as nx
 import matplotlib.pyplot as plt
 from pyvis.network import Network
@@ -47,7 +47,8 @@ class BaseFeaturizer:
                                                load_path=path_pred_clust['load_path'], save_path=path_pred_clust['save_path'])
         pass
 
-    def get_feat_vec(self,tp:TriplePattern):
+    def get_feat_vec(self,tp):
+        #assert isinstance(tp, TriplePattern)
         #tp features
         var_pos = np.zeros(3)
         if tp.subject.type == 'VAR':

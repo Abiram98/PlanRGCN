@@ -11,11 +11,12 @@ import networkx as nx
 import warnings
 from feature_extraction.base_featurizer import BaseFeaturizer
 import torch
-from graph_construction.tps_graph import create_dummy_dgl_graph, tps_graph
+from graph_construction.tps_graph import create_dummy_dgl_graph, tps_graph, get_tp_graph_class
 import numpy as np, os
 import time
 import warnings
 from preprocessing.utils import load_BGPS_from_json
+
 warnings.filterwarnings('ignore', category=UserWarning, message='TypedStorage is deprecated')
 
 dgl.seed(1223)
@@ -78,28 +79,33 @@ def get_clasification_vec(gt):
     vec =np.zeros(2)
     vec[gt] = 1
     return vec
-def tps_graph_const(x, featurizer):
+def tps_graph_const(x, featurizer, TP_graph_type='tp'):
+    tp_class = get_tp_graph_class(TP_graph_type)
     try:
         start = time.time()
-        i = tps_graph(x, featurizer=featurizer)
+        i = tp_class(x, featurizer=featurizer)
         duration = time.time()-start
         i.bgp.data_dict['tps_const_duration'] = duration
     except AssertionError:
         return None
     return i
-def extract_data(train_path, val_path, test_path, community_no=10, batch_size = 50, verbose=True, clust_verbose=False):
-    #featurizer = BaseFeaturizer( train_log = train_path, is_pred_clust_feat=True,save_pred_graph_png = None, 
-    #                            community_no=community_no,path_pred_clust = { 'save_path':'/work/data/confs/May2/pred_clust.json', 'load_path':None}, verbose=False)
+def extract_data(train_path, val_path, test_path, community_no=10, batch_size = 50, verbose=True, clust_verbose=False, is_run_clust=False, TP_graph_type='tp'):
+    '''This function converts the queries in train_path, val_path, test_path into the features used by the model'''
+    if is_run_clust:
+        featurizer = BaseFeaturizer( train_log = train_path, is_pred_clust_feat=True,save_pred_graph_png = None, 
+                                community_no=community_no,path_pred_clust = { 'save_path':'/work/data/confs/14June/pred_clust.json', 'load_path':None}, verbose=clust_verbose)
+    else:
+        featurizer = BaseFeaturizer( train_log = train_path, is_pred_clust_feat=True,save_pred_graph_png = None, community_no=community_no,path_pred_clust = { 'save_path':None, 'load_path':'/work/data/confs/14June/pred_clust.json'}, verbose=clust_verbose)
     #featurizer = BaseFeaturizer( train_log = train_path, is_pred_clust_feat=True,save_pred_graph_png = 'pred_graph.html', 
     #                            community_no=community_no,path_pred_clust = { 'save_path':None, 'load_path':None}, verbose=False)
-    featurizer = BaseFeaturizer( train_log = train_path, is_pred_clust_feat=True,save_pred_graph_png = None, community_no=community_no,path_pred_clust = { 'save_path':None, 'load_path':'/work/data/confs/May2/pred_clust.json'}, verbose=clust_verbose)
+    #featurizer = BaseFeaturizer( train_log = train_path, is_pred_clust_feat=True,save_pred_graph_png = None, community_no=community_no,path_pred_clust = { 'save_path':None, 'load_path':'/work/data/confs/May2/pred_clust.json'}, verbose=clust_verbose)
     
-    train_bgps = load_BGPS_from_json(train_path)
+    train_bgps = load_BGPS_from_json(train_path, TP_graph_type=TP_graph_type)
     #train_dgl = [tps_to_dgl( tps_graph_const(x, featurizer=featurizer)) for x in train_bgps if not tps_graph_const(x, featurizer=featurizer) == None]
     len_train = len(train_bgps)
     train_dgl,train_gt = [], []
     for x in train_bgps:
-        dgl_graph = tps_graph_const(x, featurizer=featurizer)
+        dgl_graph = tps_graph_const(x, featurizer=featurizer, TP_graph_type=TP_graph_type)
         if dgl_graph != None:
             train_dgl.append(tps_to_dgl(dgl_graph))
             train_gt.append(get_clasification_vec(x.ground_truth))
@@ -110,7 +116,7 @@ def extract_data(train_path, val_path, test_path, community_no=10, batch_size = 
         print(f"# of Removed: {len_train-train_samples}")
     #train_gt = th.tensor([get_clasification_vec(x.ground_truth) for x in train_bgps], dtype=th.float32)
     
-    val_bgps = load_BGPS_from_json(val_path)
+    val_bgps = load_BGPS_from_json(val_path, TP_graph_type=TP_graph_type)
     len_val = len(val_bgps)
     #val_dgl = [tps_to_dgl(tps_graph_const(x, featurizer=featurizer)) for x in val_bgps if not tps_graph_const(x, featurizer=featurizer) == None]
     val_dgl,val_gt = [], []
@@ -125,7 +131,7 @@ def extract_data(train_path, val_path, test_path, community_no=10, batch_size = 
     if verbose:
         print(f"# of Removed: {len_val-val_samples}")
     
-    test_bgps = load_BGPS_from_json(test_path)
+    test_bgps = load_BGPS_from_json(test_path, TP_graph_type=TP_graph_type)
     len_test = len(test_bgps)
     #test_dgl = [tps_to_dgl(tps_graph_const(x, featurizer=featurizer)) for x in test_bgps if not tps_graph_const(x, featurizer=featurizer) == None]
     test_dgl,test_gt = [], []
@@ -190,10 +196,10 @@ def parse_arguments():
     return args
 
 #runner for notebooks
-def runner(train_dataloader,val_dataloader, test_dataloader,model, early_stop, lr, wd, epochs, result_path, path_to_save='/work/data/models', loss_type='cross-entropy',
+def runner(train_dataloader,val_dataloader, test_dataloader, model, early_stop, lr, wd, epochs, result_path, path_to_save='/work/data/models', loss_type='cross-entropy',
            add_thres = False, pred_thres=0.5,
            verbosity=0):
-    
+    '''Trains a model,  \nHyperparameters: early_stop, lr, wd, epochs'''
     opt = th.optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
     #opt = th.optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
     
@@ -384,14 +390,17 @@ def predict_dgl_graph(model, graph):
     pred = model(graph, feats, edge_types)
     return pred
 
-def predictBgp2samples(bgps,path, featurizer, model, leaf=False, model_thres=0.5, add_thres = None):
+def predictBgp2samples(bgps,path, featurizer, model, leaf=False, model_thres=0.5, add_thres = None, TP_graph_type='tp'):
     train_dct = {}
+    
     for x in bgps:
-        dgl_graph = tps_graph_const(x, featurizer=featurizer)
+        dgl_graph = tps_graph_const(x, featurizer=featurizer, TP_graph_type=TP_graph_type)
         if dgl_graph != None:
             #dgl_graph = tps_to_dgl(tps_graph_const(x, featurizer=featurizer))
             start = time.time()
-            p = predict_dgl_graph(model, tps_to_dgl(dgl_graph))
+            with torch.no_grad():
+                p = predict_dgl_graph(model, tps_to_dgl(dgl_graph))
+            x.data_dict['raw_pred'] = p.numpy().tolist()
             inference_time = time.time()-start
             p = snap_pred(p,  model_thres, add_thres)
             x.data_dict['prediction'] = p if isinstance(p,int) else p.item()
@@ -400,24 +409,25 @@ def predictBgp2samples(bgps,path, featurizer, model, leaf=False, model_thres=0.5
             if leaf:
                 x.data_dict['leapfrog'] =  x.data_dict['leapfrog']*1e-9
             x.data_dict['jena_runtime'] =  x.data_dict['jena_runtime']*1e-9
-        train_dct[x.bgp_string] = x.data_dict
+            train_dct[x.bgp_string] = x.data_dict
     json.dump(train_dct, open(f"{path[:-5]}_w_pred.json",'w'))
     return train_dct
 
 def predict2samples(model,train_path, val_path, test_path, community_no=10, 
                     verbose=True, clust_verbose=False, 
                     clust_load_path='/work/data/confs/May2/pred_clust.json',
-                    model_thres=0.5, add_thres = None):
+                    model_thres=0.5, add_thres = None,
+                    TP_graph_type='tp'):
     featurizer = BaseFeaturizer( train_log = train_path, is_pred_clust_feat=True,save_pred_graph_png = None, community_no=community_no,path_pred_clust = { 'save_path':None, 'load_path':clust_load_path}, verbose=clust_verbose)
     
-    train_bgps = load_BGPS_from_json(train_path)
-    train_data = predictBgp2samples(train_bgps, train_path, featurizer, model,model_thres=model_thres, add_thres = add_thres)
+    train_bgps = load_BGPS_from_json(train_path, TP_graph_type=TP_graph_type)
+    train_data = predictBgp2samples(train_bgps, train_path, featurizer, model,model_thres=model_thres, add_thres = add_thres, TP_graph_type=TP_graph_type)
     
-    val_bgps = load_BGPS_from_json(val_path)
-    val_data = predictBgp2samples(val_bgps, val_path, featurizer, model,model_thres=model_thres, add_thres = add_thres)
+    val_bgps = load_BGPS_from_json(val_path, TP_graph_type=TP_graph_type)
+    val_data = predictBgp2samples(val_bgps, val_path, featurizer, model,model_thres=model_thres, add_thres = add_thres, TP_graph_type=TP_graph_type)
     
-    test_bgps = load_BGPS_from_json(test_path)
-    test_data = predictBgp2samples(test_bgps, test_path, featurizer, model,model_thres=model_thres, add_thres = add_thres)
+    test_bgps = load_BGPS_from_json(test_path, TP_graph_type=TP_graph_type)
+    test_data = predictBgp2samples(test_bgps, test_path, featurizer, model,model_thres=model_thres, add_thres = add_thres, TP_graph_type=TP_graph_type)
     return train_data, val_data,test_data
 
 if __name__ == "__main__":

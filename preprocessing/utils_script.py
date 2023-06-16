@@ -330,10 +330,10 @@ def relative_error(truth, pred, aggregate = True):
 def relative_error_v2(pred, gt):
     return (gt- pred)/gt
 
-def re_gt_analysis(bgps: dict, threshold, mean_jena):
+def re_gt_analysis(bgps: dict, threshold):
     ones, zeros = 0,0
     for k in bgps.keys():
-        if relative_error_v2(int(bgps[k]['jena_runtime']),int(bgps[k]['bloom_runtime']),mean_jena) > threshold:
+        if relative_error_v2(int(bgps[k]['bloom_runtime']), int(bgps[k]['jena_runtime'])) > threshold:
             ones += 1
         else:
             zeros += 1

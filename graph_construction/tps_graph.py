@@ -10,7 +10,8 @@ from graph_construction.triple_pattern import TriplePattern
 
 class tps_graph:
     '''Class representing a execution of a BGP'''
-    def __init__(self, bgp:BGP, featurizer:BaseFeaturizer) -> None:
+    def __init__(self, bgp:BGP, featurizer) -> None:
+        assert isinstance(featurizer, BaseFeaturizer)
         self.bgp = bgp
         for i, tp in enumerate(self.bgp.triples):
             tp.id = i
@@ -42,24 +43,11 @@ class tps_graph:
             for j in range(i+1, len(triples)):
                 c_vars = self.get_common_variable(triples[i],triples[j])
                 c_vars_lst.append(len(c_vars))
-                #assert len(c_vars) > 0
-                """if not len(c_vars) > 0:
-                    i_vars = [x.node_label for x in triples[i].get_variables()]
-                    j_vars = [x.node_label for x in triples[j].get_variables()]
-                    print(i_vars,j_vars)
-                    print(c_vars)
-                    print(self.bgp.bgp_string)
-                    exit()"""
                 if len(c_vars) == 0:
                     continue
                 local_edges = self.get_common_edge_type(triples[i],triples[j], c_vars)
                 edges.extend( local_edges)
         assert len(edges) > 0
-        """if len(edges) == 0:
-            print('something wrong')
-            print(c_vars_lst)
-            print(self.bgp.bgp_string)
-            exit()"""
         return edges
     
     def get_common_variable(self, trp1: TriplePattern, trp2: TriplePattern):
@@ -76,32 +64,84 @@ class tps_graph:
     
     def get_relation_type(self, trp1: TriplePattern, trp2: TriplePattern, common_variable):
         if trp1.subject == common_variable and trp2.subject == common_variable:
-            return 1
+            return 0
         if trp1.subject == common_variable and trp2.predicate == common_variable:
-            return 2
+            return 1
         if trp1.subject == common_variable and trp2.object == common_variable:
-            return 3
+            return 2
         
         if trp1.predicate == common_variable and trp2.subject == common_variable:
-            return 4
+            return 3
         if trp1.predicate == common_variable and trp2.predicate == common_variable:
-            return 5
+            return 4
         if trp1.predicate == common_variable and trp2.object == common_variable:
-            return 6
-        
+            return 5
         if trp1.object == common_variable and trp2.subject == common_variable:
             return 6
         if trp1.object == common_variable and trp2.predicate == common_variable:
             return 7
         if trp1.object == common_variable and trp2.object == common_variable:
             return 8
+        """if trp1.object == common_variable and trp2.subject == common_variable:
+            return 6
+        if trp1.object == common_variable and trp2.predicate == common_variable:
+            return 7
+        if trp1.object == common_variable and trp2.object == common_variable:
+            return 8"""
 
-# we treat constant the same as variables
+# we treat joins on constants as different relation
 class tps_cons_graph(tps_graph):
     '''Triple pattern graph where const joins are treated as the same as variable joins'''
-    def __init__(self, bgp: BGP, featurizer: BaseFeaturizer) -> None:
+    def __init__(self, bgp: BGP, featurizer) -> None:
         super().__init__(bgp, featurizer)
-
+    
+    def get_relation_type(self, trp1: TriplePattern, trp2: TriplePattern, common_variable):
+        if trp1.subject == common_variable and trp2.subject == common_variable and trp1.subject.type == 'VAR':
+            return 0
+        if trp1.subject == common_variable and trp2.predicate == common_variable and trp1.subject.type == 'VAR':
+            return 1
+        if trp1.subject == common_variable and trp2.object == common_variable and trp1.subject.type == 'VAR':
+            return 2
+        
+        if trp1.predicate == common_variable and trp2.subject == common_variable and trp1.subject.type == 'VAR':
+            return 3
+        if trp1.predicate == common_variable and trp2.predicate == common_variable and trp1.subject.type == 'VAR':
+            return 4
+        if trp1.predicate == common_variable and trp2.object == common_variable and trp1.subject.type == 'VAR':
+            return 5
+        if trp1.object == common_variable and trp2.subject == common_variable and trp1.subject.type == 'VAR':
+            return 6
+        if trp1.object == common_variable and trp2.predicate == common_variable and trp1.subject.type == 'VAR':
+            return 7
+        if trp1.object == common_variable and trp2.object == common_variable and trp1.subject.type == 'VAR':
+            return 8
+        
+        #const joins
+        if trp1.subject == common_variable and trp2.subject == common_variable and trp1.subject.type == 'URI':
+            return 9
+        if trp1.subject == common_variable and trp2.predicate == common_variable and trp1.subject.type == 'URI':
+            return 10
+        if trp1.subject == common_variable and trp2.object == common_variable and trp1.subject.type == 'URI':
+            return 11
+        
+        if trp1.predicate == common_variable and trp2.subject == common_variable and trp1.subject.type == 'URI':
+            return 12
+        if trp1.predicate == common_variable and trp2.predicate == common_variable and trp1.subject.type == 'URI':
+            return 13
+        if trp1.predicate == common_variable and trp2.object == common_variable and trp1.subject.type == 'URI':
+            return 14
+        if trp1.object == common_variable and trp2.subject == common_variable and trp1.subject.type == 'URI':
+            return 15
+        if trp1.object == common_variable and trp2.predicate == common_variable and trp1.subject.type == 'URI':
+            return 16
+        if trp1.object == common_variable and trp2.object == common_variable and trp1.subject.type == 'URI':
+            return 17
+def get_tp_graph_class(t):
+    assert isinstance(t,str)
+    if t == 'tp':
+        return tps_graph
+    elif t == 'tp_const':
+        return tps_cons_graph
 
 def create_dummy_dgl_graph():
     bpgs_string = '{"[?x http://www.wikidata.org/prop/direct/P1936 ?z, ?y http://www.wikidata.org/prop/direct/P1652 ?x]": {"with_runtime": 421605504, "without_runtime": 290386128, "with_size": 0, "without_size": 0}}'

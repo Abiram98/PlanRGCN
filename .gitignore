@@ -134,3 +134,6 @@ dmypy.json
 **/*.bak
 **/*.json
 **/*.png
+data/temp/ents/*
+data/temp/pred_ents/*
+data/results

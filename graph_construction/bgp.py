@@ -2,8 +2,11 @@ from feature_extraction.predicates.predicate_features import PredicateFeaturesQu
 from graph_construction.nodes.node import Node
 from graph_construction.triple_pattern import TriplePattern
 from feature_extraction.entity_features import EntityFeatures
+
 class BGP:
-    def __init__(self, BGP_string:str, info:dict, node_class = Node):
+    def __init__(self, BGP_string:str, info:dict, node_class = Node, TP_class= TriplePattern):
+        '''BGP_string, info dict, node_class: node type (Node is default), TP_class: Triple pattern representation class (Default is TriplePattern). 
+        Ground truth value is assigned based on info['gt'] boolean'''
         self.bgp_string = BGP_string
         self.node_class = node_class
         triple_strings = BGP_string[1:-1].split(',')
@@ -15,7 +18,7 @@ class BGP:
             temp_split = [s for s in temp_split if s != '']
             if len(temp_split) == 0:
                 continue
-            self.triples.append(TriplePattern(t, node_class=node_class))
+            self.triples.append(TP_class(t, node_class=node_class))
         #TODO check whether this does something:
         #if predicate_stat != None:
         #    self.total_bins = predicate_stat.total_bin

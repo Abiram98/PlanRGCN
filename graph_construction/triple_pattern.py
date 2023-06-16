@@ -5,7 +5,7 @@ from feature_extraction.entity_features import EntityFeatures
 from glb_vars import PREDS_W_NO_BIN
 
 class TriplePattern:
-    '''Class representing a triple pattern'''
+    '''Class representing a triple pattern. Joins on constants are not considered'''
     def __init__(self, triple_string:str, node_class = Node):
         splits = triple_string.split(' ')
         splits = [s for s in splits if s != '']
@@ -78,6 +78,7 @@ class TriplePattern:
         return f'Triple ({str(self.subject)} {str(self.predicate)} {str(self.object)} )'
     def __eq__(self, other):
         return self.subject == other.subject and self.predicate == other.predicate and self.object == other.object
+    
     def get_variables(self):
         v = []
         """v.append(self.subject)
@@ -90,15 +91,31 @@ class TriplePattern:
         if self.object.type == 'VAR':
             v.append(self.object)
         return v
+    
     def get_joins(self):
         return self.get_variables()
+    
 class TriplePatternWconst(TriplePattern):
-    '''Triple Pattern '''
+    '''Class represting triple pattern joins on constants are also considered.'''
     def __init__(self, triple_string: str, node_class=Node):
         super().__init__(triple_string, node_class)
-        
+    
+    def get_joins(self):
+        v = []
+        v.append(self.subject)
+        v.append(self.predicate)
+        v.append(self.object)
+        return v
 
 if __name__ == "__main__":
     t = TriplePattern("?x http://www.wikidata.org/prop/direct/P5395 ?y")
     t2 = TriplePattern("?x http://www.wikidata.org/prop/direct/P5395 ?y")
     print(t.predicate.node_label)
+
+
+def get_tp_class(t):
+    assert isinstance(t,str)
+    if t == 'tp':
+        return TriplePattern
+    elif t == 'tp_const':
+        return TriplePatternWconst

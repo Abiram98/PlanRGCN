@@ -8,19 +8,21 @@ import pickle as pcl
 from graph_construction.nodes.node import Node
 from graph_construction.bgp import BGP
 from graph_construction.nodes.node_num_pred import Node_num_pred_encoding
+#from graph_construction.tps_graph import tps_graph
 from graph_construction.triple_pattern import TriplePattern
 from graph_construction.bgp_graph import BGPGraph
 from glb_vars import PREDS_W_NO_BIN
 import argparse, configparser
 from feature_extraction.constants import PATH_TO_CONFIG
 import time
+from graph_construction.triple_pattern import get_tp_class
 
 
-def load_BGPS_from_json(path,limit_bgp=None, node=Node):
+def load_BGPS_from_json(path,limit_bgp=None, node=Node, TP_graph_type='tp'):
     #pred_feat = None
     #if not path_predicate_feat_gen == None:
     #    pred_feat = PredicateFeaturesQuery.prepare_pred_featues_for_bgp(path_predicate_feat_gen, bins=bins)
-
+    triple_class = get_tp_class(TP_graph_type)
     data = None
     with open(path,'rb') as f:
         data = json.load(f)
@@ -35,7 +37,8 @@ def load_BGPS_from_json(path,limit_bgp=None, node=Node):
     BGPs = []
     for bgp_string in BGP_strings:
         start = time.time()
-        b = BGP(bgp_string, data[bgp_string],node_class=node)
+        
+        b = BGP(bgp_string, data[bgp_string],node_class=node, TP_class=triple_class)
         duration = time.time() -start
         b.data_dict['bgp_construction_duration'] = duration
         BGPs.append(b)
@@ -62,33 +65,7 @@ def get_predicates_from_path(path):
                preds.append(splits[1])
     return preds
 
-def get_bgp_predicates_from_path(path):
-    data = None
-    with open(path,'rb') as f:
-        data = json.load(f)
-                
-    if data == None:
-        print('Data could not be loaded!')
-        return
-    
-    BGP_strings = list(data.keys())
-    
-    preds = []
-    for bgp_string in BGP_strings:
-        #triple_strings = bgp_string[1:-1].split(',')
-        triple_strings = bgp_string[1:-1].split(',')
-        bgp_pred = []
-        for triple_string in triple_strings:
-            splits = triple_string.split(' ')
-            splits = [s for s in splits if s != '']
-            if triple_string.strip() == '':
-                continue
-            assert len(splits) == 3
-            if not splits[1].startswith('?'):
-               bgp_pred.append(splits[1])
-        preds.append(bgp_pred)
-        del bgp_pred
-    return preds
+
 
 def get_predicates(bgps: list):
     predicates = set()
