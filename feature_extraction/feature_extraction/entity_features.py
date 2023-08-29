@@ -4,6 +4,7 @@ from feature_extraction.constants import PATH_TO_CONFIG
 import argparse
 import matplotlib.pyplot as plt
 from stats.utils import plot_bar_df,plot_bar_specific, bxplot_w_info
+
 class EntityFeatures(Query):
     def __init__(self, endpoint_url):
         super().__init__(endpoint_url)

@@ -1,4 +1,4 @@
-from feature_extraction.sparql_query import Query
+from feature_extraction.feat_extraction.sparql_query import Query
 import json
 import pickle as pcl
 import time, pandas as pd, numpy as np
