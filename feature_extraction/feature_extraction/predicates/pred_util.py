@@ -32,7 +32,14 @@ class PredicateExtractor(ExtractorBase):
         json.dump(preds, open(f"{self.output_dir}/{self.output_file}", 'w'))
         print('Predicated Saved')
         
+class PredicateFreqExtractor(ExtractorBase):
+    def __init__(self, endpoint: Endpoint, output_dir: str, output_file='predicates.json') -> None:
+        super().__init__(endpoint, output_dir, output_file)
+        self.predicates = json.load(open(f"{self.output_dir}/{self.output_file}", 'r'))
     
+    def group_predicates(self):
+        
+        pass
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
                     prog='Predicate Util',
@@ -52,6 +59,11 @@ if __name__ == "__main__":
         endpoint = Endpoint(args.endpoint)
         pred_ex = PredicateExtractor(endpoint, output_dir, output_file=args.pred_file)
         pred_ex.save_predicates()
+    elif args.task == 'extract-co-predicates':
+        output_dir = f"{args.dir}/predicate"
+        os.system(f"mkdir -p {output_dir}")
+        
+        pass
         
     
         

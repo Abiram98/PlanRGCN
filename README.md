@@ -65,3 +65,8 @@ Removed 149 of 57588 test data uased as validation
 ```
 python3 -m 
 ```
+
+# Executing mavne project interactively
+```
+mvn exec:java -f "/PlanRGCN/qpe/pom.xml"
+```

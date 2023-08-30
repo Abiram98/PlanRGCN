@@ -3,4 +3,6 @@ task=extract-predicates
 output_dir=/PlanRGCN/extracted_features
 pred_file=predicates.json
 
+#python3 -m feature_extraction.predicates.pred_util $task -e $url --output_dir $output_dir --pred_file $pred_file
+task=extract-co-predicates
 python3 -m feature_extraction.predicates.pred_util $task -e $url --output_dir $output_dir --pred_file $pred_file
