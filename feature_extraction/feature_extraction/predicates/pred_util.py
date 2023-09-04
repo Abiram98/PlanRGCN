@@ -13,6 +13,46 @@ class ExtractorBase:
         self.output_dir = output_dir
         self.predicate_file = predicate_file
 
+    def load_batches(self):
+        if not hasattr(self, "batch_output_dir"):
+            raise Exception(
+                """Condition for this method to work is 
+                \n\t1) the features (specifically batching of predicates of PredicateCoPredicateExtractor need to be run)
+                \n\t2) the resulting 'batch_output_dir' needs to exist with the path to the batches"""
+            )
+        files = os.listdir(self.batch_output_dir)
+        if len(files) == 0:
+            self.batchify()
+        sort_func = lambda x: int(x.split("ch_")[1].split(".json")[0])
+        files = sorted([f"{self.batch_output_dir}/{x}" for x in files], key=sort_func)
+        b = []
+        for file in files:
+            with open(file, "r") as f:
+                b.append(json.load(f))
+        self.batches = b
+        del b
+
+    def batchify(self, batch_size=50):
+        if not hasattr(self, "batch_output_dir"):
+            raise Exception(
+                """Condition for this method to work is spefifying the 'batch_output_dir' folder"""
+            )
+        if not hasattr(self, "predicates"):
+            raise Exception("""Predicates must be loaded into the model""")
+        print(len(self.predicates))
+        preds = self.predicates
+        batches = []
+        while len(preds) > 0:
+            t = preds[:batch_size]
+            batches.append(t)
+            with open(
+                f"{self.batch_output_dir}/pred_in_batch_{len(batches)}.json", "w"
+            ) as f:
+                json.dump(t, f)
+            preds = preds[batch_size:]
+        assert np.sum([len(x) for x in batches]) == len(self.predicates)
+        self.batches = batches
+
 
 class PredicateExtractor(ExtractorBase):
     def __init__(
@@ -40,20 +80,6 @@ class PredicateExtractor(ExtractorBase):
         print("Predicated Saved")
 
 
-# TODO repackage code from existing implementation
-class PredicateFreqExtractor(ExtractorBase):
-    def __init__(
-        self, endpoint: Endpoint, output_dir: str, predicate_file="predicates.json"
-    ) -> None:
-        super().__init__(endpoint, output_dir, predicate_file)
-        self.predicates = json.load(
-            open(f"{self.output_dir}/{self.predicate_file}", "r")
-        )
-
-    def group_predicates(self):
-        pass
-
-
 class PredicateCoPredicateExtractor(ExtractorBase):
     def __init__(
         self,
@@ -69,34 +95,6 @@ class PredicateCoPredicateExtractor(ExtractorBase):
         self.predicates = json.load(
             open(f"{self.input_dir}/{self.predicate_file}", "r")
         )
-
-    def batchify(self, batch_size=50):
-        print(len(self.predicates))
-        preds = self.predicates
-        batches = []
-        while len(preds) > 0:
-            t = preds[:batch_size]
-            batches.append(t)
-            with open(
-                f"{self.batch_output_dir}/pred_in_batch_{len(batches)}.json", "w"
-            ) as f:
-                json.dump(t, f)
-            preds = preds[batch_size:]
-        assert np.sum([len(x) for x in batches]) == len(self.predicates)
-        self.batches = batches
-
-    def load_batches(self):
-        files = os.listdir(self.batch_output_dir)
-        if len(files) == 0:
-            self.batchify()
-        sort_func = lambda x: int(x.split("ch_")[1].split(".json")[0])
-        files = sorted([f"{self.batch_output_dir}/{x}" for x in files], key=sort_func)
-        b = []
-        for file in files:
-            with open(file, "r") as f:
-                b.append(json.load(f))
-        self.batches = b
-        del b
 
     def query_batches(self, batch_start=1, batch_end=2):
         if not hasattr(self, "batches"):
@@ -160,5 +158,3 @@ if __name__ == "__main__":
         )
         # extrator.batchify()
         extrator.query_batches(int(args.batch_start), int(args.batch_end))
-    elif args.task == "batch-predicates":
-        pass

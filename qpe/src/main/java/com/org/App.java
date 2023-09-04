@@ -1,14 +1,30 @@
 package  com.org;
+
+import com.org.Algebra.PredicateLogExtractor;
 import com.org.Algebra.Utils;
-/**
- * Hello world!
- *
- */
-public class App 
+
+public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        String task = args[0];
+        switch (task){
+            case "test": {
+                test();
+                break;
+            }
+            case "extract-query-plans":{
+                break;
+            }
+            case "extract-predicates-query-log":{
+                PredicateLogExtractor.run(args[1], args[2]);
+                break;
+            }
+        }
+        
+    }
+
+    public static void test(){
         String query = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX dbpr: <http://dbpedia.org/resource/> SELECT * WHERE { dbpr:The_Troop rdf:type ?obj }";
         query = """
             PREFIX wdt: <http://www.wikidata.org/prop/direct/>

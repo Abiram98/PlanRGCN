@@ -132,7 +132,7 @@ dmypy.json
 **/*.pt
 **/*.pickle
 **/*.bak
-**/*.json
+#**/*.json
 **/*.png
 data/temp/ents/*
 data/temp/pred_ents/*

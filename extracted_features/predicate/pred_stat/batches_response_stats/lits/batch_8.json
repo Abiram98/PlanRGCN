@@ -1,0 +1,1 @@
+{"head": {"link": [], "vars": ["literals"]}, "results": {"distinct": false, "ordered": true, "bindings": [{"literals": {"type": "typed-literal", "datatype": "http://www.w3.org/2001/XMLSchema#integer", "value": "19398500"}}]}}

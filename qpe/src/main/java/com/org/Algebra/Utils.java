@@ -3,7 +3,6 @@ import org.apache.jena.sparql.algebra.*;
 import org.apache.jena.sparql.sse.SSE;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
