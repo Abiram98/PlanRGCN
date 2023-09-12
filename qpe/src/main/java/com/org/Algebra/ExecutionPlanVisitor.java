@@ -14,14 +14,12 @@ import org.apache.jena.sparql.algebra.op.Op1;
 import org.apache.jena.sparql.algebra.op.Op2;
 import org.apache.jena.sparql.algebra.op.OpBGP;
 import org.apache.jena.sparql.algebra.op.OpFilter;
-import org.apache.jena.sparql.algebra.op.OpJoin;
 import org.apache.jena.sparql.algebra.op.OpLeftJoin;
 import org.apache.jena.sparql.algebra.op.OpN;
 import org.apache.jena.sparql.algebra.op.OpPath;
 import org.apache.jena.sparql.algebra.op.OpProcedure;
 import org.apache.jena.sparql.algebra.op.OpPropFunc;
 import org.apache.jena.sparql.algebra.op.OpSequence;
-
 import org.apache.jena.graph.Node;
 
 
@@ -68,7 +66,15 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
     public void visit(Triple triple){
         String t = "{\"Subject\": \""+triple.getSubject();
         t += "\", \"Predicate\": \""+triple.getPredicate();
-        t+= "\", \"Object\": \""+triple.getObject();
+        if (triple.getObject().isLiteral()){
+            String temp = triple.getObject().getLiteralValue().toString();
+            String laTag = triple.getObject().getLiteralLanguage();
+            if(laTag.length() > 0)
+                temp += ("@"+laTag);
+            t+= "\", \"Object\": \""+temp;
+        }else{
+            t+= "\", \"Object\": \""+triple.getObject();
+        }
         t+= "\", \"opName\": \"Triple\"}";
         print(t);
     }
@@ -115,8 +121,17 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
             .append(opPath.getTriplePath().getSubject())
             .append('"')
             .append(", \"Object\": \"")
-            .append(opPath.getTriplePath().getObject())
-            .append('"')
+            ;
+        if (opPath.getTriplePath().getObject().isLiteral()){
+            String temp = opPath.getTriplePath().getObject().getLiteralValue().toString();
+            String laTag = opPath.getTriplePath().getObject().getLiteralLanguage();
+            if(laTag.length() > 0)
+                temp += ("@"+laTag);
+            t.append(temp);
+        }else{
+            t.append(opPath.getTriplePath().getObject());
+        }
+            t.append('"')
             .append(", \"Predicate Path\": \"")
             .append(opPath.getTriplePath().getPath().toString())
             .append('"')
@@ -125,21 +140,7 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
         print(t.toString());
     }
 
-    @Override 
-    public void visit(OpProcedure opProc)             {
-
-    }
     
-    @Override 
-    public void visit(OpPropFunc opPropFunc)          {
-
-    }
-
-    @Override 
-    public void visit(OpJoin opJoin)                  {
-
-    }
-
     @Override 
     public void visit(OpSequence opSequence)          {
         print("{\"opName\": \""+opSequence.getName()+ "\", \"subOp\": [");
@@ -154,7 +155,7 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
                 print(",");
             }
             closeScope();
-
+            
         }
         /* 
         for (Op t : lst){
@@ -171,58 +172,108 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
     
     @Override 
     public void visit(OpFilter opFilter)              {
-        print("{\"opName\": \""+opFilter.getName()+"\" , \"subOp\": [");
+        //opFilter.getExprs().iterator();
+        print("{\"opName\": \""+opFilter.getName()+"\" , "+ "\"expr\": \" "+ opFilter.getExprs().toString().replace("\"", "\\\"").replace("\n"," ")+"\", "+"\"subOp\": [");
         openScope();
         //TODO: add expressions to queryplan
         opFilter.getSubOp().visit(this);
         closeScope();
         print("]}");
     }
-
+    
     @Override
     protected void visitN(OpN op) {
-        for(Op t : op.getElements()){
+        print("{\"opName\": \""+op.getName()+ "\", \"subOp\": [");
+        openScope();
+        Iterator<Op> iter =  op.getElements().iterator();
+        while(iter.hasNext()){
+            Op t = iter.next();
             t.visit(this);
+            if (iter.hasNext())
+                print(",");
         }
+        closeScope();
+        print("]}");
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'visitN'");
     }
     @Override
     protected void visit2(Op2 op) {
+        print("{\"opName\": \""+op.getName()+ "\", \"subOp\": [");
+        openScope();
+        //List<Op> lst = opSequence.getElements();
         op.getLeft().visit(this);
+        print(",");
         op.getRight().visit(this);
+        closeScope();
+        print("]}");
+        
+        //op.getLeft().visit(this);
+        //op.getRight().visit(this);
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'visit2'");
     }
+    @Override 
+    public void visit(OpProcedure opProc)             {
+        print("{\"opName\": \""+opProc.getName()+ "\", \"subOp\": []}");
+        //print("opProc");
+        
+    }
+    
+    @Override 
+    public void visit(OpPropFunc opPropFunc)          {
+        print("{\"opName\": \""+opPropFunc.getName()+ "\", \"subOp\": []}");
+        //print("OpPropFunc");
+
+    }
+
+    /*@Override 
+    public void visit(OpJoin opJoin)                  {
+        opJoin.getRight()
+
+    }*/
+
+
+
+    
     @Override
     protected void visit1(Op1 op) {
+        print("{\"opName\": \""+op.getName()+ "\", \"subOp\": [");
+        openScope();
+        //List<Op> lst = opSequence.getElements();
         op.getSubOp().visit(this);
+        closeScope();
+        print("]}");
+        
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'visit1'");
     }
     @Override
     protected void visit0(Op0 op) {
+        print("{\"opName\": \""+op.getName()+ "\", \"subOp\": []}");
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'visit0'");
     }
     @Override
-    protected void visitFilter(OpFilter op) {
-        op.getSubOp().visit(this);
-        // TODO Auto-generated method stub
-        
-        //throw new UnsupportedOperationException("Unimplemented method 'visitFilter'");
-    }
-    @Override
     protected void visitLeftJoin(OpLeftJoin op) {
+        print("{\"opName\": \""+op.getName()+ "\", \"subOp\": [");
+        openScope();
+        //List<Op> lst = opSequence.getElements();
         op.getLeft().visit(this);
+        print(",");
         op.getRight().visit(this);
+        closeScope();
+        print("]}");
+
+        //op.getLeft().visit(this);
+        //op.getRight().visit(this);
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'visitLeftJoin'");
     }
-
-    /*@Override 
-    public void visit(OpTopN opTop)                   {
-
-    }*/
+    @Override
+    protected void visitFilter(OpFilter op) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'visitFilter'");
+    }
     
 }

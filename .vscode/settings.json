@@ -1,0 +1,6 @@
+{
+    "java.project.sourcePaths": [
+        "qpe/src/main/java"
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
+}

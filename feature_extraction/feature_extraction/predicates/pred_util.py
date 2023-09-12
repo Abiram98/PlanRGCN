@@ -30,7 +30,7 @@ class ExtractorBase:
             with open(file, "r") as f:
                 b.append(json.load(f))
         self.batches = b
-        del b
+        # del b
 
     def batchify(self, batch_size=50):
         if not hasattr(self, "batch_output_dir"):

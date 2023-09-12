@@ -5,12 +5,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "utils Script",
+            "name": "query plan constr",
             "type": "python",
             "request": "launch",
             "console": "integratedTerminal",
-            "module": "preprocessing.utils_script",
-            "justMyCode": true
+            "module": "graph_construction.query_graph"
+        },
+        {
+            "name": "pred co create",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "module": "feat_rep.pred.pred_co",
+            "args": [
+                ""
+            ]
         },
         {
             "name": "train (batched)",
@@ -19,13 +28,6 @@
             "console": "integratedTerminal",
             "module": "classifier.batched.trainer"
         },
-        {
-            "name": "utils",
-            "type": "python",
-            "request": "launch",
-            "console": "integratedTerminal",
-            "module": "utils2"
-        },
         /*{
             "name": "predicate stats",
             "type": "python",
@@ -33,33 +35,6 @@
             "console": "integratedTerminal",
             "module": "feature_extraction.predicate_features"
         },*/
-        {
-            "name": "predicate feats",
-            "type": "python",
-            "request": "launch",
-            "console": "integratedTerminal",
-            "module": "feature_extraction.predicate_features_sub_obj",
-            "args": [
-                ""
-            ]
-        },
-        {
-            "name": "dataset (torch)",
-            "type": "python",
-            "request": "launch",
-            "console": "integratedTerminal",
-            "module": "classifier.bgp_dataset"
-        },
-        {
-            "name": "ents stats",
-            "type": "python",
-            "request": "launch",
-            "console": "integratedTerminal",
-            "module": "feature_extraction.entity_features",
-            "args": [
-                "binnify"
-            ]
-        },
         {
             "name": "literals stats",
             "type": "python",

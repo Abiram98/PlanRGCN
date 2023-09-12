@@ -13,9 +13,13 @@ import com.opencsv.CSVReaderBuilder;
 public class LSQreader {
     String path;
     LinkedList<String> queries = new LinkedList<>();
+    LinkedList<String> ids = new LinkedList<>();
 
     public LinkedList<String> getQueries() {
         return queries;
+    }
+    public LinkedList<String> getIds() {
+        return ids;
     }
 
     public LSQreader(String file_path) throws FileNotFoundException{
@@ -35,6 +39,7 @@ public class LSQreader {
             while( iter.hasNext()){
                 String[] i = iter.next();
                 queries.add(i[1]);
+                ids.add(i[0]);
             }
         
         }catch (Exception e){

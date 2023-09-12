@@ -1,7 +1,6 @@
 from feature_extraction.predicates.pred_util import *
 
 
-# TODO repackage code from existing implementation
 class PredicateFreqExtractor(ExtractorBase):
     def __init__(
         self,
@@ -61,30 +60,34 @@ class PredicateStatQueries:
 
     def unique_literals_for_predicate(batch):
         pred_str = PredicateStatQueries.pred_str_gen(batch)
-        return f"""SELECT (COUNT(DISTINCT ?o) AS ?literals) WHERE {{
+        return f"""SELECT ?p1 (COUNT(DISTINCT ?o) AS ?literals) WHERE {{
             VALUES (?p1) {{ {pred_str}}}
             ?s ?p1 ?o .
             FILTER(isLiteral(?o))
-        }}"""
+        }}
+        GROUP BY ?p1
+        """
 
     def unique_entity_for_predicate(batch):
         pred_str = PredicateStatQueries.pred_str_gen(batch)
         """This returns the count of unique entities in both subject and object positions."""
-        return f"""SELECT (COUNT(DISTINCT ?e) AS ?entities) WHERE {{
+        return f"""SELECT ?p1 (COUNT(DISTINCT ?e) AS ?entities) WHERE {{
             VALUES (?p1) {{ {pred_str}}}
             {{?e ?p1 ?o .
             FILTER(isURI(?e))}}
             UNION {{?s ?p1 ?e .
             FILTER(isURI(?e))}}
         }}
+        GROUP BY ?p1
         """
 
     def frequency_for_predicate(batch):
         pred_str = PredicateStatQueries.pred_str_gen(batch)
-        return f"""SELECT (COUNT(*) AS ?triples) WHERE {{
+        return f"""SELECT ?p1 (COUNT(*) AS ?triples) WHERE {{
             VALUES (?p1) {{ {pred_str}}}
             ?s ?p1 ?o .
         }}
+        GROUP BY ?p1
         """
 
 

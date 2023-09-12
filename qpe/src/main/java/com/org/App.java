@@ -1,7 +1,12 @@
 package  com.org;
 
+import java.io.FileNotFoundException;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import com.org.Algebra.PredicateLogExtractor;
 import com.org.Algebra.Utils;
+import com.org.QueryReader.LSQreader;
 
 public class App
 {
@@ -14,6 +19,15 @@ public class App
                 break;
             }
             case "extract-query-plans":{
+                try {
+                    LSQreader reader = new LSQreader(args[1]);
+                    
+                    Utils u = new Utils();
+                    u.extract_query_plan(reader, args[2]);
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 break;
             }
             case "extract-predicates-query-log":{
@@ -30,23 +44,27 @@ public class App
             PREFIX wdt: <http://www.wikidata.org/prop/direct/>
             PREFIX wd: <http://www.wikidata.org/entity/>
             SELECT (COUNT(DISTINCT (?occName))AS ?num_works) ?presName
-
+            
             WHERE {
-            
-            ?president wdt:P39/wdt:P279* wd:Q248577 .
-            ?president wdt:P27 ?country .
-            ?president wdt:P106 ?occupation .
-            ?country <http://schema.org/name> ?countryName.
-            ?occupation <http://schema.org/name> ?occName.
-            ?president <http://schema.org/name> ?presName.
-            
-            FILTER ( ( !REGEX(?occName, ".*[Pp]resid.*") ) )
-            
+                
+                ?president wdt:P39/wdt:P279* wd:Q248577 .
+                Minus {
+                    ?president wdt:P27 ?country .
+                }
+                ?president wdt:P106 ?occupation .
+                Optional {
+                    ?country <http://schema.org/name> ?countryName.
+                }
+                ?occupation <http://schema.org/name> ?occName.
+                ?president <http://schema.org/name> ?presName.
+                
+                FILTER ( ( !REGEX(?occName, ".*[Pp]resid.*") ) )
+                
             }
             GROUP BY ?work ?presName
             ORDER BY DESC (?num_works)
-                """;
-        Utils u = new Utils();
+            """;
+            Utils u = new Utils();
         u.create_algebra_test(query);
     }
 }

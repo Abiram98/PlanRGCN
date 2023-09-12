@@ -16,6 +16,7 @@ batch_end=1678
         --batch_start $batch_start \
         --batch_end $batch_end
 '
+url=http://172.21.233.23:8890/sparql/
 pred_file=predicate_in_dbpedia2016.json
 task=extract-predicates-stat
 input_dir=/PlanRGCN/extracted_features/predicate
