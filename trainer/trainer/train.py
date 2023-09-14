@@ -1,7 +1,7 @@
 import os
 import dgl
 from graph_construction.featurizer import FeaturizerPredCo
-from graph_construction.query_graph import snap_lat2onehot
+from graph_construction.query_graph import QueryPlanCommonBi, snap_lat2onehot
 from trainer.data_util import DatasetPrep
 from trainer.model import Classifier as CLS
 import torch as th
@@ -13,8 +13,9 @@ import pandas as pd
 
 
 def snap_pred(pred):
+    if isinstance(pred, th.Tensor):
+        pred = th.tensor(snap_lat2onehot(pred), dtype=th.float32)
     return th.argmax(pred)
-
     """1. prediction, 2. model threshold, 3. bool whether to use threshold"""
     if isinstance(pred, int):
         if pred >= model_thres:
@@ -49,6 +50,8 @@ class Trainer:
         hidden_dim=48,
         n_classes=6,
         featurizer_class=FeaturizerPredCo,
+        query_plan=QueryPlanCommonBi,
+        model=CLS,
     ) -> None:
         dgl.seed(1223)
         prepper = DatasetPrep(
@@ -60,13 +63,14 @@ class Trainer:
             pred_stat_path=pred_stat_path,
             time_col=time_col,
             cls_func=cls_func,
+            query_plan=query_plan,
             featurizer_class=featurizer_class,
         )
         self.train_loader = prepper.get_trainloader()
         self.val_loader = prepper.get_valloader()
         self.test_loader = prepper.get_testloader()
 
-        self.model = CLS(prepper.vec_size, hidden_dim, n_classes)
+        self.model = model(prepper.vec_size, hidden_dim, n_classes)
 
     def train(
         self,
@@ -170,14 +174,14 @@ class Trainer:
                     feats = graphs.ndata["node_features"]
                     edge_types = graphs.edata["rel_type"]
                     pred = self.model(graphs, feats, edge_types)
-                    c_val_loss = F.mse_loss(pred, labels).item()
                     """if loss_type == "cross-entropy":
                         c_val_loss = F.cross_entropy(pred, labels).item()
                     elif loss_type == "mse":
                         c_val_loss = F.mse_loss(pred, labels).item()"""
-
-                    c_val_loss = F.cross_entropy(pred, labels).item()
-                    # test_loss += loss_fn(pred, torch.reshape(sample['target'],(1,1))).item()
+                    if loss_type == "cross-entropy":
+                        c_val_loss = F.cross_entropy(pred, labels).item()
+                    elif loss_type == "mse":
+                        c_val_loss = F.mse_loss(pred, labels).item()
                     val_loss += c_val_loss
                     # snap_thres = [pred_thres for x in pred]
                     # snap_add_thres = [add_thres for x in pred]
@@ -274,6 +278,7 @@ class Trainer:
             if path_to_save != None and (val_f1 > best_f1):
                 th.save(self.model, f"{path_to_save}/best_f1_model_{epoch+1}.pt")
                 best_model_path = f"{path_to_save}/best_f1_model_{epoch+1}.pt"
+                self.best_model_path = best_model_path
                 best_f1 = val_f1
             if verbosity >= 2:
                 print(f"Train Avg Loss {epoch+1:4}: {train_loss:>8f}\n")
@@ -334,5 +339,24 @@ class Trainer:
         return all_ids, all_preds, all_truths
 
 
-t = Trainer()
+# t = Trainer()
 # t.train()
+if __name__ == "__main__":
+    from trainer.model import RegressorWSelfTriple as CLS
+    from graph_construction.featurizer import FeaturizerPredStats
+    from graph_construction.query_graph import QueryPlanCommonBi
+
+    t = Trainer(
+        featurizer_class=FeaturizerPredStats,
+        query_plan=QueryPlanCommonBi,
+        cls_func=lambda x: x,
+        model=CLS,
+    )
+    t.train(
+        epochs=100,
+        verbosity=2,
+        result_path="/PlanRGCN/results/results.json",
+        path_to_save="/PlanRGCN/plan_model",
+        loss_type="mse",
+    )
+    t.predict(path_to_save="/PlanRGCN/results_reg")

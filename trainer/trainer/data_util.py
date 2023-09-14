@@ -1,5 +1,9 @@
 from graph_construction.featurizer import FeaturizerPredStats
-from graph_construction.query_graph import query_graph_w_class_vec, snap_lat2onehot
+from graph_construction.query_graph import (
+    QueryPlanCommonBi,
+    query_graph_w_class_vec,
+    snap_lat2onehot,
+)
 
 from dgl.dataloading import GraphDataLoader
 
@@ -29,6 +33,7 @@ class DatasetPrep:
         time_col="mean_latency",
         cls_func=snap_lat2onehot,
         featurizer_class=FeaturizerPredStats,
+        query_plan=QueryPlanCommonBi,
     ) -> None:
         self.train_path = train_path
         self.val_path = val_path
@@ -40,6 +45,7 @@ class DatasetPrep:
         self.vec_size = self.feat.filter_size + self.feat.tp_size
         self.query_plan_dir = query_plan_dir
         self.batch_size = batch_size
+        self.query_plan = query_plan
 
     def get_dataloader(self, path):
         graphs, clas_list, ids = query_graph_w_class_vec(
@@ -48,6 +54,7 @@ class DatasetPrep:
             feat=self.feat,
             time_col=self.time_col,
             cls_funct=self.cls_func,
+            query_plan=self.query_plan,
         )
         train_dataset = GraphDataset(graphs, clas_list, ids)
         train_dataloader = GraphDataLoader(

@@ -72,13 +72,69 @@ mvn exec:java -f "/PlanRGCN/qpe/pom.xml"
 ```
 
 # Training model:
+f1 on validation: 0.19/ 0.10
 ```
 python3 -c """
 from trainer.train import Trainer
-t = Trainer()
+from graph_construction.featurizer import FeaturizerPredCo
+t = Trainer(featurizer_class=FeaturizerPredCo)
 t.train(epochs=100,verbosity=2,
 result_path='/PlanRGCN/results/results.json',
 path_to_save='/PlanRGCN/plan_model')
 t.predict(path_to_save='/PlanRGCN/results')
+"""
+```
+f1 on validation:  0.31
+```
+python3 -c """
+from trainer.train import Trainer
+from graph_construction.featurizer import FeaturizerPredStats
+t = Trainer(featurizer_class=FeaturizerPredStats)
+t.train(epochs=100,verbosity=2,
+result_path='/PlanRGCN/results/results.json',
+path_to_save='/PlanRGCN/plan_model')
+t.predict(path_to_save='/PlanRGCN/results')
+"""
+```
+
+## Experiment with self loop relation
+val f1=0.18
+```
+python3 -c """
+from trainer.model import ClassifierWSelfTriple as CLS
+from trainer.train import Trainer
+from graph_construction.featurizer import FeaturizerPredStats
+from graph_construction.query_graph import QueryPlanCommonBi
+t = Trainer(featurizer_class=FeaturizerPredStats,query_plan=QueryPlanCommonBi)
+t.train(epochs=100,verbosity=2,
+result_path='/PlanRGCN/results/results.json',
+path_to_save='/PlanRGCN/plan_model')
+t.predict(path_to_save='/PlanRGCN/results')
+"""
+```
+
+# Regression with PlanRGCN
+val f1= 0.09566
+```
+python3 -c """
+from trainer.model import RegressorWSelfTriple as CLS
+from trainer.train import Trainer
+from graph_construction.featurizer import FeaturizerPredStats
+from graph_construction.query_graph import QueryPlanCommonBi
+
+t = Trainer(
+    featurizer_class=FeaturizerPredStats,
+    query_plan=QueryPlanCommonBi,
+    cls_func=lambda x: x,
+    model=CLS,
+)
+t.train(
+    epochs=100,
+    verbosity=2,
+    result_path='/PlanRGCN/results/results.json',
+    path_to_save='/PlanRGCN/plan_model',
+    loss_type='mse',
+)
+t.predict(path_to_save='/PlanRGCN/results_reg')
 """
 ```

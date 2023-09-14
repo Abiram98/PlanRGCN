@@ -11,6 +11,8 @@ import torch as th
 
 
 class QueryPlan:
+    max_relations = 15
+
     def __init__(self, data) -> None:
         self.level = 0
 
@@ -274,14 +276,64 @@ class QueryPlanUtils:
         return res_t
 
 
-def create_query_plan(path):
+class QueryPlanCommonBi(QueryPlan):
+    """This query plan class only adds relations between binary BGP operations with the triple patterns share the same variables
+
+    Args:
+        QueryPlan (_type_): _description_
+    """
+
+    max_relations = 16
+
+    def __init__(self, data) -> None:
+        super().__init__(data)
+
+    def add_binaryOP(self, data, add_data=None):
+        assert len(data["subOp"]) == 2
+        left = data["subOp"][0]
+        right = data["subOp"][1]
+        left_triples = QueryPlanUtils.extract_triples(left)
+        left_triples = QueryPlanUtils.map_extracted_triples(left_triples, self.triples)
+        right_triples = QueryPlanUtils.extract_triples(right)
+        right_triples = QueryPlanUtils.map_extracted_triples(
+            right_triples, self.triples
+        )
+        for r in right_triples:
+            for l in left_triples:
+                # consider adding the other way for union as a special case
+                if self.is_triple_common(l, r):
+                    self.edges.append(
+                        (r, l, QueryPlanUtils.get_relations(data["opName"]))
+                    )
+
+    def is_triple_common(self, l: TriplePattern, r: TriplePattern):
+        """checks if the triple patterns are joinable
+
+        Args:
+            l (TriplePattern): left triple pattern
+            r (TriplePattern): right triple pattern
+        """
+        for lvar in l.get_joins():
+            for rvar in r.get_joins():
+                if lvar == rvar:
+                    return True
+        return False
+
+    def add_self_loop_triples(self):
+        for t in self.triples:
+            self.edges.append((t, t, 15))
+
+
+def create_query_plan(path, query_plan=QueryPlanCommonBi):
     data = json.load(open(path, "r"))
-    q = QueryPlan(data)
+    q = query_plan(data)
     q.path = path
     return q
 
 
-def create_query_plans_dir(source_dir, ids: set[str] = None, add_id=False):
+def create_query_plans_dir(
+    source_dir, ids: set[str] = None, add_id=False, query_plan=QueryPlanCommonBi
+):
     if ids is None:
         files = [x for x in os.listdir(source_dir) if x.startswith("lsqQuery")]
     else:
@@ -289,9 +341,14 @@ def create_query_plans_dir(source_dir, ids: set[str] = None, add_id=False):
             x for x in os.listdir(source_dir) if x.startswith("lsqQuery") and x in ids
         ]
     if add_id:
-        return [(create_query_plan(f"{source_dir}{x}"), x) for x in files]
+        return [
+            (create_query_plan(f"{source_dir}{x}", query_plan=query_plan), x)
+            for x in files
+        ]
 
-    query_plans = [create_query_plan(f"{source_dir}{x}") for x in files]
+    query_plans = [
+        create_query_plan(f"{source_dir}{x}", query_plan=query_plan) for x in files
+    ]
     return query_plans
 
 
@@ -327,11 +384,12 @@ def create_dgl_graph_helper(qps: list[QueryPlan], featurizer: FeaturizerBase) ->
 def create_query_graphs_data_split(
     source_dir,
     query_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
+    query_plan=QueryPlanCommonBi,
     feat: FeaturizerBase = None,
 ):
     df = pd.read_csv(query_path, sep="\t")
     ids = set([x[20:] for x in df["queryID"]])
-    qps = create_query_plans_dir(source_dir, ids, add_id=True)
+    qps = create_query_plans_dir(source_dir, ids, query_plan=query_plan, add_id=True)
     return create_dgl_graphs(qps, feat, without_id=False)
 
 
@@ -339,6 +397,7 @@ def query_graphs_with_lats(
     source_dir,
     query_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
     feat: FeaturizerBase = None,
+    query_plan=QueryPlanCommonBi,
     time_col="mean_latency",
 ):
     df = pd.read_csv(query_path, sep="\t")
@@ -347,7 +406,7 @@ def query_graphs_with_lats(
     # print(df.loc["lsqQuery-UBZNr7M1ITVUf21mrBIQ9W4f6cdpJr6DQbr0HkWKOnw"][time_col])
 
     graphs_ids = create_query_graphs_data_split(
-        source_dir, query_path=query_path, feat=feat
+        source_dir, query_path=query_path, feat=feat, query_plan=query_plan
     )
     samples = list()
     for g, id in graphs_ids:
@@ -362,9 +421,14 @@ def query_graph_w_class_vec(
     feat: FeaturizerBase = None,
     time_col="mean_latency",
     cls_funct=lambda x: x,
+    query_plan=QueryPlanCommonBi,
 ):
     samples = query_graphs_with_lats(
-        source_dir=source_dir, query_path=query_path, feat=feat, time_col=time_col
+        source_dir=source_dir,
+        query_path=query_path,
+        feat=feat,
+        time_col=time_col,
+        query_plan=query_plan,
     )
     return query_graph_w_class_vec_helper(samples, cls_funct)
 
