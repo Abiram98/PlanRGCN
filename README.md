@@ -70,3 +70,15 @@ python3 -m
 ```
 mvn exec:java -f "/PlanRGCN/qpe/pom.xml"
 ```
+
+# Training model:
+```
+python3 -c """
+from trainer.train import Trainer
+t = Trainer()
+t.train(epochs=100,verbosity=2,
+result_path='/PlanRGCN/results/results.json',
+path_to_save='/PlanRGCN/plan_model')
+t.predict(path_to_save='/PlanRGCN/results')
+"""
+```

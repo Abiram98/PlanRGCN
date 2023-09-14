@@ -30,3 +30,4 @@ apt-get install graphviz graphviz-dev -y
 pip install pygraphviz
 
 pip3 install -e feature_representation/
+pip3 install -e trainer/

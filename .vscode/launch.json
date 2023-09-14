@@ -22,11 +22,11 @@
             ]
         },
         {
-            "name": "train (batched)",
+            "name": "train (defalt)",
             "type": "python",
             "request": "launch",
             "console": "integratedTerminal",
-            "module": "classifier.batched.trainer"
+            "module": "trainer.train"
         },
         /*{
             "name": "predicate stats",
