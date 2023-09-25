@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import com.org.Algebra.EntityLogExtractor;
 import com.org.Algebra.PredicateLogExtractor;
 import com.org.Algebra.Utils;
 import com.org.QueryReader.LSQreader;
@@ -32,6 +33,10 @@ public class App
             }
             case "extract-predicates-query-log":{
                 PredicateLogExtractor.run(args[1], args[2]);
+                break;
+            }
+            case "extract-entity-query-log":{
+                EntityLogExtractor.run(args[1], args[2]);
                 break;
             }
         }
@@ -64,6 +69,9 @@ public class App
             GROUP BY ?work ?presName
             ORDER BY DESC (?num_works)
             """;
+        query="""
+            PREFIX dbpr: <http://dbpedia.org/resource/> SELECT * WHERE { { dbpr:Category:1987_IBF_World_Championships ?po ?x } UNION { ?x ?pi dbpr:Category:1987_IBF_World_Championships } } ORDER BY ?pi ?po ?x
+                """;
             Utils u = new Utils();
         u.create_algebra_test(query);
     }

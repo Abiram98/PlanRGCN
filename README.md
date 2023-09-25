@@ -138,3 +138,19 @@ t.train(
 t.predict(path_to_save='/PlanRGCN/results_reg')
 """
 ```
+
+## Experiment with self loop relation and entity features
+val f1=
+```
+python3 -c """
+from trainer.model import ClassifierWSelfTriple as CLS
+from trainer.train import Trainer
+from graph_construction.featurizer import FeaturizerPredCoEnt
+from graph_construction.query_graph import QueryPlanCommonBi
+t = Trainer(featurizer_class=FeaturizerPredCoEnt,query_plan=QueryPlanCommonBi)
+t.train(epochs=100,verbosity=2,
+result_path='/PlanRGCN/results3/results.json',
+path_to_save='/PlanRGCN/plan_model')
+t.predict(path_to_save='/PlanRGCN/results3')
+"""
+```

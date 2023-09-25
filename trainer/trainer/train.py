@@ -13,26 +13,9 @@ import pandas as pd
 
 
 def snap_pred(pred):
-    if isinstance(pred, th.Tensor):
+    if not isinstance(pred, th.Tensor):
         pred = th.tensor(snap_lat2onehot(pred), dtype=th.float32)
     return th.argmax(pred)
-    """1. prediction, 2. model threshold, 3. bool whether to use threshold"""
-    if isinstance(pred, int):
-        if pred >= model_thres:
-            return 1
-        else:
-            return 0
-    if add_thres != None:
-        # [0 , 1] = true /use bloom filters
-        assert model_thres != None
-        pred = pred.flatten()
-        t = torch.argmax(pred)
-        # assert pred.shape[0] == 2
-        if (t == 1) and pred[1] > model_thres:
-            return 1
-        else:
-            return 0
-    return torch.argmax(pred)
 
 
 class Trainer:
@@ -84,7 +67,7 @@ class Trainer:
         verbosity=1,
     ):
         """Trains a model,  \nHyperparameters: early_stop, lr, wd, epochs"""
-
+    
         opt = th.optim.AdamW(self.model.parameters(), lr=lr, weight_decay=wd)
         # opt = th.optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
 

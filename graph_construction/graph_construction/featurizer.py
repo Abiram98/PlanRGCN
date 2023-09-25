@@ -102,6 +102,81 @@ class FeaturizerPredCo(FeaturizerPredStats):
         return vec
 
 
+class FeaturizerPredCoEnt(FeaturizerPredStats):
+    def __init__(
+        self,
+        pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
+        pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
+    ) -> None:
+        super().__init__(pred_stat_path)
+
+        self.pred2index, self.max_pred = pickle.load(open(pred_com_path, "rb"))
+        self.tp_size = self.tp_size + self.max_pred + 6
+        estat = EntStats()
+        self.ent_freq = estat.ent_freq
+        self.ent_subj = estat.subj_ents
+        self.ent_obj = estat.obj_ents
+
+    def featurize(self, node):
+        if isinstance(node, FilterNode):
+            return self.filter_features(node).astype("float64")
+        elif isinstance(node, TriplePattern):
+            return np.concatenate(
+                (self.tp_features(node), self.pred_clust_features(node)), axis=0
+            ).astype("float64")
+        else:
+            raise Exception("unknown node type")
+
+    def pred_clust_features(self, node: TriplePattern):
+        vec = np.zeros(self.max_pred)
+        try:
+            idx = self.pred2index[node.predicate.node_label]
+        except KeyError:
+            idx = self.max_pred - 1
+        vec[idx] = 1
+        return vec
+
+    def tp_features(self, node):
+        var_vec = np.array(
+            [node.subject.nodetype, node.predicate.nodetype, node.object.nodetype]
+        )
+        freq = self.get_value_dict(self.pred_freq, node.predicate.node_label)
+        lits = self.get_value_dict(self.pred_lits, node.predicate.node_label)
+        ents = self.get_value_dict(self.pred_ents, node.predicate.node_label)
+        (
+            subj_freq,
+            subj_subj_freq,
+            sub_obj_freq,
+            obj_freq,
+            obj_subj_freq,
+            obj_obj_freq,
+        ) = (0, 0, 0, 0, 0, 0)
+        if node.subject.type == "URI":
+            subj_freq = self.get_value_dict(self.ent_freq, node.subject.node_label)
+            subj_subj_freq = self.get_value_dict(self.ent_subj, node.subject.node_label)
+            sub_obj_freq = self.get_value_dict(self.ent_obj, node.subject.node_label)
+
+        if node.object.type == "URI":
+            obj_freq = self.get_value_dict(self.ent_freq, node.subject.node_label)
+            obj_subj_freq = self.get_value_dict(self.ent_subj, node.subject.node_label)
+            obj_obj_freq = self.get_value_dict(self.ent_obj, node.subject.node_label)
+
+        stat_vec = np.array(
+            [
+                freq,
+                lits,
+                ents,
+                subj_freq,
+                subj_subj_freq,
+                sub_obj_freq,
+                obj_freq,
+                obj_subj_freq,
+                obj_obj_freq,
+            ]
+        )
+        return np.concatenate((var_vec, stat_vec, np.zeros(self.filter_size)), axis=0)
+
+
 class PredStats:
     def __init__(
         self,
@@ -254,3 +329,78 @@ class FilterFeatureUtils:
 # print(len(list(p.pred_ents.keys())))
 # print(len(list(p.triple_freq.keys())))
 # print(len(list(p.pred_lits.keys())))
+class EntStats:
+    def __init__(
+        self,
+        path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+    ) -> None:
+        self.path = path
+        self.ent_freq = {}
+        self.obj_ents = {}
+        self.subj_ents = {}
+        self.load_ent_stats()
+        # print(len(list(self.triple_freq.keys())))
+
+    def load_preds_freq(self):
+        freq_path = self.path + "/freq/"
+        if not os.path.exists(freq_path):
+            raise Exception("Entity feature not existing")
+        files = sorted(
+            [f"{freq_path}{x}" for x in os.listdir(freq_path) if x.endswith(".json")]
+        )
+        for f in files:
+            self.load_pred_freq(f)
+
+    def load_ent_stats(self):
+        freq_path = self.path + "/freq/"
+        subj_path = self.path + "/subj/"
+        obj_path = self.path + "/obj/"
+        if not (
+            os.path.exists(freq_path)
+            and os.path.exists(subj_path)
+            and os.path.exists(obj_path)
+        ):
+            raise Exception("Predicate feature not existing")
+        for p, f in zip(
+            [freq_path, subj_path, obj_path],
+            [self.load_pred_freq, self.load_subj_ents, self.load_obj_ents],
+        ):
+            self.load_preds_stat_helper(p, f)
+
+    def load_preds_stat_helper(self, path, loader_func):
+        files = sorted([f"{path}{x}" for x in os.listdir(path) if x.endswith(".json")])
+        for f in files:
+            loader_func(f)
+
+    def load_pred_freq(self, file):
+        data = json.load(open(file, "r"))
+        data = data["results"]["bindings"]
+        if not "e" in data[0].keys():
+            return None
+
+        for x in data:
+            if x["e"]["value"] in self.ent_freq.keys():
+                assert x["entities"]["value"] == self.ent_freq[x["e"]["value"]]
+            self.ent_freq[x["e"]["value"]] = x["entities"]["value"]
+
+    def load_subj_ents(self, file):
+        data = json.load(open(file, "r"))
+        data = data["results"]["bindings"]
+        if not "e" in data[0].keys():
+            return None
+
+        for x in data:
+            if x["e"]["value"] in self.subj_ents.keys():
+                assert x["entities"]["value"] == self.subj_ents[x["e"]["value"]]
+            self.subj_ents[x["e"]["value"]] = x["entities"]["value"]
+
+    def load_obj_ents(self, file):
+        data = json.load(open(file, "r"))
+        data = data["results"]["bindings"]
+        if not "e" in data[0].keys():
+            return None
+
+        for x in data:
+            if x["e"]["value"] in self.obj_ents.keys():
+                assert x["entities"]["value"] == self.obj_ents[x["e"]["value"]]
+            self.obj_ents[x["e"]["value"]] = x["entities"]["value"]
