@@ -27,22 +27,22 @@ class QueryPlan:
 
         self.iterate_ops(self.add_triple, "Triple")
         self.iterate_ops(self.add_filters, "filter")
-        self.add_self_loop_triples()
+        #self.add_self_loop_triples()
         self.assign_trpl_ids()
         self.assign_filt_ids()
 
         # filt_edge = [(d.id, b.id, r) for (d, b, r) in self.edges if r == 9]
         # print(filt_edge)
-        self.iterate_ops(self.add_binaryOP, "minus")
-        self.iterate_ops(self.add_binaryOP, "union")
+        #self.iterate_ops(self.add_binaryOP, "minus")
+        #self.iterate_ops(self.add_binaryOP, "union")
+        self.iterate_ops(self.add_binaryOP, "join")
         self.iterate_ops(self.add_binaryOP, "leftjoin")
         self.iterate_ops(self.add_binaryOP, "conditional")
-        self.iterate_ops(self.add_binaryOP, "join")
         # can be used to check for existence of operators
         # self.iterate_ops(self.assert_operator, "leftjoin")
         # self.iterate_ops(self.assert_operator, "join")
-        self.iterate_ops(self.assert_operator, "diff")
-        self.iterate_ops(self.assert_operator, "lateral")
+        #self.iterate_ops(self.assert_operator, "diff")
+        #self.iterate_ops(self.assert_operator, "lateral")
 
         # print(self.edges)
         self.nodes = [x.id for x in self.triples]
@@ -68,15 +68,11 @@ class QueryPlan:
             return
         stack = Stack()
         stack.push(current)
-        filterdata = None
         while not stack.is_empty():
             current = stack.pop()
             if "subOp" in current:
-                if current["opName"] == "filter":
-                    filterdata = FilterNode(current)
-                    self.filter_dct[filterdata] = []
                 if current["opName"] == "BGP":
-                    self.iterate_bgp(current, func, node_type, filter=filterdata)
+                    self.iterate_bgp(current, func, node_type, filter=None)
                 else:
                     self.level += 1
                     for node in reversed(current["subOp"]):
@@ -122,6 +118,7 @@ class QueryPlan:
         filter_node = FilterNode(data)
         self.filters.append(filter_node)
         filter_triples = QueryPlanUtils.extract_triples(data)
+        assert len(filter_triples) ==0
         filter_triples = QueryPlanUtils.map_extracted_triples(
             filter_triples, self.triples
         )
@@ -190,9 +187,13 @@ class QueryPlan:
             right_triples, self.triples
         )
         for r in right_triples:
+            r:TriplePattern
             for l in left_triples:
+                l_vars = l.get_joins()
+                for r_v in r.get_joins():
+                    if r_v in l_vars:
                 # consider adding the other way for union as a special case
-                self.edges.append((r, l, QueryPlanUtils.get_relations(data["opName"])))
+                        self.edges.append((l, r, QueryPlanUtils.get_relations(data["opName"])))
         # print(left_triples)
         # print("\n\n")
         # print(right_triples)
@@ -241,6 +242,7 @@ def test(p, add_data=None):
 
 
 class QueryPlanUtils:
+    
     def get_relations(op):
         match op:
             case "conditional":
@@ -324,7 +326,7 @@ class QueryPlanCommonBi(QueryPlan):
             self.edges.append((t, t, 15))
 
 
-def create_query_plan(path, query_plan=QueryPlanCommonBi):
+def create_query_plan(path, query_plan=QueryPlan):
     data = json.load(open(path, "r"))
     q = query_plan(data)
     q.path = path
@@ -341,6 +343,13 @@ def create_query_plans_dir(
             x for x in os.listdir(source_dir) if x.startswith("lsqQuery") and x in ids
         ]
     if add_id:
+        #temp
+        for x in files:
+            try:
+                create_query_plan(f"{source_dir}{x}",query_plan=query_plan)
+            except AssertionError:
+                print(f"{source_dir}{x}")
+        #not temp
         return [
             (create_query_plan(f"{source_dir}{x}", query_plan=query_plan), x)
             for x in files
@@ -384,7 +393,7 @@ def create_dgl_graph_helper(qps: list[QueryPlan], featurizer: FeaturizerBase) ->
 def create_query_graphs_data_split(
     source_dir,
     query_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
-    query_plan=QueryPlanCommonBi,
+    query_plan=QueryPlan,
     feat: FeaturizerBase = None,
 ):
     df = pd.read_csv(query_path, sep="\t")
@@ -397,7 +406,7 @@ def query_graphs_with_lats(
     source_dir,
     query_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
     feat: FeaturizerBase = None,
-    query_plan=QueryPlanCommonBi,
+    query_plan=QueryPlan,
     time_col="mean_latency",
 ):
     df = pd.read_csv(query_path, sep="\t")
@@ -449,7 +458,15 @@ def snap_lat2onehot(lat):
         vec[5] = 1
 
     return vec
-
+def snap_lat2onehotv2(lat):
+    vec = np.zeros(3)
+    if lat < 1:
+        vec[0] = 1
+    elif (1 < lat) and (lat < 10):
+        vec[1] = 1
+    elif (10 < lat):
+        vec[2] = 1
+    return vec
 
 def query_graph_w_class_vec_helper(samples: list[tuple], cls_funct):
     graphs = []
