@@ -51,5 +51,5 @@ input_dir=/PlanRGCN/extracted_features_wd/entities
 batch_start=1
 batch_end=10000000
 
-'
+
 python3 -m feature_extraction.entity.entity_util $task -e $url --output_dir $output_dir --ent_file $pred_file --batch_start $batch_start --batch_end $batch_end

@@ -102,7 +102,7 @@ class PredicateCoPredicateExtractor(ExtractorBase):
         save_path = f"{self.output_dir}/batch_response"
         os.system(f"mkdir -p {save_path}")
         print(f"Cooccuring predicates are saved to: {save_path}")
-        batch_end_idx = min(batch_end - 1, len(self.batches)-1)
+        batch_end_idx = min(batch_end - 1, len(self.batches) - 1)
         for i, b in enumerate(self.batches[batch_start - 1 : batch_end_idx]):
             query = PredicateCoPredicateExtractor.query_gen(b)
             res = self.endpoint.run_query(query)
