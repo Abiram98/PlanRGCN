@@ -1,0 +1,15 @@
+{"opName": "conditional", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?x1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": "http://www.wikidata.org/entity/Q262166", "opName": "Triple"}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?x1", "Predicate": "http://www.wikidata.org/prop/direct/P281", "Object": "?x2", "opName": "Triple"}
+    ,
+    {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": "http://www.wikidata.org/entity/Q106658", "opName": "Triple"}
+    ,
+    {"Subject": "?x1", "Predicate": "http://www.wikidata.org/prop/direct/P439", "Object": "?x4", "opName": "Triple"}
+    ,
+    {"Subject": "?x1", "Predicate": "http://www.wikidata.org/prop/direct/P625", "Object": "?x5", "opName": "Triple"}
+  ]}
+]}
