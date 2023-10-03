@@ -3,7 +3,7 @@ task=extract-predicates
 output_dir=/PlanRGCN/extracted_features_wd
 pred_file=predicates.json
 
-python3 -m feature_extraction.predicates.pred_util $task \
+: 'python3 -m feature_extraction.predicates.pred_util $task \
         -e $url \
         --output_dir $output_dir \
         --pred_file $pred_file
@@ -33,15 +33,16 @@ python3 -m feature_extraction.predicates.pred_stat_feat $task -e $url \
         --pred_file $pred_file \
         --batch_start $batch_start \
         --batch_end $batch_end
+'
 
-
-: 'task=extract-entity-query-log
+: '
+task=extract-entity-query-log
 queries=/SPARQLBench/wdbench/bgp_opts.tsv
 outputPath=/PlanRGCN/extracted_features_wd/entities/entities_in_wikidata.json
 mkdir -p /PlanRGCN/extracted_features_wd/entities/
 mvn package -f /PlanRGCN/qpe/pom.xml
 java -jar /PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar $task $queries $outputPath
-
+'
 task=extract-entity-stat
 output_dir=/PlanRGCN/extracted_features_wd/entities
 pred_file=/PlanRGCN/extracted_features_wd/entities/entities_in_wikidata.json
@@ -50,4 +51,3 @@ batch_start=1
 batch_end=10000000
 
 python3 -m feature_extraction.entity.entity_util $task -e $url --output_dir $output_dir --ent_file $pred_file --batch_start $batch_start --batch_end $batch_end
-'
