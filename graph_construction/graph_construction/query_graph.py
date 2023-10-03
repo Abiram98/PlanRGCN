@@ -27,29 +27,31 @@ class QueryPlan:
 
         self.iterate_ops(self.add_triple, "Triple")
         self.iterate_ops(self.add_filters, "filter")
-        #self.add_self_loop_triples()
+        # self.add_self_loop_triples()
         self.assign_trpl_ids()
         self.assign_filt_ids()
 
         # filt_edge = [(d.id, b.id, r) for (d, b, r) in self.edges if r == 9]
         # print(filt_edge)
-        #self.iterate_ops(self.add_binaryOP, "minus")
-        #self.iterate_ops(self.add_binaryOP, "union")
+        # self.iterate_ops(self.add_binaryOP, "minus")
+        # self.iterate_ops(self.add_binaryOP, "union")
         self.iterate_ops(self.add_binaryOP, "join")
         self.iterate_ops(self.add_binaryOP, "leftjoin")
         self.iterate_ops(self.add_binaryOP, "conditional")
         # can be used to check for existence of operators
         # self.iterate_ops(self.assert_operator, "leftjoin")
         # self.iterate_ops(self.assert_operator, "join")
-        #self.iterate_ops(self.assert_operator, "diff")
-        #self.iterate_ops(self.assert_operator, "lateral")
+        # self.iterate_ops(self.assert_operator, "diff")
+        # self.iterate_ops(self.assert_operator, "lateral")
 
         # print(self.edges)
         self.nodes = [x.id for x in self.triples]
         self.nodes.extend([x.id for x in self.filters])
+
         self.node2obj = {}
         self.initialize_node2_obj()
         self.G = self.networkx()
+        self.G.add_nodes_from(self.nodes)
 
     def initialize_node2_obj(self):
         for t in self.triples:
@@ -118,17 +120,19 @@ class QueryPlan:
         filter_node = FilterNode(data)
         self.filters.append(filter_node)
         filter_triples = QueryPlanUtils.extract_triples(data)
-        assert len(filter_triples) ==0
+        expr_string = data["expr"]
+        expr_string = expr_string.replace(")", " ")
+        filt_vars = [x for x in expr_string.split(" ") if x.startswith("?")]
         filter_triples = QueryPlanUtils.map_extracted_triples(
             filter_triples, self.triples
         )
-        for v in filter_node.vars:
+        # dobbel check with filter_node.vars field insead of filt_vars
+        for v in filt_vars:
             if v in self.join_vars.keys():
-                for t in self.join_vars[v]:
-                    if t in filter_triples:
-                        self.edges.append(
-                            (t, filter_node, self.get_join_type(t, filter_node, v))
-                        )
+                for t in filter_triples:
+                    self.edges.append(
+                        (t, filter_node, self.get_join_type(t, filter_node, v))
+                    )
 
     def get_join_type(self, trp1, trp2, common_variable):
         # filter nodes
@@ -187,13 +191,15 @@ class QueryPlan:
             right_triples, self.triples
         )
         for r in right_triples:
-            r:TriplePattern
+            r: TriplePattern
             for l in left_triples:
                 l_vars = l.get_joins()
                 for r_v in r.get_joins():
                     if r_v in l_vars:
-                # consider adding the other way for union as a special case
-                        self.edges.append((l, r, QueryPlanUtils.get_relations(data["opName"])))
+                        # consider adding the other way for union as a special case
+                        self.edges.append(
+                            (l, r, QueryPlanUtils.get_relations(data["opName"]))
+                        )
         # print(left_triples)
         # print("\n\n")
         # print(right_triples)
@@ -229,10 +235,17 @@ class QueryPlan:
         Returns:
             _type_: _description_
         """
-        dgl_graph = dgl.from_networkx(
-            self.G, edge_attrs=["rel_type"], node_attrs=["node_features"]
-        )
-        # dgl_graph = dgl.add_self_loop(dgl_graph)
+        try:
+            dgl_graph = dgl.from_networkx(
+                self.G, edge_attrs=["rel_type"], node_attrs=["node_features"]
+            )
+        except Exception:
+            dgl_graph = dgl.from_networkx(self.G, node_attrs=["node_features"])
+            dgl_graph.edata["rel_type"] = th.tensor(np.array([]), dtype=th.int64)
+            # print(self.data)
+            # print(self.path)
+            # exit()
+        dgl_graph = dgl.add_self_loop(dgl_graph)
         return dgl_graph
 
 
@@ -242,7 +255,6 @@ def test(p, add_data=None):
 
 
 class QueryPlanUtils:
-    
     def get_relations(op):
         match op:
             case "conditional":
@@ -343,13 +355,6 @@ def create_query_plans_dir(
             x for x in os.listdir(source_dir) if x.startswith("lsqQuery") and x in ids
         ]
     if add_id:
-        #temp
-        for x in files:
-            try:
-                create_query_plan(f"{source_dir}{x}",query_plan=query_plan)
-            except AssertionError:
-                print(f"{source_dir}{x}")
-        #not temp
         return [
             (create_query_plan(f"{source_dir}{x}", query_plan=query_plan), x)
             for x in files
@@ -399,6 +404,13 @@ def create_query_graphs_data_split(
     df = pd.read_csv(query_path, sep="\t")
     ids = set([x[20:] for x in df["queryID"]])
     qps = create_query_plans_dir(source_dir, ids, query_plan=query_plan, add_id=True)
+    for qp, id in qps:
+        try:
+            assert len(qp.G.nodes) > 0
+        except AssertionError:
+            print(qp.data)
+            print(qp.path)
+            exit()
     return create_dgl_graphs(qps, feat, without_id=False)
 
 
@@ -458,15 +470,18 @@ def snap_lat2onehot(lat):
         vec[5] = 1
 
     return vec
+
+
 def snap_lat2onehotv2(lat):
     vec = np.zeros(3)
     if lat < 1:
         vec[0] = 1
     elif (1 < lat) and (lat < 10):
         vec[1] = 1
-    elif (10 < lat):
+    elif 10 < lat:
         vec[2] = 1
     return vec
+
 
 def query_graph_w_class_vec_helper(samples: list[tuple], cls_funct):
     graphs = []

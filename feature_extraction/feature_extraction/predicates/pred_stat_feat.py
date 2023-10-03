@@ -33,7 +33,8 @@ class PredicateFreqExtractor(ExtractorBase):
         save_path = self.batch_output_response_dir
         os.system(f"mkdir -p {save_path}")
         print(f"Predicate Stats are saved to: {save_path}")
-        for i, b in enumerate(self.batches[batch_start - 1 : batch_end - 1]):
+        batch_end_idx = min(batch_end - 1, len(self.batches)-1)
+        for i, b in enumerate(self.batches[batch_start - 1 : batch_end_idx]):
             for query_generator, name in zip(
                 [
                     PredicateStatQueries.unique_literals_for_predicate,

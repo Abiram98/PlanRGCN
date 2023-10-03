@@ -39,6 +39,10 @@ public class App
                 EntityLogExtractor.run(args[1], args[2]);
                 break;
             }
+            default: {
+                System.out.println("Something went wrong with the task specifications");
+                break;
+            }
         }
         
     }
