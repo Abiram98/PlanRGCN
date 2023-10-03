@@ -2,12 +2,12 @@ url=http://172.21.233.23:8891/sparql
 task=extract-predicates
 output_dir=/PlanRGCN/extracted_features_wd
 pred_file=predicates.json
-
-python3 -m feature_extraction.predicates.pred_util $task \
+# mkdir -p /PlanRGCN/extracted_features_wd/predicate/batches
+: 'python3 -m feature_extraction.predicates.pred_util $task \
         -e $url \
         --output_dir $output_dir \
         --pred_file $pred_file
-
+'
 
 task=extract-co-predicates
 input_dir=/PlanRGCN/extracted_features_wd
