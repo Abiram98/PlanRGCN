@@ -1,0 +1,15 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?x1", "Predicate": "http://www.wikidata.org/prop/direct/P161", "Object": "?x2", "opName": "Triple"}
+  ,
+  {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P161", "Object": "?x2", "opName": "Triple"}
+  ,
+  {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P161", "Object": "?x4", "opName": "Triple"}
+  ,
+  {"Subject": "?x5", "Predicate": "http://www.wikidata.org/prop/direct/P161", "Object": "?x4", "opName": "Triple"}
+  ,
+  {"Subject": "?x5", "Predicate": "http://www.wikidata.org/prop/direct/P161", "Object": "?x6", "opName": "Triple"}
+  ,
+  {"Subject": "?x7", "Predicate": "http://www.wikidata.org/prop/direct/P161", "Object": "?x6", "opName": "Triple"}
+  ,
+  {"Subject": "?x7", "Predicate": "http://www.wikidata.org/prop/direct/P161", "Object": "http://www.wikidata.org/entity/Q3454165", "opName": "Triple"}
+]}

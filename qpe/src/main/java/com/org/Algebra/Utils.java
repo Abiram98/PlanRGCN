@@ -17,6 +17,7 @@ import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 
 public class Utils {
+    public static boolean sub_id = false; 
 
     public void create_algebra_test(String query) {
         Query q = QueryFactory.create(query);
@@ -55,8 +56,12 @@ public class Utils {
         LinkedList<String> queries = reader.getQueries();
         for (int i = 0; i < ids.size(); i++) {
             try {
-                extract_query_plan(queries.get(i), outputdir + "/" + ids.get(i).substring(20));
-            } catch (org.apache.jena.query.QueryException e) {
+		if(sub_id){
+                	extract_query_plan(queries.get(i), outputdir + "/" + ids.get(i).substring(20));
+		}else{
+                	extract_query_plan(queries.get(i), outputdir + "/" + String.valueOf(ids.get(i)));
+		}
+		} catch (org.apache.jena.query.QueryException e) {
                 System.out.println("Did not work for " + ids.get(i));
             }
         }
