@@ -32,10 +32,14 @@ class DatasetPrep:
         batch_size=64,
         query_plan_dir="/PlanRGCN/extracted_features/queryplans/",
         pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
+        pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
+        ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
         time_col="mean_latency",
         cls_func=snap_lat2onehotv2,
         featurizer_class=FeaturizerPredStats,
         query_plan=QueryPlan,
+        is_lsq=False,
+        scaling="None",
     ) -> None:
         self.train_path = train_path
         self.val_path = val_path
@@ -43,11 +47,17 @@ class DatasetPrep:
         self.cls_func = cls_func
 
         self.time_col = time_col
-        self.feat = featurizer_class(pred_stat_path)
+        self.feat = featurizer_class(
+            pred_stat_path,
+            pred_com_path=pred_com_path,
+            ent_path=ent_path,
+            scaling=scaling,
+        )
         self.vec_size = self.feat.filter_size + self.feat.tp_size
         self.query_plan_dir = query_plan_dir
         self.batch_size = batch_size
         self.query_plan = query_plan
+        self.is_lsq = is_lsq
 
     def get_dataloader(self, path):
         graphs, clas_list, ids = query_graph_w_class_vec(
@@ -57,6 +67,7 @@ class DatasetPrep:
             time_col=self.time_col,
             cls_funct=self.cls_func,
             query_plan=self.query_plan,
+            is_lsq=self.is_lsq,
         )
         train_dataset = GraphDataset(graphs, clas_list, ids)
         train_dataloader = GraphDataLoader(

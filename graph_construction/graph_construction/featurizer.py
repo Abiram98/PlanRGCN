@@ -3,6 +3,7 @@ import os
 import pickle
 import numpy as np
 from graph_construction.node import Node, FilterNode, TriplePattern
+from scalers import EntMinMaxScaler
 
 
 class FeaturizerBase:
@@ -107,15 +108,28 @@ class FeaturizerPredCoEnt(FeaturizerPredStats):
         self,
         pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
         pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
+        ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+        scaling="None",
     ) -> None:
         super().__init__(pred_stat_path)
 
         self.pred2index, self.max_pred = pickle.load(open(pred_com_path, "rb"))
         self.tp_size = self.tp_size + self.max_pred + 6
-        estat = EntStats()
+        estat = EntStats(path=ent_path)
         self.ent_freq = estat.ent_freq
         self.ent_subj = estat.subj_ents
         self.ent_obj = estat.obj_ents
+
+        self.scaling = scaling
+        if self.scaling == "min-max":
+            self.scaler = EntMinMaxScaler(
+                self.ent_freq,
+                self.ent_subj,
+                self.ent_obj,
+                self.pred_freq,
+                self.pred_ents,
+                self.pred_lits,
+            )
 
     def featurize(self, node):
         if isinstance(node, FilterNode):
@@ -143,6 +157,8 @@ class FeaturizerPredCoEnt(FeaturizerPredStats):
         freq = self.get_value_dict(self.pred_freq, node.predicate.node_label)
         lits = self.get_value_dict(self.pred_lits, node.predicate.node_label)
         ents = self.get_value_dict(self.pred_ents, node.predicate.node_label)
+        if self.scaling == "min-max":
+            freq, lits, ents = self.scaler.pred_scale(freq, lits, ents)
         (
             subj_freq,
             subj_subj_freq,
@@ -155,11 +171,19 @@ class FeaturizerPredCoEnt(FeaturizerPredStats):
             subj_freq = self.get_value_dict(self.ent_freq, node.subject.node_label)
             subj_subj_freq = self.get_value_dict(self.ent_subj, node.subject.node_label)
             sub_obj_freq = self.get_value_dict(self.ent_obj, node.subject.node_label)
+            if self.scaling == "min-max":
+                subj_freq, subj_subj_freq, sub_obj_freq = self.scaler.ent_scale(
+                    subj_freq, subj_subj_freq, sub_obj_freq
+                )
 
         if node.object.type == "URI":
             obj_freq = self.get_value_dict(self.ent_freq, node.subject.node_label)
             obj_subj_freq = self.get_value_dict(self.ent_subj, node.subject.node_label)
             obj_obj_freq = self.get_value_dict(self.ent_obj, node.subject.node_label)
+            if self.scaling == "min-max":
+                obj_freq, obj_subj_freq, obj_obj_freq = self.scaler.ent_scale(
+                    obj_freq, obj_subj_freq, obj_obj_freq
+                )
 
         stat_vec = np.array(
             [

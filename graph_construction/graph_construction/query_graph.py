@@ -11,7 +11,7 @@ import torch as th
 
 
 class QueryPlan:
-    max_relations = 15
+    max_relations = 16
 
     def __init__(self, data) -> None:
         self.level = 0
@@ -38,6 +38,7 @@ class QueryPlan:
         self.iterate_ops(self.add_binaryOP, "join")
         self.iterate_ops(self.add_binaryOP, "leftjoin")
         self.iterate_ops(self.add_binaryOP, "conditional")
+        self.add_sngl_trp_rel()
         # can be used to check for existence of operators
         # self.iterate_ops(self.assert_operator, "leftjoin")
         # self.iterate_ops(self.assert_operator, "join")
@@ -248,6 +249,19 @@ class QueryPlan:
         dgl_graph = dgl.add_self_loop(dgl_graph)
         return dgl_graph
 
+    def get_nodes_in_edges(self):
+        nodes = set()
+        for node1, node2, _ in self.edges:
+            nodes.add(node1.id)
+            nodes.add(node2.id)
+        return list(nodes)
+
+    def add_sngl_trp_rel(self):
+        nodes = self.get_nodes_in_edges()
+        for t in self.triples:
+            if not t.id in nodes:
+                self.edges.append((t, t, 10))
+
 
 def test(p, add_data=None):
     pass
@@ -255,18 +269,20 @@ def test(p, add_data=None):
 
 
 class QueryPlanUtils:
+    "filter rel definied in getjointype method"
+
     def get_relations(op):
         match op:
             case "conditional":
-                return 10
-            case "union":
                 return 11
-            case "minus":
-                return 12
             case "leftjoin":
-                return 13
+                return 12
             case "join":
+                return 13
+            case "union":
                 return 14
+            case "minus":
+                return 15
         raise Exception("Operation undefind " + op)
 
     def extract_triples(data: dict):
@@ -349,11 +365,11 @@ def create_query_plans_dir(
     source_dir, ids: set[str] = None, add_id=False, query_plan=QueryPlanCommonBi
 ):
     if ids is None:
+        # TODO: check whether lsqQuery is necessary
         files = [x for x in os.listdir(source_dir) if x.startswith("lsqQuery")]
     else:
-        files = [
-            x for x in os.listdir(source_dir) if x.startswith("lsqQuery") and x in ids
-        ]
+        ids = [str(x) for x in ids]
+        files = [x for x in os.listdir(source_dir) if x in ids]
     if add_id:
         return [
             (create_query_plan(f"{source_dir}{x}", query_plan=query_plan), x)
@@ -399,10 +415,15 @@ def create_query_graphs_data_split(
     source_dir,
     query_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
     query_plan=QueryPlan,
+    is_lsq=False,
     feat: FeaturizerBase = None,
 ):
     df = pd.read_csv(query_path, sep="\t")
-    ids = set([x[20:] for x in df["queryID"]])
+    if is_lsq:
+        ids = set([x[20:] for x in df["queryID"]])
+    else:
+        ids = set([x for x in df["queryID"]])
+
     qps = create_query_plans_dir(source_dir, ids, query_plan=query_plan, add_id=True)
     for qp, id in qps:
         try:
@@ -420,17 +441,25 @@ def query_graphs_with_lats(
     feat: FeaturizerBase = None,
     query_plan=QueryPlan,
     time_col="mean_latency",
+    is_lsq=False,
 ):
     df = pd.read_csv(query_path, sep="\t")
-    df["queryID"] = df["queryID"].apply(lambda x: x[20:])
+    if is_lsq:
+        df["queryID"] = df["queryID"].apply(lambda x: x[20:])
     df.set_index("queryID", inplace=True)
     # print(df.loc["lsqQuery-UBZNr7M1ITVUf21mrBIQ9W4f6cdpJr6DQbr0HkWKOnw"][time_col])
 
     graphs_ids = create_query_graphs_data_split(
-        source_dir, query_path=query_path, feat=feat, query_plan=query_plan
+        source_dir,
+        query_path=query_path,
+        feat=feat,
+        query_plan=query_plan,
+        is_lsq=is_lsq,
     )
     samples = list()
     for g, id in graphs_ids:
+        if not is_lsq:
+            id = int(id)
         lat = df.loc[id][time_col]
         samples.append((g, id, lat))
     return samples
@@ -443,6 +472,7 @@ def query_graph_w_class_vec(
     time_col="mean_latency",
     cls_funct=lambda x: x,
     query_plan=QueryPlanCommonBi,
+    is_lsq=False,
 ):
     samples = query_graphs_with_lats(
         source_dir=source_dir,
@@ -450,6 +480,7 @@ def query_graph_w_class_vec(
         feat=feat,
         time_col=time_col,
         query_plan=query_plan,
+        is_lsq=is_lsq,
     )
     return query_graph_w_class_vec_helper(samples, cls_funct)
 
@@ -482,7 +513,13 @@ def snap_lat2onehotv2(lat):
         vec[2] = 1
     return vec
 
-
+def snap_lat2onehot_binary(lat):
+    vec = np.zeros(2)
+    if lat < 1:
+        vec[0] = 1
+    else:
+        vec[1] = 1
+    return vec
 def query_graph_w_class_vec_helper(samples: list[tuple], cls_funct):
     graphs = []
     clas_list = []

@@ -11,6 +11,8 @@ from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_sc
 import torch.nn.functional as F
 import pandas as pd
 
+AVG = "binary"
+
 
 def snap_pred(pred):
     if not isinstance(pred, th.Tensor):
@@ -27,12 +29,16 @@ class Trainer:
         batch_size=32,
         query_plan_dir="/PlanRGCN/extracted_features/queryplans/",
         pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
+        pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
+        ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
         time_col="mean_latency",
+        is_lsq=False,
         cls_func=snap_lat2onehot,
         # in_dim=12,
         hidden_dim=48,
         n_classes=6,
         featurizer_class=FeaturizerPredCo,
+        scaling="None",
         query_plan=QueryPlanCommonBi,
         model=CLS,
     ) -> None:
@@ -44,10 +50,14 @@ class Trainer:
             batch_size=batch_size,
             query_plan_dir=query_plan_dir,
             pred_stat_path=pred_stat_path,
+            pred_com_path=pred_com_path,
+            ent_path=ent_path,
             time_col=time_col,
             cls_func=cls_func,
             query_plan=query_plan,
             featurizer_class=featurizer_class,
+            is_lsq=is_lsq,
+            scaling=scaling,
         )
         self.train_loader = prepper.get_trainloader()
         self.val_loader = prepper.get_valloader()
@@ -67,7 +77,7 @@ class Trainer:
         verbosity=1,
     ):
         """Trains a model,  \nHyperparameters: early_stop, lr, wd, epochs"""
-    
+
         opt = th.optim.AdamW(self.model.parameters(), lr=lr, weight_decay=wd)
         # opt = th.optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
 
@@ -131,13 +141,9 @@ class Trainer:
                     f1_pred = list(map(snap_pred, logits))
                     snapped_labels = list(map(snap_pred, labels))
                     # f1_batch = f1_score(labels, f1_pred)
-                    f1_batch = f1_score(snapped_labels, f1_pred, average="micro")
-                    prec_batch = precision_score(
-                        snapped_labels, f1_pred, average="micro"
-                    )
-                    recall_batch = recall_score(
-                        snapped_labels, f1_pred, average="micro"
-                    )
+                    f1_batch = f1_score(snapped_labels, f1_pred, average=AVG)
+                    prec_batch = precision_score(snapped_labels, f1_pred, average=AVG)
+                    recall_batch = recall_score(snapped_labels, f1_pred, average=AVG)
                     if verbosity >= 2:
                         print(
                             f"Epoch: {epoch+1:4} {(batch_no+1):8} Batch loss: {c_train_loss:>7f} Batch F1: {f1_batch}"
@@ -172,16 +178,16 @@ class Trainer:
                     snapped_lebls = list(map(snap_pred, labels))
 
                     # f1_batch_val = f1_score(labels, f1_pred_val)
-                    f1_batch_val = f1_score(snapped_lebls, f1_pred_val, average="micro")
+                    f1_batch_val = f1_score(snapped_lebls, f1_pred_val, average=AVG)
                     val_f1 += f1_batch_val
 
                     prec_batch_val = precision_score(
-                        snapped_lebls, f1_pred_val, average="micro"
+                        snapped_lebls, f1_pred_val, average=AVG
                     )
                     val_prec += prec_batch_val
 
                     recall_batch_val = recall_score(
-                        snapped_lebls, f1_pred_val, average="micro"
+                        snapped_lebls, f1_pred_val, average=AVG
                     )
                     val_recall += recall_batch_val
             test_loss = 0
@@ -207,16 +213,14 @@ class Trainer:
                     snapped_test = list(map(snap_pred, labels))
 
                     # f1_batch_val = f1_score(labels, f1_pred_val)
-                    f1_batch_test = f1_score(
-                        snapped_test, f1_pred_test, average="micro"
-                    )
+                    f1_batch_test = f1_score(snapped_test, f1_pred_test, average=AVG)
                     test_f1 += f1_batch_test
                     prec_batch_test = precision_score(
-                        snapped_test, f1_pred_test, average="micro"
+                        snapped_test, f1_pred_test, average=AVG
                     )
                     test_prec += prec_batch_test
                     recall_batch_test = recall_score(
-                        snapped_test, f1_pred_test, average="micro"
+                        snapped_test, f1_pred_test, average=AVG
                     )
                     test_recall += recall_batch_test
 

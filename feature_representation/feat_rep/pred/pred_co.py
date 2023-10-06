@@ -50,9 +50,12 @@ class PredicateCommunityCreator:
         edges = self.get_predicate_from_dir(dir)
         pred_graph = self.create_pred_graph(edges)
         commun = nx.algorithms.community.louvain_communities(pred_graph)
+        commun_2 = []
+        for x in commun:
+            commun_2.append(list(x))
         path = self.save_dir + "/communities_louvain.pickle"
-        with open(path, "w") as f:
-            json.dump(commun, f)
+        with open(path, "wb") as f:
+            pickle.dump(commun_2, f)
 
     def components_preds(self, pred_graph):
         components = nx.strongly_connected_components(pred_graph)
@@ -170,11 +173,14 @@ def create_louvain_to_p_index(
 
 
 if __name__ == "__main__":
-    create_louvain_to_p_index()
-    d = PredicateCommunityCreator()
-    # d.get_louvain_communities(
-    #    dir="/PlanRGCN/extracted_features/predicate/predicate_cooccurence/batch_response/"
-    # )
+    d = PredicateCommunityCreator(save_dir="/PlanRGCN/data/pred/pred_co")
+    d.get_louvain_communities(
+        dir="/PlanRGCN/extracted_features/predicate/predicate_cooccurence/batch_response/"
+    )
+    create_louvain_to_p_index(
+        path="/PlanRGCN/data/pred/pred_co/communities_louvain.pickle",
+        output_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
+    )
     exit()
     d.create_clusters(
         "/PlanRGCN/extracted_features/predicate/predicate_cooccurence/batch_response/"
