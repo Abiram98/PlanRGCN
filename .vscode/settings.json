@@ -2,5 +2,16 @@
     "java.project.sourcePaths": [
         "qpe/src/main/java"
     ],
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true,
+        "/PlanRGCN/extracted_features/queryplans/*":true,
+        "/PlanRGCN/extracted_features_wd/queryplans/*":true,
+        "/PlanRGCN/extracted_features_dbpedia2016/queryplans/*":true
+      }
+    
 }
+

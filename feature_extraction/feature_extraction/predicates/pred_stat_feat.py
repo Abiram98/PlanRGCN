@@ -12,14 +12,14 @@ class PredicateFreqExtractor(ExtractorBase):
         super().__init__(endpoint, output_dir, predicate_file)
         self.input_dir = input_dir
         self.predicates = json.load(
-            open(f"{self.input_dir}/{self.predicate_file}", "r")
+            open(f"{self.input_dir}/predicate/{self.predicate_file}", "r")
         )
-        self.batch_output_dir = f"{output_dir}/pred_stat/batches"
+        self.batch_output_dir = f"{output_dir}/predicate/pred_stat/batches"
         os.system(f"mkdir -p {self.batch_output_dir}")
         # the
         # path to where the responses are saved with the features.
         self.batch_output_response_dir = (
-            f"{output_dir}/pred_stat/batches_response_stats"
+            f"{output_dir}/predicate/pred_stat/batches_response_stats"
         )
         os.system(f"mkdir -p {self.batch_output_response_dir}")
         os.system(f"mkdir -p {self.batch_output_response_dir}/freq")
@@ -33,7 +33,7 @@ class PredicateFreqExtractor(ExtractorBase):
         save_path = self.batch_output_response_dir
         os.system(f"mkdir -p {save_path}")
         print(f"Predicate Stats are saved to: {save_path}")
-        batch_end_idx = min(batch_end - 1, len(self.batches)-1)
+        batch_end_idx = min(batch_end - 1, len(self.batches) - 1)
         for i, b in enumerate(self.batches[batch_start - 1 : batch_end_idx]):
             for query_generator, name in zip(
                 [

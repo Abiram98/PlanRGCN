@@ -3,30 +3,6 @@
 ## Prerequisites
 Docker should be installed
 Git lfs
-In the working directory, clone this repo and git@github.com:dkw-aau/leapfrog-rdf-benchmark.git
-## Data
-
-### Leapfrog dataset
-First run the dataset_construction.py file on the leapfrog repo (git clone git@github.com:dkw-aau/leapfrog-rdf-benchmark.git) and mv the file to data/data_files folder.
-```
-docker run -it --rm -v "$(pwd)"/leapfrog-rdf-benchmark:/leapfrog-rdf-benchmark -v "$(pwd)"/BGPClassifier:/work -m 15g ubuntu:22.10
-cd work && python3 dataset_construction.py 
-exit
-
-```
-Then the following commands should be executed:
-```
-cd scripts
-bash dataset_split.sh convert-leaf
-bash dataset_split.sh data-split
-```
-This will create the training, validation and test splits in the folder, /work/data/splits.
-
-### Training of TP Graph
-```
-python3 -m dgl_classifier.trainer --train_file /work/data/splits/train.json --val_file /work/data/splits/val.json --test_file /work/data/splits/test.json
-```
-Alternatively the Jupyter Notebooks also show these.
 
 ## To run
 In interactive mode:
@@ -65,10 +41,10 @@ Removed 149 of 57588 test data uased as validation
 ```
 python3 -m 
 ```
-
-# Executing mavne project interactively
+## Extracting query plans
+Example for dbpedia 2016 queries with limit removed:
 ```
-mvn exec:java -f "/PlanRGCN/qpe/pom.xml"
+bash '/PlanRGCN/scripts/qp/qp_extract_lsq.sh' /qpp/dataset/DBpedia2016limitless
 ```
 
 # Training model:

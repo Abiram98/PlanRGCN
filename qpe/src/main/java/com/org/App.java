@@ -24,6 +24,10 @@ public class App
                     LSQreader reader = new LSQreader(args[1]);
                     
                     Utils u = new Utils();
+                    if (args[3].equals("lsq=true")){
+                        Utils.sub_id = true;
+                    }
+                    
                     u.extract_query_plan(reader, args[2]);
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block

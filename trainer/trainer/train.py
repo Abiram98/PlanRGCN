@@ -1,23 +1,19 @@
 import os
 import dgl
-from graph_construction.featurizer import FeaturizerPredCo
+from graph_construction.featurizer import FeaturizerPredCo, FeaturizerPredCoEnt
 from graph_construction.query_graph import QueryPlanCommonBi, snap_lat2onehot
 from trainer.data_util import DatasetPrep
-from trainer.model import Classifier as CLS
+from trainer.model import Classifier as CLS, RegressorWSelfTriple as CLS
 import torch as th
 import numpy as np
 import json
 from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score
 import torch.nn.functional as F
 import pandas as pd
+import torch.nn as nn
 
 AVG = "binary"
-
-
-def snap_pred(pred):
-    if not isinstance(pred, th.Tensor):
-        pred = th.tensor(snap_lat2onehot(pred), dtype=th.float32)
-    return th.argmax(pred)
+AVG = "macro"
 
 
 class Trainer:
@@ -37,7 +33,7 @@ class Trainer:
         # in_dim=12,
         hidden_dim=48,
         n_classes=6,
-        featurizer_class=FeaturizerPredCo,
+        featurizer_class=FeaturizerPredCoEnt,
         scaling="None",
         query_plan=QueryPlanCommonBi,
         model=CLS,
@@ -64,6 +60,95 @@ class Trainer:
         self.test_loader = prepper.get_testloader()
 
         self.model = model(prepper.vec_size, hidden_dim, n_classes)
+        self.is_lsq = is_lsq
+
+        self.cls_func = cls_func
+
+    def snap_pred(self, pred):
+        if not isinstance(pred, th.Tensor):
+            pred = th.tensor(self.cls_func(pred), dtype=th.float32)
+        return th.argmax(pred)
+
+    def train_epoch(self, criterion, opt, epoch, verbosity):
+        train_loss = 0
+        train_f1 = 0
+        train_recall = 0
+        train_prec = 0
+        self.model.train()
+        with th.enable_grad():
+            for batch_no, (batched_graph, labels, ids) in enumerate(self.train_loader):
+                feats = batched_graph.ndata["node_features"]
+                edge_types = batched_graph.edata["rel_type"]
+                logits = self.model(batched_graph, feats, edge_types)
+                loss = criterion(logits, labels)
+                opt.zero_grad()
+                loss.backward()
+                opt.step()
+
+                c_train_loss = loss.item()
+
+                # snap_pred(logits,model_thres=pred_thres, add_thres=add_thres)
+                # snap_thres = [pred_thres for x in logits]
+                # snap_add_thres = [add_thres for x in logits]
+                f1_pred = list(map(self.snap_pred, logits))
+                snapped_labels = list(map(self.snap_pred, labels))
+                # f1_batch = f1_score(labels, f1_pred)
+                f1_batch = f1_score(snapped_labels, f1_pred, average=AVG)
+                prec_batch = precision_score(snapped_labels, f1_pred, average=AVG)
+                recall_batch = recall_score(snapped_labels, f1_pred, average=AVG)
+                if verbosity >= 2:
+                    print(
+                        f"Epoch: {epoch+1:4} {(batch_no+1):8} Batch loss: {c_train_loss:>7f} Batch F1: {f1_batch}"
+                    )
+                train_loss += c_train_loss
+                train_f1 += f1_batch
+                train_recall += recall_batch
+                train_prec += prec_batch
+        return (
+            train_loss / len(self.train_loader),
+            train_f1 / len(self.train_loader),
+            train_recall / len(self.train_loader),
+            train_prec / len(self.train_loader),
+        )
+
+    # evaluate on validation data loader and also test
+    def evaluate(self, data_loader, loss_type):
+        loss = 0
+        f1_val = 0
+        recall_val = 0
+        precision_val = 0
+        self.model.eval()
+        with th.no_grad():
+            for _, (graphs, labels, _) in enumerate(data_loader):
+                feats = graphs.ndata["node_features"]
+                edge_types = graphs.edata["rel_type"]
+                pred = self.model(graphs, feats, edge_types)
+
+                if loss_type == "cross-entropy":
+                    c_val_loss = F.cross_entropy(pred, labels).item()
+                elif loss_type == "mse":
+                    c_val_loss = F.mse_loss(pred, labels).item()
+                loss += c_val_loss
+
+                f1_pred_val = list(map(self.snap_pred, pred))
+                snapped_lebls = list(map(self.snap_pred, labels))
+
+                f1_batch_val = f1_score(snapped_lebls, f1_pred_val, average=AVG)
+                f1_val += f1_batch_val
+
+                prec_batch_val = precision_score(
+                    snapped_lebls, f1_pred_val, average=AVG
+                )
+                precision_val += prec_batch_val
+
+                recall_batch_val = recall_score(snapped_lebls, f1_pred_val, average=AVG)
+                recall_val += recall_batch_val
+
+        loss = loss / len(data_loader)
+        f1_val = f1_val / len(data_loader)
+        precision_val = precision_val / len(data_loader)
+        recall_val = recall_val / len(data_loader)
+        return loss, f1_val, precision_val, recall_val
 
     def train(
         self,
@@ -101,6 +186,11 @@ class Trainer:
             "val_recall": [],
             "test_recall": [],
         }
+        if loss_type == "cross-entropy":
+            criterion = nn.CrossEntropyLoss()
+        elif loss_type == "mse":
+            criterion = nn.MSELoss()
+
         best_epoch = 0
         best_f1 = 0
         best_model_path = ""
@@ -110,146 +200,29 @@ class Trainer:
                     f"Epoch {epoch+1}\n--------------------------------------------------------------"
                 )
 
-            train_loss = 0
-            train_f1 = 0
-            train_recall = 0
-            train_prec = 0
-            self.model.train()
-            with th.enable_grad():
-                for batch_no, (batched_graph, labels, ids) in enumerate(
-                    self.train_loader
-                ):
-                    feats = batched_graph.ndata["node_features"]
-                    edge_types = batched_graph.edata["rel_type"]
-                    logits = self.model(batched_graph, feats, edge_types)
-                    if loss_type == "cross-entropy":
-                        loss = F.cross_entropy(logits, labels)
-                    elif loss_type == "mse":
-                        loss = F.mse_loss(logits, labels)
-                    # loss = F.mse_loss(logits,labels)
-                    # cross_entropy(logits, labels)
-                    opt.zero_grad()
-                    loss.backward()
-                    # print(f"{labels}, {logits}")
-                    opt.step()
+            train_loss, train_f1, train_recall, train_prec = self.train_epoch(
+                criterion, opt, epoch, verbosity
+            )
+            metric_data["train_loss"].append(train_loss)
+            metric_data["train_f1"].append(train_f1)
+            metric_data["train_recall"].append(train_recall)
+            metric_data["train_prec"].append(train_prec)
 
-                    c_train_loss = loss.item()
-
-                    # snap_pred(logits,model_thres=pred_thres, add_thres=add_thres)
-                    # snap_thres = [pred_thres for x in logits]
-                    # snap_add_thres = [add_thres for x in logits]
-                    f1_pred = list(map(snap_pred, logits))
-                    snapped_labels = list(map(snap_pred, labels))
-                    # f1_batch = f1_score(labels, f1_pred)
-                    f1_batch = f1_score(snapped_labels, f1_pred, average=AVG)
-                    prec_batch = precision_score(snapped_labels, f1_pred, average=AVG)
-                    recall_batch = recall_score(snapped_labels, f1_pred, average=AVG)
-                    if verbosity >= 2:
-                        print(
-                            f"Epoch: {epoch+1:4} {(batch_no+1):8} Batch loss: {c_train_loss:>7f} Batch F1: {f1_batch}"
-                        )
-                    train_loss += c_train_loss
-                    train_f1 += f1_batch
-                    train_recall += recall_batch
-                    train_prec += prec_batch
-
-            val_loss = 0
-            val_f1 = 0
-            val_recall = 0
-            val_prec = 0
-            self.model.eval()
-            with th.no_grad():
-                for no, (graphs, labels, ids) in enumerate(self.val_loader):
-                    feats = graphs.ndata["node_features"]
-                    edge_types = graphs.edata["rel_type"]
-                    pred = self.model(graphs, feats, edge_types)
-                    """if loss_type == "cross-entropy":
-                        c_val_loss = F.cross_entropy(pred, labels).item()
-                    elif loss_type == "mse":
-                        c_val_loss = F.mse_loss(pred, labels).item()"""
-                    if loss_type == "cross-entropy":
-                        c_val_loss = F.cross_entropy(pred, labels).item()
-                    elif loss_type == "mse":
-                        c_val_loss = F.mse_loss(pred, labels).item()
-                    val_loss += c_val_loss
-                    # snap_thres = [pred_thres for x in pred]
-                    # snap_add_thres = [add_thres for x in pred]
-                    f1_pred_val = list(map(snap_pred, pred))
-                    snapped_lebls = list(map(snap_pred, labels))
-
-                    # f1_batch_val = f1_score(labels, f1_pred_val)
-                    f1_batch_val = f1_score(snapped_lebls, f1_pred_val, average=AVG)
-                    val_f1 += f1_batch_val
-
-                    prec_batch_val = precision_score(
-                        snapped_lebls, f1_pred_val, average=AVG
-                    )
-                    val_prec += prec_batch_val
-
-                    recall_batch_val = recall_score(
-                        snapped_lebls, f1_pred_val, average=AVG
-                    )
-                    val_recall += recall_batch_val
-            test_loss = 0
-            test_f1 = 0
-            test_recall = 0
-            test_prec = 0
-            self.model.eval()
-            with th.no_grad():
-                for no, (graphs, labels, ids) in enumerate(self.test_loader):
-                    feats = graphs.ndata["node_features"]
-                    edge_types = graphs.edata["rel_type"]
-                    pred = self.model(graphs, feats, edge_types)
-                    # c_test_loss = F.mse_loss(pred, labels).item()
-                    if loss_type == "cross-entropy":
-                        c_test_loss = F.cross_entropy(pred, labels).item()
-                    elif loss_type == "mse":
-                        c_test_loss = F.mse_loss(pred, labels).item()
-                    # test_loss += loss_fn(pred, torch.reshape(sample['target'],(1,1))).item()
-                    test_loss += c_test_loss
-                    # snap_thres = [pred_thres for x in pred]
-                    # snap_add_thres = [add_thres for x in pred]
-                    f1_pred_test = list(map(snap_pred, pred))
-                    snapped_test = list(map(snap_pred, labels))
-
-                    # f1_batch_val = f1_score(labels, f1_pred_val)
-                    f1_batch_test = f1_score(snapped_test, f1_pred_test, average=AVG)
-                    test_f1 += f1_batch_test
-                    prec_batch_test = precision_score(
-                        snapped_test, f1_pred_test, average=AVG
-                    )
-                    test_prec += prec_batch_test
-                    recall_batch_test = recall_score(
-                        snapped_test, f1_pred_test, average=AVG
-                    )
-                    test_recall += recall_batch_test
-
-            test_loss = test_loss / len(self.test_loader)
-            metric_data["test_loss"].append(test_loss)
-            test_f1 = test_f1 / len(self.test_loader)
-            metric_data["test_f1"].append(test_f1)
-            test_prec = test_prec / len(self.test_loader)
-            metric_data["test_prec"].append(test_prec)
-            test_recall = test_recall / len(self.test_loader)
-            metric_data["test_recall"].append(test_recall)
-
-            val_loss = val_loss / len(self.val_loader)
+            val_loss, val_f1, val_prec, val_recall = self.evaluate(
+                self.val_loader, loss_type
+            )
             metric_data["val_loss"].append(val_loss)
-            val_f1 = val_f1 / len(self.val_loader)
             metric_data["val_f1"].append(val_f1)
-            val_prec = val_prec / len(self.val_loader)
             metric_data["val_prec"].append(val_prec)
-            val_recall = val_recall / len(self.val_loader)
             metric_data["val_recall"].append(val_recall)
 
-            train_loss = train_loss / len(self.train_loader)
-            metric_data["train_loss"].append(train_loss)
-            train_f1 = train_f1 / len(self.train_loader)
-            metric_data["train_f1"].append(train_f1)
-            train_recall = train_recall / len(self.train_loader)
-            metric_data["train_recall"].append(train_recall)
-            train_prec = train_prec / len(self.train_loader)
-            metric_data["train_prec"].append(train_prec)
+            test_loss, test_f1, test_prec, test_recall = self.evaluate(
+                self.test_loader, loss_type
+            )
+            metric_data["test_loss"].append(test_loss)
+            metric_data["test_f1"].append(test_f1)
+            metric_data["test_prec"].append(test_prec)
+            metric_data["test_recall"].append(test_recall)
 
             train_f1_hist.append(train_f1)
             val_f1_hist.append(val_f1)
@@ -289,45 +262,133 @@ class Trainer:
         self.best_model_path = best_model_path
         return best_model_path
 
-    def predict(self, path_to_save="/PlanRGCN/results"):
-        os.system(f"mkdir -p {path_to_save}")
-        self.model = th.load(self.best_model_path)
+
+class TrainerAuto2(Trainer):
+    def __init__(
+        self,
+        train_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
+        val_path="/qpp/dataset/DBpedia_2016_12k_sample/val_sampled.tsv",
+        test_path="/qpp/dataset/DBpedia_2016_12k_sample/test_sampled.tsv",
+        batch_size=32,
+        query_plan_dir="/PlanRGCN/extracted_features/queryplans/",
+        pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
+        pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
+        ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+        time_col="mean_latency",
+        is_lsq=False,
+        cls_func=snap_lat2onehot,
+        hidden_dim=48,
+        n_classes=6,
+        featurizer_class=FeaturizerPredCoEnt,
+        scaling="None",
+        query_plan=QueryPlanCommonBi,
+        model=CLS,
+    ) -> None:
+        super().__init__(
+            train_path,
+            val_path,
+            test_path,
+            batch_size,
+            query_plan_dir,
+            pred_stat_path,
+            pred_com_path,
+            ent_path,
+            time_col,
+            is_lsq,
+            cls_func,
+            hidden_dim,
+            n_classes,
+            featurizer_class,
+            scaling,
+            query_plan,
+            model,
+        )
+        self.decoder_criterion = nn.MSELoss()
+
+    def train_epoch(self, criterion, opt, epoch, verbosity):
+        train_loss = 0
+        train_f1 = 0
+        train_recall = 0
+        train_prec = 0
+        self.model.train()
+        with th.enable_grad():
+            for batch_no, (batched_graph, labels, ids) in enumerate(self.train_loader):
+                feats = batched_graph.ndata["node_features"]
+                edge_types = batched_graph.edata["rel_type"]
+                decoded, logits = self.model(batched_graph, feats, edge_types)
+                loss1 = criterion(logits, labels)
+                loss2 = self.decoder_criterion(decoded, feats)
+                loss = loss1 + loss2
+                opt.zero_grad()
+                loss.backward()
+                opt.step()
+
+                c_train_loss = loss.item()
+
+                # snap_pred(logits,model_thres=pred_thres, add_thres=add_thres)
+                # snap_thres = [pred_thres for x in logits]
+                # snap_add_thres = [add_thres for x in logits]
+                f1_pred = list(map(self.snap_pred, logits))
+                snapped_labels = list(map(self.snap_pred, labels))
+                # f1_batch = f1_score(labels, f1_pred)
+                f1_batch = f1_score(snapped_labels, f1_pred, average=AVG)
+                prec_batch = precision_score(snapped_labels, f1_pred, average=AVG)
+                recall_batch = recall_score(snapped_labels, f1_pred, average=AVG)
+                if verbosity >= 2:
+                    print(
+                        f"Epoch: {epoch+1:4} {(batch_no+1):8} Batch loss: {c_train_loss:>7f} Batch F1: {f1_batch}"
+                    )
+                train_loss += c_train_loss
+                train_f1 += f1_batch
+                train_recall += recall_batch
+                train_prec += prec_batch
+        return (
+            train_loss / len(self.train_loader),
+            train_f1 / len(self.train_loader),
+            train_recall / len(self.train_loader),
+            train_prec / len(self.train_loader),
+        )
+
+    # evaluate on validation data loader and also test
+    def evaluate(self, data_loader, loss_type):
+        loss = 0
+        f1_val = 0
+        recall_val = 0
+        precision_val = 0
+        self.model.eval()
         with th.no_grad():
-            train_p = f"{path_to_save}/train_pred.csv"
-            val_p = f"{path_to_save}/val_pred.csv"
-            test_p = f"{path_to_save}/test_pred.csv"
-            for loader, path in zip(
-                [self.train_loader, self.val_loader, self.test_loader],
-                [train_p, val_p, test_p],
-            ):
-                ids, preds, truths = self.predict_helper(loader)
-                df = pd.DataFrame()
-                df["id"] = ids
-                df["time_cls"] = truths
-                df["planrgcn_prediction"] = preds
-                df.to_csv(path, index=False)
-                # id,time,nn_prediction
+            for _, (graphs, labels, _) in enumerate(data_loader):
+                feats = graphs.ndata["node_features"]
+                edge_types = graphs.edata["rel_type"]
+                _, pred = self.model(graphs, feats, edge_types)
 
-    def predict_helper(self, dataloader):
-        all_preds = []
-        all_ids = []
-        all_truths = []
-        for graphs, labels, ids in dataloader:
-            feats = graphs.ndata["node_features"]
-            edge_types = graphs.edata["rel_type"]
-            pred = self.model(graphs, feats, edge_types)
-            pred = pred.tolist()
-            pred = [np.argmax(x) for x in pred]
-            truths = [np.argmax(x) for x in labels.tolist()]
-            all_truths.extend(truths)
-            ids = [f"http://lsq.aksw.org/{x}" for x in ids]
-            all_ids.extend(ids)
-            all_preds.extend(pred)
-        return all_ids, all_preds, all_truths
+                if loss_type == "cross-entropy":
+                    c_val_loss = F.cross_entropy(pred, labels).item()
+                elif loss_type == "mse":
+                    c_val_loss = F.mse_loss(pred, labels).item()
+                loss += c_val_loss
+
+                f1_pred_val = list(map(self.snap_pred, pred))
+                snapped_lebls = list(map(self.snap_pred, labels))
+
+                f1_batch_val = f1_score(snapped_lebls, f1_pred_val, average=AVG)
+                f1_val += f1_batch_val
+
+                prec_batch_val = precision_score(
+                    snapped_lebls, f1_pred_val, average=AVG
+                )
+                precision_val += prec_batch_val
+
+                recall_batch_val = recall_score(snapped_lebls, f1_pred_val, average=AVG)
+                recall_val += recall_batch_val
+
+        loss = loss / len(data_loader)
+        f1_val = f1_val / len(data_loader)
+        precision_val = precision_val / len(data_loader)
+        recall_val = recall_val / len(data_loader)
+        return loss, f1_val, precision_val, recall_val
 
 
-# t = Trainer()
-# t.train()
 if __name__ == "__main__":
     from trainer.model import RegressorWSelfTriple as CLS
     from graph_construction.featurizer import FeaturizerPredStats

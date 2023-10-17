@@ -2,6 +2,7 @@ package com.org.QueryReader;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class LSQreader {
     String path;
     LinkedList<String> queries = new LinkedList<>();
     LinkedList<String> ids = new LinkedList<>();
+    CSVReader reader;
 
     public LinkedList<String> getQueries() {
         return queries;
@@ -32,18 +34,39 @@ public class LSQreader {
                         .build())
                 .build();
         //CSVParser parser = new CSVParser(c);
+        reader = c;
         try{
-            List<String[]> allRows = c.readAll();
-            Iterator<String[]> iter = allRows.iterator();
+            c.readNext();
+        
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<String> getNext(){
+        try{
+            ArrayList<String> query_id = new ArrayList<>();
+            String [] nextLine;
+            if ((nextLine = reader.readNext()) != null) {
+                
+                query_id.add(nextLine[0]);
+                query_id.add(nextLine[1]);
+                return query_id;
+            }else{
+                return null;
+            }
+            /*List<String[]> allRows = c.readAll();
             iter.next();
             while( iter.hasNext()){
                 String[] i = iter.next();
                 queries.add(i[1]);
                 ids.add(i[0]);
-            }
+            }*/
         
         }catch (Exception e){
             e.printStackTrace();
         }
+        return null;
+        
     }
 }

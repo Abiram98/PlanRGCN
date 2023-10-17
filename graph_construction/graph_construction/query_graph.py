@@ -297,6 +297,19 @@ class QueryPlanUtils:
             if current["opName"] == "Triple":
                 triple_data.append(current)
         return triple_data
+    
+    def extract_triples_filter(data: dict):
+        triple_data = []
+        stack = Stack()
+        stack.push(data)
+        while not stack.is_empty():
+            current = stack.pop()
+            if "subOp" in current.keys():
+                for node in reversed(current["subOp"]):
+                    stack.push(node)
+            if current["opName"] == "Triple":
+                triple_data.append(current)
+        return triple_data
 
     def map_extracted_triples(triple_dct: list[dict], trpl_list: list):
         res_t = list()
@@ -513,6 +526,7 @@ def snap_lat2onehotv2(lat):
         vec[2] = 1
     return vec
 
+
 def snap_lat2onehot_binary(lat):
     vec = np.zeros(2)
     if lat < 1:
@@ -520,6 +534,8 @@ def snap_lat2onehot_binary(lat):
     else:
         vec[1] = 1
     return vec
+
+
 def query_graph_w_class_vec_helper(samples: list[tuple], cls_funct):
     graphs = []
     clas_list = []
