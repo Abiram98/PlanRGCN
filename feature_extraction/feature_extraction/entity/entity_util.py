@@ -29,9 +29,12 @@ class EntityFreqExtractor(ExtractorBase):
     def query_batches(self, batch_start=1, batch_end=2):
         if not hasattr(self, "batches"):
             self.load_batches()
+        if batch_end == -1:
+            batch_end = len(self.batches)
         save_path = self.batch_output_response_dir
         os.system(f"mkdir -p {save_path}")
         print(f"Entity Stats are saved to: {save_path}")
+        print(f"Beginning extraction of batch {batch_start - 1} to {batch_end - 1}")
         for i, b in enumerate(self.batches[batch_start - 1 : batch_end - 1]):
             for query_generator, name in zip(
                 [

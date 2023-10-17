@@ -3,6 +3,7 @@ package com.org.Algebra;
 import org.apache.jena.sparql.algebra.*;
 import org.apache.jena.sparql.sse.SSE;
 
+import com.github.andrewoma.dexx.collection.ArrayList;
 import com.org.QueryReader.LSQreader;
 
 import java.io.FileNotFoundException;
@@ -52,6 +53,22 @@ public class Utils {
      * The extracted queries are written to files with
      */
     public void extract_query_plan(LSQreader reader, String outputdir) {
+        java.util.ArrayList<String> data = reader.getNext();
+        while(data != null){
+            String id = data.get(0);
+            String query = data.get(1);
+            try{
+                System.out.println("Extracting for "+id);
+            if(sub_id){
+                	extract_query_plan(query, outputdir + "/" + id.substring(20));
+            }else{
+                        extract_query_plan(query, outputdir + "/" + String.valueOf(id));
+            }}catch (org.apache.jena.query.QueryException e) {
+                System.out.println("Did not work for " + id);
+            }
+            data = reader.getNext();
+        }
+        /*
         LinkedList<String> ids = reader.getIds();
         LinkedList<String> queries = reader.getQueries();
         for (int i = 0; i < ids.size(); i++) {
@@ -64,7 +81,7 @@ public class Utils {
 		} catch (org.apache.jena.query.QueryException e) {
                 System.out.println("Did not work for " + ids.get(i));
             }
-        }
+        } */
     }
 
 }

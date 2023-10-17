@@ -59,13 +59,14 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
     }
 
     public ExecutionPlanVisitor(String path) throws FileNotFoundException{
+        
         this.stream = new PrintStream(new FileOutputStream(path));
         
     }
 
     public void visit(Triple triple){
-        String t = "{\"Subject\": \""+triple.getSubject();
-        t += "\", \"Predicate\": \""+triple.getPredicate();
+        String t = "{\"Subject\": \""+triple.getSubject().toString(true);
+        t += "\", \"Predicate\": \""+triple.getPredicate().toString(true);
         if (triple.getObject().isLiteral()){
             String temp = triple.getObject().getLiteralValue().toString();
             String laTag = triple.getObject().getLiteralLanguage();
@@ -118,7 +119,7 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
             .append(opPath.getName())
             .append('"')
             .append(", \"Subject\": \"")
-            .append(opPath.getTriplePath().getSubject())
+            .append(opPath.getTriplePath().getSubject().toString(true))
             .append('"')
             .append(", \"Object\": \"")
             ;
@@ -129,7 +130,7 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
                 temp += ("@"+laTag);
             t.append(temp);
         }else{
-            t.append(opPath.getTriplePath().getObject());
+            t.append(opPath.getTriplePath().getObject().toString(true));
         }
             t.append('"')
             .append(", \"Predicate Path\": \"")

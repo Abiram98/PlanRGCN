@@ -3,7 +3,7 @@ import os
 import pickle
 import numpy as np
 from graph_construction.node import Node, FilterNode, TriplePattern
-from scalers import EntMinMaxScaler
+from scalers import EntMinMaxScaler, EntStandardScaler
 
 
 class FeaturizerBase:
@@ -130,14 +130,23 @@ class FeaturizerPredCoEnt(FeaturizerPredStats):
                 self.pred_ents,
                 self.pred_lits,
             )
+        if self.scaling == "std":
+            self.scaler = EntStandardScaler(
+                self.ent_freq,
+                self.ent_subj,
+                self.ent_obj,
+                self.pred_freq,
+                self.pred_ents,
+                self.pred_lits,
+            )
 
     def featurize(self, node):
         if isinstance(node, FilterNode):
-            return self.filter_features(node).astype("float64")
+            return self.filter_features(node).astype("float32")
         elif isinstance(node, TriplePattern):
             return np.concatenate(
                 (self.tp_features(node), self.pred_clust_features(node)), axis=0
-            ).astype("float64")
+            ).astype("float32")
         else:
             raise Exception("unknown node type")
 
@@ -157,7 +166,7 @@ class FeaturizerPredCoEnt(FeaturizerPredStats):
         freq = self.get_value_dict(self.pred_freq, node.predicate.node_label)
         lits = self.get_value_dict(self.pred_lits, node.predicate.node_label)
         ents = self.get_value_dict(self.pred_ents, node.predicate.node_label)
-        if self.scaling == "min-max":
+        if not self.scaling == "None":
             freq, lits, ents = self.scaler.pred_scale(freq, lits, ents)
         (
             subj_freq,
@@ -171,7 +180,7 @@ class FeaturizerPredCoEnt(FeaturizerPredStats):
             subj_freq = self.get_value_dict(self.ent_freq, node.subject.node_label)
             subj_subj_freq = self.get_value_dict(self.ent_subj, node.subject.node_label)
             sub_obj_freq = self.get_value_dict(self.ent_obj, node.subject.node_label)
-            if self.scaling == "min-max":
+            if not self.scaling == "None":
                 subj_freq, subj_subj_freq, sub_obj_freq = self.scaler.ent_scale(
                     subj_freq, subj_subj_freq, sub_obj_freq
                 )
@@ -180,7 +189,7 @@ class FeaturizerPredCoEnt(FeaturizerPredStats):
             obj_freq = self.get_value_dict(self.ent_freq, node.subject.node_label)
             obj_subj_freq = self.get_value_dict(self.ent_subj, node.subject.node_label)
             obj_obj_freq = self.get_value_dict(self.ent_obj, node.subject.node_label)
-            if self.scaling == "min-max":
+            if not self.scaling == "None":
                 obj_freq, obj_subj_freq, obj_obj_freq = self.scaler.ent_scale(
                     obj_freq, obj_subj_freq, obj_obj_freq
                 )
@@ -421,6 +430,9 @@ class EntStats:
     def load_obj_ents(self, file):
         data = json.load(open(file, "r"))
         data = data["results"]["bindings"]
+        if len(data) <= 0:
+            return None
+
         if not "e" in data[0].keys():
             return None
 
