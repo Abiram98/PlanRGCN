@@ -35,46 +35,105 @@ class Classifier(nn.Module):
             return F.softmax(self.classify(hg), dim=1)
 
 
+class Classifier2RGCN(nn.Module):
+    """_summary_
+    Note: Data loading needs to happen before model construction as there is a dependency on the QuerPlan.max_relations
+    Args:
+        nn (_type_): _description_
+    """
+
+    def __init__(self, in_dim, hidden_dim1, hidden_dim2, n_classes):
+        super(Classifier2RGCN, self).__init__()
+        self.conv1 = dglnn.RelGraphConv(in_dim, hidden_dim1, QueryPlan.max_relations)
+        # self.conv1 = dglnn.GraphConv(in_dim, hidden_ˇdim)
+        self.conv2 = dglnn.RelGraphConv(
+            hidden_dim1, hidden_dim2, QueryPlan.max_relations
+        )
+        # self.conv2 = dglnn.GraphConv(hidden_dim, hidden_dim)
+        self.classify = nn.Linear(hidden_dim2, n_classes)
+        self.in_dim = in_dim
+        self.hidden_dim1 = hidden_dim1
+        self.hidden_dim2 = hidden_dim2
+        self.n_classes = n_classes
+
+    def forward(self, g, h, rel_types):
+        # Apply graph convolution and activation.
+        if h.dtype != torch.float32:
+            h = h.type(torch.float32)
+        h = self.conv1(g, h, rel_types)
+        h = F.relu(h)
+        h = F.relu(self.conv2(g, h, rel_types))
+        with g.local_scope():
+            g.ndata["node_features"] = h
+            # Calculate graph representation by average readout.
+            hg = dgl.mean_nodes(g, "node_features")
+            return F.softmax(self.classify(hg), dim=1)
+
+    def get_dims(self):
+        return self.in_dim, self.hidden_dim1, self.hidden_dim2, self.n_classes
+
+
 class ClassifierGridSearch(nn.Module):
     """_summary_
-    This is a class that generates a model on different RelConv layers.
     Note: Data loading needs to happen before model construction as there is a dependency on the QuerPlan.max_relations
     Args:
         nn (_type_): _description_
     """
 
     def __init__(self, in_dim, layers, n_classes):
-        super(Classifier, self).__init__()
-
-        self.layers = []
-        prev_dim = in_dim
-        for layer_type, neurons in layers:
-            if neurons == 0:
-                continue
-            if layer_type.startswith("RGCN"):
+        super().__init__()
+        self.rgcn_neurons = {}
+        self.fc_neurons = {}
+        self.layers = nn.ModuleList()
+        prev = in_dim
+        self.rgcn_last_idx = 0
+        self.contains_fc = False
+        for layer_no, (t, neurons) in enumerate(layers):
+            if t == 1:
                 self.layers.append(
-                    (
-                        1,
-                        dglnn.RelGraphConv(prev_dim, neurons, QueryPlan.max_relations),
-                    )
+                    dglnn.RelGraphConv(prev, neurons, QueryPlan.max_relations)
                 )
-            elif layer_type.startswith("l"):
-                (2, self.layers.append(nn.Linear(prev_dim, n_classes)))
-            prev_dim = in_dim
+                self.rgcn_neurons[f"RGCN {layer_no+1}"] = neurons
+                self.rgcn_last_idx = layer_no
+            elif t == 2:
+                self.contains_fc = True
+                # fully connected layers (optional)
+                self.layers.append(nn.Linear(prev, neurons))
+                self.fc_neurons[f"RGCN {layer_no+1}"] = neurons
+
+            prev = neurons
+
+        # self.conv2 = dglnn.GraphConv(hidden_dim, hidden_dim)
+        self.classify = nn.Linear(prev, n_classes)
+        self.in_dim = in_dim
+        self.n_classes = n_classes
 
     def forward(self, g, h, rel_types):
-        # Apply graph convolution and activation.
         if h.dtype != torch.float32:
             h = h.type(torch.float32)
-        for layer_type, layer in self.layers:
-            if layer_type == 1:
-                h = F.relu(layer(g, h, rel_types))
-            elif layer_type == 2:
+        for layer_no, l in self.layers:
+            if layer_no <= self.rgcn_last_idx:
+                h = l(g, h, rel_types)
+                h = F.relu(h)
+            elif layer_no == (self.rgcn_last_idx + 1) and self.contains_fc:
                 with g.local_scope():
                     g.ndata["node_features"] = h
                     # Calculate graph representation by average readout.
-                    hg = dgl.mean_nodes(g, "node_features")
-                    return F.softmax(self.layer(hg), dim=1)
+                    h = dgl.mean_nodes(g, "node_features")
+                    h = F.relu(l(h))
+            elif layer_no > (self.rgcn_last_idx + 1) and self.contains_fc:
+                h = F.relu(l(h))
+        if not self.contains_fc:
+            with g.local_scope():
+                g.ndata["node_features"] = h
+                # Calculate graph representation by average readout.
+                hg = dgl.mean_nodes(g, "node_features")
+                return F.softmax(self.classify(hg), dim=1)
+        else:
+            return F.softmax(self.classify(h), dim=1)
+
+    def get_dims(self):
+        return self.in_dim, self.rgcn_neurons, self.fc_neurons, self.n_classes
 
 
 class ClassifierWAuto(nn.Module):

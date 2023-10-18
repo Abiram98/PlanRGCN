@@ -297,7 +297,7 @@ class QueryPlanUtils:
             if current["opName"] == "Triple":
                 triple_data.append(current)
         return triple_data
-    
+
     def extract_triples_filter(data: dict):
         triple_data = []
         stack = Stack()

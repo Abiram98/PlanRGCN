@@ -1,3 +1,7 @@
+export TZ=UTC-2
+# Get the current date and time
+current_datetime=$(date '+%Y_%m_%d_%H_%M')
+
 batch_size=32
 pred_stat_path=/PlanRGCN/extracted_features_wd/predicate/pred_stat/batches_response_stats
 pred_com_path=/PlanRGCN/extracted_features_wd/pred_co_graph/pred2index_louvain.pickle
@@ -16,8 +20,8 @@ for config in "${configs[@]}"; do
     IFS=' ' read -r basedir snap_value class_num <<< $config
     echo $basedir $class_num $snap_value
     queryplandir="/qpp/dataset/$basedir/queryplans"
-    path_to_models="/PlanRGCN/wikidata/"$basedir"_auto/models"
-    path_to_res="/PlanRGCN/wikidata/"$basedir"_auto/results"
+    path_to_models="/PlanRGCN/wikidata/"$basedir"_auto/$current_datetime/models"
+    path_to_res="/PlanRGCN/wikidata/"$basedir"_auto/$current_datetime/results"
     split_dir="/qpp/dataset/$basedir"
 
     # Create directories if they don't exist
@@ -75,8 +79,8 @@ for config in "${configs[@]}"; do
     IFS=' ' read -r basedir snap_value class_num <<< $config
     echo $basedir $class_num $snap_value
     queryplandir="/qpp/dataset/$basedir/queryplans"
-    path_to_models="/PlanRGCN/wikidata/"$basedir"/models"
-    path_to_res="/PlanRGCN/wikidata/"$basedir"/results"
+    path_to_models="/PlanRGCN/wikidata/"$basedir"/$current_datetime/models"
+    path_to_res="/PlanRGCN/wikidata/"$basedir"/$current_datetime/results"
     split_dir="/qpp/dataset/$basedir"
 
     # Create directories if they don't exist

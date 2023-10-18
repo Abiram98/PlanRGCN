@@ -1,3 +1,6 @@
+export TZ=UTC-2
+# Get the current date and time
+current_datetime=$(date '+%Y_%m_%d_%H_%M')
 
 : '
 export queryplandir="${queryplandir:-/PlanRGCN/extracted_features/queryplans/}"
@@ -70,14 +73,11 @@ configs=("DBpedia2016_sample_0_1 snap_lat2onehot_binary 2" "DBpedia2016_sample_0
 for config in "${configs[@]}"; do
     # Split the config into basedir and snap_lat2onehot_binary
     IFS=' ' read -r basedir snap_value class_num <<< $config
-    IFS=' ' read -ra config_parts <<< "$config"
-    #basedir="${config_parts[0]}"
-    #snap_value="${config_parts[1]}"
 
     queryplandir="/qpp/dataset/$basedir/queryplans"
-    path_to_models="/PlanRGCN/dbpedia2016/$basedir/models"
-    path_to_res="/PlanRGCN/dbpedia2016/$basedir/results"
     split_dir="/qpp/dataset/$basedir"
+    path_to_models="/PlanRGCN/dbpedia2016/$basedir/$current_datetime/models"
+    path_to_res="/PlanRGCN/dbpedia2016/$basedir/$current_datetime/results"
 
     # Create directories if they don't exist
     mkdir -p "$path_to_models"
@@ -125,4 +125,5 @@ t.train(epochs=100, verbosity=2,
 # Make predictions
 t.predict(path_to_save='$path_to_res')
     """
+exit
 done

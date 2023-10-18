@@ -3,7 +3,11 @@ import dgl
 from graph_construction.featurizer import FeaturizerPredCo, FeaturizerPredCoEnt
 from graph_construction.query_graph import QueryPlanCommonBi, snap_lat2onehot
 from trainer.data_util import DatasetPrep
-from trainer.model import Classifier as CLS, RegressorWSelfTriple as CLS
+from trainer.model import (
+    Classifier as CLS,
+    RegressorWSelfTriple as CLS,
+    Classifier2RGCN,
+)
 import torch as th
 import numpy as np
 import json
@@ -37,29 +41,36 @@ class Trainer:
         scaling="None",
         query_plan=QueryPlanCommonBi,
         model=CLS,
+        is_model_provided=False,
+        prepper=None,
     ) -> None:
         dgl.seed(1223)
-        prepper = DatasetPrep(
-            train_path=train_path,
-            val_path=val_path,
-            test_path=test_path,
-            batch_size=batch_size,
-            query_plan_dir=query_plan_dir,
-            pred_stat_path=pred_stat_path,
-            pred_com_path=pred_com_path,
-            ent_path=ent_path,
-            time_col=time_col,
-            cls_func=cls_func,
-            query_plan=query_plan,
-            featurizer_class=featurizer_class,
-            is_lsq=is_lsq,
-            scaling=scaling,
-        )
+        if prepper == None:
+            prepper = DatasetPrep(
+                train_path=train_path,
+                val_path=val_path,
+                test_path=test_path,
+                batch_size=batch_size,
+                query_plan_dir=query_plan_dir,
+                pred_stat_path=pred_stat_path,
+                pred_com_path=pred_com_path,
+                ent_path=ent_path,
+                time_col=time_col,
+                cls_func=cls_func,
+                query_plan=query_plan,
+                featurizer_class=featurizer_class,
+                is_lsq=is_lsq,
+                scaling=scaling,
+            )
+
         self.train_loader = prepper.get_trainloader()
         self.val_loader = prepper.get_valloader()
         self.test_loader = prepper.get_testloader()
 
-        self.model = model(prepper.vec_size, hidden_dim, n_classes)
+        if is_model_provided:
+            self.model = model
+        else:
+            self.model = model(prepper.vec_size, hidden_dim, n_classes)
         self.is_lsq = is_lsq
 
         self.cls_func = cls_func
@@ -93,9 +104,15 @@ class Trainer:
                 f1_pred = list(map(self.snap_pred, logits))
                 snapped_labels = list(map(self.snap_pred, labels))
                 # f1_batch = f1_score(labels, f1_pred)
-                f1_batch = f1_score(snapped_labels, f1_pred, average=AVG)
-                prec_batch = precision_score(snapped_labels, f1_pred, average=AVG)
-                recall_batch = recall_score(snapped_labels, f1_pred, average=AVG)
+                f1_batch = f1_score(
+                    snapped_labels, f1_pred, average=AVG, zero_division=np.nan
+                )
+                prec_batch = precision_score(
+                    snapped_labels, f1_pred, average=AVG, zero_division=np.nan
+                )
+                recall_batch = recall_score(
+                    snapped_labels, f1_pred, average=AVG, zero_division=np.nan
+                )
                 if verbosity >= 2:
                     print(
                         f"Epoch: {epoch+1:4} {(batch_no+1):8} Batch loss: {c_train_loss:>7f} Batch F1: {f1_batch}"
@@ -133,15 +150,19 @@ class Trainer:
                 f1_pred_val = list(map(self.snap_pred, pred))
                 snapped_lebls = list(map(self.snap_pred, labels))
 
-                f1_batch_val = f1_score(snapped_lebls, f1_pred_val, average=AVG)
+                f1_batch_val = f1_score(
+                    snapped_lebls, f1_pred_val, average=AVG, zero_division=np.nan
+                )
                 f1_val += f1_batch_val
 
                 prec_batch_val = precision_score(
-                    snapped_lebls, f1_pred_val, average=AVG
+                    snapped_lebls, f1_pred_val, average=AVG, zero_division=np.nan
                 )
                 precision_val += prec_batch_val
 
-                recall_batch_val = recall_score(snapped_lebls, f1_pred_val, average=AVG)
+                recall_batch_val = recall_score(
+                    snapped_lebls, f1_pred_val, average=AVG, zero_division=np.nan
+                )
                 recall_val += recall_batch_val
 
         loss = loss / len(data_loader)
@@ -160,6 +181,7 @@ class Trainer:
         path_to_save="/PlanRGCN/plan_model",
         loss_type="cross-entropy",
         verbosity=1,
+        is_return_f1_val=False,
     ):
         """Trains a model,  \nHyperparameters: early_stop, lr, wd, epochs"""
 
@@ -260,7 +282,48 @@ class Trainer:
         json.dump(metric_data, open(result_path, "w"))
         print(best_model_path)
         self.best_model_path = best_model_path
+        if is_return_f1_val:
+            return best_model_path, best_f1
         return best_model_path
+
+    def predict(self, path_to_save="/PlanRGCN/results"):
+        os.system(f"mkdir -p {path_to_save}")
+        self.model = th.load(self.best_model_path)
+        with th.no_grad():
+            train_p = f"{path_to_save}/train_pred.csv"
+            val_p = f"{path_to_save}/val_pred.csv"
+            test_p = f"{path_to_save}/test_pred.csv"
+            for loader, path in zip(
+                [self.train_loader, self.val_loader, self.test_loader],
+                [train_p, val_p, test_p],
+            ):
+                ids, preds, truths = self.predict_helper(loader)
+                df = pd.DataFrame()
+                df["id"] = ids
+                df["time_cls"] = truths
+                df["planrgcn_prediction"] = preds
+                df.to_csv(path, index=False)
+                # id,time,nn_prediction
+
+    def predict_helper(self, dataloader):
+        all_preds = []
+        all_ids = []
+        all_truths = []
+        for graphs, labels, ids in dataloader:
+            feats = graphs.ndata["node_features"]
+            edge_types = graphs.edata["rel_type"]
+            pred = self.model(graphs, feats, edge_types)
+            pred = pred.tolist()
+            pred = [np.argmax(x) for x in pred]
+            truths = [np.argmax(x) for x in labels.tolist()]
+            all_truths.extend(truths)
+            if not self.is_lsq:
+                ids = [f"http://lsq.aksw.org/{x}" for x in ids]
+            else:
+                ids = [f"{x}" for x in ids]
+            all_ids.extend(ids)
+            all_preds.extend(pred)
+        return all_ids, all_preds, all_truths
 
 
 class TrainerAuto2(Trainer):
@@ -387,6 +450,26 @@ class TrainerAuto2(Trainer):
         precision_val = precision_val / len(data_loader)
         recall_val = recall_val / len(data_loader)
         return loss, f1_val, precision_val, recall_val
+
+    def predict_helper(self, dataloader):
+        all_preds = []
+        all_ids = []
+        all_truths = []
+        for graphs, labels, ids in dataloader:
+            feats = graphs.ndata["node_features"]
+            edge_types = graphs.edata["rel_type"]
+            _, pred = self.model(graphs, feats, edge_types)
+            pred = pred.tolist()
+            pred = [np.argmax(x) for x in pred]
+            truths = [np.argmax(x) for x in labels.tolist()]
+            all_truths.extend(truths)
+            if not self.is_lsq:
+                ids = [f"http://lsq.aksw.org/{x}" for x in ids]
+            else:
+                ids = [f"{x}" for x in ids]
+            all_ids.extend(ids)
+            all_preds.extend(pred)
+        return all_ids, all_preds, all_truths
 
 
 if __name__ == "__main__":
