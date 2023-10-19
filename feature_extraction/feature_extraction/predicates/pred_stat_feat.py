@@ -25,6 +25,8 @@ class PredicateFreqExtractor(ExtractorBase):
         os.system(f"mkdir -p {self.batch_output_response_dir}/freq")
         os.system(f"mkdir -p {self.batch_output_response_dir}/ents")
         os.system(f"mkdir -p {self.batch_output_response_dir}/lits")
+        os.system(f"mkdir -p {self.batch_output_response_dir}/subj")
+        os.system(f"mkdir -p {self.batch_output_response_dir}/obj")
         self.load_batches()
 
     def query_batches(self, batch_start=1, batch_end=2):
@@ -34,6 +36,8 @@ class PredicateFreqExtractor(ExtractorBase):
         os.system(f"mkdir -p {save_path}")
         print(f"Predicate Stats are saved to: {save_path}")
         batch_end_idx = min(batch_end - 1, len(self.batches) - 1)
+        if batch_end == -1:
+            batch_end_idx = len(self.batches) - 1
         for i, b in enumerate(self.batches[batch_start - 1 : batch_end_idx]):
             for query_generator, name in zip(
                 [
@@ -42,6 +46,29 @@ class PredicateFreqExtractor(ExtractorBase):
                     PredicateStatQueries.frequency_for_predicate,
                 ],
                 ["lits", "ents", "freq"],
+            ):
+                query = query_generator(b)
+                res = self.endpoint.run_query(query)
+                res_fp = f"{save_path}/{name}/batch_{batch_start+i}.json"
+                json.dump(res, open(res_fp, "w"))
+                print(f"batch {batch_start+i} extracted!")
+
+    def query_batches_subj_obj(self, batch_start=1, batch_end=2):
+        if not hasattr(self, "batches"):
+            self.load_batches()
+        save_path = self.batch_output_response_dir
+        os.system(f"mkdir -p {save_path}")
+        print(f"Predicate Stats are saved to: {save_path}")
+        batch_end_idx = min(batch_end - 1, len(self.batches) - 1)
+        if batch_end == -1:
+            batch_end_idx = len(self.batches) - 1
+        for i, b in enumerate(self.batches[batch_start - 1 : batch_end_idx]):
+            for query_generator, name in zip(
+                [
+                    PredicateStatQueries.unique_subj_for_predicate,
+                    PredicateStatQueries.unique_obj_for_predicate,
+                ],
+                ["subj", "obj"],
             ):
                 query = query_generator(b)
                 res = self.endpoint.run_query(query)
@@ -78,6 +105,27 @@ class PredicateStatQueries:
             FILTER(isURI(?e))}}
             UNION {{?s ?p1 ?e .
             FILTER(isURI(?e))}}
+        }}
+        GROUP BY ?p1
+        """
+
+    def unique_obj_for_predicate(batch):
+        """This returns the count of unique object entities."""
+        pred_str = PredicateStatQueries.pred_str_gen(batch)
+        return f"""SELECT ?p1 (COUNT(DISTINCT ?e) AS ?entities) WHERE {{
+            VALUES (?p1) {{ {pred_str}}}
+            ?s ?p1 ?e .
+            FILTER(isURI(?e))
+        }}
+        GROUP BY ?p1
+        """
+
+    def unique_subj_for_predicate(batch):
+        """This returns the count of unique object entities."""
+        pred_str = PredicateStatQueries.pred_str_gen(batch)
+        return f"""SELECT ?p1 (COUNT(DISTINCT ?e) AS ?entities) WHERE {{
+            VALUES (?p1) {{ {pred_str}}}
+            ?e ?p1 ?o . 
         }}
         GROUP BY ?p1
         """
