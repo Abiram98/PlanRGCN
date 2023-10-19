@@ -170,3 +170,16 @@ if __name__ == "__main__":
         )
         # extrator.query_batches()
         extrator.query_batches(int(args.batch_start), int(args.batch_end))
+    elif args.task == "extract-predicates-stat-sub-obj":
+        output_dir = f"{args.dir}/predicate"
+        os.system(f"mkdir -p {output_dir}")
+        endpoint = Endpoint(args.endpoint)
+        # input_dir = f"{args.input_dir}/predicate"
+        input_dir = f"{args.input_dir}"
+        os.system(f"mkdir -p {args.dir}")
+        os.system(f"mkdir -p {input_dir}")
+        extrator = PredicateFreqExtractor(
+            endpoint, input_dir, args.dir, predicate_file=args.pred_file
+        )
+        # extrator.query_batches()
+        extrator.query_batches_subj_obj(int(args.batch_start), int(args.batch_end))
