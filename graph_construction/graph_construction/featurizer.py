@@ -278,6 +278,8 @@ class PredStats:
     def load_pred_lits(self, file):
         data = json.load(open(file, "r"))
         data = data["results"]["bindings"]
+        if data is None or len(data) == 0:
+            return None
         if not "p1" in data[0].keys():
             return None
 

@@ -474,6 +474,8 @@ def query_graphs_with_lats(
         if not is_lsq:
             id = int(id)
         lat = df.loc[id][time_col]
+        if isinstance(lat, pd.Series):
+            lat = lat.iloc[0]
         samples.append((g, id, lat))
     return samples
 
@@ -527,6 +529,19 @@ def snap_lat2onehotv2(lat):
     return vec
 
 
+def snap_lat_2onehot_4_cat(lat):
+    vec = np.zeros(4)
+    if lat < 0.3:
+        vec[0] = 1
+    elif (0.3 < lat) and (lat < 1):
+        vec[1] = 1
+    elif (1 < lat) and (lat < 10):
+        vec[1] = 1
+    elif 10 < lat:
+        vec[2] = 1
+    return vec
+
+
 def snap_lat2onehot_binary(lat):
     vec = np.zeros(2)
     if lat < 1:
@@ -543,7 +558,12 @@ def query_graph_w_class_vec_helper(samples: list[tuple], cls_funct):
     for g, id, lat in samples:
         graphs.append(g)
         ids.append(id)
-        clas_list.append(cls_funct(lat))
+        try:
+            clas_list.append(cls_funct(lat))
+        except Exception:
+            print(lat)
+            print("Something went wrong")
+            exit()
     clas_list = th.tensor(np.array(clas_list), dtype=th.float32)
     return graphs, clas_list, ids
 

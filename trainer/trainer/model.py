@@ -80,38 +80,71 @@ class ClassifierGridSearch(nn.Module):
         nn (_type_): _description_
     """
 
-    def __init__(self, in_dim, layers, n_classes):
+    def __init__(self, in_dim, layers, n_classes, auto_neurons=None, add_dropout=False):
+        """_summary_
+
+        Args:
+            in_dim (int): _description_
+            layers (list[tuple]): _description_
+            n_classes (int): _description_
+        """
         super().__init__()
+        self.is_auto = True if auto_neurons != None else False
         self.rgcn_neurons = {}
         self.fc_neurons = {}
         self.layers = nn.ModuleList()
+        self.auto_neurons = auto_neurons
         prev = in_dim
+
+        self.add_dropout = add_dropout
         self.rgcn_last_idx = 0
         self.contains_fc = False
+
+        if self.is_auto:
+            self.encoder = nn.Sequential(
+                nn.Linear(in_dim, auto_neurons, dtype=torch.float32), nn.ReLU()
+            )
+            self.decoder = nn.Sequential(
+                nn.Linear(auto_neurons, in_dim, dtype=torch.float32)
+            )
+            prev = auto_neurons
         for layer_no, (t, neurons) in enumerate(layers):
             if t == 1:
-                self.layers.append(
-                    dglnn.RelGraphConv(prev, neurons, QueryPlan.max_relations)
-                )
-                self.rgcn_neurons[f"RGCN {layer_no+1}"] = neurons
+                if self.add_dropout:
+                    self.layers.append(
+                        dglnn.RelGraphConv(
+                            prev, neurons, QueryPlan.max_relations, dropout=0.5
+                        )
+                    )
+                else:
+                    self.layers.append(
+                        dglnn.RelGraphConv(prev, neurons, QueryPlan.max_relations)
+                    )
+                self.rgcn_neurons[f"RGCN {layer_no}"] = neurons
+                # self.layers.append(nn.Dropout(p=0.5))
                 self.rgcn_last_idx = layer_no
             elif t == 2:
                 self.contains_fc = True
                 # fully connected layers (optional)
                 self.layers.append(nn.Linear(prev, neurons))
-                self.fc_neurons[f"RGCN {layer_no+1}"] = neurons
-
+                self.fc_neurons[f"fc {layer_no}"] = neurons
             prev = neurons
 
         # self.conv2 = dglnn.GraphConv(hidden_dim, hidden_dim)
         self.classify = nn.Linear(prev, n_classes)
         self.in_dim = in_dim
         self.n_classes = n_classes
+        self.model_str = self.make_model_str()
 
     def forward(self, g, h, rel_types):
         if h.dtype != torch.float32:
             h = h.type(torch.float32)
-        for layer_no, l in self.layers:
+
+        decoded = None
+        if self.is_auto:
+            h = self.encoder(h)
+            decoded = self.decoder(h)
+        for layer_no, l in enumerate(self.layers):
             if layer_no <= self.rgcn_last_idx:
                 h = l(g, h, rel_types)
                 h = F.relu(h)
@@ -128,12 +161,27 @@ class ClassifierGridSearch(nn.Module):
                 g.ndata["node_features"] = h
                 # Calculate graph representation by average readout.
                 hg = dgl.mean_nodes(g, "node_features")
+                if self.is_auto:
+                    return decoded, F.softmax(self.classify(hg), dim=1)
                 return F.softmax(self.classify(hg), dim=1)
         else:
+            if self.is_auto:
+                return decoded, F.softmax(self.classify(h), dim=1)
             return F.softmax(self.classify(h), dim=1)
 
     def get_dims(self):
         return self.in_dim, self.rgcn_neurons, self.fc_neurons, self.n_classes
+
+    def make_model_str(self):
+        if self.is_auto:
+            t = f"auto_{self.auto_neurons}_"
+        else:
+            t = ""
+        for idx, rgcn_label in enumerate(self.rgcn_neurons.keys()):
+            t += f"RGCN_{idx}_{self.rgcn_neurons[rgcn_label]}_"
+        for fc_label in self.fc_neurons.keys():
+            t += f"fc{idx}_{self.fc_neurons[fc_label]}_"
+        return t
 
 
 class ClassifierWAuto(nn.Module):

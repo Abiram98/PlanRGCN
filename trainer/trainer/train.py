@@ -43,6 +43,7 @@ class Trainer:
         model=CLS,
         is_model_provided=False,
         prepper=None,
+        metric_default=0,
     ) -> None:
         dgl.seed(1223)
         if prepper == None:
@@ -75,6 +76,8 @@ class Trainer:
 
         self.cls_func = cls_func
 
+        self.metric_default = metric_default
+
     def snap_pred(self, pred):
         if not isinstance(pred, th.Tensor):
             pred = th.tensor(self.cls_func(pred), dtype=th.float32)
@@ -105,13 +108,22 @@ class Trainer:
                 snapped_labels = list(map(self.snap_pred, labels))
                 # f1_batch = f1_score(labels, f1_pred)
                 f1_batch = f1_score(
-                    snapped_labels, f1_pred, average=AVG, zero_division=np.nan
+                    snapped_labels,
+                    f1_pred,
+                    average=AVG,
+                    zero_division=self.metric_default,
                 )
                 prec_batch = precision_score(
-                    snapped_labels, f1_pred, average=AVG, zero_division=np.nan
+                    snapped_labels,
+                    f1_pred,
+                    average=AVG,
+                    zero_division=self.metric_default,
                 )
                 recall_batch = recall_score(
-                    snapped_labels, f1_pred, average=AVG, zero_division=np.nan
+                    snapped_labels,
+                    f1_pred,
+                    average=AVG,
+                    zero_division=self.metric_default,
                 )
                 if verbosity >= 2:
                     print(
@@ -145,23 +157,35 @@ class Trainer:
                     c_val_loss = F.cross_entropy(pred, labels).item()
                 elif loss_type == "mse":
                     c_val_loss = F.mse_loss(pred, labels).item()
+                else:
+                    c_val_loss = loss_type(pred, labels).item()
+
                 loss += c_val_loss
 
                 f1_pred_val = list(map(self.snap_pred, pred))
                 snapped_lebls = list(map(self.snap_pred, labels))
 
                 f1_batch_val = f1_score(
-                    snapped_lebls, f1_pred_val, average=AVG, zero_division=np.nan
+                    snapped_lebls,
+                    f1_pred_val,
+                    average=AVG,
+                    zero_division=self.metric_default,
                 )
                 f1_val += f1_batch_val
 
                 prec_batch_val = precision_score(
-                    snapped_lebls, f1_pred_val, average=AVG, zero_division=np.nan
+                    snapped_lebls,
+                    f1_pred_val,
+                    average=AVG,
+                    zero_division=self.metric_default,
                 )
                 precision_val += prec_batch_val
 
                 recall_batch_val = recall_score(
-                    snapped_lebls, f1_pred_val, average=AVG, zero_division=np.nan
+                    snapped_lebls,
+                    f1_pred_val,
+                    average=AVG,
+                    zero_division=self.metric_default,
                 )
                 recall_val += recall_batch_val
 
@@ -183,7 +207,22 @@ class Trainer:
         verbosity=1,
         is_return_f1_val=False,
     ):
-        """Trains a model,  \nHyperparameters: early_stop, lr, wd, epochs"""
+        """_summary_
+
+        Args:
+            early_stop (int, optional): _description_. Defaults to 10.
+            lr (float, optional): _description_. Defaults to 0.001.
+            wd (float, optional): _description_. Defaults to 0.01.
+            epochs (int, optional): _description_. Defaults to 100.
+            result_path (str, optional): _description_. Defaults to "/PlanRGCN/results/results.json".
+            path_to_save (str, optional): _description_. Defaults to "/PlanRGCN/plan_model".
+            loss_type (str or nn.Loss, optional): _description_. Defaults to "cross-entropy". If a custom loss function should be applied, it can be passed as well
+            verbosity (int, optional): _description_. Defaults to 1. set it to 2 if performance during training should be tracked.
+            is_return_f1_val (bool, optional): _description_. Defaults to False. Set it to true if the optimal
+
+        Returns:
+            _type_: _description_
+        """
 
         opt = th.optim.AdamW(self.model.parameters(), lr=lr, weight_decay=wd)
         # opt = th.optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
@@ -208,7 +247,9 @@ class Trainer:
             "val_recall": [],
             "test_recall": [],
         }
-        if loss_type == "cross-entropy":
+        if not isinstance(loss_type, str):
+            criterion = loss_type
+        elif loss_type == "cross-entropy":
             criterion = nn.CrossEntropyLoss()
         elif loss_type == "mse":
             criterion = nn.MSELoss()
@@ -275,14 +316,17 @@ class Trainer:
             ):
                 if verbosity >= 1:
                     print(f"Early Stopping invoked after epoch {epoch+1}")
-                    json.dump(metric_data, open(result_path, "w"))
-                    print("Done!")
-                return
+                json.dump(metric_data, open(result_path, "w"))
+                print(best_model_path, best_f1)
+                self.best_model_path = best_model_path
+                if is_return_f1_val:
+                    return best_model_path, best_f1
+                return best_model_path
         print("Done!")
         json.dump(metric_data, open(result_path, "w"))
-        print(best_model_path)
         self.best_model_path = best_model_path
         if is_return_f1_val:
+            print(best_model_path, best_f1)
             return best_model_path, best_f1
         return best_model_path
 

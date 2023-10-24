@@ -15,6 +15,7 @@ scaling=\"std\"
 
 # Define the list of basedir values
 configs=("wikidata_0_1 snap_lat2onehot_binary 2" "wikidata_0_1_10 snap_lat2onehotv2 3")
+#configs=("wikidata_0_1 snap_lat2onehot_binary 2" "wikidata_0_1_10_aug snap_lat2onehotv2 3")
 for config in "${configs[@]}"; do
     # Split the config into basedir and snap_lat2onehot_binary
     IFS=' ' read -r basedir snap_value class_num <<< $config

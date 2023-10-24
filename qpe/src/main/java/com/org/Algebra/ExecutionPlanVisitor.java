@@ -20,6 +20,14 @@ import org.apache.jena.sparql.algebra.op.OpPath;
 import org.apache.jena.sparql.algebra.op.OpProcedure;
 import org.apache.jena.sparql.algebra.op.OpPropFunc;
 import org.apache.jena.sparql.algebra.op.OpSequence;
+import org.apache.jena.sparql.path.P_Alt;
+import org.apache.jena.sparql.path.P_Inverse;
+import org.apache.jena.sparql.path.P_Multi;
+import org.apache.jena.sparql.path.P_OneOrMore1;
+import org.apache.jena.sparql.path.P_Seq;
+import org.apache.jena.sparql.path.P_ZeroOrMore1;
+import org.apache.jena.sparql.path.P_ZeroOrOne;
+import org.apache.jena.sparql.path.Path;
 import org.apache.jena.graph.Node;
 
 
@@ -132,12 +140,28 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
         }else{
             t.append(opPath.getTriplePath().getObject().toString(true));
         }
-            t.append('"')
-            .append(", \"Predicate Path\": \"")
-            .append(opPath.getTriplePath().getPath().toString())
-            .append('"')
-            .append('}')
-            ;
+        t.append('"')
+        .append(", \"Predicate Path\": \"")
+        .append(opPath.getTriplePath().getPath().toString())
+        .append('"');
+        Path path = opPath.getTriplePath().getPath();
+        if (path instanceof P_Seq) {
+            t.append(", \"pathType\": \"sequence\"");
+        } else if (path instanceof P_Alt) {
+            t.append(", \"pathType\": \"alternative\"");
+        } else if (path instanceof P_Multi) {
+            t.append(", \"pathType\": \"multi\"");
+        } else if (path instanceof P_Inverse) {
+            t.append(", \"pathType\": \"inverse\"");
+        }else if (path instanceof P_ZeroOrOne) {
+            t.append(", \"pathType\": \"zeroOrOne\"");
+        }else if (path instanceof P_ZeroOrMore1) {
+            t.append(", \"pathType\": \"ZeroOrMore\"");
+        }else if (path instanceof P_OneOrMore1) {
+            t.append(", \"pathType\": \"ZeroOrMore\"");
+        }
+        t.append('}')
+        ;
         print(t.toString());
     }
 

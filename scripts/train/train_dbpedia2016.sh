@@ -24,49 +24,6 @@ ent_path=/PlanRGCN/extracted_features_dbpedia2016/entities/ent_stat/batches_resp
 earlystop=10
 scaling=\"std\"
 
-: '
-basedir=DBpedia2016_sample_0_1
-queryplandir=/qpp/dataset/"$basedir"/queryplans
-path_to_models=/PlanRGCN/dbpedia2016/"$basedir"/models
-path_to_res=/PlanRGCN/dbpedia2016/"$basedir"/results
-split_dir=/qpp/dataset/"$basedir"
-mkdir -p $path_to_models
-mkdir -p $path_to_res
-rm $path_to_models/*
-rm $path_to_res/*
-
-python3 -c """
-from trainer.train import Trainer
-from graph_construction.featurizer import FeaturizerPredCoEnt
-from graph_construction.query_graph import QueryPlan, snap_lat2onehot,snap_lat2onehotv2,snap_lat2onehot_binary
-from trainer.model import Classifier as CLS
-t = Trainer(
-    train_path='$split_dir/train_sampled.tsv',
-    val_path='$split_dir/val_sampled.tsv',
-    test_path='$split_dir/test_sampled.tsv',
-    batch_size=$batch_size,
-    query_plan_dir='$queryplandir',
-    pred_stat_path='$pred_stat_path',
-    pred_com_path='$pred_com_path',
-    ent_path='$ent_path',
-    time_col='mean_latency',
-    cls_func=snap_lat2onehot_binary,
-    # in_dim=12,
-    hidden_dim=$neurons,
-    n_classes=2,
-    featurizer_class=FeaturizerPredCoEnt,
-    scaling=$scaling,
-    query_plan=QueryPlan,
-    is_lsq=True,
-    model=CLS
-)
-t.train(epochs=100,verbosity=2,
-result_path='"$path_to_res"/results.json',
-path_to_save='$path_to_models',
-early_stop=$earlystop)
-t.predict(path_to_save='$path_to_res')
-"""
-'
 # Define the list of basedir values
 basedirs=("DBpedia2016_sample_0_1 2" "DBpedia2016_sample_0_1_10 3")
 configs=("DBpedia2016_sample_0_1 snap_lat2onehot_binary 2" "DBpedia2016_sample_0_1_10 snap_lat2onehotv2 3")
@@ -76,8 +33,8 @@ for config in "${configs[@]}"; do
 
     queryplandir="/qpp/dataset/$basedir/queryplans"
     split_dir="/qpp/dataset/$basedir"
-    path_to_models="/PlanRGCN/dbpedia2016/$basedir/$current_datetime/models"
-    path_to_res="/PlanRGCN/dbpedia2016/$basedir/$current_datetime/results"
+    path_to_models="/PlanRGCN/dbpedia2016_v2/$basedir/$current_datetime/models"
+    path_to_res="/PlanRGCN/dbpedia2016_v2/$basedir/$current_datetime/results"
 
     # Create directories if they don't exist
     mkdir -p "$path_to_models"
