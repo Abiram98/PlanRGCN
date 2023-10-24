@@ -16,7 +16,7 @@ python3 -m feature_extraction.predicates.pred_util $task -e $url \
         --batch_start $batch_start \
         --batch_end $batch_end
 '
-url=http://130.225.39.154:8890/sparql/
+url=http://172.21.233.23:8890/sparql/
 pred_file=predicates.json
 task=extract-predicates-stat
 input_dir=/PlanRGCN/extracted_features_dbpedia2016
