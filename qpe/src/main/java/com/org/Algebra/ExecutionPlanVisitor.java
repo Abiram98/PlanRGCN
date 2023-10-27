@@ -20,9 +20,11 @@ import org.apache.jena.sparql.algebra.op.OpPath;
 import org.apache.jena.sparql.algebra.op.OpProcedure;
 import org.apache.jena.sparql.algebra.op.OpPropFunc;
 import org.apache.jena.sparql.algebra.op.OpSequence;
+import org.apache.jena.sparql.core.TriplePath;
 import org.apache.jena.sparql.path.P_Alt;
 import org.apache.jena.sparql.path.P_Inverse;
 import org.apache.jena.sparql.path.P_Multi;
+import org.apache.jena.sparql.path.P_NegPropSet;
 import org.apache.jena.sparql.path.P_OneOrMore1;
 import org.apache.jena.sparql.path.P_Seq;
 import org.apache.jena.sparql.path.P_ZeroOrMore1;
@@ -109,63 +111,95 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
 
     }
 
-    /*@Override 
-    public void visit(OpTriple opTriple)              {
-        print("Triple");
-        print("Subject: "+opTriple.getTriple().getSubject());
-        print("Predicate: "+opTriple.getTriple().getPredicate());
-        print("Object: "+opTriple.getTriple().getObject());
-        print("End Triple");
-
-    }*/
-
-
     @Override 
     public void visit(OpPath opPath)                  {
+        
         StringBuilder t = new StringBuilder();
         t.append("{\"opName\": \"")
-            .append(opPath.getName())
-            .append('"')
-            .append(", \"Subject\": \"")
-            .append(opPath.getTriplePath().getSubject().toString(true))
-            .append('"')
-            .append(", \"Object\": \"")
-            ;
+        .append(opPath.getName())
+        .append('"')
+        .append(", \"Subject\": \"")
+        .append(opPath.getTriplePath().getSubject().toString(true))
+        .append('"')
+        .append(", \"Object\": \"")
+        ;
+        
         if (opPath.getTriplePath().getObject().isLiteral()){
             String temp = opPath.getTriplePath().getObject().getLiteralValue().toString();
             String laTag = opPath.getTriplePath().getObject().getLiteralLanguage();
             if(laTag.length() > 0)
-                temp += ("@"+laTag);
+            temp += ("@"+laTag);
             t.append(temp);
         }else{
             t.append(opPath.getTriplePath().getObject().toString(true));
         }
-        t.append('"')
-        .append(", \"Predicate Path\": \"")
-        .append(opPath.getTriplePath().getPath().toString())
-        .append('"');
-        Path path = opPath.getTriplePath().getPath();
-        if (path instanceof P_Seq) {
-            t.append(", \"pathType\": \"sequence\"");
-        } else if (path instanceof P_Alt) {
-            t.append(", \"pathType\": \"alternative\"");
-        } else if (path instanceof P_Multi) {
-            t.append(", \"pathType\": \"multi\"");
-        } else if (path instanceof P_Inverse) {
-            t.append(", \"pathType\": \"inverse\"");
-        }else if (path instanceof P_ZeroOrOne) {
-            t.append(", \"pathType\": \"zeroOrOne\"");
-        }else if (path instanceof P_ZeroOrMore1) {
-            t.append(", \"pathType\": \"ZeroOrMore\"");
-        }else if (path instanceof P_OneOrMore1) {
-            t.append(", \"pathType\": \"ZeroOrMore\"");
-        }
-        t.append('}')
-        ;
+        t.append("\"");
+
+        
         print(t.toString());
+        Path path = opPath.getTriplePath().getPath();
+        PathComplexityChecker compVisitor = new PathComplexityChecker();
+        path.visit(compVisitor);
+        boolean complex = false;
+        if (compVisitor.getPathOperations().size() > 1){
+            complex = true;
+            print(", \"pathComplexity\": [");
+            Iterator<String> iter = compVisitor.getPathOperations().iterator();
+            while(iter.hasNext()){
+                String pathtype= iter.next();
+                print("\""+pathtype+"\"");
+                if (iter.hasNext())
+                print(", ");
+            }
+            print("]\n}");
+        }
+        if (!complex){
+            PathSerializor p = new PathSerializor(stream,indent);
+            if (path instanceof P_Alt) {
+                print(", \"pathComplexity\": [\"Addede to be filtered aways\"");
+                print("],");
+                print(", \"pathType\": \"alternative\"");
+                print(",\"Predicates\":[");
+                print("\"Not Implemented for now\"]");
+                /*path.visit(p);
+                print("]");*/
+                print("}");
+            } /*else if (path instanceof P_Multi) {
+                print(", \"pathType\": \"multi\"");
+                print(",\"Predicates\":[");
+                path.visit(p);
+                print(",\"Predicates\":[");
+                path.visit(p);
+                print("]");
+                print("}");
+            }*/else if (path instanceof P_ZeroOrOne) {
+                print(", \"pathType\": \"zeroOrOne");
+                print(",\"Predicates\":[");
+                path.visit(p);
+                print("]");
+                print("}");
+            }else if (path instanceof P_ZeroOrMore1) {
+                print(", \"pathType\": \"ZeroOrMore\"");
+                print(",\"Predicates\":[");
+                path.visit(p);
+                print("]");
+                print("}");
+            }else if (path instanceof P_OneOrMore1) {
+                print(", \"pathType\": \"OneOrMore\"");
+                print(",\"Predicates\":[");
+                path.visit(p);
+                print("]");
+                print("}");
+            }else if (path instanceof P_NegPropSet) {
+                print(", \"pathType\": \"NotOneOf\"");
+                print(",\"Predicates\":[");
+                path.visit(p);
+                print("]");
+                print("}");
+            }
+        }
     }
 
-    
     @Override 
     public void visit(OpSequence opSequence)          {
         print("{\"opName\": \""+opSequence.getName()+ "\", \"subOp\": [");

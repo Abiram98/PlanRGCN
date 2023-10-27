@@ -77,10 +77,13 @@ public class App
             GROUP BY ?work ?presName
             ORDER BY DESC (?num_works)
             """;
-        query="""
-            PREFIX dbpr: <http://dbpedia.org/resource/> SELECT * WHERE { { dbpr:Category:1987_IBF_World_Championships ?po ?x } UNION { ?x ?pi dbpr:Category:1987_IBF_World_Championships } } ORDER BY ?pi ?po ?x
+            query="""
+                PREFIX : <http://dbpedia.org/resource/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> SELECT DISTINCT ?page WHERE { ?syn (<http://dbpedia.org/ontology/wikiPageDisambiguates>)* :Lyon . ?syn foaf:isPrimaryTopicOf ?page }
                 """;
-            Utils u = new Utils();
+            query="""
+                PREFIX : <http://dbpedia.org/resource/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> SELECT DISTINCT ?page WHERE { ?syn <http://dbpedia.org/ontology/wikiPageDisambiguates>|<http://dbpedia.org/ontology/wikiPageDisambiguates> :Lyon . ?syn foaf:isPrimaryTopicOf ?page }
+                    """;
+                Utils u = new Utils();
         u.create_algebra_test(query);
     }
 }
