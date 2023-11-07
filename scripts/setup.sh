@@ -19,7 +19,7 @@ pip3 install notebook
 pip3 install -e feature_extraction
 pip3 install -e graph_construction
 pip3 install -e dgl_classifier 
-
+pip3 install -U "ray[data,train,tune,serve]"
 #java installation
 apt-get -y install maven
 apt-get -y install openjdk-17-jdk openjdk-17-jre

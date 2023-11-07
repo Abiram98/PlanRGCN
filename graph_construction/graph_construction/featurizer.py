@@ -3,7 +3,14 @@ import os
 import pickle
 import numpy as np
 from graph_construction.node import Node, FilterNode, TriplePattern
-from scalers import EntMinMaxScaler, EntStandardScaler
+from scalers import (
+    EntDefaultScaler,
+    EntMinMaxScaler,
+    EntStandardScaler,
+    EntStandardScalerPredSubjObj,
+)
+from sklearn.preprocessing import RobustScaler
+from utils.stats import PredStats
 
 
 class FeaturizerBase:
@@ -109,6 +116,7 @@ class FeaturizerPredCoEnt(FeaturizerPredStats):
         pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
         pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
         ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+        pred_end_path=None,
         scaling="None",
     ) -> None:
         super().__init__(pred_stat_path)
@@ -121,24 +129,39 @@ class FeaturizerPredCoEnt(FeaturizerPredStats):
         self.ent_obj = estat.obj_ents
 
         self.scaling = scaling
-        if self.scaling == "min-max":
-            self.scaler = EntMinMaxScaler(
-                self.ent_freq,
-                self.ent_subj,
-                self.ent_obj,
-                self.pred_freq,
-                self.pred_ents,
-                self.pred_lits,
-            )
-        if self.scaling == "std":
-            self.scaler = EntStandardScaler(
-                self.ent_freq,
-                self.ent_subj,
-                self.ent_obj,
-                self.pred_freq,
-                self.pred_ents,
-                self.pred_lits,
-            )
+        match self.scaling:
+            case "min-max":
+                self.scaler = EntMinMaxScaler(
+                    self.ent_freq,
+                    self.ent_subj,
+                    self.ent_obj,
+                    self.pred_freq,
+                    self.pred_ents,
+                    self.pred_lits,
+                )
+            case "std":
+                self.scaler = EntStandardScaler(
+                    self.ent_freq,
+                    self.ent_subj,
+                    self.ent_obj,
+                    self.pred_freq,
+                    self.pred_ents,
+                    self.pred_lits,
+                )
+            case "robust":
+                self.scaler = EntDefaultScaler(
+                    self.ent_freq,
+                    self.ent_subj,
+                    self.ent_obj,
+                    self.pred_freq,
+                    self.pred_ents,
+                    self.pred_lits,
+                    scale_class=RobustScaler,
+                )
+            case _:
+                raise Exception(
+                    f"Scaling option {scaling} is undefined! Either implement is or use a predefined one."
+                )
 
     def featurize(self, node):
         if isinstance(node, FilterNode):
@@ -210,83 +233,39 @@ class FeaturizerPredCoEnt(FeaturizerPredStats):
         return np.concatenate((var_vec, stat_vec, np.zeros(self.filter_size)), axis=0)
 
 
-class PredStats:
+class FeaturizerSubjPred(FeaturizerPredCoEnt):
+    """Featurizes nodes based on triple pattern node or filter node.
+    The triple pattern features are augmented with no of literal and object and subject.
+    """
+
     def __init__(
         self,
-        path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
+        pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
+        pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
+        ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+        pred_end_path="/PlanRGCN/extracted_features_dbpedia2016/pred_ent/batch_response",
+        scaling="None",
     ) -> None:
-        self.path = path
-        self.triple_freq = {}
-        self.pred_ents = {}
-        self.pred_lits = {}
-        self.load_preds_stats()
-        # print(len(list(self.triple_freq.keys())))
-
-    def load_preds_freq(self):
-        freq_path = self.path + "/freq/"
-        if not os.path.exists(freq_path):
-            raise Exception("Predicate feature not existing")
-        files = sorted(
-            [f"{freq_path}{x}" for x in os.listdir(freq_path) if x.endswith(".json")]
-        )
-        for f in files:
-            self.load_pred_freq(f)
-
-    def load_preds_stats(self):
-        freq_path = self.path + "/freq/"
-        ent_path = self.path + "/ents/"
-        lits_path = self.path + "/lits/"
-        if not (
-            os.path.exists(freq_path)
-            and os.path.exists(ent_path)
-            and os.path.exists(lits_path)
-        ):
-            raise Exception("Predicate feature not existing")
-        for p, f in zip(
-            [freq_path, ent_path, lits_path],
-            [self.load_pred_freq, self.load_pred_ents, self.load_pred_lits],
-        ):
-            self.load_preds_stat_helper(p, f)
-
-    def load_preds_stat_helper(self, path, loader_func):
-        files = sorted([f"{path}{x}" for x in os.listdir(path) if x.endswith(".json")])
-        for f in files:
-            loader_func(f)
-
-    def load_pred_freq(self, file):
-        data = json.load(open(file, "r"))
-        data = data["results"]["bindings"]
-        if not "p1" in data[0].keys():
-            return None
-
-        for x in data:
-            if x["p1"]["value"] in self.triple_freq.keys():
-                assert x["triples"]["value"] == self.triple_freq[x["p1"]["value"]]
-            self.triple_freq[x["p1"]["value"]] = x["triples"]["value"]
-
-    def load_pred_ents(self, file):
-        data = json.load(open(file, "r"))
-        data = data["results"]["bindings"]
-        if not "p1" in data[0].keys():
-            return None
-
-        for x in data:
-            if x["p1"]["value"] in self.pred_ents.keys():
-                assert x["entities"]["value"] == self.pred_ents[x["p1"]["value"]]
-            self.pred_ents[x["p1"]["value"]] = x["entities"]["value"]
-
-    def load_pred_lits(self, file):
-        data = json.load(open(file, "r"))
-        data = data["results"]["bindings"]
-        if data is None or len(data) == 0:
-            return None
-        if not "p1" in data[0].keys():
-            return None
-
-        for x in data:
-            if x["p1"]["value"] in self.pred_lits.keys():
-                assert x["literals"]["value"] == self.pred_lits[x["p1"]["value"]]
-            self.pred_lits[x["p1"]["value"]] = x["literals"]["value"]
+        super().__init__(pred_stat_path, pred_com_path, ent_path, scaling)
+        if self.scaling == "min-max":
+            self.scaler = EntMinMaxScaler(
+                self.ent_freq,
+                self.ent_subj,
+                self.ent_obj,
+                self.pred_freq,
+                self.pred_ents,
+                self.pred_lits,
+            )
+        if self.scaling == "std":
+            self.pred_extra_scaler = EntStandardScalerPredSubjObj()
+            self.scaler = EntStandardScaler(
+                self.ent_freq,
+                self.ent_subj,
+                self.ent_obj,
+                self.pred_freq,
+                self.pred_ents,
+                self.pred_lits,
+            )
 
 
 class FilterFeatureUtils:
@@ -410,6 +389,9 @@ class EntStats:
     def load_pred_freq(self, file):
         data = json.load(open(file, "r"))
         data = data["results"]["bindings"]
+        if len(data) <= 0:
+            return None
+
         if not "e" in data[0].keys():
             return None
 
@@ -421,6 +403,9 @@ class EntStats:
     def load_subj_ents(self, file):
         data = json.load(open(file, "r"))
         data = data["results"]["bindings"]
+        if len(data) <= 0:
+            return None
+
         if not "e" in data[0].keys():
             return None
 

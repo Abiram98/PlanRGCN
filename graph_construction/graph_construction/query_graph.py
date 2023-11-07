@@ -1,21 +1,27 @@
 import json
 import os
 import dgl
+import json5
 import networkx as nx
 import numpy as np
 from graph_construction.stack import Stack
 import pandas as pd
 from graph_construction.featurizer import FeaturizerBase, FeaturizerPredStats
 from graph_construction.node import Node, FilterNode, TriplePattern
+from graph_construction.nodes.path_node import PathNode
 import torch as th
+
+
 
 
 class QueryPlan:
     max_relations = 16
 
     def __init__(self, data) -> None:
+        self.process(data)
+    
+    def process(self, data):
         self.level = 0
-
         self.data = data
         self.triples: list[TriplePattern] = list()
         self.filters: list[FilterNode] = list()
@@ -262,7 +268,19 @@ class QueryPlan:
             if not t.id in nodes:
                 self.edges.append((t, t, 10))
 
+def QueryPlanPath(QueryPlan):
+    def __init__(self, data):
+        super(QueryPlan,self).__init__(data)
+        self.path_nodes: list[PathNode] = list()
+    
+    def create_bgp(self, bgp):
+        """ Method responsible for creating representing the BGP properly
+        """
 
+    def create_paths(self, path):
+        path_node = PathNode(path)
+        self.path_nodes.append(path_node)
+        
 def test(p, add_data=None):
     pass
     # print(p["level"])
@@ -368,7 +386,10 @@ class QueryPlanCommonBi(QueryPlan):
 
 
 def create_query_plan(path, query_plan=QueryPlan):
-    data = json.load(open(path, "r"))
+    try:
+        data = json.load(open(path, "r"))
+    except Exception:
+        data = json5.load(open(path, "r"))
     q = query_plan(data)
     q.path = path
     return q
@@ -571,17 +592,16 @@ def query_graph_w_class_vec_helper(samples: list[tuple], cls_funct):
 if __name__ == "__main__":
     # feat = FeaturizerBase(5)
     pred_stat_path = (
-        "/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats"
+        "/PlanRGCN/extracted_features_dbpedia2016/predicate/pred_stat/batches_response_stats"
     )
     feat = FeaturizerPredStats(pred_stat_path)
     q = create_query_plan(
-        "/PlanRGCN/extracted_features/queryplans/lsqQuery-TaZVkkyiv_-35SZOipT1c9ppAwnh_6t_JeNMDYGRFGk"
+        "/query_plans_dbpedia/lsqQuery---GN1alrTxD0-fWJkepMSVXeW1wiZ68OlE_ASH5d5XM"
     )
-    print(q.edges)
+    #print(q.edges)
     q.feature(feat)
     G = q.G
     dgl_g: dgl.DGLGraph = q.to_dgl()
-    print("dgl" + str(dgl_g.all_edges()))
     print("dgl" + str(dgl_g.all_edges()))
 
     exit()

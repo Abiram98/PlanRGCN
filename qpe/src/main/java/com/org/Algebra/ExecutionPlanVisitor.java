@@ -151,7 +151,7 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
                 if (iter.hasNext())
                 print(", ");
             }
-            print("]\n}");
+            print("]\n");
         }
         if (!complex){
             PathSerializor p = new PathSerializor(stream,indent);
@@ -173,7 +173,7 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
                 print("]");
                 print("}");
             }*/else if (path instanceof P_ZeroOrOne) {
-                print(", \"pathType\": \"zeroOrOne");
+                print(", \"pathType\": \"zeroOrOne\"");
                 print(",\"Predicates\":[");
                 path.visit(p);
                 print("]");
@@ -196,10 +196,18 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
                 path.visit(p);
                 print("]");
                 print("}");
+            }else{
+                print(", \"pathType\": \""+path.getClass().toString()+"\"");
+                print(", \"pathComplexity\": [\"Addede to be filtered aways (unsupperted operator\"");
+                print("],");
+                print("}");
+                
             }
+        }else{
+            print("}");
         }
     }
-
+    
     @Override 
     public void visit(OpSequence opSequence)          {
         print("{\"opName\": \""+opSequence.getName()+ "\", \"subOp\": [");
