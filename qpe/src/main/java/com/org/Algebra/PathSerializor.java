@@ -89,6 +89,15 @@ public class PathSerializor implements PathVisitor {
     }
     
     @Override
+    public void visit(P_Mod pathMod) {
+        boolean notFirst2 = notFirst;
+        notFirst = false;
+        print("{\"max\":"+pathMod.getMax()+", \"min\": "+pathMod.getMin()+", \"Predicate\":");
+        pathMod.getSubPath().visit(this);
+        print("}");
+        notFirst = notFirst2;
+    }
+    @Override
     public void visit(P_FixedLength pFixedLength) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'visit'");
@@ -107,15 +116,9 @@ public class PathSerializor implements PathVisitor {
 
     @Override
     public void visit(P_Inverse inversePath) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visit'");
+        inversePath.getSubPath().visit(this);
     }
 
-    @Override
-    public void visit(P_Mod pathMod) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visit'");
-    }
 
 
     @Override
