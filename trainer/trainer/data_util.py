@@ -1,4 +1,4 @@
-from graph_construction.featurizer import FeaturizerPredStats
+from graph_construction.feats.featurizer import FeaturizerPredStats
 from graph_construction.query_graph import (
     QueryPlan,
     QueryPlanCommonBi,

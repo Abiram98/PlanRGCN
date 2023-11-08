@@ -6,13 +6,14 @@ from functools import partial
 import os
 import tempfile
 import dgl
-from graph_construction.featurizer import FeaturizerPredCo, FeaturizerPredCoEnt
+from graph_construction.feats.featurizer import FeaturizerPredCo, FeaturizerPredCoEnt
 from graph_construction.query_graph import (
     QueryPlan,
     QueryPlanCommonBi,
     snap_lat2onehot,
     snap_lat2onehotv2,
 )
+import ray
 from trainer.data_util import DatasetPrep
 from trainer.model import (
     Classifier as CLS,
@@ -84,7 +85,7 @@ def train_function(
     train_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
     val_path="/qpp/dataset/DBpedia_2016_12k_sample/val_sampled.tsv",
     test_path="/qpp/dataset/DBpedia_2016_12k_sample/test_sampled.tsv",
-    batch_size=32,
+    # batch_size=32,
     query_plan_dir="/PlanRGCN/extracted_features/queryplans/",
     pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
     pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
@@ -102,7 +103,7 @@ def train_function(
         train_path=train_path,
         val_path=val_path,
         test_path=test_path,
-        batch_size=batch_size,
+        batch_size=config["batch_size"],
         query_plan_dir=query_plan_dir,
         pred_stat_path=pred_stat_path,
         pred_com_path=pred_com_path,
@@ -186,6 +187,7 @@ def train_function(
                     "train f1": train_f1,
                     "input d": input_d,
                     "num_class": n_classes,
+                    "batch_size": config["batch_size"],
                 },
                 checkpoint=Checkpoint.from_directory(tempdir),
             )
@@ -373,7 +375,7 @@ def main(
     train_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
     val_path="/qpp/dataset/DBpedia_2016_12k_sample/val_sampled.tsv",
     test_path="/qpp/dataset/DBpedia_2016_12k_sample/test_sampled.tsv",
-    batch_size=32,
+    # batch_size=32,
     query_plan_dir="/PlanRGCN/extracted_features/queryplans/",
     pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
     pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
@@ -386,17 +388,21 @@ def main(
     n_classes=3,
     query_plan=QueryPlanCommonBi,
     path_to_save="/PlanRGCN/temp_results",
-):
-    config = {
-        "l1": tune.grid_search([32, 64, 128, 256, 512, 1024]),
-        "l2": tune.grid_search([32, 64, 128, 256, 512, 1024]),
-        "dropout": tune.grid_search([0.0, 0.5, 0.6]),
+    config={
+        "l1": tune.choice([128, 256, 512, 1024]),
+        "l2": tune.choice([128, 256, 512]),
+        "dropout": tune.grid_search([0.0, 0.5]),
         "wd": 0.01,
-        "lr": tune.grid_search([1e-5, 1e-3]),
-        "epochs": max_num_epochs,
-        # "batch_size": tune.choice([32, 64, 128]),
+        "lr": tune.grid_search([1e-5]),
+        "epochs": 10,
+        "batch_size": tune.choice([64, 256]),
         "loss_type": "cross-entropy",
-    }
+    },
+):
+    config["epochs"] = max_num_epochs
+    context = ray.init()
+    print(context.dashboard_url)
+
     scheduler = ASHAScheduler(
         metric="val f1",
         mode="max",
@@ -410,7 +416,7 @@ def main(
             train_path=train_path,
             val_path=val_path,
             test_path=test_path,
-            batch_size=batch_size,
+            # batch_size=batch_size,
             query_plan_dir=query_plan_dir,
             pred_stat_path=pred_stat_path,
             pred_com_path=pred_com_path,
@@ -445,11 +451,16 @@ def main(
     # best_checkpoint_data = best_checkpoint.to_dict()
     model_state = th.load(best_checkpoint)
     best_trained_model.load_state_dict(model_state["model_state"])
-    train_loader, val_loader, test_loader, _ = get_dataloaders(
+    (
+        train_loader,
+        val_loader,
+        test_loader,
+        input_d,
+    ) = get_dataloaders(
         train_path=train_path,
         val_path=val_path,
         test_path=test_path,
-        batch_size=batch_size,
+        batch_size=best_trial.last_result["batch_size"],
         query_plan_dir=query_plan_dir,
         pred_stat_path=pred_stat_path,
         pred_com_path=pred_com_path,
@@ -461,6 +472,7 @@ def main(
         scaling=scaling,
         query_plan=query_plan,
     )
+
     predict(
         best_trained_model,
         train_loader,
@@ -472,6 +484,7 @@ def main(
 
 
 if __name__ == "__main__":
+    exit()
     train_path = "/qpp/dataset/DBpedia2016_sample_0_1_10/train_sampled.tsv"
     val_path = "/qpp/dataset/DBpedia2016_sample_0_1_10/val_sampled.tsv"
     test_path = "/qpp/dataset/DBpedia2016_sample_0_1_10/test_sampled.tsv"

@@ -4,8 +4,8 @@ The purpose of this module is hyperparameter search of the models.
 import os
 from pathlib import Path
 import dgl
-from graph_construction.featurizer import FeaturizerPredCo, FeaturizerPredCoEnt
-from graph_construction.featurizer import FeaturizerSubjPred
+from graph_construction.feats.featurizer import FeaturizerPredCo, FeaturizerPredCoEnt
+from graph_construction.feats.featurizer import FeaturizerSubjPred
 from graph_construction.query_graph import (
     QueryPlan,
     snap_lat2onehot,

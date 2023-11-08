@@ -3,6 +3,31 @@ from sklearn.preprocessing import StandardScaler
 import numpy as np
 
 
+class LogScaler:
+    def __init__(
+        self, ent_freq, ent_subj, ent_obj, pred_freq, pred_ents, pred_lits
+    ) -> None:
+        pass
+
+    def pred_scale(self, freq, lits, ents):
+        freq = np.log(freq) if freq != 0 else freq
+        try:
+            lits = np.log(lits) if lits != 0 else lits
+        except  TypeError:
+            raise Exception("Did not work for", freq)
+        try:
+            ents = np.log(ents) if ents != 0 else ents
+        except  TypeError:
+            raise Exception("Did not work for", freq)
+        return freq, lits, ents
+
+    def ent_scale(self, ent_freq, subj_freq, obj_freq):
+        ent_freq = np.log(ent_freq) if ent_freq != 0 else ent_freq
+        subj_freq = np.log(subj_freq) if subj_freq != 0 else subj_freq
+        obj_freq = np.log(obj_freq) if obj_freq != 0 else obj_freq
+        
+        return ent_freq, subj_freq, obj_freq
+    
 class EntMinMaxScaler:
     def __init__(
         self, ent_freq, ent_subj, ent_obj, pred_freq, pred_ents, pred_lits

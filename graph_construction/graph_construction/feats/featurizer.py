@@ -8,6 +8,7 @@ from scalers import (
     EntMinMaxScaler,
     EntStandardScaler,
     EntStandardScalerPredSubjObj,
+    LogScaler,
 )
 from sklearn.preprocessing import RobustScaler
 from utils.stats import PredStats
@@ -158,6 +159,24 @@ class FeaturizerPredCoEnt(FeaturizerPredStats):
                     self.pred_lits,
                     scale_class=RobustScaler,
                 )
+            case "log":
+                self.scaler = EntDefaultScaler(
+                    self.ent_freq,
+                    self.ent_subj,
+                    self.ent_obj,
+                    self.pred_freq,
+                    self.pred_ents,
+                    self.pred_lits,
+                    scale_class=RobustScaler,
+                )
+                """self.scaler = LogScaler(
+                    self.ent_freq,
+                    self.ent_subj,
+                    self.ent_obj,
+                    self.pred_freq,
+                    self.pred_ents,
+                    self.pred_lits,
+                )"""
             case _:
                 raise Exception(
                     f"Scaling option {scaling} is undefined! Either implement is or use a predefined one."
