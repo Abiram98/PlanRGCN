@@ -42,12 +42,14 @@ class Classifier2RGCN(nn.Module):
         nn (_type_): _description_
     """
 
-    def __init__(self, in_dim, hidden_dim1, hidden_dim2, n_classes):
+    def __init__(self, in_dim, hidden_dim1, hidden_dim2, p, n_classes):
         super(Classifier2RGCN, self).__init__()
-        self.conv1 = dglnn.RelGraphConv(in_dim, hidden_dim1, QueryPlan.max_relations)
+        self.conv1 = dglnn.RelGraphConv(
+            in_dim, hidden_dim1, QueryPlan.max_relations, dropout=p
+        )
         # self.conv1 = dglnn.GraphConv(in_dim, hidden_ˇdim)
         self.conv2 = dglnn.RelGraphConv(
-            hidden_dim1, hidden_dim2, QueryPlan.max_relations
+            hidden_dim1, hidden_dim2, QueryPlan.max_relations, dropout=p
         )
         # self.conv2 = dglnn.GraphConv(hidden_dim, hidden_dim)
         self.classify = nn.Linear(hidden_dim2, n_classes)

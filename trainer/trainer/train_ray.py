@@ -32,7 +32,6 @@ from ray import tune, train
 # from ray.air import Checkpoint, session
 from ray.train import Checkpoint
 from ray.tune.schedulers import ASHAScheduler
-import ray
 
 AVG = "macro"
 
@@ -56,7 +55,6 @@ def get_dataloaders(
     featurizer_class=FeaturizerPredCoEnt,
     scaling="None",
     query_plan=QueryPlanCommonBi,
-    prepper=None,
 ):
     prepper = DatasetPrep(
         train_path=train_path,
@@ -98,10 +96,9 @@ def train_function(
     scaling="None",
     n_classes=3,
     query_plan=QueryPlanCommonBi,
-    prepper=None,
     metric_default=0,
 ):
-    train_loader, val_loader, test_loader, input_d = get_dataloaders(
+    train_loader, val_loader, _, input_d = get_dataloaders(
         train_path=train_path,
         val_path=val_path,
         test_path=test_path,
@@ -116,9 +113,10 @@ def train_function(
         featurizer_class=featurizer_class,
         scaling=scaling,
         query_plan=query_plan,
-        prepper=prepper,
     )
-    net = Classifier2RGCN(input_d, config["l1"], config["l2"], n_classes)
+    net = Classifier2RGCN(
+        input_d, config["l1"], config["l2"], config["dropout"], n_classes
+    )
     if not isinstance(config["loss_type"], str):
         criterion = config["loss_type"]
     elif config["loss_type"] == "cross-entropy":
@@ -165,11 +163,11 @@ def train_function(
         print(f"Train Avg F1 {epoch+1:4}: {train_f1}\n")
         print(f"Val Avg Loss {epoch+1:4}: {val_loss:>8f}\n")
         print(f"Val Avg F1 {epoch+1:4}:  {val_f1}\n")
-        checkpoint_data = {
+        """checkpoint_data = {
             "epoch": epoch,
             "net_state_dict": net.state_dict(),
             "optimizer_state_dict": opt.state_dict(),
-        }
+        }"""
         # checkpoint = Checkpoint.from_dict(checkpoint_data)
         with tempfile.TemporaryDirectory() as tempdir:
             th.save(
@@ -388,13 +386,13 @@ def main(
     n_classes=3,
     query_plan=QueryPlanCommonBi,
     path_to_save="/PlanRGCN/temp_results",
-    prepper=None,
 ):
     config = {
-        "l1": tune.choice([2**i for i in range(9)]),
-        "l2": tune.choice([2**i for i in range(9)]),
+        "l1": tune.grid_search([32, 64, 128, 256, 512, 1024]),
+        "l2": tune.grid_search([32, 64, 128, 256, 512, 1024]),
+        "dropout": tune.grid_search([0.0, 0.5, 0.6]),
         "wd": 0.01,
-        "lr": tune.loguniform(1e-5, 1e-3),
+        "lr": tune.grid_search([1e-5, 1e-3]),
         "epochs": max_num_epochs,
         # "batch_size": tune.choice([32, 64, 128]),
         "loss_type": "cross-entropy",
@@ -424,7 +422,6 @@ def main(
             scaling=scaling,
             n_classes=n_classes,
             query_plan=query_plan,
-            prepper=prepper,
         ),
         resources_per_trial={"cpu": 2},
         config=config,
@@ -439,6 +436,7 @@ def main(
         best_trial.last_result["input d"],
         best_trial.config["l1"],
         best_trial.config["l2"],
+        best_trial.config["dropout"],
         n_classes,
     )
     best_checkpoint = os.path.join(
@@ -462,7 +460,6 @@ def main(
         featurizer_class=featurizer_class,
         scaling=scaling,
         query_plan=query_plan,
-        prepper=prepper,
     )
     predict(
         best_trained_model,
@@ -481,7 +478,7 @@ if __name__ == "__main__":
     qp_path = "/qpp/dataset/DBpedia2016_sample_0_1_10/queryplans/"
     main(
         num_samples=2,
-        max_num_epochs=1,
+        max_num_epochs=100,
         train_path=train_path,
         val_path=val_path,
         test_path=test_path,
@@ -497,5 +494,4 @@ if __name__ == "__main__":
         scaling="std",
         n_classes=3,
         query_plan=QueryPlan,
-        prepper=None,
     )
