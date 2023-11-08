@@ -91,8 +91,8 @@ class GridSearch:
         self.cls_func = cls_func
 
         # Hyperparameters
-        self.batch_sizes = [32, 64]
-        self.learning_rates = [0.001, 1e-5]
+        self.batch_sizes = [64, 128]
+        self.learning_rates = [ 1e-5]
         self.weight_decays = [0.01]
         self.scaling = scaling
 
