@@ -1,6 +1,6 @@
 import json
 import os
-
+import numpy as np
 
 def load_pred_freq(file, dct, query_var="p1"):
     data = json.load(open(file, "r"))
@@ -26,7 +26,10 @@ def get_rel_dict(path):
         freq_dct = load_pred_freq(f, freq_dct)
     return freq_dct
 
-
+def analyse_freq(path):
+    data = get_rel_dict(path)
+    vals = list(data.values())
+    vals = np.array([int(x) for x in vals])
 class PredStats:
     def __init__(
         self,

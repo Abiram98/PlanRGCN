@@ -6,7 +6,7 @@ import networkx as nx
 import numpy as np
 from graph_construction.stack import Stack
 import pandas as pd
-from graph_construction.featurizer import FeaturizerBase, FeaturizerPredStats
+from graph_construction.feats.featurizer import FeaturizerBase, FeaturizerPredStats
 from graph_construction.node import Node, FilterNode, TriplePattern
 from graph_construction.nodes.path_node import PathNode
 import torch as th
