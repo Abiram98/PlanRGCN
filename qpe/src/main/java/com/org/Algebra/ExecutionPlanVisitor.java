@@ -4,6 +4,7 @@ package com.org.Algebra;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.apache.jena.graph.Triple;
@@ -23,6 +24,7 @@ import org.apache.jena.sparql.algebra.op.OpSequence;
 import org.apache.jena.sparql.core.TriplePath;
 import org.apache.jena.sparql.path.P_Alt;
 import org.apache.jena.sparql.path.P_Inverse;
+import org.apache.jena.sparql.path.P_Mod;
 import org.apache.jena.sparql.path.P_Multi;
 import org.apache.jena.sparql.path.P_NegPropSet;
 import org.apache.jena.sparql.path.P_OneOrMore1;
@@ -141,8 +143,11 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
         PathComplexityChecker compVisitor = new PathComplexityChecker();
         path.visit(compVisitor);
         boolean complex = false;
-        if (compVisitor.getPathOperations().size() > 1){
-            complex = true;
+        if (compVisitor.getPathOperations().size() > 0){
+            ArrayList<String> pathOps = compVisitor.getPathOperations();
+            pathOps.remove("P_Inverse");
+            if (pathOps.size() > 1)
+                complex = true;
             print(", \"pathComplexity\": [");
             Iterator<String> iter = compVisitor.getPathOperations().iterator();
             while(iter.hasNext()){
@@ -196,10 +201,16 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
                 path.visit(p);
                 print("]");
                 print("}");
+            }else if (path instanceof P_Mod) {
+                print(", \"pathType\": \"Mod\"");
+                print(",\"Predicates\":[");
+                path.visit(p);
+                print("]");
+                print("}");
             }else{
                 print(", \"pathType\": \""+path.getClass().toString()+"\"");
-                print(", \"pathComplexity\": [\"Addede to be filtered aways (unsupperted operator\"");
-                print("],");
+                //print(", \"pathComplexity\": [\"Addede to be filtered aways (unsupperted operator\"");
+                //print("],");
                 print("}");
                 
             }
