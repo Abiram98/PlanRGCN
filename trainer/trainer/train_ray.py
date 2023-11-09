@@ -27,7 +27,7 @@ from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_sc
 import torch.nn.functional as F
 import pandas as pd
 import torch.nn as nn
-
+from pathlib import Path
 from ray import tune, train
 
 # from ray.air import Checkpoint, session
@@ -121,7 +121,13 @@ def train_function(
     if not isinstance(config["loss_type"], str):
         criterion = config["loss_type"]
     elif config["loss_type"] == "cross-entropy":
-        criterion = nn.CrossEntropyLoss()
+        p = Path(train_path)
+        if (p.parent / "loss_weight.json").exists():
+            with open(p.parent / "loss_weight.json", "r") as f:
+                W = json.load(f)
+            criterion = nn.CrossEntropyLoss(th.tensor(W))
+        else:
+            criterion = nn.CrossEntropyLoss()
     elif config["loss_type"] == "mse":
         criterion = nn.MSELoss()
     opt = th.optim.AdamW(net.parameters(), lr=config["lr"], weight_decay=config["wd"])

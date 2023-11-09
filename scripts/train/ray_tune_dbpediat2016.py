@@ -8,15 +8,30 @@ from graph_construction.query_graph import (
     snap_lat2onehotv2,
 )
 from ray import tune
+import os
 
 # Results save path
 path_to_save = "/PlanRGCN/temp_results"
-
 # Dataset split paths
 train_path = "/qpp/dataset/DBpedia2016_sample_0_1_10/train_sampled.tsv"
 val_path = "/qpp/dataset/DBpedia2016_sample_0_1_10/val_sampled.tsv"
 test_path = "/qpp/dataset/DBpedia2016_sample_0_1_10/test_sampled.tsv"
 qp_path = "/qpp/dataset/DBpedia2016_sample_0_1_10/queryplans/"
+
+
+sample_name = "DBpedia2016_v2"  # balanced dataset
+sample_name = "DBpedia2016_v2_aug"
+sample_name = "DBpedia2016_v2_weight_loss"
+sample_name = "DBpedia2016_v2_hybrid"
+
+# Results save path
+path_to_save = f"/PlanRGCN/{sample_name}"
+os.makedirs(path_to_save, exist_ok=True)
+# Dataset split paths
+train_path = f"/qpp/dataset/{sample_name}/train_sampled.tsv"
+val_path = f"/qpp/dataset/{sample_name}/val_sampled.tsv"
+test_path = f"/qpp/dataset/{sample_name}/test_sampled.tsv"
+qp_path = f"/qpp/dataset/{sample_name}/queryplans/"
 
 # KG statistics feature paths
 pred_stat_path = "/PlanRGCN/extracted_features_dbpedia2016/predicate/pred_stat/batches_response_stats"
