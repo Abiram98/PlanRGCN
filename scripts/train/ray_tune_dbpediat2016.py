@@ -20,9 +20,9 @@ qp_path = "/qpp/dataset/DBpedia2016_sample_0_1_10/queryplans/"
 
 
 sample_name = "DBpedia2016_v2"  # balanced dataset
-sample_name = "DBpedia2016_v2_aug"
 sample_name = "DBpedia2016_v2_weight_loss"
 sample_name = "DBpedia2016_v2_hybrid"
+sample_name = "DBpedia2016_v2_aug"  # Previously best
 
 # Results save path
 path_to_save = f"/PlanRGCN/{sample_name}"
@@ -43,8 +43,10 @@ ent_path = (
 # Training Configurations
 num_samples = 1  # cpu cores to use
 num_samples = 8  # cpu cores to use
+num_samples = 4  # use this
+
 max_num_epochs = 100
-batch_size = 64
+# batch_size = 64
 query_plan_dir = qp_path
 time_col = "mean_latency"
 is_lsq = True
@@ -58,6 +60,17 @@ query_plan = QueryPlan
 prepper = None
 
 config = {
+    "l1": tune.choice([128, 256, 512, 1024, 2048, 4096]),
+    "l2": tune.choice([128, 256, 512, 1024, 2048, 4096]),
+    "dropout": tune.grid_search([0.0, 0.6, 0.8]),
+    "wd": 0.01,
+    "lr": tune.grid_search([1e-5]),
+    "epochs": 100,
+    "batch_size": tune.choice([128, 256, 512]),
+    "loss_type": "cross-entropy",
+}
+# For fast debug purposes
+config = {
     "l1": tune.grid_search([10]),
     "l2": tune.grid_search([10]),
     "dropout": tune.grid_search([0.0]),
@@ -67,14 +80,15 @@ config = {
     "batch_size": tune.grid_search([64]),
     "loss_type": "cross-entropy",
 }
+
 config = {
-    "l1": tune.choice([128, 256, 512, 1024, 2048, 4096]),
-    "l2": tune.choice([128, 256, 512, 1024, 2048, 4096]),
-    "dropout": tune.grid_search([0.0, 0.6, 0.8]),
+    "l1": tune.choice([512, 256, 1024, 2048, 4096]),
+    "l2": tune.choice([512, 256, 1024, 4096]),
+    "dropout": tune.choice([0.0, 0.6, 0.8]),
     "wd": 0.01,
     "lr": tune.grid_search([1e-5]),
     "epochs": 100,
-    "batch_size": tune.choice([128, 256, 512]),
+    "batch_size": tune.choice([128, 256]),
     "loss_type": "cross-entropy",
 }
 main(
