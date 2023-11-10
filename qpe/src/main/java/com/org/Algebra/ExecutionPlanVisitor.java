@@ -21,14 +21,10 @@ import org.apache.jena.sparql.algebra.op.OpPath;
 import org.apache.jena.sparql.algebra.op.OpProcedure;
 import org.apache.jena.sparql.algebra.op.OpPropFunc;
 import org.apache.jena.sparql.algebra.op.OpSequence;
-import org.apache.jena.sparql.core.TriplePath;
 import org.apache.jena.sparql.path.P_Alt;
-import org.apache.jena.sparql.path.P_Inverse;
 import org.apache.jena.sparql.path.P_Mod;
-import org.apache.jena.sparql.path.P_Multi;
 import org.apache.jena.sparql.path.P_NegPropSet;
 import org.apache.jena.sparql.path.P_OneOrMore1;
-import org.apache.jena.sparql.path.P_Seq;
 import org.apache.jena.sparql.path.P_ZeroOrMore1;
 import org.apache.jena.sparql.path.P_ZeroOrOne;
 import org.apache.jena.sparql.path.Path;
@@ -161,8 +157,8 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
         if (!complex){
             PathSerializor p = new PathSerializor(stream,indent);
             if (path instanceof P_Alt) {
-                print(", \"pathComplexity\": [\"Addede to be filtered aways\"");
-                print("],");
+                /*print(", \"pathComplexity\": [\"Addede to be filtered aways\"");
+                print("],");*/
                 print(", \"pathType\": \"alternative\"");
                 print(",\"Predicates\":[");
                 print("\"Not Implemented for now\"]");

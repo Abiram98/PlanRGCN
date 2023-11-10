@@ -47,9 +47,12 @@ class PredicateFreqExtractor(ExtractorBase):
                 ],
                 ["lits", "ents", "freq"],
             ):
+                res_fp = f"{save_path}/{name}/batch_{batch_start+i}.json"
+                if os.path.exists(res_fp):
+                    print(f"Skipping {res_fp} as it already exists!")
+                    continue
                 query = query_generator(b)
                 res = self.endpoint.run_query(query)
-                res_fp = f"{save_path}/{name}/batch_{batch_start+i}.json"
                 json.dump(res, open(res_fp, "w"))
                 print(f"batch {batch_start+i} extracted!")
 
