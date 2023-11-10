@@ -37,7 +37,8 @@ from ray.tune.schedulers import ASHAScheduler
 AVG = "macro"
 
 
-# Objectives
+th.manual_seed(42)
+np.random.seed(42)
 
 
 # Dataloader wrapper in functions:
@@ -98,7 +99,10 @@ def train_function(
     n_classes=3,
     query_plan=QueryPlanCommonBi,
     metric_default=0,
+    path_to_save=tempfile.TemporaryDirectory(),
 ):
+    if isinstance(path_to_save, str):
+        path_to_save = os.path.join(path_to_save, "session_data")
     train_loader, val_loader, _, input_d = get_dataloaders(
         train_path=train_path,
         val_path=val_path,
@@ -106,7 +110,7 @@ def train_function(
         batch_size=config["batch_size"],
         query_plan_dir=query_plan_dir,
         pred_stat_path=pred_stat_path,
-        pred_com_path=Path(pred_com_path).joinpath(config["pred_com_path"]),
+        pred_com_path=os.path.join(pred_com_path, config["pred_com_path"]),
         ent_path=ent_path,
         time_col=time_col,
         is_lsq=is_lsq,
@@ -406,12 +410,19 @@ def main(
     },
 ):
     config["epochs"] = max_num_epochs
-    ray_temp_path = Path(path_to_save).joinpath("temp_session")
-    ray_save = Path(path_to_save).joinpath("ray_save")
+    ray_temp_path = os.path.join(path_to_save, "temp_session")
+    ray_save = os.path.join(path_to_save, "ray_save")
     os.makedirs(ray_save, exist_ok=True)
     os.makedirs(ray_temp_path, exist_ok=True)
-    # context = ray.init(_temp_dir=ray_temp_path)
-    context = ray.init()
+    context = ray.init(
+        num_cpus=2,  # only 2 cpus on strato2 sercer
+        _system_config={
+            "local_fs_capacity_threshold": 0.99,
+            "object_spilling_config": json.dumps(
+                {"type": "filesystem", "params": {"directory_path": "/PlanRGCN/temp"}},
+            ),
+        },
+    )
     print(context.dashboard_url)
 
     scheduler = ASHAScheduler(
@@ -421,6 +432,40 @@ def main(
         grace_period=1,
         reduction_factor=2,
     )
+    """trainable_with_resources = tune.with_resources(
+        partial(
+            train_function,
+            train_path=train_path,
+            val_path=val_path,
+            test_path=test_path,
+            # batch_size=batch_size,
+            query_plan_dir=query_plan_dir,
+            pred_stat_path=pred_stat_path,
+            pred_com_path=pred_com_path,
+            ent_path=ent_path,
+            time_col=time_col,
+            is_lsq=is_lsq,
+            cls_func=cls_func,
+            featurizer_class=featurizer_class,
+            scaling=scaling,
+            n_classes=n_classes,
+            query_plan=query_plan,
+            path_to_save=path_to_save,
+        ),
+        {"cpu": 0.5},
+    )
+    tuner = tune.Tuner(
+        trainable_with_resources,
+        param_space=config,
+        tune_config=tune.TuneConfig(
+            num_samples=num_samples,
+            scheduler=scheduler,
+        ),
+    )
+    result = tuner.fit()
+    result.get_dataframe().to_csv(
+        Path(path_to_save).joinpath("hyper_search_results.csv")
+    )"""
     result = tune.run(
         partial(
             train_function,
@@ -440,13 +485,13 @@ def main(
             n_classes=n_classes,
             query_plan=query_plan,
         ),
-        resources_per_trial={"cpu": 2},
+        resources_per_trial={"cpu": 1},
         config=config,
         num_samples=num_samples,
         scheduler=scheduler,
         local_dir=ray_save,
     )
-
+    # best_trial = result.get_best_result("val f1", "max", "last")
     best_trial = result.get_best_trial("val f1", "max", "last")
     print(f"Best trial config: {best_trial.config}")
     print(f"Best trial final validation f1: {best_trial.last_result['val f1']}")
@@ -475,7 +520,7 @@ def main(
         batch_size=best_trial.last_result["batch_size"],
         query_plan_dir=query_plan_dir,
         pred_stat_path=pred_stat_path,
-        pred_com_path=Path(pred_com_path).joinpath(best_trial.config["pred_com_path"]),
+        pred_com_path=os.path.join(pred_com_path, best_trial.config["pred_com_path"]),
         ent_path=ent_path,
         time_col=time_col,
         is_lsq=is_lsq,
