@@ -23,7 +23,8 @@ class BinnerEntPred:
         random_state=42,
     ) -> None:
         # predicate frequency
-        KBinsDiscretizer(n_bins=50, strategy="quantile", encode="ordinal")
+
+        # KBinsDiscretizer(n_bins=50, strategy="quantile", encode="ordinal")
         self.pred_freq_scaler = KBinsDiscretizer(
             n_bins=bins,
             strategy="quantile",
@@ -183,7 +184,11 @@ class FeaturizerBinning(FeaturizerPredStats):
             idx = self.pred2index[node.predicate.node_label]
         except KeyError:
             idx = self.max_pred - 1
-        vec[idx] = 1
+        if isinstance(idx, list):
+            for i in idx:
+                vec[i] = 1
+        else:
+            vec[idx] = 1
         return vec
 
     def tp_features(self, node):

@@ -39,9 +39,9 @@ class FeaturizerPredStats(FeaturizerBase):
 
     def featurize(self, node):
         if isinstance(node, FilterNode):
-            return self.filter_features(node).astype("float64")
+            return self.filter_features(node).astype("float32")
         elif isinstance(node, TriplePattern):
-            return self.tp_features(node).astype("float64")
+            return self.tp_features(node).astype("float32")
         else:
             raise Exception("unknown node type")
 
@@ -107,7 +107,11 @@ class FeaturizerPredCo(FeaturizerPredStats):
             idx = self.pred2index[node.predicate.node_label]
         except KeyError:
             idx = self.max_pred - 1
-        vec[idx] = 1
+        if isinstance(idx, list):
+            for i in idx:
+                vec[i] = 1
+        else:
+            vec[idx] = 1
         return vec
 
 

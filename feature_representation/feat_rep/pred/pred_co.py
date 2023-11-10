@@ -1,3 +1,4 @@
+from collections import deque
 import json
 import os
 import pickle
@@ -46,9 +47,13 @@ class PredicateCommunityCreator:
     def get_louvain_communities(
         self,
         dir: str = "/PlanRGCN/extracted_features/predicate/predicate_cooccurence/batch_response/",
+        save_pred_graph=None,
     ):
         edges = self.get_predicate_from_dir(dir)
         pred_graph = self.create_pred_graph(edges)
+        if isinstance(save_pred_graph, str):
+            with open(save_pred_graph, "wb") as f_pred:
+                pickle.dump(pred_graph, f_pred)
         commun = nx.algorithms.community.louvain_communities(pred_graph)
         commun_2 = []
         for x in commun:
@@ -170,6 +175,87 @@ def create_louvain_to_p_index(
     print(pred2index)
     print(m)
     pickle.dump((pred2index, m), open(output_path, "wb"))
+
+
+def create_k_clique(pred_graph_path=None, pred_graph: nx.DiGraph = None, k=20):
+    """crates k clique based pred2com dict. The process gets killed when doing this.
+
+    Args:
+        pred_graph_path (str, optional): path to predicate graph on pickle form
+        pred_graph (nx.DiGraph, optional): predicate graph
+        k (int, optional): the size of the smallest clique. Defaults to 20.
+
+    Raises:
+        Exception: if no predicate graph is provided.
+    """
+    if pred_graph_path == None and pred_graph == None:
+        raise Exception(
+            "One of the fields 'pred_graph_path' or 'pred_graph' must be specified!"
+        )
+    if pred_graph is None:
+        pred_graph = pickle.load(open(pred_graph_path, "rb"))
+    pred_graph = pred_graph.to_undirected()
+    c = list(nx.community.k_clique_communities(pred_graph, 20))
+
+
+def create_kernighan_lin(
+    pred_graph_path=None,
+    pred_graph: nx.DiGraph = None,
+    iterations=10,
+    seed=42,
+    save_dict_path=None,
+):
+    """crates kerlinghan lin partition based pred2com dict.
+
+    Args:
+        pred_graph_path (str, optional): path to predicate graph on pickle form
+        pred_graph (nx.DiGraph, optional): predicate graph
+        k (int, optional): the size of the smallest clique. Defaults to 20.
+
+    Raises:
+        Exception: if no predicate graph is provided.
+    """
+    if pred_graph_path == None and pred_graph == None:
+        raise Exception(
+            "One of the fields 'pred_graph_path' or 'pred_graph' must be specified!"
+        )
+    if save_dict_path == None:
+        raise Exception("'save_dict_path' must be specified!")
+    if pred_graph is None:
+        pred_graph = pickle.load(open(pred_graph_path, "rb"))
+    coms = []
+
+    pred_graph = pred_graph.to_undirected()
+    # gaph_stack = deque()
+    # graph_stack.append(pred_graph)
+    graph_stack = [pred_graph]
+    d = 0
+    while d != iterations:
+        new_stack = list()
+        for p in graph_stack:
+            partitions = nx.community.kernighan_lin.kernighan_lin_bisection(
+                p, seed=seed
+            )
+            partitions = [list(x) for x in partitions]
+            left = nx.Graph.subgraph(p, partitions[0])
+            right = nx.Graph.subgraph(p, partitions[1])
+            if len(left.nodes()) > 1:
+                new_stack.append(left)
+            if len(right.nodes()) > 1:
+                new_stack.append(right)
+            coms.extend(partitions)
+        graph_stack = new_stack
+        d += 1
+
+    pred2idx = {}
+    for n in pred_graph.nodes:
+        pred2idx[n] = list()
+    for idx, c in enumerate(coms):
+        for c_pred in c:
+            pred2idx[c_pred].append(idx)
+    m = len(coms) + 1
+    with open(save_dict_path, "wb") as f_path:
+        pickle.dump((pred2idx, m), f_path)
 
 
 if __name__ == "__main__":

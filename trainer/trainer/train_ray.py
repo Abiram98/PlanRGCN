@@ -106,7 +106,7 @@ def train_function(
         batch_size=config["batch_size"],
         query_plan_dir=query_plan_dir,
         pred_stat_path=pred_stat_path,
-        pred_com_path=pred_com_path,
+        pred_com_path=Path(pred_com_path).joinpath(config["pred_com_path"]),
         ent_path=ent_path,
         time_col=time_col,
         is_lsq=is_lsq,
@@ -406,6 +406,11 @@ def main(
     },
 ):
     config["epochs"] = max_num_epochs
+    ray_temp_path = Path(path_to_save).joinpath("temp_session")
+    ray_save = Path(path_to_save).joinpath("ray_save")
+    os.makedirs(ray_save, exist_ok=True)
+    os.makedirs(ray_temp_path, exist_ok=True)
+    # context = ray.init(_temp_dir=ray_temp_path)
     context = ray.init()
     print(context.dashboard_url)
 
@@ -439,6 +444,7 @@ def main(
         config=config,
         num_samples=num_samples,
         scheduler=scheduler,
+        local_dir=ray_save,
     )
 
     best_trial = result.get_best_trial("val f1", "max", "last")
@@ -469,7 +475,7 @@ def main(
         batch_size=best_trial.last_result["batch_size"],
         query_plan_dir=query_plan_dir,
         pred_stat_path=pred_stat_path,
-        pred_com_path=pred_com_path,
+        pred_com_path=Path(pred_com_path).joinpath(best_trial.config["pred_com_path"]),
         ent_path=ent_path,
         time_col=time_col,
         is_lsq=is_lsq,
