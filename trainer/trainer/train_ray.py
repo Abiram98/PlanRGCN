@@ -32,7 +32,10 @@ from ray import tune, train
 
 # from ray.air import Checkpoint, session
 from ray.train import Checkpoint
-from ray.tune.schedulers import ASHAScheduler
+
+# from ray.tune.schedulers import ASHAScheduler
+from ray.tune.schedulers import AsyncHyperBandScheduler
+from ray.air.config import CheckpointConfig
 
 AVG = "macro"
 
@@ -379,6 +382,11 @@ def predict_helper(dataloader, model, is_lsq):
     return all_ids, all_preds, all_truths
 
 
+def stop_bad_run(trial_id: str, result: dict) -> bool:
+    """Stops run that"""
+    return result["val f1"] < 0.7 and result["training_iteration"] >= 50
+
+
 def main(
     num_samples=2,
     max_num_epochs=10,
@@ -408,6 +416,9 @@ def main(
         "batch_size": tune.choice([64, 256]),
         "loss_type": "cross-entropy",
     },
+    checkpoint_config=CheckpointConfig(
+        1, "val f1", "max"
+    ),  # CheckpointConfig(12, "val f1", "max"),
 ):
     config["epochs"] = max_num_epochs
     ray_temp_path = os.path.join(path_to_save, "temp_session")
@@ -415,7 +426,7 @@ def main(
     os.makedirs(ray_save, exist_ok=True)
     os.makedirs(ray_temp_path, exist_ok=True)
     context = ray.init(
-        num_cpus=2,  # only 2 cpus on strato2 sercer
+        num_cpus=10,  # only 2 cpus on strato2 sercer
         _system_config={
             "local_fs_capacity_threshold": 0.99,
             "object_spilling_config": json.dumps(
@@ -425,11 +436,11 @@ def main(
     )
     print(context.dashboard_url)
 
-    scheduler = ASHAScheduler(
+    scheduler = AsyncHyperBandScheduler(
         metric="val f1",
         mode="max",
         max_t=max_num_epochs,
-        grace_period=1,
+        grace_period=10,
         reduction_factor=2,
     )
     """trainable_with_resources = tune.with_resources(
@@ -485,11 +496,13 @@ def main(
             n_classes=n_classes,
             query_plan=query_plan,
         ),
+        checkpoint_config=checkpoint_config,
         resources_per_trial={"cpu": 1},
         config=config,
         num_samples=num_samples,
         scheduler=scheduler,
         local_dir=ray_save,
+        stop=stop_bad_run,
     )
     # best_trial = result.get_best_result("val f1", "max", "last")
     best_trial = result.get_best_trial("val f1", "max", "last")

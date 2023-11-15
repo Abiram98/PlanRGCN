@@ -44,7 +44,7 @@ ent_path = (
 # Training Configurations
 num_samples = 1  # cpu cores to use
 num_samples = 8  # cpu cores to use
-num_samples = 4  # use this
+num_samples = 8  # 4  # use this
 
 max_num_epochs = 100
 # batch_size = 64
