@@ -5,7 +5,6 @@ class Endpoint:
         self.sparql = SPARQLWrapper(endpoint_url)
         self.sparql.setReturnFormat(JSON)
         self.sparql.setMethod(POST)
-        
     def run_query(self, query_str: str):
         if not hasattr(self,'sparql'):
             print('SPARQL Endpoint has not been initialised!!!')
