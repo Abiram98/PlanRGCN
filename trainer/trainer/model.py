@@ -42,6 +42,9 @@ class Classifier2RGCN(nn.Module):
         nn (_type_): _description_
     """
 
+    def test(self):
+        print("test string for modififed class")
+
     def __init__(self, in_dim, hidden_dim1, hidden_dim2, p, n_classes):
         super(Classifier2RGCN, self).__init__()
         self.conv1 = dglnn.RelGraphConv(
