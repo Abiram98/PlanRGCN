@@ -1,6 +1,7 @@
 import json
 import os
 import dgl
+from graph_construction.feats.featurizer_path import FeaturizerPath
 from graph_construction.qp.qp_utils import QueryPlanUtils
 from graph_construction.qp.query_plan_path import QueryPlanPath
 import json5
@@ -16,15 +17,9 @@ import torch as th
 from graph_construction.qp.query_plan import QueryPlan
 
 
-
-
-
 def test(p, add_data=None):
     pass
     # print(p["level"])
-
-
-
 
 
 class QueryPlanCommonBi(QueryPlan):
@@ -281,8 +276,17 @@ def query_graph_w_class_vec_helper(samples: list[tuple], cls_funct):
 
 if __name__ == "__main__":
     # feat = FeaturizerBase(5)
-    #pred_stat_path = "/PlanRGCN/extracted_features_dbpedia2016/predicate/pred_stat/batches_response_stats"
-    #feat = FeaturizerPredStats(pred_stat_path)
+    # KG statistics feature paths
+    pred_stat_path = "/PlanRGCN/extracted_features_dbpedia2016/predicate/pred_stat/batches_response_stats"
+    pred_com_path = "/PlanRGCN/extracted_features_dbpedia2016/predicate/pred_co"
+    ent_path = "/PlanRGCN/extracted_features_dbpedia2016/entities/ent_stat/batches_response_stats"
+    feat = FeaturizerPath(
+        pred_stat_path=pred_stat_path,
+        pred_com_path=f"{pred_com_path}/pred2index_louvain.pickle",
+        ent_path=ent_path,
+        bins=50,
+    )
+    # feat = FeaturizerPredStats(pred_stat_path)
     query_plan_files = [
         "lsqQuery-4D3PJSkE25IRd0N8ZKCpvslAgij5-THVkQy59w0QpK4",  # good path query example
         "lsqQuery-22Wctl3TpbNuqnugVntifWIf3TtAbnKFMirp0o-gIXI",
@@ -291,7 +295,10 @@ if __name__ == "__main__":
         "lsqQuery--d_KKBdrHgoIkwpxtVcazeWBkdMEe-CarA6kPaDtJWQ",
     ]
     query_plan_files = [f"/query_plans_dbpedia/{x}" for x in query_plan_files]
-    q = create_query_plan(query_plan_files[0], query_plan=QueryPlanPath)
+    qps = list()
+    for q_f in query_plan_files:
+        qps.append(create_query_plan(q_f, query_plan=QueryPlanPath))
+    create_dgl_graphs(qps, feat)
     exit()
     # path2
     q = ""

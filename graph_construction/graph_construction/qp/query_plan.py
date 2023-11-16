@@ -1,5 +1,5 @@
 import dgl
-from graph_construction.qp.qp_utils import QueryPlanUtils
+from graph_construction.qp.qp_utils import QueryPlanUtils, get_relation_types
 import networkx as nx
 import numpy as np
 from graph_construction.stack import Stack
@@ -124,51 +124,28 @@ class QueryPlan:
         filter_triples = QueryPlanUtils.extract_triples(data)
         expr_string = data["expr"]
         expr_string = expr_string.replace(")", " ")
-        filt_vars = [x for x in expr_string.split(" ") if x.startswith("?")]
+        filt_vars = [
+            x
+            for x in expr_string.split(" ")
+            if (x.startswith("?") or x.startswith("$"))
+        ]
         filter_triples = QueryPlanUtils.map_extracted_triples(
             filter_triples, self.triples
         )
+        filt_vars = list(set(filt_vars))
+
         # dobbel check with filter_node.vars field insead of filt_vars
         for v in filt_vars:
             if v in self.join_vars.keys():
                 for t in filter_triples:
-                    self.edges.append(
-                        (t, filter_node, self.get_join_type(t, filter_node, v))
-                    )
+                    # added to check whether filter is concerned with triple pattersn
+                    if v in t.get_variables():
+                        self.edges.append(
+                            (t, filter_node, self.get_join_type(t, filter_node, v))
+                        )
 
     def get_join_type(self, trp1, trp2, common_variable):
-        # filter nodes
-        if isinstance(trp2, FilterNode):
-            return 9
-
-        # s-s
-        if trp1.subject == common_variable and trp2.subject == common_variable:
-            return 0
-        # s-p
-        if trp1.subject == common_variable and trp2.predicate == common_variable:
-            return 1
-        # s-o
-        if trp1.subject == common_variable and trp2.object == common_variable:
-            return 2
-
-        # p-s
-        if trp1.predicate == common_variable and trp2.subject == common_variable:
-            return 3
-        # p-p
-        if trp1.predicate == common_variable and trp2.predicate == common_variable:
-            return 4
-        # p-o
-        if trp1.predicate == common_variable and trp2.object == common_variable:
-            return 5
-        # o-s
-        if trp1.object == common_variable and trp2.subject == common_variable:
-            return 6
-        # o-p
-        if trp1.object == common_variable and trp2.predicate == common_variable:
-            return 7
-        # o-s
-        if trp1.object == common_variable and trp2.object == common_variable:
-            return 8
+        return get_relation_types(trp1, trp2, common_variable)
 
     def assign_trpl_ids(self):
         self.max_id = 0

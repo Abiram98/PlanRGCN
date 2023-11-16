@@ -477,25 +477,26 @@ def main(
     result.get_dataframe().to_csv(
         Path(path_to_save).joinpath("hyper_search_results.csv")
     )"""
+    trainable = partial(
+        train_function,
+        train_path=train_path,
+        val_path=val_path,
+        test_path=test_path,
+        query_plan_dir=query_plan_dir,
+        pred_stat_path=pred_stat_path,
+        pred_com_path=pred_com_path,
+        ent_path=ent_path,
+        time_col=time_col,
+        is_lsq=is_lsq,
+        cls_func=cls_func,
+        featurizer_class=featurizer_class,
+        scaling=scaling,
+        n_classes=n_classes,
+        query_plan=query_plan,
+    )
+
     result = tune.run(
-        partial(
-            train_function,
-            train_path=train_path,
-            val_path=val_path,
-            test_path=test_path,
-            # batch_size=batch_size,
-            query_plan_dir=query_plan_dir,
-            pred_stat_path=pred_stat_path,
-            pred_com_path=pred_com_path,
-            ent_path=ent_path,
-            time_col=time_col,
-            is_lsq=is_lsq,
-            cls_func=cls_func,
-            featurizer_class=featurizer_class,
-            scaling=scaling,
-            n_classes=n_classes,
-            query_plan=query_plan,
-        ),
+        trainable,
         checkpoint_config=checkpoint_config,
         resources_per_trial={"cpu": 1},
         config=config,
