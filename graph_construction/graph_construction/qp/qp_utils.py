@@ -25,19 +25,27 @@ class pathOpTypes(Enum):
         match path_op:
             case "P_ZeroOrOne":
                 return pathOpTypes.ZERO_OR_ONE
+            case "zeroOrOne":
+                return pathOpTypes.ZERO_OR_ONE
             case "P_ZeroOrMore1":
                 return pathOpTypes.ZERO_OR_MORE
             case "P_ZeroOrMoreN":
                 return pathOpTypes.ZERO_OR_MORE
+            case 'ZeroOrMore':
+                return pathOpTypes.ZERO_OR_MORE
             case "P_OneOrMore1":
                 return pathOpTypes.ONE_OR_MORE
             case "P_OneOrMoreN":
+                return pathOpTypes.ONE_OR_MORE
+            case "OneOrMore":
                 return pathOpTypes.ONE_OR_MORE
             case "P_ReverseLink":
                 return pathOpTypes.INVERSE
             case "P_Inverse":
                 return pathOpTypes.INVERSE
             case "P_Mod":
+                return pathOpTypes.MOD
+            case "Mod":
                 return pathOpTypes.MOD
             case "P_Seq":
                 return pathOpTypes.SEQ
@@ -101,9 +109,9 @@ class QueryPlanUtils:
                 return 10
             case "leftjoin":
                 return 10
-        """    case "join":
-                return 10
-        match op:
+            case "join":
+                return 11
+        """match op:
             case "conditional":
                 return 11
             case "leftjoin":

@@ -60,7 +60,7 @@ n_classes = 3
 query_plan = QueryPlan
 prepper = None
 
-config = {
+ddscdsaonfig = {
     "l1": tune.choice([128, 256, 512, 1024, 2048, 4096]),
     "l2": tune.choice([128, 256, 512, 1024, 2048, 4096]),
     "dropout": tune.grid_search([0.0, 0.6, 0.8]),

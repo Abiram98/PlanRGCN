@@ -50,6 +50,7 @@ class FeaturizerPath(FeaturizerBinning):
             + self.scaler.ent_scale_len() * 2
             + self.scaler.pred_scale_len()
             + 2
+            + pathOpTypes.get_max_operations()
         )
 
     def tp_features(self, node):

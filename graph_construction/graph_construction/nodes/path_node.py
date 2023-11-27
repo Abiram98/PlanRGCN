@@ -13,7 +13,10 @@ class PathNode(TriplePattern):
         #    self.path_predicates.append(node_class(p))
 
         self.subject = node_class(data["Subject"])
-        predicate = data["Predicates"][0]
+        if 'Predicate Path' in data.keys():
+            predicate = data['Predicate Path'].split('<')[1].split('>')[0]
+        else:
+            predicate = data["Predicates"][0]
         if isinstance(predicate, str):
             self.predicate = node_class(predicate)
             self.p_mod_max = 0
@@ -23,8 +26,11 @@ class PathNode(TriplePattern):
             self.p_mod_max = predicate["min"]
             self.p_mod_min = predicate["max"]
         self.path_complexity: list[pathOpTypes] = list()
-        for comp in data["pathComplexity"]:
-            self.path_complexity.append(pathOpTypes.get_path_op(comp))
+        if not "pathComplexity" in data.keys():
+            self.path_complexity.append(pathOpTypes.get_path_op(data['pathType']))
+        else:
+            for comp in data["pathComplexity"]:
+               self.path_complexity.append(pathOpTypes.get_path_op(comp))
 
         self.object = node_class(data["Object"])
 

@@ -8,7 +8,7 @@ from functools import partialmethod
 class QueryPlanPath(QueryPlan):
     def __init__(self, data):
         super().__init__(data)
-        QueryPlan.max_relations = 12
+        QueryPlan.max_relations = 13
 
     def process(self, data):
         self.level = 0
@@ -33,6 +33,7 @@ class QueryPlanPath(QueryPlan):
         # self.add_join()
         self.iterate_ops(self.add_binaryOP, "leftjoin")
         self.iterate_ops(self.add_binaryOP, "conditional")
+        self.iterate_ops(self.add_binaryOP, "join")
         # self.add_leftjoin()
         # self.add_conditional()
         self.add_sngl_trp_rel()
@@ -67,7 +68,10 @@ class QueryPlanPath(QueryPlan):
 
     def add_tripleOrPath(self, data, add_data=None):
         if data["opName"] == "path":
-            t = PathNode(data)
+            try:
+               t = PathNode(data)
+            except KeyError:
+                raise Exception(f"Did not work for {data}")
         elif data["opName"] == "Triple":
             t = TriplePattern(data)
         else:

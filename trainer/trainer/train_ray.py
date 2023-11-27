@@ -383,8 +383,21 @@ def predict_helper(dataloader, model, is_lsq):
 
 
 def stop_bad_run(trial_id: str, result: dict) -> bool:
-    """Stops run that"""
-    return result["val f1"] < 0.7 and result["training_iteration"] >= 50
+    """This function should return true when the trial should be stopped and false for continued training.
+
+    Args:
+        trial_id (str): _description_
+        result (dict): _description_
+
+    Returns:
+        bool: _description_
+    """
+    if result["val f1"] < 0.7 and result["training_iteration"] >= 50:
+        return True
+    if result["val f1"] < 0.5 and result["training_iteration"] >= 20:
+        return True
+
+    return False
 
 
 def main(
@@ -509,19 +522,7 @@ def main(
     best_trial = result.get_best_trial("val f1", "max", "last")
     print(f"Best trial config: {best_trial.config}")
     print(f"Best trial final validation f1: {best_trial.last_result['val f1']}")
-    best_trained_model = Classifier2RGCN(
-        best_trial.last_result["input d"],
-        best_trial.config["l1"],
-        best_trial.config["l2"],
-        best_trial.config["dropout"],
-        n_classes,
-    )
-    best_checkpoint = os.path.join(
-        best_trial.checkpoint.to_directory(), "checkpoint.pt"
-    )  # .to_air_checkpoint()
-    # best_checkpoint_data = best_checkpoint.to_dict()
-    model_state = th.load(best_checkpoint)
-    best_trained_model.load_state_dict(model_state["model_state"])
+    retrain_config = best_trial.config
     (
         train_loader,
         val_loader,
@@ -544,6 +545,22 @@ def main(
         query_plan=query_plan,
     )
 
+    best_trained_model = Classifier2RGCN(
+        best_trial.last_result["input d"],
+        best_trial.config["l1"],
+        best_trial.config["l2"],
+        best_trial.config["dropout"],
+        n_classes,
+    )
+    best_checkpoint = os.path.join(
+        best_trial.checkpoint.to_directory(), "checkpoint.pt"
+    )  # .to_air_checkpoint()
+    # best_checkpoint_data = best_checkpoint.to_dict()
+    retrain_config['best_checkpoint'] =best_checkpoint 
+    retrain_config["input d"] = best_trial.last_result["input d"] 
+    model_state = th.load(best_checkpoint)
+    best_trained_model.load_state_dict(model_state["model_state"])
+    
     predict(
         best_trained_model,
         train_loader,
@@ -552,6 +569,7 @@ def main(
         is_lsq,
         path_to_save=path_to_save,
     )
+    json.dump(retrain_config, open(os.path.join(path_to_save, "model_config.json")))
 
 
 if __name__ == "__main__":

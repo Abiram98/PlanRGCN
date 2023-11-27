@@ -147,8 +147,7 @@ class Node:
 
 
 def is_variable_check(label: str):
-    while label.startswith(" "):
-        label = label[1:]
+    label = label.strip()
     if label.startswith("?") or label.startswith("$"):
         return True
     return False

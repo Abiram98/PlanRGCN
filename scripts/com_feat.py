@@ -18,23 +18,24 @@ pred_co_response = (
 com_path = f"{pred_co_path}/communities_louvain.pickle"
 pred_graph_path = f"{pred_co_path}/pred_graph.pickle"
 louvain_com_path = f"{pred_co_path}/pred2index_louvain.pickle"
+louvain_com_path = f"{pred_co_path}/pred2index_louvain2.pickle"
 
 # DBpedia 2016 Paths
-pred_co_path = "/PlanRGCN/extracted_features_dbpedia2016/predicate/pred_co"
-pred_co_response = "/PlanRGCN/extracted_features_dbpedia2016/predicate/predicate_cooccurence/batch_response/"
-pred_graph_path = f"{pred_co_path}/pred_graph.pickle"
+#pred_co_path = "/PlanRGCN/extracted_features_dbpedia2016/predicate/pred_co"
+#pred_co_response = "/PlanRGCN/extracted_features_dbpedia2016/predicate/predicate_cooccurence/batch_response/"
+#pred_graph_path = f"{pred_co_path}/pred_graph.pickle"
 # com_path = f"{pred_co_path}/communities_louvain2.pickle"
 # louvain_com_path = f"{pred_co_path}/pred2index_louvain2.pickle"
 
-# d = PredicateCommunityCreator(save_dir=pred_co_path)
-# d.get_louvain_communities(dir=pred_co_response, save_pred_graph=pred_graph_path)
-# create_louvain_to_p_index(
-#    path=com_path,
-#    output_path=louvain_com_path,
-# )
-
-create_kernighan_lin(
-    pred_graph_path=pred_graph_path,
-    iterations=5,
-    save_dict_path=f"{pred_co_path}/pred2index_pred2_kernighan.pickle",
+d = PredicateCommunityCreator(save_dir=pred_co_path)
+d.get_louvain_communities(dir=pred_co_response, save_pred_graph=pred_graph_path)
+create_louvain_to_p_index(
+    path=com_path,
+    output_path=louvain_com_path,
 )
+
+#create_kernighan_lin(
+#    pred_graph_path=pred_graph_path,
+#    iterations=5,
+#    save_dict_path=f"{pred_co_path}/pred2index_pred2_kernighan.pickle",
+#)
