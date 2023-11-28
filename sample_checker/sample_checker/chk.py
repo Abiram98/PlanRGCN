@@ -1,4 +1,4 @@
-from graph_construction.featurizer import FeaturizerPredCoEnt
+from graph_construction.feats.featurizer import FeaturizerPredCoEnt
 from graph_construction.query_graph import (
     QueryPlan,
     create_dgl_graphs,

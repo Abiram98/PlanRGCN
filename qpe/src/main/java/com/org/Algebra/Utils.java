@@ -3,16 +3,9 @@ package com.org.Algebra;
 import org.apache.jena.sparql.algebra.*;
 import org.apache.jena.sparql.sse.SSE;
 
-import com.github.andrewoma.dexx.collection.ArrayList;
 import com.org.QueryReader.LSQreader;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.Iterator;
-import java.util.LinkedList;
 
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;

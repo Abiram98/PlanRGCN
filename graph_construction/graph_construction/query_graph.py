@@ -1,322 +1,25 @@
 import json
 import os
 import dgl
+from graph_construction.feats.featurizer_path import FeaturizerPath
+from graph_construction.qp.qp_utils import QueryPlanUtils
+from graph_construction.qp.query_plan_path import QueryPlanPath
+import json5
 import networkx as nx
 import numpy as np
 from graph_construction.stack import Stack
 import pandas as pd
-from graph_construction.featurizer import FeaturizerBase, FeaturizerPredStats
+from graph_construction.feats.featurizer import FeaturizerBase, FeaturizerPredStats
 from graph_construction.node import Node, FilterNode, TriplePattern
+from graph_construction.nodes.path_node import PathNode
 import torch as th
 
-
-class QueryPlan:
-    max_relations = 16
-
-    def __init__(self, data) -> None:
-        self.level = 0
-
-        self.data = data
-        self.triples: list[TriplePattern] = list()
-        self.filters: list[FilterNode] = list()
-        self.edges = list()
-
-        self.join_vars = {}
-        self.filter_dct = {}
-        self.op_lvl = {}
-
-        self.iterate_ops(self.add_triple, "Triple")
-        self.iterate_ops(self.add_filters, "filter")
-        # self.add_self_loop_triples()
-        self.assign_trpl_ids()
-        self.assign_filt_ids()
-
-        # filt_edge = [(d.id, b.id, r) for (d, b, r) in self.edges if r == 9]
-        # print(filt_edge)
-        # self.iterate_ops(self.add_binaryOP, "minus")
-        # self.iterate_ops(self.add_binaryOP, "union")
-        self.iterate_ops(self.add_binaryOP, "join")
-        self.iterate_ops(self.add_binaryOP, "leftjoin")
-        self.iterate_ops(self.add_binaryOP, "conditional")
-        self.add_sngl_trp_rel()
-        # can be used to check for existence of operators
-        # self.iterate_ops(self.assert_operator, "leftjoin")
-        # self.iterate_ops(self.assert_operator, "join")
-        # self.iterate_ops(self.assert_operator, "diff")
-        # self.iterate_ops(self.assert_operator, "lateral")
-
-        # print(self.edges)
-        self.nodes = [x.id for x in self.triples]
-        self.nodes.extend([x.id for x in self.filters])
-
-        self.node2obj = {}
-        self.initialize_node2_obj()
-        self.G = self.networkx()
-        self.G.add_nodes_from(self.nodes)
-
-    def initialize_node2_obj(self):
-        for t in self.triples:
-            if t.id in self.node2obj.keys():
-                raise Exception("Existing node createad")
-            self.node2obj[t.id] = t
-        for f in self.filters:
-            if f.id in self.node2obj.keys():
-                raise Exception("Existing node createad")
-            self.node2obj[f.id] = f
-
-    def iterate_ops(self, func, node_type: str):
-        current = self.data
-        current["level"] = self.level
-        if current == None:
-            return
-        stack = Stack()
-        stack.push(current)
-        while not stack.is_empty():
-            current = stack.pop()
-            if "subOp" in current:
-                if current["opName"] == "BGP":
-                    self.iterate_bgp(current, func, node_type, filter=None)
-                else:
-                    self.level += 1
-                    for node in reversed(current["subOp"]):
-                        node["level"] = self.level
-                        stack.push(node)
-            if current["opName"] == node_type:
-                func(current)
-
-    def iterate_bgp(self, data, func, node_type, filter=None):
-        self.level += 1
-        for triple in data["subOp"]:
-            triple["level"] = self.level
-            if triple["opName"] == node_type:
-                func(triple, add_data=filter)
-
-    def add_self_loop_triples(self):
-        for t in self.triples:
-            for v in t.get_joins():
-                self.edges.append((t, t, self.get_join_type(t, t, v)))
-
-    def add_triple(self, data, add_data=None):
-        t = TriplePattern(data)
-        join_v = t.get_joins()
-        for v in join_v:
-            if v in self.join_vars.keys():
-                triple_lst = self.join_vars[v]
-                for tp in triple_lst:
-                    self.edges.append((tp, t, self.get_join_type(tp, t, v)))
-                self.join_vars[v].append(t)
-            else:
-                self.join_vars[v] = [t]
-        self.triples.append(t)
-        """if add_data != None:
-            add_data: FilterNode
-            for v in add_data.vars:
-                t_var_labels = [tv.node_label for tv in t.get_joins()]
-                if v in t_var_labels:
-                    print(t)"""
-
-    def add_filters(self, data, add_data=None):
-        self.filters
-        self.join_vars
-        filter_node = FilterNode(data)
-        self.filters.append(filter_node)
-        filter_triples = QueryPlanUtils.extract_triples(data)
-        expr_string = data["expr"]
-        expr_string = expr_string.replace(")", " ")
-        filt_vars = [x for x in expr_string.split(" ") if x.startswith("?")]
-        filter_triples = QueryPlanUtils.map_extracted_triples(
-            filter_triples, self.triples
-        )
-        # dobbel check with filter_node.vars field insead of filt_vars
-        for v in filt_vars:
-            if v in self.join_vars.keys():
-                for t in filter_triples:
-                    self.edges.append(
-                        (t, filter_node, self.get_join_type(t, filter_node, v))
-                    )
-
-    def get_join_type(self, trp1, trp2, common_variable):
-        # filter nodes
-        if isinstance(trp2, FilterNode):
-            return 9
-
-        # s-s
-        if trp1.subject == common_variable and trp2.subject == common_variable:
-            return 0
-        # s-p
-        if trp1.subject == common_variable and trp2.predicate == common_variable:
-            return 1
-        # s-o
-        if trp1.subject == common_variable and trp2.object == common_variable:
-            return 2
-
-        # p-s
-        if trp1.predicate == common_variable and trp2.subject == common_variable:
-            return 3
-        # p-p
-        if trp1.predicate == common_variable and trp2.predicate == common_variable:
-            return 4
-        # p-o
-        if trp1.predicate == common_variable and trp2.object == common_variable:
-            return 5
-        # o-s
-        if trp1.object == common_variable and trp2.subject == common_variable:
-            return 6
-        # o-p
-        if trp1.object == common_variable and trp2.predicate == common_variable:
-            return 7
-        # o-s
-        if trp1.object == common_variable and trp2.object == common_variable:
-            return 8
-
-    def assign_trpl_ids(self):
-        self.max_id = 0
-        for i, t in enumerate(self.triples):
-            t.id = i
-            self.max_id = np.max([t.id, self.max_id])
-
-    def assign_filt_ids(self):
-        for i, t in enumerate(self.filters):
-            n_id = 1 + i + self.max_id
-            t.id = n_id
-            self.max_id = np.max([n_id, self.max_id])
-
-    def add_binaryOP(self, data, add_data=None):
-        assert len(data["subOp"]) == 2
-        left = data["subOp"][0]
-        right = data["subOp"][1]
-        left_triples = QueryPlanUtils.extract_triples(left)
-        left_triples = QueryPlanUtils.map_extracted_triples(left_triples, self.triples)
-        right_triples = QueryPlanUtils.extract_triples(right)
-        right_triples = QueryPlanUtils.map_extracted_triples(
-            right_triples, self.triples
-        )
-        for r in right_triples:
-            r: TriplePattern
-            for l in left_triples:
-                l_vars = l.get_joins()
-                for r_v in r.get_joins():
-                    if r_v in l_vars:
-                        # consider adding the other way for union as a special case
-                        self.edges.append(
-                            (l, r, QueryPlanUtils.get_relations(data["opName"]))
-                        )
-        # print(left_triples)
-        # print("\n\n")
-        # print(right_triples)
-
-    def assert_operator(self, data, add_data=None):
-        raise Exception("This operator should not exists")
-
-    def networkx(self):
-        G = nx.MultiDiGraph()
-        for s, t, r in self.edges:
-            assert self.node2obj[s.id] == s
-            assert self.node2obj[t.id] == t
-            G.add_edge(s.id, t.id, rel_type=r)
-        return G
-
-    def feature(self, featurizer: FeaturizerBase):
-        """_summary_
-        Prerequisite for this function is the networkx call (this should happen during initializaition)
-        Args:
-            featurizer (Featurizer): _description_
-        """
-        self.node_features = {}
-        for n_id in self.nodes:
-            self.node_features[n_id] = {
-                "node_features": featurizer.featurize(self.node2obj[n_id])
-            }
-
-        nx.set_node_attributes(self.G, self.node_features)
-
-    def to_dgl(self):
-        """_summary_
-        Prerequisite is a call to feature
-        Returns:
-            _type_: _description_
-        """
-        try:
-            dgl_graph = dgl.from_networkx(
-                self.G, edge_attrs=["rel_type"], node_attrs=["node_features"]
-            )
-        except Exception:
-            dgl_graph = dgl.from_networkx(self.G, node_attrs=["node_features"])
-            dgl_graph.edata["rel_type"] = th.tensor(np.array([]), dtype=th.int64)
-            # print(self.data)
-            # print(self.path)
-            # exit()
-        dgl_graph = dgl.add_self_loop(dgl_graph)
-        return dgl_graph
-
-    def get_nodes_in_edges(self):
-        nodes = set()
-        for node1, node2, _ in self.edges:
-            nodes.add(node1.id)
-            nodes.add(node2.id)
-        return list(nodes)
-
-    def add_sngl_trp_rel(self):
-        nodes = self.get_nodes_in_edges()
-        for t in self.triples:
-            if not t.id in nodes:
-                self.edges.append((t, t, 10))
+from graph_construction.qp.query_plan import QueryPlan
 
 
 def test(p, add_data=None):
     pass
     # print(p["level"])
-
-
-class QueryPlanUtils:
-    "filter rel definied in getjointype method"
-
-    def get_relations(op):
-        match op:
-            case "conditional":
-                return 11
-            case "leftjoin":
-                return 12
-            case "join":
-                return 13
-            case "union":
-                return 14
-            case "minus":
-                return 15
-        raise Exception("Operation undefind " + op)
-
-    def extract_triples(data: dict):
-        triple_data = []
-        stack = Stack()
-        stack.push(data)
-        while not stack.is_empty():
-            current = stack.pop()
-            if "subOp" in current.keys():
-                for node in reversed(current["subOp"]):
-                    stack.push(node)
-            if current["opName"] == "Triple":
-                triple_data.append(current)
-        return triple_data
-
-    def extract_triples_filter(data: dict):
-        triple_data = []
-        stack = Stack()
-        stack.push(data)
-        while not stack.is_empty():
-            current = stack.pop()
-            if "subOp" in current.keys():
-                for node in reversed(current["subOp"]):
-                    stack.push(node)
-            if current["opName"] == "Triple":
-                triple_data.append(current)
-        return triple_data
-
-    def map_extracted_triples(triple_dct: list[dict], trpl_list: list):
-        res_t = list()
-        for t in trpl_list:
-            if t in triple_dct:
-                res_t.append(t)
-        return res_t
 
 
 class QueryPlanCommonBi(QueryPlan):
@@ -368,7 +71,10 @@ class QueryPlanCommonBi(QueryPlan):
 
 
 def create_query_plan(path, query_plan=QueryPlan):
-    data = json.load(open(path, "r"))
+    try:
+        data = json.load(open(path, "r"))
+    except Exception:
+        data = json5.load(open(path, "r"))
     q = query_plan(data)
     q.path = path
     return q
@@ -570,19 +276,46 @@ def query_graph_w_class_vec_helper(samples: list[tuple], cls_funct):
 
 if __name__ == "__main__":
     # feat = FeaturizerBase(5)
-    pred_stat_path = (
-        "/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats"
+    # KG statistics feature paths
+    pred_stat_path = "/PlanRGCN/extracted_features_dbpedia2016/predicate/pred_stat/batches_response_stats"
+    pred_com_path = "/PlanRGCN/extracted_features_dbpedia2016/predicate/pred_co"
+    ent_path = "/PlanRGCN/extracted_features_dbpedia2016/entities/ent_stat/batches_response_stats"
+    feat = FeaturizerPath(
+        pred_stat_path=pred_stat_path,
+        pred_com_path=f"{pred_com_path}/pred2index_louvain.pickle",
+        ent_path=ent_path,
+        bins=50,
     )
-    feat = FeaturizerPredStats(pred_stat_path)
-    q = create_query_plan(
-        "/PlanRGCN/extracted_features/queryplans/lsqQuery-TaZVkkyiv_-35SZOipT1c9ppAwnh_6t_JeNMDYGRFGk"
-    )
-    print(q.edges)
+    # feat = FeaturizerPredStats(pred_stat_path)
+    query_plan_files = [
+        "lsqQuery-4D3PJSkE25IRd0N8ZKCpvslAgij5-THVkQy59w0QpK4",  # good path query example
+        "lsqQuery-22Wctl3TpbNuqnugVntifWIf3TtAbnKFMirp0o-gIXI",
+        "lsqQuery-zvjkqAQ05pz9dowoV7m_7qFbdI_x032BlCOkMbH3yeM",
+        "lsqQuery-zsHnSHpsjWi4goJ6xiDTjkcqzPa1OuvcrA44agmWJJU",
+        "lsqQuery--d_KKBdrHgoIkwpxtVcazeWBkdMEe-CarA6kPaDtJWQ",
+    ]
+    query_plan_files = [f"/query_plans_dbpedia/{x}" for x in query_plan_files]
+    qps = list()
+    for q_f in query_plan_files:
+        qps.append(create_query_plan(q_f, query_plan=QueryPlanPath))
+    create_dgl_graphs(qps, feat)
+    exit()
+    # path2
+    q = ""
+    # path 1
+    q = "/query_plans_dbpedia/lsqQuery-OX07lIynqG7DyAFi_6DElGJNl8gSOnbUsyFp8"
+    # print(q.edges)
     q.feature(feat)
     G = q.G
     dgl_g: dgl.DGLGraph = q.to_dgl()
     print("dgl" + str(dgl_g.all_edges()))
-    print("dgl" + str(dgl_g.all_edges()))
+
+    def find_p_f(f):
+        t = open(f, "r").readlines()
+        if "path" in t:
+            return True
+        else:
+            return False
 
     exit()
     """query_plan = create_query_plan(

@@ -1,6 +1,6 @@
 import os
 import dgl
-from graph_construction.featurizer import FeaturizerPredCo, FeaturizerPredCoEnt
+from graph_construction.feats.featurizer import FeaturizerPredCo, FeaturizerPredCoEnt
 from graph_construction.query_graph import QueryPlanCommonBi, snap_lat2onehot
 from trainer.data_util import DatasetPrep
 from trainer.model import (
@@ -518,7 +518,7 @@ class TrainerAuto2(Trainer):
 
 if __name__ == "__main__":
     from trainer.model import RegressorWSelfTriple as CLS
-    from graph_construction.featurizer import FeaturizerPredStats
+    from graph_construction.feats.featurizer import FeaturizerPredStats
     from graph_construction.query_graph import QueryPlanCommonBi
 
     t = Trainer(

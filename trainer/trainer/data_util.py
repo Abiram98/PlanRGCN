@@ -1,4 +1,4 @@
-from graph_construction.featurizer import FeaturizerPredStats
+from graph_construction.feats.featurizer import FeaturizerPredStats
 from graph_construction.query_graph import (
     QueryPlan,
     QueryPlanCommonBi,
@@ -33,6 +33,7 @@ class DatasetPrep:
         query_plan_dir="/PlanRGCN/extracted_features/queryplans/",
         pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
         pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
+        pred_end_path=None,
         ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
         time_col="mean_latency",
         cls_func=snap_lat2onehotv2,
@@ -51,6 +52,7 @@ class DatasetPrep:
             pred_stat_path,
             pred_com_path=pred_com_path,
             ent_path=ent_path,
+            pred_end_path=pred_end_path,
             scaling=scaling,
         )
         self.vec_size = self.feat.filter_size + self.feat.tp_size

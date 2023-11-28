@@ -5,9 +5,8 @@ current_datetime=$(date '+%Y_%m_%d_%H_%M')
 # Define the list of basedir values
 # First run
 #configs=("DBpedia2016_sample_0_1_10 0_1_10 3" "DBpedia2016_sample_0_1_10_aug 0_1_10 3" "DBpedia2016_sample_0_1_10_weight_loss 0_1_10 3")
-#configs=("DBpedia2016_sample_0_1_10 0_1_10 3" "DBpedia2016_sample_0_1_10_aug 0_1_10 3" "DBpedia2016_sample_0_1_10_weight_loss 0_1_10 3")
-#configs=("DBpedia2016_sample_0_300ms_1_10 0_300ms_1_10 4" "DBpedia2016_sample_0_300ms_1_10_aug 0_300ms_1_10 4" "DBpedia2016_sample_0_300ms_1_10_weight_loss 0_300ms_1_10 4")
-configs=("DBpedia2016_sample_0_1_10_hybrid 0_1_10 3")
+configs=("DBpedia2016_sample_0_300ms_1_10 0_300ms_1_10 4" "DBpedia2016_sample_0_300ms_1_10_aug 0_300ms_1_10 4" "DBpedia2016_sample_0_300ms_1_10_weight_loss 0_300ms_1_10 4")
+configs=("DBpedia2016_sample_0_1_10 0_1_10 3" "DBpedia2016_sample_0_1_10_aug 0_1_10 3" "DBpedia2016_sample_0_1_10_weight_loss 0_1_10 3")
 for config in "${configs[@]}"; do
     # Split the config into basedir and snap_lat2onehot_binary
     IFS=' ' read -r basedir snap_value class_num <<< $config

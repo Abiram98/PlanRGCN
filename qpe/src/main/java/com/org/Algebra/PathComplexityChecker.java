@@ -104,6 +104,7 @@ public class PathComplexityChecker implements PathVisitor {
     @Override
     public void visit(P_Mod pathMod) {
         pathOperations.add(pathMod.getClass().getSimpleName());
+        pathMod.getSubPath().visit(this);
     }
 
 

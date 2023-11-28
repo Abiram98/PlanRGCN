@@ -4,6 +4,7 @@ package com.org.Algebra;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.apache.jena.graph.Triple;
@@ -20,13 +21,10 @@ import org.apache.jena.sparql.algebra.op.OpPath;
 import org.apache.jena.sparql.algebra.op.OpProcedure;
 import org.apache.jena.sparql.algebra.op.OpPropFunc;
 import org.apache.jena.sparql.algebra.op.OpSequence;
-import org.apache.jena.sparql.core.TriplePath;
 import org.apache.jena.sparql.path.P_Alt;
-import org.apache.jena.sparql.path.P_Inverse;
-import org.apache.jena.sparql.path.P_Multi;
+import org.apache.jena.sparql.path.P_Mod;
 import org.apache.jena.sparql.path.P_NegPropSet;
 import org.apache.jena.sparql.path.P_OneOrMore1;
-import org.apache.jena.sparql.path.P_Seq;
 import org.apache.jena.sparql.path.P_ZeroOrMore1;
 import org.apache.jena.sparql.path.P_ZeroOrOne;
 import org.apache.jena.sparql.path.Path;
@@ -141,8 +139,11 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
         PathComplexityChecker compVisitor = new PathComplexityChecker();
         path.visit(compVisitor);
         boolean complex = false;
-        if (compVisitor.getPathOperations().size() > 1){
-            complex = true;
+        if (compVisitor.getPathOperations().size() > 0){
+            ArrayList<String> pathOps = compVisitor.getPathOperations();
+            pathOps.remove("P_Inverse");
+            if (pathOps.size() > 1)
+                complex = true;
             print(", \"pathComplexity\": [");
             Iterator<String> iter = compVisitor.getPathOperations().iterator();
             while(iter.hasNext()){
@@ -151,13 +152,13 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
                 if (iter.hasNext())
                 print(", ");
             }
-            print("]\n}");
+            print("]\n");
         }
         if (!complex){
             PathSerializor p = new PathSerializor(stream,indent);
             if (path instanceof P_Alt) {
-                print(", \"pathComplexity\": [\"Addede to be filtered aways\"");
-                print("],");
+                /*print(", \"pathComplexity\": [\"Addede to be filtered aways\"");
+                print("],");*/
                 print(", \"pathType\": \"alternative\"");
                 print(",\"Predicates\":[");
                 print("\"Not Implemented for now\"]");
@@ -173,7 +174,7 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
                 print("]");
                 print("}");
             }*/else if (path instanceof P_ZeroOrOne) {
-                print(", \"pathType\": \"zeroOrOne");
+                print(", \"pathType\": \"zeroOrOne\"");
                 print(",\"Predicates\":[");
                 path.visit(p);
                 print("]");
@@ -196,10 +197,24 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
                 path.visit(p);
                 print("]");
                 print("}");
+            }else if (path instanceof P_Mod) {
+                print(", \"pathType\": \"Mod\"");
+                print(",\"Predicates\":[");
+                path.visit(p);
+                print("]");
+                print("}");
+            }else{
+                print(", \"pathType\": \""+path.getClass().toString()+"\"");
+                //print(", \"pathComplexity\": [\"Addede to be filtered aways (unsupperted operator\"");
+                //print("],");
+                print("}");
+                
             }
+        }else{
+            print("}");
         }
     }
-
+    
     @Override 
     public void visit(OpSequence opSequence)          {
         print("{\"opName\": \""+opSequence.getName()+ "\", \"subOp\": [");

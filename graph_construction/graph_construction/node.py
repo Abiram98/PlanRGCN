@@ -28,14 +28,17 @@ class Node:
 
     def __init__(self, node_label: str) -> None:
         self.node_label = node_label
-        if node_label.startswith("?"):
+        if node_label.startswith("?") or node_label.startswith("$"):
             self.type = "VAR"
         elif node_label.startswith("<http") or node_label.startswith("http"):
             self.type = "URI"
         elif node_label.startswith("join"):
             self.type = "JOIN"
+        elif node_label.startswith("_:") or node_label.startswith(":"):
+            # self.type = "BLANK"
+            self.type = "VAR"  # in graph pattern acts as variables
         else:
-            self.type = None
+            self.type = "LIT"
 
         self.pred_freq = None
         self.pred_literals = None
@@ -143,19 +146,35 @@ class Node:
         self.pred_subject_count, self.pred_object_count = -1, -1
 
 
+def is_variable_check(label: str):
+    label = label.strip()
+    if label.startswith("?") or label.startswith("$"):
+        return True
+    return False
+
+
 class TriplePattern:
-    """Class representing a triple pattern. Joins on constants are not considered"""
+    """Class representing a triple pattern. Joins on constants are not considered separately"""
 
     def __init__(self, data: dict, node_class=Node):
         self.depthLevel = None
         self.node_class = node_class
 
         self.subject = node_class(data["Subject"])
-        self.subject.nodetype = 0
         self.predicate = node_class(data["Predicate"])
-        self.predicate.nodetype = 1
         self.object = node_class(data["Object"])
+        # with good results of 80% f1 score - old encoding
+        self.subject.nodetype = 0
+        self.predicate.nodetype = 1
         self.object.nodetype = 2
+
+        # New variable encoding
+        self.subject.nodetype = 0 if is_variable_check(self.subject.node_label) else 1
+        self.predicate.nodetype = (
+            0 if is_variable_check(self.predicate.node_label) else 1
+        )
+        self.object.nodetype = 0 if is_variable_check(self.object.node_label) else 1
+
         if "level" in data.keys():
             self.level = data["level"]
 

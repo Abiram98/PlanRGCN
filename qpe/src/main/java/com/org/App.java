@@ -84,6 +84,7 @@ public class App
                 PREFIX : <http://dbpedia.org/resource/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> SELECT DISTINCT ?page WHERE { ?syn <http://dbpedia.org/ontology/wikiPageDisambiguates>|<http://dbpedia.org/ontology/wikiPageDisambiguates> :Lyon . ?syn foaf:isPrimaryTopicOf ?page }
                     """;
                 Utils u = new Utils();
+            query ="PREFIX category: <http://dbpedia.org/resource/Category:> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> SELECT DISTINCT ?super ?preferredLabel WHERE { ?super (^skos:broader){0,5} category:American_New_Wave_musicians . ?super (^skos:broader){0,5} category:Oral_hygiene . ?super skos:prefLabel ?preferredLabel }";
         u.create_algebra_test(query);
     }
 }

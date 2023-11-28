@@ -1,5 +1,5 @@
 from trainer.train import Trainer
-from graph_construction.featurizer import FeaturizerPredCo
+from graph_construction.feats.featurizer import FeaturizerPredCo
 from graph_construction.query_graph import QueryPlan, snap_lat2onehot, snap_lat2onehotv2
 from trainer.model import Classifier as CLS
 
