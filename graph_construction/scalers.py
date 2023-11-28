@@ -3,7 +3,16 @@ from sklearn.preprocessing import StandardScaler
 import numpy as np
 
 
-class LogScaler:
+class Scaler:
+    def pred_scale_len(self):
+        return 3
+    def ent_scale_len(self):
+        return 3
+    def ent_scale_no_values(self):
+        ###maybe should be 0
+        return np.array([-1]),np.array([-1]),np.array([-1])
+
+class LogScaler(Scaler):
     def __init__(
         self, ent_freq, ent_subj, ent_obj, pred_freq, pred_ents, pred_lits
     ) -> None:
@@ -28,7 +37,7 @@ class LogScaler:
         
         return ent_freq, subj_freq, obj_freq
     
-class EntMinMaxScaler:
+class EntMinMaxScaler(Scaler):
     def __init__(
         self, ent_freq, ent_subj, ent_obj, pred_freq, pred_ents, pred_lits
     ) -> None:
@@ -76,10 +85,13 @@ class EntMinMaxScaler:
         return ent_freq, subj_freq, obj_freq
 
 
-class EntStandardScaler:
+class EntStandardScaler(Scaler):
+    """Also scales predicate/relation
+    """
     def __init__(
         self, ent_freq, ent_subj, ent_obj, pred_freq, pred_ents, pred_lits
     ) -> None:
+        
         # predicate frequency
         self.pred_freq_scaler = StandardScaler()
         input_lst = np.array([int(x) for x in pred_freq.values()]).reshape(-1, 1)
@@ -111,19 +123,19 @@ class EntStandardScaler:
         self.ent_obj_scaler.fit(input_lst)
 
     def pred_scale(self, freq, lits, ents):
-        freq = self.pred_freq_scaler.transform([[freq]])[0, 0]
-        lits = self.pred_lits_scaler.transform([[lits]])[0, 0]
-        ents = self.pred_ents_scaler.transform([[ents]])[0, 0]
+        freq = self.pred_freq_scaler.transform([[freq]])[0]
+        lits = self.pred_lits_scaler.transform([[lits]])[0]
+        ents = self.pred_ents_scaler.transform([[ents]])[0]
         return freq, lits, ents
 
     def ent_scale(self, ent_freq, subj_freq, obj_freq):
-        ent_freq = self.ent_freq_scaler.transform([[ent_freq]])[0, 0]
-        subj_freq = self.ent_sub_scaler.transform([[subj_freq]])[0, 0]
-        obj_freq = self.ent_obj_scaler.transform([[obj_freq]])[0, 0]
+        ent_freq = self.ent_freq_scaler.transform([[ent_freq]])[0]
+        subj_freq = self.ent_sub_scaler.transform([[subj_freq]])[0]
+        obj_freq = self.ent_obj_scaler.transform([[obj_freq]])[0]
         return ent_freq, subj_freq, obj_freq
 
 
-class EntDefaultScaler:
+class EntDefaultScaler(Scaler):
     """scales using different sklearn classes"""
 
     def __init__(
@@ -179,7 +191,7 @@ class EntDefaultScaler:
         return ent_freq, subj_freq, obj_freq
 
 
-class EntStandardScalerPredSubjObj:
+class EntStandardScalerPredSubjObj(Scaler):
     def __init__(self, pred_obj, pred_subj) -> None:
         # predicate objects for predicates
         self.pred_obj_scaler = StandardScaler()

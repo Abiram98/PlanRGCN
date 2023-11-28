@@ -84,6 +84,8 @@ class QueryPlan:
                         stack.push(node)
             if current["opName"] == node_type:
                 func(current)
+            #if current["opName"] == "join":
+            #    raise Exception("We have a join here")
 
     def iterate_bgp(self, data, func, node_type, filter=None):
         self.level += 1

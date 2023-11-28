@@ -119,7 +119,7 @@ class QueryPlanPath(QueryPlan):
     def add_filters(self, data, add_data=None):
         return super().add_filters(data, add_data)
 
-    # add_join = partialmethod(iterate_ops, add_binaryOP, "join")
+    #add_join = partialmethod(iterate_ops, add_binaryOP, "join")
     add_leftjoin = partialmethod(iterate_ops, add_binaryOP, "leftjoin")
     add_conditional = partialmethod(iterate_ops, add_binaryOP, "conditional")
     filters_process = partialmethod(iterate_ops, add_filters, "filter")

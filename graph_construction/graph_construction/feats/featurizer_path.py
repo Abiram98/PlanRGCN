@@ -4,6 +4,7 @@ from graph_construction.feats.featurizer import EntStats
 from graph_construction.nodes.path_node import PathNode
 from graph_construction.qp.qp_utils import pathOpTypes
 import numpy as np
+from scalers import EntMinMaxScaler, EntStandardScaler
 from utils.stats import PredStats
 
 
@@ -33,17 +34,57 @@ class FeaturizerPath(FeaturizerBinning):
         self.ent_freq = estat.ent_freq
         self.ent_subj = estat.subj_ents
         self.ent_obj = estat.obj_ents
-
-        self.scaling = "binner"
-        self.scaler = BinnerEntPred(
-            self.ent_freq,
-            self.ent_subj,
-            self.ent_obj,
-            self.pred_freq,
-            self.pred_ents,
-            self.pred_lits,
-            bins=bins,
-        )
+        match scaling:
+            case "binner":
+                self.scaling = "binner"
+                self.scaler = BinnerEntPred(
+                    self.ent_freq,
+                    self.ent_subj,
+                    self.ent_obj,
+                    self.pred_freq,
+                    self.pred_ents,
+                    self.pred_lits,
+                    bins=bins,
+                )
+                self.tp_size = (
+                    self.max_pred
+                    + 3
+                    + self.scaler.ent_scale_len() * 2
+                    + self.scaler.pred_scale_len()
+                    + 2
+                    + pathOpTypes.get_max_operations()
+                )
+            case "None":
+                self.scaling = "binner"
+                self.scaler = BinnerEntPred(
+                    self.ent_freq,
+                    self.ent_subj,
+                    self.ent_obj,
+                    self.pred_freq,
+                    self.pred_ents,
+                    self.pred_lits,
+                    bins=bins,
+                )
+            case "std":
+                self.scaling = "std"
+                self.scaler = EntStandardScaler(
+                    self.ent_freq,
+                    self.ent_subj,
+                    self.ent_obj,
+                    self.pred_freq,
+                    self.pred_ents,
+                    self.pred_lits,
+                )
+            case "minmax":
+                self.scaling = "minmax"
+                self.scaler = EntMinMaxScaler(
+                    self.ent_freq,
+                    self.ent_subj,
+                    self.ent_obj,
+                    self.pred_freq,
+                    self.pred_ents,
+                    self.pred_lits,
+                )
         self.tp_size = (
             self.max_pred
             + 3

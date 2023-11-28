@@ -11,7 +11,17 @@
         "/PlanRGCN/extracted_features/queryplans/*":true,
         "/PlanRGCN/extracted_features_wd/queryplans/*":true,
         "/PlanRGCN/extracted_features_dbpedia2016/queryplans/*":true
-      }
+    },
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "*_test.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true,
+    "python.pipenvPath": "/pyt_env/bin/activate"
     
 }
 

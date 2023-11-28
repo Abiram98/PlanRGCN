@@ -1,6 +1,3 @@
-"""Not done but is intended to use ray library for hyperparameter search.
-
-"""
 
 from functools import partial
 import os
@@ -432,6 +429,7 @@ def main(
     checkpoint_config=CheckpointConfig(
         1, "val f1", "max"
     ),  # CheckpointConfig(12, "val f1", "max"),
+    resume=False
 ):
     config["epochs"] = max_num_epochs
     ray_temp_path = os.path.join(path_to_save, "temp_session")
@@ -517,6 +515,7 @@ def main(
         scheduler=scheduler,
         local_dir=ray_save,
         stop=stop_bad_run,
+        resume=resume
     )
     # best_trial = result.get_best_result("val f1", "max", "last")
     best_trial = result.get_best_trial("val f1", "max", "last")
@@ -555,7 +554,7 @@ def main(
     best_checkpoint = os.path.join(
         best_trial.checkpoint.to_directory(), "checkpoint.pt"
     )  # .to_air_checkpoint()
-    # best_checkpoint_data = best_checkpoint.to_dict()
+    print(f"path to best checkpoint {best_checkpoint}")
     retrain_config['best_checkpoint'] =best_checkpoint 
     retrain_config["input d"] = best_trial.last_result["input d"] 
     model_state = th.load(best_checkpoint)
@@ -569,7 +568,7 @@ def main(
         is_lsq,
         path_to_save=path_to_save,
     )
-    json.dump(retrain_config, open(os.path.join(path_to_save, "model_config.json")))
+    json.dump(retrain_config, open(os.path.join(path_to_save, "model_config.json"),'w'))
 
 
 if __name__ == "__main__":
