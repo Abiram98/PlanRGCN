@@ -161,6 +161,7 @@ def query_graphs_with_lats(
     query_plan=QueryPlan,
     time_col="mean_latency",
     is_lsq=False,
+    debug = False
 ):
     df = pd.read_csv(query_path, sep="\t")
     if is_lsq:
@@ -183,6 +184,8 @@ def query_graphs_with_lats(
         if isinstance(lat, pd.Series):
             lat = lat.iloc[0]
         samples.append((g, id, lat))
+        if len(samples) == 10 and debug is True:
+            break
     return samples
 
 
@@ -194,6 +197,7 @@ def query_graph_w_class_vec(
     cls_funct=lambda x: x,
     query_plan=QueryPlanCommonBi,
     is_lsq=False,
+    debug = False
 ):
     samples = query_graphs_with_lats(
         source_dir=source_dir,
@@ -202,6 +206,7 @@ def query_graph_w_class_vec(
         time_col=time_col,
         query_plan=query_plan,
         is_lsq=is_lsq,
+        debug = debug
     )
     return query_graph_w_class_vec_helper(samples, cls_funct)
 
@@ -233,6 +238,9 @@ def snap_lat2onehotv2(lat):
     elif 10 < lat:
         vec[2] = 1
     return vec
+
+def snap_reg(lat):
+    return np.array([lat])
 
 
 def snap_lat_2onehot_4_cat(lat):

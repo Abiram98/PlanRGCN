@@ -33,4 +33,8 @@ pip3 install -e feature_representation/
 pip3 install -e trainer
 pip3 install -e sample_checker 
 pip3 install -e utils/
+
+pip3 install xgboost
+pip3 install xgboost_ray
+pip3 install -e PlanRegr/
 pip3 install pytz

@@ -9,9 +9,10 @@ from graph_construction.query_graph import (
     QueryPlanCommonBi,
     snap_lat2onehot,
     snap_lat2onehotv2,
+    snap_reg,
 )
 import ray
-from trainer.data_util import DatasetPrep
+from trainer.data_util import DatasetPrep, GraphDataset
 from trainer.model import (
     Classifier as CLS,
     RegressorWSelfTriple as CLS,
@@ -33,7 +34,7 @@ from ray.train import Checkpoint
 # from ray.tune.schedulers import ASHAScheduler
 from ray.tune.schedulers import AsyncHyperBandScheduler
 from ray.air.config import CheckpointConfig
-
+from dgl.dataloading import GraphDataLoader
 AVG = "macro"
 
 
@@ -57,7 +58,24 @@ def get_dataloaders(
     featurizer_class=FeaturizerPredCoEnt,
     scaling="None",
     query_plan=QueryPlanCommonBi,
+    debug=False
 ):
+    train_temp = GraphDataset.load_dataset(train_path, scaling)
+    val_temp = GraphDataset.load_dataset(val_path, scaling)
+    test_temp = GraphDataset.load_dataset(test_path, scaling)
+    if (train_temp is not None) or (val_temp is not None) or (test_temp is not None):
+        train_dataloader = GraphDataLoader(
+            train_temp, batch_size=batch_size, drop_last=False, shuffle=True
+        )
+        val_dataloader = GraphDataLoader(
+            val_temp, batch_size=batch_size, drop_last=False, shuffle=True
+        )
+        test_dataloader = GraphDataLoader(
+            test_temp, batch_size=batch_size, drop_last=False, shuffle=True
+        )
+        vec_size = train_temp.vec_size
+        return train_dataloader,val_dataloader,test_dataloader, vec_size
+    
     prepper = DatasetPrep(
         train_path=train_path,
         val_path=val_path,
@@ -73,11 +91,15 @@ def get_dataloaders(
         featurizer_class=featurizer_class,
         is_lsq=is_lsq,
         scaling=scaling,
+        debug=debug
     )
 
     train_loader = prepper.get_trainloader()
+    train_loader.dataset.save()
     val_loader = prepper.get_valloader()
+    val_loader.dataset.save()
     test_loader = prepper.get_testloader()
+    test_loader.dataset.save()
     return train_loader, val_loader, test_loader, prepper.vec_size
 
 
@@ -93,7 +115,7 @@ def train_function(
     ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
     time_col="mean_latency",
     is_lsq=False,
-    cls_func=snap_lat2onehot,
+    cls_func=snap_reg,
     featurizer_class=FeaturizerPredCoEnt,
     scaling="None",
     n_classes=3,
@@ -556,6 +578,7 @@ def main(
     )  # .to_air_checkpoint()
     print(f"path to best checkpoint {best_checkpoint}")
     retrain_config['best_checkpoint'] =best_checkpoint 
+    os.system(f"cp {best_checkpoint} {os.path.join(path_to_save,'best_model.pt')}")
     retrain_config["input d"] = best_trial.last_result["input d"] 
     model_state = th.load(best_checkpoint)
     best_trained_model.load_state_dict(model_state["model_state"])

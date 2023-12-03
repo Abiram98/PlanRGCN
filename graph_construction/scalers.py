@@ -72,16 +72,16 @@ class EntMinMaxScaler(Scaler):
         self.ent_obj_scaler.fit(input_lst)
 
     def pred_scale(self, freq, lits, ents):
-        freq = self.pred_freq_scaler.transform([[freq]])[0, 0]
-        lits = self.pred_lits_scaler.transform([[lits]])[0, 0]
-        ents = self.pred_ents_scaler.transform([[ents]])[0, 0]
+        freq = self.pred_freq_scaler.transform([[freq]])[0]
+        lits = self.pred_lits_scaler.transform([[lits]])[0]
+        ents = self.pred_ents_scaler.transform([[ents]])[0]
         # return np.log(freq), np.log(lits), np.log(ents)
         return freq, lits, ents
 
     def ent_scale(self, ent_freq, subj_freq, obj_freq):
-        # ent_freq = self.ent_freq_scaler.transform([[ent_freq]])[0, 0]
-        # subj_freq = self.ent_sub_scaler.transform([[subj_freq]])[0, 0]
-        # obj_freq = self.ent_obj_scaler.transform([[obj_freq]])[0, 0]
+        ent_freq = self.ent_freq_scaler.transform([[ent_freq]])[0]
+        subj_freq = self.ent_sub_scaler.transform([[subj_freq]])[0]
+        obj_freq = self.ent_obj_scaler.transform([[obj_freq]])[0]
         return ent_freq, subj_freq, obj_freq
 
 

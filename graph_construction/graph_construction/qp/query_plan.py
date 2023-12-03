@@ -13,8 +13,12 @@ class QueryPlan:
     max_relations = 16
 
     def __init__(self, data) -> None:
+        QueryPlan.set_max_rels(number=16)
         self.process(data)
-
+        
+    def set_max_rels(number=16):
+        QueryPlan.max_relations = number
+    
     def process(self, data):
         self.level = 0
         self.data = data

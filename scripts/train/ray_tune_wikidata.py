@@ -17,9 +17,9 @@ sample_name = "wikidata_0_1_10_v2_aug"
 sample_name = "wikidata_0_1_10_v2_weight_loss"
 sample_name = "wikidata_0_1_10_v2_hybrid"
 sample_name = "wikidata_0_1_10_v2_path_aug"
-sample_name = "wikidata_0_1_10_v2_path_hybrid"
 sample_name = "wikidata_0_1_10_v2_path"  # balanced dataset
 sample_name = "wikidata_0_1_10_v2_path_weight_loss"
+sample_name = "wikidata_0_1_10_v2_path_hybrid"
 
 # Results save path
 """if os.path.exists(path_to_save):
@@ -52,7 +52,7 @@ ent_path = (
 # Training Configurations
 num_samples = 1  # cpu cores to use
 num_samples = 8  # cpu cores to use
-num_samples = 16  # cpu cores to use
+num_samples = 1  # cpu cores to use
 max_num_epochs = 100
 # batch_size = 64
 query_plan_dir = qp_path
@@ -66,8 +66,8 @@ featurizer_class = FeaturizerPath
 n_classes = 3
 query_plan = QueryPlan
 query_plan = QueryPlanPath
+scaling = "minmax"
 scaling = "binner"
-scaling = "std"
 prepper = None
 resume = False
 path_to_save = f"/data/{sample_name}/planrgcn_{scaling}"
