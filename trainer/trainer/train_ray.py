@@ -425,7 +425,6 @@ def main(
     train_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
     val_path="/qpp/dataset/DBpedia_2016_12k_sample/val_sampled.tsv",
     test_path="/qpp/dataset/DBpedia_2016_12k_sample/test_sampled.tsv",
-    # batch_size=32,
     query_plan_dir="/PlanRGCN/extracted_features/queryplans/",
     pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
     pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
@@ -438,6 +437,7 @@ def main(
     n_classes=3,
     query_plan=QueryPlanCommonBi,
     path_to_save="/PlanRGCN/temp_results",
+    num_cpus=10,
     config={
         "l1": tune.choice([128, 256, 512, 1024]),
         "l2": tune.choice([128, 256, 512]),
@@ -459,7 +459,7 @@ def main(
     os.makedirs(ray_save, exist_ok=True)
     os.makedirs(ray_temp_path, exist_ok=True)
     context = ray.init(
-        num_cpus=10,  # only 2 cpus on strato2 sercer
+        num_cpus=num_cpus,  # only 2 cpus on strato2 sercer
         _system_config={
             "local_fs_capacity_threshold": 0.99,
             "object_spilling_config": json.dumps(

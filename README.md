@@ -1,8 +1,11 @@
-# BGPClassifier
+# PlanRGCN
 
 ## Prerequisites
 Docker should be installed
-Git lfs
+
+## Setup
+First start a docker container in interactive mode
+
 
 ## To run
 In interactive mode:
