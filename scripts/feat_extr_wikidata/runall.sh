@@ -1,8 +1,8 @@
 url=http://172.21.233.23:8891/sparql
 pred_file=predicates.json
 task=extract-predicates-stat-sub-obj
-input_dir=/PlanRGCN/extracted_features_wd/predicate
-output_dir=/PlanRGCN/extracted_features_wd/predicate
+input_dir=/PlanRGCN/extracted_features_wd
+output_dir=/PlanRGCN/extracted_features_wd
 batch_start=1
 batch_end=-1
 python3 -m feature_extraction.predicates.pred_stat_feat $task -e $url \
