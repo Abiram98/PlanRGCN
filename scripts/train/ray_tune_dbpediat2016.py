@@ -32,6 +32,9 @@ sample_name = "DBpedia2016_0_1_10_path_hybrid"
 sample_name = "DBpedia2016_0_1_10_path_weight_loss"
 
 
+sample_name = "DBpedia2016_0_1_10_weight_loss"
+
+
 train_path = f"/data/{sample_name}/train_sampled.tsv"
 val_path = f"/data/{sample_name}/val_sampled.tsv"
 test_path = f"/data/{sample_name}/test_sampled.tsv"
@@ -55,7 +58,7 @@ ent_path = (
 num_samples = 1  # cpu cores to use
 num_samples = 8  # cpu cores to use
 num_samples = 32  # 4  # use this
-num_cpus= 16
+num_cpus= 20
 max_num_epochs = 100
 # batch_size = 64
 query_plan_dir = qp_path
