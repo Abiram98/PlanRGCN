@@ -14,6 +14,7 @@ class ExtractorBase:
         self.predicate_file = predicate_file
 
     def load_batches(self):
+        
         if not hasattr(self, "batch_output_dir"):
             raise Exception(
                 """Condition for this method to work is 
@@ -21,6 +22,7 @@ class ExtractorBase:
                 \n\t2) the resulting 'batch_output_dir' needs to exist with the path to the batches"""
             )
         files = os.listdir(self.batch_output_dir)
+        print(self.batch_output_dir)
         if len(files) == 0:
             self.batchify()
         sort_func = lambda x: int(x.split("ch_")[1].split(".json")[0])
@@ -41,6 +43,10 @@ class ExtractorBase:
             raise Exception("""Predicates must be loaded into the model""")
         if hasattr(self, "batch_size"):
             batch_size = self.batch_size
+        if hasattr(self, "literals"):
+            self.batchify_literals(batch_size)
+            return
+        
         print(len(self.predicates))
         preds = self.predicates
         batches = []
@@ -53,6 +59,23 @@ class ExtractorBase:
                 json.dump(t, f)
             preds = preds[batch_size:]
         assert np.sum([len(x) for x in batches]) == len(self.predicates)
+        print(batches)
+        self.batches = batches
+    def batchify_literals(self, batch_size):
+        print("Literals batch creation ", len(self.literals))
+        lits = self.literals
+        types = self.literal_types
+        batches = []
+        while len(lits) > 0:
+            t = list(zip(lits[:batch_size], types[:batch_size]))
+            batches.append(t)
+            with open(
+                f"{self.batch_output_dir}/pred_in_batch_{len(batches)}.json", "w"
+            ) as f:
+                json.dump(t, f)
+            lits = lits[batch_size:]
+            types = types[batch_size:]
+        assert np.sum([len(x) for x in batches]) == len(self.literals)
         self.batches = batches
 
 

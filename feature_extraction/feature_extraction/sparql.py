@@ -2,7 +2,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON, POST
 
 class Endpoint:
     def __init__(self, endpoint_url):
-        self.sparql = SPARQLWrapper(endpoint_url)
+        self.sparql = SPARQLWrapper(endpoint_url, defaultGraph='http://localhost:8890/dataspace')
         self.sparql.setReturnFormat(JSON)
         self.sparql.setMethod(POST)
     def run_query(self, query_str: str):
