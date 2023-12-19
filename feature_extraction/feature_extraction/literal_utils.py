@@ -1,5 +1,5 @@
 from feature_extraction.predicates.pred_util import *
-
+from unicodedata import normalize
 
 class LiteralFreqExtractor(ExtractorBase):
     def __init__(
@@ -84,7 +84,7 @@ class LiteralStatQueries:
     def pred_str_gen(batch):
         pred_str = ""
         for p in batch:
-            if "Point" in p[0]:
+            if ("Point" in p[0]):
                 continue
             if p[1] == 'typed-literal':
                 pred_str += f"({p[0]})"
@@ -144,7 +144,7 @@ if __name__ == "__main__":
         os.system(f"mkdir -p {output_dir}")
         endpoint = Endpoint(args.endpoint)
         os.system(f"mkdir -p {args.dir}")
-        extractor = LiteralFreqExtractor(endpoint, output_dir, args.lits_file, batch_size=500)
+        extractor = LiteralFreqExtractor(endpoint, output_dir, args.lits_file, batch_size=200)
         extractor.load_batches()
         extractor.query_batches(int(args.batch_start), int(args.batch_end))
         
