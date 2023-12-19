@@ -52,11 +52,17 @@ class LiteralFreqExtractor(ExtractorBase):
                 ["freq"],
             ):
                 query = query_generator(b)
-                res = self.endpoint.run_query(query)
+                try:
+                    res = self.endpoint.run_query(query)
                 
-                res_fp = f"{save_path}/{name}/batch_{batch_start+i}.json"
-                json.dump(res, open(res_fp, "w"))
-                print(f"batch {batch_start+i}/{len(self.batches)} extracted!")
+                    res_fp = f"{save_path}/{name}/batch_{batch_start+i}.json"
+                    json.dump(res, open(res_fp, "w"))
+                    print(f"batch {batch_start+i}/{len(self.batches)} extracted!")
+                except Exception:
+                    print(f"Did not work for {batch_start+i}")
+                    with open("/data/unprocessed_batches.log","a") as f:
+                        f.write(query)
+                        f.write("\n\n\n\n")
         
         for i, b in enumerate(self.batches[batch_start - 1 : batch_end - 1]):
             for query_generator, name in zip(
