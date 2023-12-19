@@ -84,6 +84,8 @@ class LiteralStatQueries:
     def pred_str_gen(batch):
         pred_str = ""
         for p in batch:
+            if "Point" in p[0]:
+                continue
             if p[1] == 'typed-literal':
                 pred_str += f"({p[0]})"
             else:
