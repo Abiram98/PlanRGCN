@@ -75,16 +75,56 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
     public void visit(Triple triple){
         String t = "{\"Subject\": \""+triple.getSubject().toString(true);
         t += "\", \"Predicate\": \""+triple.getPredicate().toString(true);
+        
+        String objectString;
         if (triple.getObject().isLiteral()){
-            String temp = triple.getObject().getLiteralValue().toString();
-            String laTag = triple.getObject().getLiteralLanguage();
-            if(laTag.length() > 0)
-                temp += ("@"+laTag);
-            t+= "\", \"Object\": \""+temp;
+            StringBuilder objBuilder = new StringBuilder();
+            objBuilder.append('{');
+            objBuilder.append('"');
+            objBuilder.append("value")
+            .append('"')
+            .append(":")
+            .append('"')
+            .append(triple.getObject().getLiteralValue().toString())
+            .append('"')
+            .append(',')
+            .append('"')
+            .append("datatype")
+            .append('"')
+            .append(":")
+            .append('"')
+            .append(triple.getObject().getLiteralDatatypeURI().toString())
+            .append('"')
+            .append(',')
+
+            .append('"')
+            .append("langTag")
+            .append('"')
+            .append(":")
+            .append('"')
+            .append(triple.getObject().getLiteralLanguage())
+            .append('"');
+            
+            objBuilder.append('}');
+            objectString = objBuilder.toString();
+            //t+= "\", \"Object\": \""+temp;
+            //triple.getObject().getLiteralDatatype().
         }else{
-            t+= "\", \"Object\": \""+triple.getObject();
+            StringBuilder objBuilder = new StringBuilder();
+            objBuilder.append('{');
+            objBuilder.append('"');
+            objBuilder.append("value")
+            .append('"')
+            .append(":")
+            .append('"')
+            .append(triple.getObject())
+            .append('"');
+            
+            objBuilder.append('}');
+            objectString = objBuilder.toString();
         }
-        t+= "\", \"opName\": \"Triple\"}";
+        t += "\", \"Object\": "+objectString;
+        t+= ", \"opName\": \"Triple\"}";
         print(t);
     }
 

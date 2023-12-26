@@ -1,5 +1,6 @@
 from feature_extraction.predicates.pred_util import *
 from unicodedata import normalize
+import rdflib.plugins.sparql.parser as SPARQLparser
 
 class LiteralFreqExtractor(ExtractorBase):
     def __init__(
@@ -53,17 +54,19 @@ class LiteralFreqExtractor(ExtractorBase):
             ):
                 query = query_generator(b)
                 try:
-                    res = self.endpoint.run_query(query)
-                
                     res_fp = f"{save_path}/{name}/batch_{batch_start+i}.json"
+                    if os.path.exists(res_fp):
+                        continue
+                    res = self.endpoint.run_query(query)
                     json.dump(res, open(res_fp, "w"))
                     print(f"batch {batch_start+i}/{len(self.batches)} extracted!")
                 except Exception:
                     print(f"Did not work for {batch_start+i}")
-                    with open("/data/unprocessed_batches.log","a") as f:
+                    with open("/data/unprocessed_batches3.log","a") as f:
                         f.write(query)
                         f.write("\n\n\n\n")
-        
+        print("exiting after freq")
+        exit()
         for i, b in enumerate(self.batches[batch_start - 1 : batch_end - 1]):
             for query_generator, name in zip(
                 [
@@ -89,16 +92,39 @@ class LiteralStatQueries:
     """
     def pred_str_gen(batch):
         pred_str = ""
+        batch = LiteralStatQueries.retrieve_good_literals(batch)
         for p in batch:
+            """if '"' in p[0]:
+                p[0] = p[0].replace('"', '\\"').replace('\\\\', '\\')"""
             if ("Point" in p[0]):
                 continue
             if p[1] == 'typed-literal':
                 pred_str += f"({p[0]})"
             else:
                 pred_str += f"(\"{p[0]}\")"
-            """if not ('\"' in p or '\'' in p):
-                pred_str += f"(\"{p}\") """
         return pred_str
+
+    def retrieve_good_literals(batch, error_file = "/data/bad_literals.txt"):
+        good_lits = []
+        illegal_terms = []
+        legal_terms = []
+        for i in batch:
+            if i[1] == "literal":
+                query1 = f"""SELECT * WHERE {{ ?s ?p \"{i[0]}\"}}"""
+            else:
+                query1 = f"""SELECT * WHERE {{ ?s ?p {i[0]}}}"""
+            try:
+                SPARQLparser.parseQuery(query1)
+            except Exception as e:
+                illegal_terms.append(i)
+            else:
+                legal_terms.append(i)
+        
+        with open(error_file, 'a') as f:
+            f.write(str(illegal_terms))
+        
+        return legal_terms
+                
 
     def freq_lits(batch):
         ent_str = LiteralStatQueries.pred_str_gen(batch)
@@ -155,4 +181,6 @@ if __name__ == "__main__":
         extractor.query_batches(int(args.batch_start), int(args.batch_end))
         
         #python3 -m feature_extraction.literal_utils -e http://172.21.233/arql/ --dir /data/extracted_features_dbpedia2016 --lits_file literals.json --batch_start -1 --batch_end -1 distinct-literals
-        #python3 -m feature_extraction.literal_utils -e httpi//172.21.233.14:8892/sparql/ --dir /data/extracted_features_dbpedia2016 --lits_file /data/extracted_features_dbpedia2016/literals_stat/batches_response_stats/literals.json --batch_start 1 --batch_end -1 extract-lits-stat        
+        #python3 -m feature_extraction.literal_utils -e httpi//172.21.233.14:8892/sparql/ --dir /data/extracted_features_dbpedia2016 --lits_file /data/extracted_features_dbpedia2016/literals_stat/batches_response_stats/literals.json --batch_start 1 --batch_end -1 extract-lits-stat
+
+#python3 -m feature_extraction.literal_utils -e http://130.225.39.154:8892/sparql/ --dir /data/planrgcn_features/extracted_features_dbpedia2016 --lits_file /data/planrgcn_features/extracted_features_dbpedia2016/literals_stat/batches_response_stats/literals.json --batch_start 1 --batch_end -1 extract-lits-stat

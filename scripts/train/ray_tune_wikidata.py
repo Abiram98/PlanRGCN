@@ -20,6 +20,7 @@ sample_name = "wikidata_0_1_10_v2_path_aug"
 sample_name = "wikidata_0_1_10_v2_path"  # balanced dataset
 sample_name = "wikidata_0_1_10_v2_path_weight_loss"
 sample_name = "wikidata_0_1_10_v2_path_hybrid"
+sample_name = "wikidata_0_1_10_v2_weight_loss"
 
 # Results save path
 """if os.path.exists(path_to_save):
@@ -52,7 +53,7 @@ ent_path = (
 # Training Configurations
 num_samples = 1  # cpu cores to use
 num_samples = 8  # cpu cores to use
-num_samples = 1  # cpu cores to use
+num_samples = 13  # cpu cores to use
 max_num_epochs = 100
 # batch_size = 64
 query_plan_dir = qp_path
