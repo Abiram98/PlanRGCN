@@ -54,17 +54,19 @@ class LiteralFreqExtractor(ExtractorBase):
                 ],
                 ["freq"],
             ):
+                res_fp = f"{save_path}/{name}/batch_{batch_start+i}.json"
+                if os.path.exists(res_fp):
+                    print(f"skipping {batch_start+i}!")
+                    continue
                 query = query_generator(b)
                 try:
-                    res_fp = f"{save_path}/{name}/batch_{batch_start+i}.json"
-                    if os.path.exists(res_fp):
-                        continue
                     res = self.endpoint.run_query(query)
                     json.dump(res, open(res_fp, "w"))
                     print(f"batch {batch_start+i}/{len(self.batches)} extracted!")
                 except TimeoutError:
                     save_long = f"{save_path}/timedout/batch_{batch_start+i}.json"
-                    os.system(f"{save_path}/timedout")
+                    os.system(f"mkdir -p {save_path}/timedout")
+                    print(f"batch {batch_start+i}/{len(self.batches)} timed out!")
                     with open(save_long, 'w') as tfp:
                         json.dump(b,tfp)
                 except Exception:
@@ -185,6 +187,7 @@ if __name__ == "__main__":
         
         endpoint = Endpoint(args.endpoint)
         if args.timeout != -1:
+            print(f"Timeout {args.timeout} set")
             endpoint.sparql.setTimeout(args.timeout)
         os.system(f"mkdir -p {args.dir}")
         extractor = LiteralFreqExtractor(endpoint, output_dir, args.lits_file, batch_size=200)
