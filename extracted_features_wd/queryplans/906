@@ -1,5 +1,0 @@
-{"opName":"BGP", "subOp": [
-  {"Subject": "?x1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": "http://www.wikidata.org/entity/Q928830", "opName": "Triple"}
-  ,
-  {"Subject": "?x1", "Predicate": "http://www.wikidata.org/prop/direct/P361", "Object": "http://www.wikidata.org/entity/Q462201", "opName": "Triple"}
-]}

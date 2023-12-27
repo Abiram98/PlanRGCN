@@ -1,9 +1,0 @@
-{"opName":"BGP", "subOp": [
-  {"Subject": "?x1", "Predicate": "http://www.wikidata.org/prop/direct/P1117", "Object": "?x2", "opName": "Triple"}
-  ,
-  {"Subject": "?x1", "Predicate": "http://www.wikidata.org/prop/direct/P2067", "Object": "?x3", "opName": "Triple"}
-  ,
-  {"Subject": "?x4", "Predicate": "http://www.wikidata.org/prop/direct/P2410", "Object": "?x5", "opName": "Triple"}
-  ,
-  {"Subject": "?x4", "Predicate": "http://www.wikidata.org/prop/direct/P527", "Object": "?x6", "opName": "Triple"}
-]}

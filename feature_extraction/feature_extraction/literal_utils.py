@@ -1,6 +1,8 @@
 from feature_extraction.predicates.pred_util import *
 from unicodedata import normalize
 import rdflib.plugins.sparql.parser as SPARQLparser
+import urllib
+
 
 class LiteralFreqExtractor(ExtractorBase):
     def __init__(
@@ -60,6 +62,11 @@ class LiteralFreqExtractor(ExtractorBase):
                     res = self.endpoint.run_query(query)
                     json.dump(res, open(res_fp, "w"))
                     print(f"batch {batch_start+i}/{len(self.batches)} extracted!")
+                except TimeoutError:
+                    save_long = f"{save_path}/timedout/batch_{batch_start+i}.json"
+                    os.system(f"{save_path}/timedout")
+                    with open(save_long, 'w') as tfp:
+                        json.dump(b,tfp)
                 except Exception:
                     print(f"Did not work for {batch_start+i}")
                     with open("/data/unprocessed_batches3.log","a") as f:
@@ -160,6 +167,7 @@ if __name__ == "__main__":
     
     parser.add_argument("--batch_start")
     parser.add_argument("--batch_end")
+    parser.add_argument("--timeout", type=int, default=-1)
 
     args = parser.parse_args()
 
@@ -174,7 +182,10 @@ if __name__ == "__main__":
     if args.task == "extract-lits-stat":
         output_dir = f"{args.dir}"
         os.system(f"mkdir -p {output_dir}")
+        
         endpoint = Endpoint(args.endpoint)
+        if args.timeout != -1:
+            endpoint.sparql.setTimeout(args.timeout)
         os.system(f"mkdir -p {args.dir}")
         extractor = LiteralFreqExtractor(endpoint, output_dir, args.lits_file, batch_size=200)
         extractor.load_batches()
