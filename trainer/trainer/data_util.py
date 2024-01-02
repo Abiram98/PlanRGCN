@@ -60,7 +60,9 @@ class GraphDataset:
         self.featurizer = info_dict['featurizer']
         self.query_plan = info_dict['query_plan']
 
-    def load_dataset(path, scaling):
+    def load_dataset(path, scaling, lp):
+        if lp is not None:
+            path += "_litplan"
         temp =GraphDataset([],[],[], path, 0, scaling)
         if temp.has_cache():
             temp.load()
@@ -91,6 +93,7 @@ class DatasetPrep:
         pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
         pred_end_path=None,
         ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+        lit_path = None,
         time_col="mean_latency",
         cls_func=snap_lat2onehotv2,
         featurizer_class=FeaturizerPredStats,
@@ -109,6 +112,7 @@ class DatasetPrep:
             pred_stat_path,
             pred_com_path=pred_com_path,
             ent_path=ent_path,
+            lit_path=lit_path,
             pred_end_path=pred_end_path,
             scaling=scaling,
         )

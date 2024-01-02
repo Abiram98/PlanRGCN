@@ -9,6 +9,7 @@ from graph_construction.query_graph import (
     snap_lat2onehotv2,
 )
 from graph_construction.qp.query_plan_path import QueryPlanPath
+from graph_construction.qp.query_plan_lit import QueryPlanLit
 from ray import tune
 import os
 
@@ -40,15 +41,18 @@ qp_path = f"/data/{sample_name}/queryplans/"
 
 # KG statistics feature paths
 pred_stat_path = (
-    "/data/extracted_features_wd/predicate/pred_stat/batches_response_stats"
+    "/data/planrgcn_features/extracted_features_wd/predicate/pred_stat/batches_response_stats"
 )
-pred_com_path = "/data/extracted_features_wd/predicate/pred_co"
+pred_com_path = "/data/planrgcn_features/extracted_features_wd/predicate/pred_co"
 #ent_path = (
 #    "/PlanRGCN/extracted_features_dbpedia2016/entities/ent_stat/batches_response_stats"
 #)
 
 ent_path = (
-    "/data/extracted_features_wd/entities/ent_stat/batches_response_stats"
+    "/data/planrgcn_features/extracted_features_wd/entities/ent_stat/batches_response_stats"
+)
+lit_path =(
+        "/data/planrgcn_features/extracted_features_wd/literals_stat/batches_response_stats"
 )
 # Training Configurations
 num_samples = 1  # cpu cores to use
@@ -63,15 +67,19 @@ cls_func = snap_lat2onehotv2
 featurizer_class = FeaturizerPredCoEnt
 featurizer_class = FeaturizerBinning
 featurizer_class = FeaturizerPath
+featurizer_class = FeaturizerBinning
 #scaling = "robust"
 n_classes = 3
 query_plan = QueryPlan
 query_plan = QueryPlanPath
+query_plan = QueryPlanLit
 scaling = "minmax"
 scaling = "binner"
 prepper = None
 resume = False
 path_to_save = f"/data/{sample_name}/planrgcn_{scaling}"
+if query_plan is QueryPlanLit:
+    path_to_save += "_litplan"
 os.makedirs(path_to_save, exist_ok=True)
 config = {
     "l1": tune.grid_search([10]),
@@ -106,6 +114,7 @@ main(
     pred_stat_path=pred_stat_path,
     pred_com_path=pred_com_path,
     ent_path=ent_path,
+    lit_path=lit_path,
     time_col=time_col,
     is_lsq=is_lsq,
     cls_func=cls_func,

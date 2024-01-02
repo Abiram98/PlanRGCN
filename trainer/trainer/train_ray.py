@@ -52,6 +52,7 @@ def get_dataloaders(
     pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
     pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
     ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+    lit_path = None,
     time_col="mean_latency",
     is_lsq=False,
     cls_func=snap_lat2onehot,
@@ -60,9 +61,9 @@ def get_dataloaders(
     query_plan=QueryPlanCommonBi,
     debug=False
 ):
-    train_temp = GraphDataset.load_dataset(train_path, scaling)
-    val_temp = GraphDataset.load_dataset(val_path, scaling)
-    test_temp = GraphDataset.load_dataset(test_path, scaling)
+    train_temp = GraphDataset.load_dataset(train_path, scaling, lit_path)
+    val_temp = GraphDataset.load_dataset(val_path, scaling, lit_path)
+    test_temp = GraphDataset.load_dataset(test_path, scaling, lit_path)
     if (train_temp is not None) or (val_temp is not None) or (test_temp is not None):
         train_dataloader = GraphDataLoader(
             train_temp, batch_size=batch_size, drop_last=False, shuffle=True
@@ -85,6 +86,7 @@ def get_dataloaders(
         pred_stat_path=pred_stat_path,
         pred_com_path=pred_com_path,
         ent_path=ent_path,
+        lit_path=lit_path,
         time_col=time_col,
         cls_func=cls_func,
         query_plan=query_plan,
@@ -113,6 +115,7 @@ def train_function(
     pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
     pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
     ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+    lit_path=None,
     time_col="mean_latency",
     is_lsq=False,
     cls_func=snap_reg,
@@ -134,6 +137,7 @@ def train_function(
         pred_stat_path=pred_stat_path,
         pred_com_path=os.path.join(pred_com_path, config["pred_com_path"]),
         ent_path=ent_path,
+        lit_path=lit_path,
         time_col=time_col,
         is_lsq=is_lsq,
         cls_func=cls_func,
@@ -429,6 +433,7 @@ def main(
     pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
     pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
     ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+    lit_path=None,
     time_col="mean_latency",
     is_lsq=False,
     cls_func=snap_lat2onehot,
@@ -519,6 +524,7 @@ def main(
         pred_stat_path=pred_stat_path,
         pred_com_path=pred_com_path,
         ent_path=ent_path,
+        lit_path=lit_path,
         time_col=time_col,
         is_lsq=is_lsq,
         cls_func=cls_func,

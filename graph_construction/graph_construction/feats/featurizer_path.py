@@ -14,6 +14,7 @@ class FeaturizerPath(FeaturizerBinning):
         pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
         pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
         ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+        lit_path = None,
         bins=50,
         pred_end_path=None,
         scaling="None",

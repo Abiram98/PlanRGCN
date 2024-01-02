@@ -1,5 +1,6 @@
 from graph_construction.feats.featurizer import (
     EntStats,
+    LitStats,
     FeaturizerPredCoEnt,
     FeaturizerPredStats,
 )
@@ -19,6 +20,7 @@ class BinnerEntPred:
         pred_freq,
         pred_ents,
         pred_lits,
+        lits,
         bins=50,
         random_state=42,
     ) -> None:
@@ -89,6 +91,16 @@ class BinnerEntPred:
             random_state=random_state,
         )
         self.ent_obj_scaler.fit(input_lst)
+        
+        # Literal Frequency
+        input_lst = np.array(sorted([int(x) for x in lits.values()])).reshape(-1, 1)
+        self.lit_freq_scaler = KBinsDiscretizer(
+            n_bins=bins,
+            strategy="quantile",
+            encode="onehot-dense",
+            random_state=random_state,
+        )
+        self.lit_freq_scaler.fit(input_lst)
 
     def pred_scale(self, freq, lits, ents):
         freq = self.pred_freq_scaler.transform([[freq]])[0]
@@ -122,6 +134,19 @@ class BinnerEntPred:
         subj_freq = np.zeros(self.ent_sub_scaler.n_bins_[0])
         obj_freq = np.zeros(self.ent_obj_scaler.n_bins_[0])
         return ent_freq, subj_freq, obj_freq
+    
+    def lit_scale(self, lit_freq):
+        ent_freq = self.lit_freq_scaler.transform([[lit_freq]])[0]
+        return ent_freq
+
+    def lit_scale_len(self):
+        return (
+            self.lit_freq_scaler.n_bins_[0]
+        )
+
+    def lit_scale_no_values(self):
+        ent_freq = np.zeros(self.lit_freq_scaler.n_bins_[0])
+        return ent_freq
 
 
 class FeaturizerBinning(FeaturizerPredStats):
@@ -130,6 +155,7 @@ class FeaturizerBinning(FeaturizerPredStats):
         pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
         pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
         ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+        lit_path=None,
         bins=50,
         pred_end_path=None,
         scaling="None",
@@ -150,6 +176,9 @@ class FeaturizerBinning(FeaturizerPredStats):
         self.ent_freq = estat.ent_freq
         self.ent_subj = estat.subj_ents
         self.ent_obj = estat.obj_ents
+        
+        lstat = LitStats(path=lit_path)
+        self.lit_freq = lstat.lits
 
         self.scaling = "binner"
         self.scaler = BinnerEntPred(
@@ -159,6 +188,7 @@ class FeaturizerBinning(FeaturizerPredStats):
             self.pred_freq,
             self.pred_ents,
             self.pred_lits,
+            self.lit_freq,
             bins=bins,
         )
         self.tp_size = (
@@ -166,6 +196,7 @@ class FeaturizerBinning(FeaturizerPredStats):
             + 3
             + self.scaler.ent_scale_len() * 2
             + self.scaler.pred_scale_len()
+            + self.scaler.lit_scale_len()
         )
 
     def featurize(self, node):
@@ -227,8 +258,11 @@ class FeaturizerBinning(FeaturizerPredStats):
             obj_freq, obj_subj_freq, obj_obj_freq = self.scaler.ent_scale(
                 obj_freq, obj_subj_freq, obj_obj_freq
             )
+            lit_freq_o = self.get_value_dict(self.lit_freq, node.object.node_label)
+            lit_freq_o = self.scaler.lit_scale(lit_freq_o)
         else:
             obj_freq, obj_subj_freq, obj_obj_freq = self.scaler.ent_scale_no_values()
+            lit_freq_o = self.scaler.lit_scale_no_values()
 
         stat_vec = np.concatenate(
             [
@@ -241,6 +275,7 @@ class FeaturizerBinning(FeaturizerPredStats):
                 obj_freq,
                 obj_subj_freq,
                 obj_obj_freq,
+                lit_freq_o,
             ]
         )
         return np.concatenate((var_vec, stat_vec, np.zeros(self.filter_size)), axis=0)

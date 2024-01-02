@@ -450,3 +450,44 @@ class EntStats:
             if x["e"]["value"] in self.obj_ents.keys():
                 assert x["entities"]["value"] == self.obj_ents[x["e"]["value"]]
             self.obj_ents[x["e"]["value"]] = x["entities"]["value"]
+
+
+class LitStats:
+    def __init__(
+        self,
+        path=None,
+    ) -> None:
+        if path is None:
+            raise Exception("path must be specified")
+
+        self.path = path
+        self.lits = {}
+        self.load_lit_freqs()
+        # print(len(list(self.triple_freq.keys())))
+
+    def load_lit_freqs(self):
+        freq_path = self.path + "/freq/"
+        if not os.path.exists(freq_path):
+            raise Exception("Literal feature not existing")
+        files = sorted(
+            [f"{freq_path}{x}" for x in os.listdir(freq_path) if x.endswith(".json")]
+        )
+        for f in files:
+            self.load_lit_freq(f)
+    
+    def load_lit_freq(self, file):
+        data = json.load(open(file, "r"))
+        data = data["results"]["bindings"]
+        if len(data) <= 0:
+            return None
+
+        if not "e" in data[0].keys():
+            return None
+
+        for x in data:
+            if x["e"]["value"] in self.lits.keys():
+                if x["entities"]["value"] > self.lits[x["e"]["value"]]:
+                    self.lits[x["e"]["value"]] = x["entities"]["value"]
+            else:
+                self.lits[x["e"]["value"]] = x["entities"]["value"]
+

@@ -215,3 +215,37 @@ class TriplePattern:
 
     def get_joins(self):
         return list(set(self.get_variables()))
+class TriplePattern2(TriplePattern):
+    """Class representing a triple pattern. Joins on constants are not considered separately"""
+
+    def __init__(self, data: dict, node_class=Node):
+        self.depthLevel = None
+        self.node_class = node_class
+
+        self.subject = node_class(data["Subject"])
+        self.predicate = node_class(data["Predicate"])
+        self.object = node_class(data["Object"]["value"])
+        try:
+            self.object.datatype = data["Object"]["datatype"]
+        except Exception:
+            pass
+        try:
+            self.object.langtag = data["Object"]["langTag"]
+        except Exception:
+            pass
+
+        # with good results of 80% f1 score - old encoding
+        self.subject.nodetype = 0
+        self.predicate.nodetype = 1
+        self.object.nodetype = 2
+
+        # New variable encoding
+        self.subject.nodetype = 0 if is_variable_check(self.subject.node_label) else 1
+        self.predicate.nodetype = (
+            0 if is_variable_check(self.predicate.node_label) else 1
+        )
+        self.object.nodetype = 0 if is_variable_check(self.object.node_label) else 1
+
+        if "level" in data.keys():
+            self.level = data["level"]
+
