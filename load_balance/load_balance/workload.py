@@ -11,6 +11,16 @@ class Workload:
         self.current_idx = 0
         random.seed(42)
     
+    def queries_finished_before_other(self):
+        prev, prev_arr, count = None,None, 0
+        for q, t in zip(self.queries, self.arrival_times):
+            if prev is not None:
+                if t > (prev.execution_time + prev_arr):
+                    count += 1
+            prev = q
+            prev_arr=t
+        return count
+    
     def set_arrival_times(self, arrival_times):
         if not isinstance(arrival_times, list):
             arrival_times = arrival_times.tolist()
@@ -44,6 +54,28 @@ class Workload:
         for q in self.queries:
             q.set_time_cls(df2.loc[q.ID]['planrgcn_prediction'])
             q.set_true_time_cls(df2.loc[q.ID]['time_cls'])
+    
+    def reorder_queries(self):
+        slow_qs = []
+        medium_qs = []
+        fast_qs = []
+        for q in self.queries:
+            match q.true_time_cls:
+                case 0:
+                    fast_qs.append(q)
+                case 1:
+                    medium_qs.append(q)
+                case 2:
+                    slow_qs.append(q)
+        for i in range(10):
+            np.random.shuffle(slow_qs)
+            np.random.shuffle(medium_qs)
+            np.random.shuffle(fast_qs)
+        m_rate = len(medium_qs)/len(fast_qs)
+        s_rate = len(slow_qs)/len(fast_qs)
+        print(len(slow_qs), len(medium_qs),len(fast_qs))
+        
+        
         
     
     def load_queries(self, path, sep='\t'):

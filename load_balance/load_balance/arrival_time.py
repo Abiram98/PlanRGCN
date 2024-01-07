@@ -13,7 +13,7 @@ class ArrivalRateDecider:
             #return self.generate_arrivals(len(workload), mu=mu)
         pass
         
-    def generate_arrivals(self, n,  samples,mu=2):
+    def generate_arrivals(self, n,  samples, mu=2):
         #mu or lambda is the expected number of events occuring in a fixed-time interval.
         delays = np.random.poisson(mu,n)
         cu_delays = []

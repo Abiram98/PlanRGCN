@@ -1,6 +1,7 @@
 from load_balance.worker import Worker
 from load_balance.timer import Timer
 from load_balance.dat_struct import Queue
+from load_balance.workload import Workload
 
 class Balancer:
     def __init__(self, workload):
@@ -17,11 +18,11 @@ class Balancer:
         self.configure_worker_1()
     
     def configure_worker_1(self):
-        for _ in range(4):
+        for _ in range(3):
             worker =Worker()
             self.fast_queue.add_worker(worker)
             #self.worker_load[worker] = 0
-        for _ in range(3):
+        for _ in range(1):
             worker =Worker()
             self.med_queue.add_worker(worker)
             #self.worker_load[worker] = 0
@@ -64,4 +65,43 @@ class Balancer:
             self.slow_queue.step(time)
             #self.timer.step()
             if (len(self.workload) == 0 and self.slow_queue.is_finished() and self.med_queue.is_finished() and self.fast_queue.is_finished()):
+                break
+
+class FIFOBalancer:
+    def __init__(self, workload):
+        self.workload: Workload = workload
+        self.timer = Timer()
+        self.fast_queue = Queue()
+        
+        self.configure_worker_1()
+    
+    def configure_worker_1(self):
+        for _ in range(5):
+            worker =Worker()
+            self.fast_queue.add_worker(worker)
+    
+    def enque(self, q, a):
+        q.arrivaltime = a
+        self.fast_queue.add(q)
+        
+    
+    def run(self):
+        q, a = self.workload.pop()
+        while (True):
+            time = self.timer.time()
+            while (a is not None and time < a):
+                self.timer.step()
+                time = self.timer.time()
+            
+            #when workload has been loaded into queues.
+            if a is None:
+                self.timer.step()
+                time = self.timer.time()
+            
+            while a is not None and a < time:
+                self.enque(q,a)
+                q,a = self.workload.pop()
+            self.fast_queue.step(time)
+            
+            if (len(self.workload) == 0 and self.fast_queue.is_finished()):
                 break
