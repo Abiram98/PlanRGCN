@@ -14,7 +14,7 @@ import os
 import torch as th
 from pathlib import Path
 class GraphDataset:
-    def __init__(self, graphs, labels, ids, save_path, vec_size, scaling) -> None:
+    def __init__(self, graphs, labels, ids, save_path, vec_size, scaling, literals=False) -> None:
         self.graph =  graphs
         self.labels = labels
         self.ids = ids
@@ -23,6 +23,7 @@ class GraphDataset:
         self.scaling = scaling
         self.featurizer:FeaturizerBase = None
         self.query_plan :QueryPlan= None
+        self.is_literals = literals
 
     def __getitem__(self, i):
         return self.graph[i], self.labels[i], self.ids[i]
@@ -31,16 +32,19 @@ class GraphDataset:
         return len(self.labels)
 
     def get_paths(self):
-        dir_path = os.path.join(Path(self.save_path).parent.absolute(),f"planrgcn_{self.scaling}")
+        if self.is_literals:
+            dir_path = os.path.join(Path(self.save_path).parent.absolute(),f"planrgcn_{self.scaling}_litplan")
+        else:
+            dir_path = os.path.join(Path(self.save_path).parent.absolute(),f"planrgcn_{self.scaling}")
         file_name = Path(self.save_path).name
         if file_name.endswith(".tsv"):
             file_name = file_name.replace(".tsv", "")
         graph_path = os.path.join(dir_path , f'{file_name}_dgl_graph.bin')
         info_path = os.path.join(dir_path , f'{file_name}_info.pkl')
         return graph_path, info_path
+    
     def save(self):
         # save graphs and labels
-        
         graph_path, info_path= self.get_paths()
         save_graphs(graph_path, self.graph, {'labels': self.labels})
         # save other information in python dict
@@ -63,7 +67,9 @@ class GraphDataset:
     def load_dataset(path, scaling, lp):
         if lp is not None:
             path += "_litplan"
-        temp =GraphDataset([],[],[], path, 0, scaling)
+            temp =GraphDataset([],[],[], path, 0, scaling,  literals=True)
+        else:
+            temp =GraphDataset([],[],[], path, 0, scaling)
         if temp.has_cache():
             temp.load()
             return temp

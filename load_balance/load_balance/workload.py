@@ -2,6 +2,10 @@ import pandas as pd
 import numpy as np
 from load_balance.query import Query
 import random
+from sklearn.model_selection import train_test_split
+import multiprocessing
+
+random.seed(42)
 
 class Workload:
     def __init__(self) -> None:
@@ -9,7 +13,19 @@ class Workload:
         self.arrival_times:list[float] = list()
         self.p_idx = 0
         self.current_idx = 0
-        random.seed(42)
+        self.slow_queue = multiprocessing.Manager().Queue()
+        self.med_queue = multiprocessing.Manager().Queue()
+        self.fast_queue = multiprocessing.Manager().Queue()
+        
+    def initialise_queues(self):
+        for q, a in zip(self.queries, self.arrival_times):
+             match q.true_time_cls:
+                case 0:
+                    self.fast_queue.put((q,a))
+                case 1:
+                    self.med_queue.put((q,a))
+                case 2:
+                    self.slow_queue.put((q,a))
     
     def queries_finished_before_other(self):
         prev, prev_arr, count = None,None, 0
@@ -43,7 +59,8 @@ class Workload:
             return None,None
         q = self.queries.pop()
         a = self.arrival_times.pop()
-        return q,a 
+        return q,a
+    
     def shuffle_queries(self):
         random.shuffle(self.queries)
         
@@ -56,27 +73,25 @@ class Workload:
             q.set_true_time_cls(df2.loc[q.ID]['time_cls'])
     
     def reorder_queries(self):
-        slow_qs = []
-        medium_qs = []
-        fast_qs = []
+        n_queries = len(self.queries)
+        time_cls = []
         for q in self.queries:
             match q.true_time_cls:
                 case 0:
-                    fast_qs.append(q)
+                    time_cls.append(0)
                 case 1:
-                    medium_qs.append(q)
+                    time_cls.append(1)
                 case 2:
-                    slow_qs.append(q)
-        for i in range(10):
-            np.random.shuffle(slow_qs)
-            np.random.shuffle(medium_qs)
-            np.random.shuffle(fast_qs)
-        m_rate = len(medium_qs)/len(fast_qs)
-        s_rate = len(slow_qs)/len(fast_qs)
-        print(len(slow_qs), len(medium_qs),len(fast_qs))
+                    time_cls.append(2)
+        queries = []
+        X_train = self.queries
+        y_train = time_cls
+        for _ in range(50):
+            X_train, X_test, y_train, y_test = train_test_split( X_train, y_train, test_size=0.1, random_state=42, stratify=y_train)
+            queries.extend(X_test)
         
-        
-        
+        queries.extend(X_train)
+        self.queries = queries
     
     def load_queries(self, path, sep='\t'):
         df = pd.read_csv(path, sep=sep)

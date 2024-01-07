@@ -1,4 +1,23 @@
 from load_balance.query import Query
+
+class ServerWorker:
+    def __init__(self, starttime):
+        self.past_queries:list[Query] = []
+        self.start_time = starttime
+        self.processing = None
+
+    def is_free(self):
+        if self.processing is None:
+            return True
+        return False
+        
+    def assign_query(self, query, time):
+        if self.is_free():
+            query.starttime = time
+            self.processing = query
+            return True
+        return False
+
 class Worker:
     def __init__(self):
         self.past_queries:list[Query] = []

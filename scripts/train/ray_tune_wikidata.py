@@ -65,7 +65,6 @@ time_col = "mean_latency"
 is_lsq = True
 cls_func = snap_lat2onehotv2
 featurizer_class = FeaturizerPredCoEnt
-featurizer_class = FeaturizerBinning
 featurizer_class = FeaturizerPath
 featurizer_class = FeaturizerBinning
 #scaling = "robust"
@@ -92,9 +91,9 @@ config = {
     "loss_type": "cross-entropy",
 }
 config = {
-    "l1": tune.choice([64,  512, 1024, 2048, 4096]),
-    "l2": tune.choice([64, 512, 1024, 2048, 4096]),
-    "dropout": tune.choice([0.0, 0.6]),
+    "l1": tune.choice([ 512, 1024, 2048, 4096, 8192]),
+    "l2": tune.choice([ 512, 1024, 2048, 4096, 8192]),
+    "dropout": tune.choice([0.0, 0.6, 0.8]),
     "wd": 0.01,
     "lr": tune.grid_search([1e-5]),
     "epochs": 100,

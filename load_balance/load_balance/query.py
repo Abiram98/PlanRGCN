@@ -1,3 +1,6 @@
+import json
+
+
 class Query:
     def __init__(self, ID, queryString, execution_time) -> None:
         self.ID = ID
@@ -19,4 +22,5 @@ class Query:
         self.true_time_cls = time_cls
     
     def __str__(self):
-        return f"ID: {self.ID},\ntext: {self.query_string},\ntime: {self.execution_time}"
+        dct = {'ID': self.ID, 'text': self.query_string}
+        return json.dumps(dct)

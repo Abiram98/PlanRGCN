@@ -1,5 +1,6 @@
 import pickle
-from graph_construction.feats.feature_binner import BinnerEntPred, FeaturizerBinning
+from graph_construction.feats.feature_binner import FeaturizerBinning
+from graph_construction.feats.feat_scale_util import BinnerEntPred
 from graph_construction.feats.featurizer import EntStats
 from graph_construction.nodes.path_node import PathNode
 from graph_construction.qp.qp_utils import pathOpTypes
