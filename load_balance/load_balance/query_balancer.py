@@ -120,6 +120,7 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     
     # Workload Setup
     df = pd.read_csv(f'/data/{sample_name}/test_sampled.tsv', sep='\t')
+    print(df)
     print(df['mean_latency'].quantile(q=0.25))
     w = Workload()
     w.load_queries(f'/data/{sample_name}/test_sampled.tsv')
