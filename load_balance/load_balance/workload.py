@@ -16,16 +16,21 @@ class Workload:
         self.slow_queue = multiprocessing.Manager().Queue()
         self.med_queue = multiprocessing.Manager().Queue()
         self.fast_queue = multiprocessing.Manager().Queue()
+        self.FIFO_queue = multiprocessing.Manager().Queue()
         
     def initialise_queues(self):
         for q, a in zip(self.queries, self.arrival_times):
-             match q.true_time_cls:
+            match q.time_cls:
                 case 0:
                     self.fast_queue.put((q,a))
                 case 1:
                     self.med_queue.put((q,a))
                 case 2:
                     self.slow_queue.put((q,a))
+    
+    def initialise_FIFO_que(self):
+        for q, a in zip(self.queries, self.arrival_times):
+            self.FIFO_queue.put((q,a))
     
     def queries_finished_before_other(self):
         prev, prev_arr, count = None,None, 0
