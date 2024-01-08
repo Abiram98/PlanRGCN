@@ -183,7 +183,7 @@ def execute_query_worker_FIFO(workload:Workload, w_type, url, start_time, path):
         q_end_time = time.time()
         elapsed_time = q_end_time-q_start_time
         print(w_type+ '  ', len(data))
-        qs.append(q)
+        #qs.append(q)
         data.append({'query': str(q), 'start_time':start_time, 'arrival_time': n_ar, 'query_start_time': q_start_time, 'query_end_time': q_end_time, 'elapsed_time': elapsed_time, 'response': 'ok' if ret is not None else 'not ok'})
     with open(f"{path}/{w_str}.json", 'w') as f:
         json.dump(data,f)
