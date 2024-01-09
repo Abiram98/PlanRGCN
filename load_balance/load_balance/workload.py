@@ -7,6 +7,8 @@ import multiprocessing
 
 random.seed(42)
 
+    
+
 class Workload:
     def __init__(self) -> None:
         self.queries:list[Query] = list()
@@ -108,3 +110,21 @@ class Workload:
             except Exception as e:
                 print(f"loading of query did not work!")
         print(f"loaded {count}")
+
+class WorkloadV2(Workload):
+    def __init__(self):
+        self.queries:list[Query] = list()
+        self.arrival_times:list[float] = list()
+        self.p_idx = 0
+        self.current_idx = 0
+        
+        self.queue_dct = {
+            "slow" : multiprocessing.Manager().Queue(),
+            "med1": multiprocessing.Manager().Queue(),
+            "med2": multiprocessing.Manager().Queue(),
+            "med3": multiprocessing.Manager().Queue(),
+            "fast1": multiprocessing.Manager().Queue(),
+            "fast2": multiprocessing.Manager().Queue(),
+            "fast3": multiprocessing.Manager().Queue(),
+            "fast4": multiprocessing.Manager().Queue(),
+        }
