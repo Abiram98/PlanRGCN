@@ -110,10 +110,6 @@ def main_balance_runner_v2(sample_name, scale, url = 'http://172.21.233.23:8891/
     np.random.seed(42)
     random.seed(42)
     
-    sample_name="wikidata_0_1_10_v2_path_weight_loss"
-    scale="planrgcn_binner"
-    url = "http://172.21.233.14:8891/sparql"
-    
     # Workload Setup
     df = pd.read_csv(f'/data/{sample_name}/test_sampled.tsv', sep='\t')
     print(df)
@@ -124,7 +120,7 @@ def main_balance_runner_v2(sample_name, scale, url = 'http://172.21.233.23:8891/
     a = ArrivalRateDecider()
     w.shuffle_queries()
     w.shuffle_queries()
-    w.reorder_queries()
+    #w.reorder_queries()
     w.set_arrival_times(a.assign_arrival_rate(w, mu=44))
     
     start_time = time.time()

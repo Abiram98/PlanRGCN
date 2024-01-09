@@ -93,8 +93,8 @@ class Workload:
         queries = []
         X_train = self.queries
         y_train = time_cls
-        for _ in range(50):
-            X_train, X_test, y_train, y_test = train_test_split( X_train, y_train, test_size=0.1, random_state=42, stratify=y_train)
+        for _ in range(20):
+            X_train, X_test, y_train, y_test = train_test_split( X_train, y_train, test_size=0.001, random_state=42, stratify=y_train)
             queries.extend(X_test)
         
         queries.extend(X_train)
