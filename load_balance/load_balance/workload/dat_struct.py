@@ -1,6 +1,6 @@
 from collections import deque
-from load_balance.query import Query
-from load_balance.worker import Worker
+from load_balance.workload.query import Query
+from load_balance.workload.worker import Worker
 
 class Queue:
     def __init__(self):

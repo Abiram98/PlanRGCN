@@ -1,4 +1,6 @@
-from load_balance.query import Query
+# DEPRECATED CLASS
+
+from load_balance.workload.query import Query
 
 class ServerWorker:
     def __init__(self, starttime):

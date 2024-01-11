@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from load_balance.query import Query
+from load_balance.workload.query import Query
 import random
 from sklearn.model_selection import train_test_split
 import multiprocessing
@@ -117,6 +117,31 @@ class WorkloadV2(Workload):
         self.arrival_times:list[float] = list()
         self.p_idx = 0
         self.current_idx = 0
+        
+        self.queue_dct = {
+            "slow" : multiprocessing.Manager().Queue(),
+            "med1": multiprocessing.Manager().Queue(),
+            "med2": multiprocessing.Manager().Queue(),
+            "med3": multiprocessing.Manager().Queue(),
+            "fast1": multiprocessing.Manager().Queue(),
+            "fast2": multiprocessing.Manager().Queue(),
+            "fast3": multiprocessing.Manager().Queue(),
+            "fast4": multiprocessing.Manager().Queue(),
+        }
+        
+# For dispatcher
+class WorkloadV3(Workload):
+    def __init__(self):
+        self.queries:list[Query] = list()
+        self.arrival_times:list[float] = list()
+        self.p_idx = 0
+        self.current_idx = 0
+        self.slow_queue = multiprocessing.Manager().Queue()
+        self.med_queue = multiprocessing.Manager().Queue()
+        self.fast_queue = multiprocessing.Manager().Queue()
+        self.FIFO_queue = multiprocessing.Manager().Queue()
+        self.p
+        
         
         self.queue_dct = {
             "slow" : multiprocessing.Manager().Queue(),

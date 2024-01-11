@@ -1,7 +1,7 @@
-from load_balance.worker import Worker
-from load_balance.timer import Timer
-from load_balance.dat_struct import Queue
-from load_balance.workload import Workload
+from load_balance.workload.worker import Worker
+from load_balance.workload.timer import Timer
+from load_balance.workload.dat_struct import Queue
+from load_balance.workload.workload import Workload
 
 class Balancer:
     def __init__(self, workload):

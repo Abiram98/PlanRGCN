@@ -1,7 +1,10 @@
 import os
+import load_balance.workload.arrival_time
 from load_balance.workload.arrival_time import ArrivalRateDecider
+from load_balance.query_balancer import Worker
 import pandas as pd
 from  load_balance.workload.workload import Workload, WorkloadV2, WorkloadV3
+import copy
 import multiprocessing
 import time, datetime
 from SPARQLWrapper import SPARQLWrapper, JSON
@@ -13,31 +16,17 @@ from multiprocessing import Array, Value
 from load_balance.workload.query import Query
 
 
-class Worker:
+class WorkerSmart(Worker):
     def __init__(self, workload:WorkloadV3,w_type, url, start_time, path, timeout=900):
         self.workload = workload
         self.path = path
         self.start_time = start_time
-        self.w_type:str = w_type
         self.setup_sparql(url, timeout)
-    
-    def setup_sparql(self, url, timeout):
-        self.sparql = SPARQLWrapper(url, defaultGraph='http://localhost:8890/dataspace')
         
-        self.sparql.setReturnFormat(JSON)
-        #sparql.setTimeout(1800)
-        self.sparql.setTimeout(timeout)
+        self.w_type:str = w_type
+        self.queue = multiprocessing.Manager().Queue()
+        
     
-    def execute_query(self, query):
-        self.sparql.setQuery(query)
-        try:
-            ret = self.sparql.query()        
-        except TimeoutError:
-            return 1
-        except Exception as e:
-            return None
-        return ret
-
     def execute_query_worker(self):
         workload = self.workload
         w_type = self.w_type
@@ -53,7 +42,7 @@ class Worker:
             match w_type:
                 case "slow":
                     while True:
-                        val = workload.slow_queue.get()
+                        val = self.queue.get()
                         if val is None:
                             break
                         q = val
@@ -125,65 +114,6 @@ class Worker:
             with open(f"{self.path}/{w_str}.json", 'w') as f:
                 json.dump(data,f)
         exit()
-
-def dispatcher(workload: WorkloadV3, start_time, path):
-    #fast_keys =  ["fast1", "fast2", "fast3", "fast4"]
-    #fast_idx = 0
-    #medium_keys = ["med1", "med2", "med3"]
-    #med_idx = 0
-    try:
-        for numb, (q, a) in enumerate(zip(workload.queries, workload.arrival_times)):
-            if numb % 100 == 0:
-                s = {}
-                s['fast'] = workload.fast_queue.qsize()
-                s['med'] = workload.med_queue.qsize()
-                s['slow'] = workload.slow_queue.qsize()
-                s['time'] = time.time() - start_time
-                print(f"Main process: query {numb} / {len(workload.queries)}: {s}")
-            n_arr = start_time + a
-            q.arrival_time = n_arr
-            if n_arr > time.time():
-                time.sleep(n_arr - time.time())
-            
-            match q.time_cls:
-                case 0:
-                    q.queue_arrival_time = time.time()
-                    workload.fast_queue.put(q)
-                    #workload.queue_dct[fast_keys[fast_idx]].put(q)
-                    #fast_idx = (fast_idx+1) % len(fast_keys)
-                case 1:
-                    q.queue_arrival_time = time.time()
-                    workload.med_queue.put(q)
-                    #workload.queue_dct[medium_keys[med_idx]].put(q)
-                    #med_idx = (med_idx+1) % len(medium_keys)
-                case 2:
-                    q.queue_arrival_time = time.time()
-                    workload.slow_queue.put(q)
-                    #workload.queue_dct['slow'].put(q)
-        #for k in workload.queue_dct.keys():
-        #    workload.queue_dct[k].put(None)
-        
-        workload.slow_queue.put(None)
-        workload.med_queue.put(None)
-        workload.med_queue.put(None)
-        workload.med_queue.put(None)
-        workload.fast_queue.put(None)
-        workload.fast_queue.put(None)
-        workload.fast_queue.put(None)
-        workload.fast_queue.put(None)
-        with open(f"{path}/main.json", 'w') as f:
-            f.write("done")
-    except KeyboardInterrupt:
-        s = {}
-        s['fast'] = workload.fast_queue.qsize()
-        s['med'] = workload.med_queue.qsize()
-        s['slow'] = workload.slow_queue.qsize()
-        s['time'] = time.time() - start_time
-        print(f"Main process: query {numb} / {len(workload.queries)}: {s}")
-        with open(f"{path}/main.json", 'w') as f:
-            f.write("done")
-        exit()           
-    exit()
 
 def dispatcher_smart(workload: WorkloadV3, start_time, path):
     try:
@@ -261,19 +191,20 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     w.shuffle_queries()
     w.reorder_queries()
     w.set_arrival_times(a.assign_arrival_rate(w, mu=44))
+    #w.initialise_queues()
     
     
     
-    f_lb =f'/data/{sample_name}/load_balance'
+    f_lb =f'/data/{sample_name}/load_balance_smart_dispatcher'
     os.system(f'mkdir -p {f_lb}')
     path = f_lb
+    worker_ids = []
     procs = {}
     work_names = ["slow","med1", "med2","med3","fast1","fast2","fast3","fast4" ]
     start_time = time.time()
     for work_name in work_names:
-        procs[work_name] = multiprocessing.Process(target=Worker(w,work_name,url, start_time,path).execute_query_worker)
-    procs['main'] = multiprocessing.Process(target=dispatcher, args=(w, start_time, path,))
-    
+        procs[work_name] = multiprocessing.Process(target=WorkerSmart(w,work_name,url, start_time,path).execute_query_worker)
+    procs['main'] = multiprocessing.Process(target=dispatcher_smart, args=(w, start_time, path,))
     try:
         for k in procs.keys():
             procs[k].start()
@@ -286,15 +217,3 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     except KeyboardInterrupt:
         end_time = time.time()
         print(f"elapsed time: {end_time-start_time}")
-    
-
-if __name__ == "__main__":
-    sample_name="wikidata_0_1_10_v2_path_weight_loss"
-    scale="planrgcn_binner"
-    
-    # for running for a specific amount of time
-    #timeout -s 2 7200 python3 -m load_balance.query_balancer
-    
-    #main_balance_runner_v2(sample_name, scale, url = 'http://172.21.233.23:8891/sparql', bl_type='planRGCN')
-    main_balance_runner(sample_name, scale)
-    #main_balance_runnerFIFO(sample_name, scale)
