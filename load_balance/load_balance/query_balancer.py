@@ -11,7 +11,7 @@ import json
 from load_balance.query_balancer_v1 import *
 from multiprocessing import Array, Value
 from load_balance.workload.query import Query
-
+import load_balance.const as const
 
 class Worker:
     def __init__(self, workload:WorkloadV3,w_type, url, start_time, path, timeout=900):
@@ -35,7 +35,7 @@ class Worker:
         except TimeoutError:
             return 1
         except Exception as e:
-            return None
+            return e
         return ret
 
     def execute_query_worker(self):
@@ -61,8 +61,7 @@ class Worker:
                         q_start_time = time.time()
                         
                         #execute stuff
-                        time.sleep(1)
-                        #ret = self.execute_query(q.query_string)
+                        ret = self.execute_query(q.query_string)
                         q_end_time = time.time()
                         elapsed_time = q_end_time-q_start_time
                         data.append({
@@ -73,7 +72,7 @@ class Worker:
                             'query_execution_start': q_start_time, 
                             'query_execution_end': q_end_time, 
                             'execution_time': elapsed_time, 
-                            'response': 'not ok' if ret is None else 'timed out' if ret == 1 else 'ok'})
+                            'response': ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
                 case "med":
                     while True:
                         val = workload.med_queue.get()
@@ -84,7 +83,7 @@ class Worker:
                         q_start_time = time.time()
                         
                         #execute stuff
-                        #ret = self.execute_query(q.query_string)
+                        ret = self.execute_query(q.query_string)
                         q_end_time = time.time()
                         elapsed_time = q_end_time-q_start_time
                         data.append({
@@ -95,7 +94,7 @@ class Worker:
                             'query_execution_start': q_start_time, 
                             'query_execution_end': q_end_time, 
                             'execution_time': elapsed_time, 
-                            'response': 'not ok' if ret is None else 'timed out' if ret == 1 else 'ok'})
+                            'response': ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
                 case "fast":
                     while True:
                         val = workload.fast_queue.get()
@@ -106,7 +105,7 @@ class Worker:
                         q_start_time = time.time()
                         
                         #execute stuff
-                        #ret = self.execute_query(q.query_string)
+                        ret = self.execute_query(q.query_string)
                         q_end_time = time.time()
                         elapsed_time = q_end_time-q_start_time
                         data.append({
@@ -117,7 +116,7 @@ class Worker:
                             'query_execution_start': q_start_time, 
                             'query_execution_end': q_end_time, 
                             'execution_time': elapsed_time, 
-                            'response': 'not ok' if ret is None else 'timed out' if ret == 1 else 'ok'})
+                            'response': ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
             
             with open(f"{self.path}/{w_str}.json", 'w') as f:
                 json.dump(data,f)
@@ -127,10 +126,6 @@ class Worker:
         exit()
 
 def dispatcher(workload: WorkloadV3, start_time, path):
-    #fast_keys =  ["fast1", "fast2", "fast3", "fast4"]
-    #fast_idx = 0
-    #medium_keys = ["med1", "med2", "med3"]
-    #med_idx = 0
     try:
         for numb, (q, a) in enumerate(zip(workload.queries, workload.arrival_times)):
             if numb % 100 == 0:
@@ -185,61 +180,6 @@ def dispatcher(workload: WorkloadV3, start_time, path):
         exit()           
     exit()
 
-def dispatcher_smart(workload: WorkloadV3, start_time, path):
-    try:
-        for numb, (q, a) in enumerate(zip(workload.queries, workload.arrival_times)):
-            if numb % 100 == 0:
-                s = {}
-                s['fast'] = workload.fast_queue.qsize()
-                s['med'] = workload.med_queue.qsize()
-                s['slow'] = workload.slow_queue.qsize()
-                s['time'] = time.time() - start_time
-                print(f"Main process: query {numb} / {len(workload.queries)}: {s}")
-            n_arr = start_time + a
-            q.arrival_time = n_arr
-            if n_arr > time.time():
-                time.sleep(n_arr - time.time())
-            
-            match q.time_cls:
-                case 0:
-                    q.queue_arrival_time = time.time()
-                    workload.fast_queue.put(q)
-                    #workload.queue_dct[fast_keys[fast_idx]].put(q)
-                    #fast_idx = (fast_idx+1) % len(fast_keys)
-                case 1:
-                    q.queue_arrival_time = time.time()
-                    workload.med_queue.put(q)
-                    #workload.queue_dct[medium_keys[med_idx]].put(q)
-                    #med_idx = (med_idx+1) % len(medium_keys)
-                case 2:
-                    q.queue_arrival_time = time.time()
-                    workload.slow_queue.put(q)
-                    #workload.queue_dct['slow'].put(q)
-        #for k in workload.queue_dct.keys():
-        #    workload.queue_dct[k].put(None)
-        
-        workload.slow_queue.put(None)
-        workload.med_queue.put(None)
-        workload.med_queue.put(None)
-        workload.med_queue.put(None)
-        workload.fast_queue.put(None)
-        workload.fast_queue.put(None)
-        workload.fast_queue.put(None)
-        workload.fast_queue.put(None)
-        with open(f"{path}/main.json", 'w') as f:
-            f.write("done")
-    except KeyboardInterrupt:
-        s = {}
-        s['fast'] = workload.fast_queue.qsize()
-        s['med'] = workload.med_queue.qsize()
-        s['slow'] = workload.slow_queue.qsize()
-        s['time'] = time.time() - start_time
-        print(f"Main process: query {numb} / {len(workload.queries)}: {s}")
-        with open(f"{path}/main.json", 'w') as f:
-            f.write("done")
-        exit()           
-    exit()           
-
 
 def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/sparql'):
     np.random.seed(42)
@@ -259,10 +199,7 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     a = ArrivalRateDecider()
     w.shuffle_queries()
     w.shuffle_queries()
-    w.reorder_queries()
-    w.set_arrival_times(a.assign_arrival_rate(w, mu=44))
-    
-    
+    w.set_arrival_times(a.assign_arrival_rate(w, mu=const.MU))
     
     f_lb =f'/data/{sample_name}/load_balance'
     os.system(f'mkdir -p {f_lb}')

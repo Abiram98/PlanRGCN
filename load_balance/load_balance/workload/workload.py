@@ -1,13 +1,8 @@
 import pandas as pd
-import numpy as np
 from load_balance.workload.query import Query
 import random
 from sklearn.model_selection import train_test_split
 import multiprocessing
-
-random.seed(42)
-
-    
 
 class Workload:
     def __init__(self) -> None:
@@ -140,10 +135,9 @@ class WorkloadV3(Workload):
         self.med_queue = multiprocessing.Manager().Queue()
         self.fast_queue = multiprocessing.Manager().Queue()
         self.FIFO_queue = multiprocessing.Manager().Queue()
-        self.p
         
         
-        self.queue_dct = {
+        """"self.queue_dct = {
             "slow" : multiprocessing.Manager().Queue(),
             "med1": multiprocessing.Manager().Queue(),
             "med2": multiprocessing.Manager().Queue(),
@@ -152,4 +146,4 @@ class WorkloadV3(Workload):
             "fast2": multiprocessing.Manager().Queue(),
             "fast3": multiprocessing.Manager().Queue(),
             "fast4": multiprocessing.Manager().Queue(),
-        }
+        }"""

@@ -1,12 +1,10 @@
 import os
-import load_balance.workload.arrival_time
 from load_balance.workload.arrival_time import ArrivalRateDecider
 from load_balance.query_balancer import Worker
 import pandas as pd
 from  load_balance.workload.workload import Workload, WorkloadV2, WorkloadV3
-import copy
 import multiprocessing
-import time, datetime
+import time
 from SPARQLWrapper import SPARQLWrapper, JSON
 import random
 import numpy as np
@@ -62,7 +60,7 @@ class WorkerSmart(Worker):
                             'query_execution_start': q_start_time, 
                             'query_execution_end': q_end_time, 
                             'execution_time': elapsed_time, 
-                            'response': 'not ok' if ret is None else 'timed out' if ret == 1 else 'ok'})
+                            'response': ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
                 case "med":
                     while True:
                         val = workload.med_queue.get()
@@ -84,7 +82,7 @@ class WorkerSmart(Worker):
                             'query_execution_start': q_start_time, 
                             'query_execution_end': q_end_time, 
                             'execution_time': elapsed_time, 
-                            'response': 'not ok' if ret is None else 'timed out' if ret == 1 else 'ok'})
+                            'response': ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
                 case "fast":
                     while True:
                         val = workload.fast_queue.get()
@@ -106,7 +104,7 @@ class WorkerSmart(Worker):
                             'query_execution_start': q_start_time, 
                             'query_execution_end': q_end_time, 
                             'execution_time': elapsed_time, 
-                            'response': 'not ok' if ret is None else 'timed out' if ret == 1 else 'ok'})
+                            'response': ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
             
             with open(f"{self.path}/{w_str}.json", 'w') as f:
                 json.dump(data,f)
