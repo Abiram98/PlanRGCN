@@ -185,9 +185,9 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     np.random.seed(42)
     random.seed(42)
     
-    sample_name="wikidata_0_1_10_v2_path_weight_loss"
-    scale="planrgcn_binner"
-    url = "http://172.21.233.14:8891/sparql"
+    #sample_name="wikidata_0_1_10_v2_path_weight_loss"
+    #scale="planrgcn_binner"
+    #url = "http://172.21.233.14:8891/sparql"
     
     # Workload Setup
     df = pd.read_csv(f'/data/{sample_name}/test_sampled.tsv', sep='\t')
@@ -233,5 +233,8 @@ if __name__ == "__main__":
     #timeout -s 2 7200 python3 -m load_balance.query_balancer
     
     #main_balance_runner_v2(sample_name, scale, url = 'http://172.21.233.23:8891/sparql', bl_type='planRGCN')
-    main_balance_runner(sample_name, scale)
+    sample_name="wikidata_0_1_10_v3_path_weight_loss"
+    scale="planrgcn_binner_litplan"
+    url = "172.21.233.23:8891/sparql"
+    main_balance_runner(sample_name, scale, url=url)
     #main_balance_runnerFIFO(sample_name, scale)

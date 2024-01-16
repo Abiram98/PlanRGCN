@@ -8,6 +8,9 @@ class DefaultVisitor(AbstractVisitor):
         
     def visitTriple(self,input):
         pass
+    
+    def visitTriplePath(self,input):
+        pass
 
     def visitExpr(self, input):
         pass
