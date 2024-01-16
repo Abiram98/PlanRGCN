@@ -1,9 +1,10 @@
 import pickle
 from graph_construction.feats.feature_binner import FeaturizerBinning
 from graph_construction.feats.feat_scale_util import BinnerEntPred
-from graph_construction.feats.featurizer import EntStats
+from graph_construction.feats.featurizer import EntStats, LitStats
 from graph_construction.nodes.path_node import PathNode
 from graph_construction.qp.qp_utils import pathOpTypes
+from graph_construction.qp.visitor.UtilVisitor import LiteralsFeaturizer
 import numpy as np
 from scalers import EntMinMaxScaler, EntStandardScaler
 from utils.stats import PredStats
@@ -36,6 +37,15 @@ class FeaturizerPath(FeaturizerBinning):
         self.ent_freq = estat.ent_freq
         self.ent_subj = estat.subj_ents
         self.ent_obj = estat.obj_ents
+        
+        self.lit_path = lit_path
+        if lit_path is not None:
+            lstat = LitStats(path=lit_path)
+            self.lit_freq = lstat.lits
+        else:
+            self.lit_freq = None
+        self.scaling = scaling
+        
         match scaling:
             case "binner":
                 self.scaling = "binner"
@@ -46,16 +56,37 @@ class FeaturizerPath(FeaturizerBinning):
                     self.pred_freq,
                     self.pred_ents,
                     self.pred_lits,
+                    self.lit_freq,
                     bins=bins,
                 )
-                self.tp_size = (
+                if lit_path is not None:
+                    self.tp_size = (
+                        self.max_pred
+                        + 3
+                        + self.scaler.ent_scale_len() * 2
+                        + self.scaler.pred_scale_len()
+                        + self.scaler.lit_scale_len()
+                        + LiteralsFeaturizer.feat_size()
+                        + 2
+                        + pathOpTypes.get_max_operations()
+                    )
+                else:
+                    self.tp_size = (
+                        self.max_pred
+                        + 3
+                        + self.scaler.ent_scale_len() * 2
+                        + self.scaler.pred_scale_len()
+                        + 2
+                        + pathOpTypes.get_max_operations()
+                    )
+                """self.tp_size = (
                     self.max_pred
                     + 3
                     + self.scaler.ent_scale_len() * 2
                     + self.scaler.pred_scale_len()
                     + 2
                     + pathOpTypes.get_max_operations()
-                )
+                )"""
             case "None":
                 self.scaling = "binner"
                 self.scaler = BinnerEntPred(
@@ -87,14 +118,14 @@ class FeaturizerPath(FeaturizerBinning):
                     self.pred_ents,
                     self.pred_lits,
                 )
-        self.tp_size = (
+        """self.tp_size = (
             self.max_pred
             + 3
             + self.scaler.ent_scale_len() * 2
             + self.scaler.pred_scale_len()
             + 2
             + pathOpTypes.get_max_operations()
-        )
+        )"""
 
     def tp_features(self, node):
         var_vec = np.array(
@@ -141,23 +172,53 @@ class FeaturizerPath(FeaturizerBinning):
             obj_freq, obj_subj_freq, obj_obj_freq = self.scaler.ent_scale(
                 obj_freq, obj_subj_freq, obj_obj_freq
             )
+            if self.lit_path is not None:
+                lit_freq_o = self.scaler.lit_scale_no_values()
+                lit_type_la = LiteralsFeaturizer.feat(node.object)
+        elif node.object.type == "LIT":
+            obj_freq, obj_subj_freq, obj_obj_freq = self.scaler.ent_scale_no_values()
+            if self.lit_path is not None:
+                lit_freq_o = self.get_value_dict(self.lit_freq, node.object.node_label)
+                lit_freq_o = self.scaler.lit_scale(lit_freq_o)
+                lit_type_la = LiteralsFeaturizer.feat(node.object)
         else:
             obj_freq, obj_subj_freq, obj_obj_freq = self.scaler.ent_scale_no_values()
-
-        stat_vec = np.concatenate(
-            [
-                path_operation,
-                pred_min_max,
-                freq,
-                lits,
-                ents,
-                subj_freq,
-                subj_subj_freq,
-                sub_obj_freq,
-                obj_freq,
-                obj_subj_freq,
-                obj_obj_freq,
-            ]
-        )
+            if self.lit_path is not None:
+                lit_type_la = LiteralsFeaturizer.feat(node.object)
+                lit_freq_o = self.scaler.lit_scale_no_values()
+        if self.lit_path is None:
+            stat_vec = np.concatenate(
+                [
+                    path_operation,
+                    pred_min_max,
+                    freq,
+                    lits,
+                    ents,
+                    subj_freq,
+                    subj_subj_freq,
+                    sub_obj_freq,
+                    obj_freq,
+                    obj_subj_freq,
+                    obj_obj_freq,
+                ]
+            )
+        else:
+            stat_vec = np.concatenate(
+                [
+                    path_operation,
+                    pred_min_max,
+                    freq,
+                    lits,
+                    ents,
+                    subj_freq,
+                    subj_subj_freq,
+                    sub_obj_freq,
+                    obj_freq,
+                    obj_subj_freq,
+                    obj_obj_freq,
+                    lit_freq_o,
+                    lit_type_la,
+                ]
+            )
 
         return np.concatenate((var_vec, stat_vec, np.zeros(self.filter_size)), axis=0)

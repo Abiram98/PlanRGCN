@@ -39,6 +39,8 @@ def dispatch(input, visitor):
             visitor.visitDefault(input)
         case "service":
             visitor.visitDefault(input)
+        case "graph":
+            visitor.visitDefault(input)
         case _:
             raise Exception(f"unsupported {input['opName']}\n{input}")
 

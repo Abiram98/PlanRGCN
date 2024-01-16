@@ -2,6 +2,7 @@ import json
 import os
 import dgl
 from graph_construction.feats.featurizer_path import FeaturizerPath
+from graph_construction.nodes.PathComplexException import PathComplexException
 from graph_construction.qp.qp_utils import QueryPlanUtils
 from graph_construction.qp.query_plan_path import QueryPlanPath
 import json5
@@ -90,14 +91,20 @@ def create_query_plans_dir(
         ids = [str(x) for x in ids]
         files = [x for x in os.listdir(source_dir) if x in ids]
     if add_id:
-        return [
-            (create_query_plan(f"{source_dir}{x}", query_plan=query_plan), x)
-            for x in files
-        ]
-
-    query_plans = [
-        create_query_plan(f"{source_dir}{x}", query_plan=query_plan) for x in files
-    ]
+        temp = []
+        for x in files:
+            try:
+                temp.append((create_query_plan(f"{source_dir}{x}", query_plan=query_plan), x))
+            except PathComplexException:
+                pass
+        return temp
+    
+    query_plans = []
+    for x in files:
+        try:
+            query_plans.append(create_query_plan(f"{source_dir}{x}", query_plan=query_plan))
+        except PathComplexException:
+            pass
     return query_plans
 
 

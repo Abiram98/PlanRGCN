@@ -1,9 +1,9 @@
-from graph_construction.node import TriplePattern, is_variable_check
+from graph_construction.node import TriplePattern, is_variable_check,TriplePattern2
 from graph_construction.node import Node
 from graph_construction.qp.qp_utils import pathOpTypes
 
 
-class PathNode(TriplePattern):
+class PathNode(TriplePattern2):
     def __init__(self, data: dict, node_class=Node):
         self.depthLevel = None
         self.node_class = node_class
@@ -32,7 +32,15 @@ class PathNode(TriplePattern):
             for comp in data["pathComplexity"]:
                self.path_complexity.append(pathOpTypes.get_path_op(comp))
 
-        self.object = node_class(data["Object"])
+        self.object = node_class(data["Object"]["value"])
+        try:
+            self.object.datatype = data["Object"]["datatype"]
+        except KeyError:
+            pass
+        try:
+            self.object.langtag = data["Object"]["langTag"]
+        except KeyError:
+            pass
 
         # with good results of 80% f1 score - old encoding - Not tested with path though
         self.subject.nodetype = 0

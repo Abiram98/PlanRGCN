@@ -14,14 +14,12 @@ from ray import tune
 import os
 
 
-sample_name = "wikidata_0_1_10_v2_aug"
-sample_name = "wikidata_0_1_10_v2_weight_loss"
-sample_name = "wikidata_0_1_10_v2_hybrid"
-sample_name = "wikidata_0_1_10_v2_path_aug"
 sample_name = "wikidata_0_1_10_v2_path"  # balanced dataset
 sample_name = "wikidata_0_1_10_v2_path_weight_loss"
 sample_name = "wikidata_0_1_10_v2_path_hybrid"
 sample_name = "wikidata_0_1_10_v2_weight_loss"
+
+sample_name = "wikidata_0_1_10_v3_path_weight_loss"
 
 # Results save path
 """if os.path.exists(path_to_save):
@@ -65,20 +63,20 @@ time_col = "mean_latency"
 is_lsq = True
 cls_func = snap_lat2onehotv2
 featurizer_class = FeaturizerPredCoEnt
-featurizer_class = FeaturizerPath
 featurizer_class = FeaturizerBinning
+featurizer_class = FeaturizerPath
 #scaling = "robust"
 n_classes = 3
 query_plan = QueryPlan
-query_plan = QueryPlanPath
 query_plan = QueryPlanLit
-scaling = "minmax"
+query_plan = QueryPlanPath
 scaling = "binner"
 prepper = None
 resume = False
 path_to_save = f"/data/{sample_name}/planrgcn_{scaling}"
-if query_plan is QueryPlanLit:
+if lit_path is not None:
     path_to_save += "_litplan"
+
 os.makedirs(path_to_save, exist_ok=True)
 config = {
     "l1": tune.grid_search([10]),
@@ -103,6 +101,37 @@ config = {
         [ "pred2index_louvain.pickle"]
     ),
 }
+
+config = {
+    "l1": tune.choice([ 512, 1024, 2048, 4096]),
+    "l2": tune.choice([ 512, 1024, 2048, 4096, 8192]),
+    "dropout": tune.choice([0.0, 0.6]),
+    "wd": 0.01,
+    "lr": tune.grid_search([1e-5]),
+    "epochs": 100,
+    "batch_size": tune.choice([ 256, 512]),
+    "loss_type": tune.choice(["cross-entropy","mse"]),
+    "pred_com_path": tune.choice(
+        [ "pred2index_louvain.pickle"]
+    ),
+}
+
+def earlystopWikidata(trial_id: str, result: dict) -> bool:
+    """This function should return true when the trial should be stopped and false for continued training.
+
+    Args:
+        trial_id (str): _description_
+        result (dict): _description_
+
+    Returns:
+        bool: _description_
+    """
+    if result["val f1"] < 0.7 and result["training_iteration"] >= 50:
+        return True
+    if result["val f1"] < 0.5 and result["training_iteration"] >= 10:
+        return True
+    return False
+
 main(
     num_samples=num_samples,
     max_num_epochs=max_num_epochs,
@@ -123,5 +152,6 @@ main(
     query_plan=query_plan,
     path_to_save=path_to_save,
     config=config,
-    resume = resume
+    resume = resume,
+    earlystop=earlystopWikidata,
 )

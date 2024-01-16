@@ -159,20 +159,56 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
         .append(", \"Subject\": \"")
         .append(opPath.getTriplePath().getSubject().toString(true))
         .append('"')
-        .append(", \"Object\": \"")
+        //.append(", \"Object\": \"")
         ;
-        
+        String objectString;
         if (opPath.getTriplePath().getObject().isLiteral()){
-            String temp = opPath.getTriplePath().getObject().getLiteralValue().toString();
-            String laTag = opPath.getTriplePath().getObject().getLiteralLanguage();
-            if(laTag.length() > 0)
-            temp += ("@"+laTag);
-            t.append(temp);
-        }else{
-            t.append(opPath.getTriplePath().getObject().toString(true));
-        }
-        t.append("\"");
+            StringBuilder objBuilder = new StringBuilder();
+            objBuilder.append('{');
+            objBuilder.append('"');
+            objBuilder.append("value")
+            .append('"')
+            .append(":")
+            .append('"')
+            .append(opPath.getTriplePath().getObject().getLiteralValue().toString())
+            .append('"')
+            .append(',')
+            .append('"')
+            .append("datatype")
+            .append('"')
+            .append(":")
+            .append('"')
+            .append(opPath.getTriplePath().getObject().getLiteralDatatypeURI().toString())
+            .append('"')
+            .append(',')
 
+            .append('"')
+            .append("langTag")
+            .append('"')
+            .append(":")
+            .append('"')
+            .append(opPath.getTriplePath().getObject().getLiteralLanguage())
+            .append('"');
+            
+            objBuilder.append('}');
+            objectString = objBuilder.toString();
+            //t+= "\", \"Object\": \""+temp;
+            //triple.getObject().getLiteralDatatype().
+        }else{
+            StringBuilder objBuilder = new StringBuilder();
+            objBuilder.append('{');
+            objBuilder.append('"');
+            objBuilder.append("value")
+            .append('"')
+            .append(":")
+            .append('"')
+            .append(opPath.getTriplePath().getObject())
+            .append('"');
+            
+            objBuilder.append('}');
+            objectString = objBuilder.toString();
+        }
+        t.append(", \"Object\": "+objectString);
         
         print(t.toString());
         Path path = opPath.getTriplePath().getPath();

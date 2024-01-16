@@ -1,4 +1,5 @@
-from graph_construction.node import FilterNode, TriplePattern
+from graph_construction.node import FilterNode, TriplePattern, TriplePattern2
+from graph_construction.nodes.PathComplexException import PathComplexException
 from graph_construction.nodes.path_node import PathNode
 from graph_construction.qp.query_plan import QueryPlan
 from graph_construction.stack import Stack
@@ -16,7 +17,7 @@ class QueryPlanPath(QueryPlan):
     def process(self, data):
         self.level = 0
         self.data = data
-        self.triples: list[TriplePattern | PathNode] = list()
+        self.triples: list[TriplePattern2 | PathNode] = list()
         self.filters: list[FilterNode] = list()
         self.edges = list()
 
@@ -74,9 +75,9 @@ class QueryPlanPath(QueryPlan):
             try:
                t = PathNode(data)
             except KeyError:
-                raise Exception(f"Did not work for {data}")
+                raise PathComplexException(f"Did not work for {data}")
         elif data["opName"] == "Triple":
-            t = TriplePattern(data)
+            t = TriplePattern2(data)
         else:
             return
         join_v = t.get_joins()

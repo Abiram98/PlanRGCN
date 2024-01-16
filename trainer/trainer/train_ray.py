@@ -59,7 +59,7 @@ def get_dataloaders(
     featurizer_class=FeaturizerPredCoEnt,
     scaling="None",
     query_plan=QueryPlanCommonBi,
-    debug=False
+    debug=False,
 ):
     train_temp = GraphDataset.load_dataset(train_path, scaling, lit_path)
     val_temp = GraphDataset.load_dataset(val_path, scaling, lit_path)
@@ -127,6 +127,7 @@ def train_function(
     path_to_save=tempfile.TemporaryDirectory(),
 ):
     if isinstance(path_to_save, str):
+        o_path_to_save = path_to_save
         path_to_save = os.path.join(path_to_save, "session_data")
     train_loader, val_loader, _, input_d = get_dataloaders(
         train_path=train_path,
@@ -456,7 +457,8 @@ def main(
     checkpoint_config=CheckpointConfig(
         1, "val f1", "max"
     ),  # CheckpointConfig(12, "val f1", "max"),
-    resume=False
+    resume=False,
+    earlystop = stop_bad_run,
 ):
     config["epochs"] = max_num_epochs
     ray_temp_path = os.path.join(path_to_save, "temp_session")
@@ -542,7 +544,7 @@ def main(
         num_samples=num_samples,
         scheduler=scheduler,
         local_dir=ray_save,
-        stop=stop_bad_run,
+        stop=earlystop,
         resume=resume
     )
     # best_trial = result.get_best_result("val f1", "max", "last")

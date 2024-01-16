@@ -83,14 +83,15 @@ class BinnerEntPred:
         self.ent_obj_scaler.fit(input_lst)
         
         # Literal Frequency
-        input_lst = np.array(sorted([int(x) for x in lits.values()])).reshape(-1, 1)
-        self.lit_freq_scaler = KBinsDiscretizer(
-            n_bins=bins,
-            strategy="quantile",
-            encode="onehot-dense",
-            random_state=random_state,
-        )
-        self.lit_freq_scaler.fit(input_lst)
+        if lits is not None:
+            input_lst = np.array(sorted([int(x) for x in lits.values()])).reshape(-1, 1)
+            self.lit_freq_scaler = KBinsDiscretizer(
+                n_bins=bins,
+                strategy="quantile",
+                encode="onehot-dense",
+                random_state=random_state,
+            )
+            self.lit_freq_scaler.fit(input_lst)
 
     def pred_scale(self, freq, lits, ents):
         freq = self.pred_freq_scaler.transform([[freq]])[0]

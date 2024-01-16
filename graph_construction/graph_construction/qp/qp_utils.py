@@ -1,4 +1,5 @@
 from graph_construction.node import FilterNode
+from graph_construction.nodes.PathComplexException import PathComplexException
 from graph_construction.stack import Stack
 from enum import Enum
 
@@ -50,7 +51,7 @@ class pathOpTypes(Enum):
             case "P_Seq":
                 return pathOpTypes.SEQ
             case _:
-                raise Exception(
+                raise PathComplexException(
                     f"Property path operation {path_op} has not been considered!"
                 )
 

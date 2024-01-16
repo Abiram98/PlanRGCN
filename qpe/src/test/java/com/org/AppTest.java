@@ -44,4 +44,24 @@ public class AppTest
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void qpGen2(){
+
+        String query = """
+            PREFIX wd: <http://www.wikidata.org/entity/>
+            SELECT * WHERE {
+                ?Jane wd:hasFriend/wd:hasAge 2
+            }
+        """;
+        Query q = QueryFactory.create(query);
+        Op o = Algebra.compile(q);
+        o = Algebra.optimize(o);
+        try {
+            ExecutionPlanVisitor visitor = new ExecutionPlanVisitor("/tmp/test.json");
+            o.visit(visitor);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
