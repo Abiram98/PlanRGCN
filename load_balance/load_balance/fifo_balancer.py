@@ -155,7 +155,7 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
 if __name__ == "__main__":
     sample_name="wikidata_0_1_10_v3_path_weight_loss"
     scale="planrgcn_binner_litplan"
-    url = "172.21.233.23:8891/sparql"
+    url = "172.21.233.14:8891/sparql"
     main_balance_runner(sample_name, scale, url=url)
     # for running for a specific amount of time
     #timeout -s 2 7200 python3 -m load_balance.fifo_balancer
