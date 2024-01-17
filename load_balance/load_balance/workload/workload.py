@@ -70,9 +70,16 @@ class Workload:
         df2 = pd.read_csv(path)
         df2['id'] = df2['id'].apply(lambda x: f"http://lsq.aksw.org/{x}")
         df2 = df2.set_index('id')
+        n_qs = []
         for q in self.queries:
-            q.set_time_cls(df2.loc[q.ID]['planrgcn_prediction'])
-            q.set_true_time_cls(df2.loc[q.ID]['time_cls'])
+            try:
+                q.set_time_cls(df2.loc[q.ID]['planrgcn_prediction'])
+                q.set_true_time_cls(df2.loc[q.ID]['time_cls'])
+                n_qs.append(q)
+            except Exception:
+                pass
+        print(f"skipped {len(self.queries)-len(n_qs)}")
+        self.queries = n_qs
     
     def reorder_queries(self):
         n_queries = len(self.queries)

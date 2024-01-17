@@ -110,9 +110,9 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     np.random.seed(42)
     random.seed(42)
     
-    sample_name="wikidata_0_1_10_v2_path_weight_loss"
-    scale="planrgcn_binner"
-    url = "http://172.21.233.14:8891/sparql"
+    #sample_name="wikidata_0_1_10_v2_path_weight_loss"
+    #scale="planrgcn_binner"
+    #url = "http://172.21.233.14:8891/sparql"
     
     # Workload Setup
     df = pd.read_csv(f'/data/{sample_name}/test_sampled.tsv', sep='\t')
