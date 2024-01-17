@@ -35,7 +35,7 @@ class Worker:
         except TimeoutError:
             return 1
         except Exception as e:
-            return None
+            return e
         return ret
 
     def execute_query_worker(self):
@@ -66,7 +66,7 @@ class Worker:
                     'query_execution_start': q_start_time, 
                     'query_execution_end': q_end_time, 
                     'execution_time': elapsed_time, 
-                    'response': 'not ok' if ret is None else 'timed out' if ret == 1 else 'ok'})
+                    'response': ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
             with open(f"{self.path}/{w_str}.json", 'w') as f:
                 json.dump(data,f)
         except KeyboardInterrupt:
@@ -110,9 +110,9 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     np.random.seed(42)
     random.seed(42)
     
-    sample_name="wikidata_0_1_10_v2_path_weight_loss"
-    scale="planrgcn_binner"
-    url = "http://172.21.233.14:8891/sparql"
+    #sample_name="wikidata_0_1_10_v2_path_weight_loss"
+    #scale="planrgcn_binner"
+    #url = "http://172.21.233.14:8891/sparql"
     
     # Workload Setup
     df = pd.read_csv(f'/data/{sample_name}/test_sampled.tsv', sep='\t')
