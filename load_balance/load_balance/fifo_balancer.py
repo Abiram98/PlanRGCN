@@ -1,4 +1,5 @@
 import os
+from urllib.error import URLError
 from load_balance.workload.arrival_time import ArrivalRateDecider
 import pandas as pd
 from  load_balance.workload.workload import Workload, WorkloadV2, WorkloadV3
@@ -66,7 +67,7 @@ class Worker:
                     'query_execution_start': q_start_time, 
                     'query_execution_end': q_end_time, 
                     'execution_time': elapsed_time, 
-                    'response': ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                    'response': ret.reason if isinstance(ret, URLError) else ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
             with open(f"{self.path}/{w_str}.json", 'w') as f:
                 json.dump(data,f)
         except KeyboardInterrupt:
