@@ -59,15 +59,18 @@ class Worker:
                 ret = self.execute_query(q.query_string)
                 q_end_time = time.time()
                 elapsed_time = q_end_time-q_start_time
-                data.append({
-                    'query': str(q), 
-                    'start_time':self.start_time, 
-                    'arrival_time': q.arrival_time, 
-                    'queue_arrival_time':q.queue_arrival_time, 
-                    'query_execution_start': q_start_time, 
-                    'query_execution_end': q_end_time, 
-                    'execution_time': elapsed_time, 
-                    'response': ret.reason if isinstance(ret, URLError) else ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                try:
+                    data.append({
+                        'query': str(q), 
+                        'start_time':self.start_time, 
+                        'arrival_time': q.arrival_time, 
+                        'queue_arrival_time':q.queue_arrival_time, 
+                        'query_execution_start': q_start_time, 
+                        'query_execution_end': q_end_time, 
+                        'execution_time': elapsed_time, 
+                        'response': ret.reason if isinstance(ret, URLError) else ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                except AttributeError:
+                    pass
             with open(f"{self.path}/{w_str}.json", 'w') as f:
                 json.dump(data,f)
         except KeyboardInterrupt:
