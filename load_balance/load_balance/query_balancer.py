@@ -235,6 +235,6 @@ if __name__ == "__main__":
     #main_balance_runner_v2(sample_name, scale, url = 'http://172.21.233.23:8891/sparql', bl_type='planRGCN')
     sample_name="wikidata_0_1_10_v3_path_weight_loss"
     scale="planrgcn_binner_litplan"
-    url = "172.21.233.23:8891/sparql"
+    url = "http://172.21.233.23:8891/sparql"
     main_balance_runner(sample_name, scale, url=url)
     #main_balance_runnerFIFO(sample_name, scale)
