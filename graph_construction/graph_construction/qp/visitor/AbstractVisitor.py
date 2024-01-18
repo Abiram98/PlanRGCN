@@ -8,6 +8,8 @@ def dispatch(input, visitor):
             visitor.visitBGP(input)
         case "Triple":
             visitor.visitTriple(input)
+        case "path":
+            visitor.visitTriplePath(input)
         case "sequence":
             for op in input['subOp']:
                 dispatch(op,visitor)

@@ -1,4 +1,5 @@
 import os
+from urllib.error import URLError
 from load_balance.workload.arrival_time import ArrivalRateDecider
 import pandas as pd
 from  load_balance.workload.workload import Workload, WorkloadV2, WorkloadV3
@@ -35,7 +36,7 @@ class Worker:
         except TimeoutError:
             return 1
         except Exception as e:
-            return None
+            return e
         return ret
 
     def execute_query_worker(self):
@@ -58,15 +59,18 @@ class Worker:
                 ret = self.execute_query(q.query_string)
                 q_end_time = time.time()
                 elapsed_time = q_end_time-q_start_time
-                data.append({
-                    'query': str(q), 
-                    'start_time':self.start_time, 
-                    'arrival_time': q.arrival_time, 
-                    'queue_arrival_time':q.queue_arrival_time, 
-                    'query_execution_start': q_start_time, 
-                    'query_execution_end': q_end_time, 
-                    'execution_time': elapsed_time, 
-                    'response': 'not ok' if ret is None else 'timed out' if ret == 1 else 'ok'})
+                try:
+                    data.append({
+                        'query': str(q), 
+                        'start_time':self.start_time, 
+                        'arrival_time': q.arrival_time, 
+                        'queue_arrival_time':q.queue_arrival_time, 
+                        'query_execution_start': q_start_time, 
+                        'query_execution_end': q_end_time, 
+                        'execution_time': elapsed_time, 
+                        'response': ret.reason if isinstance(ret, URLError) else ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                except AttributeError:
+                    pass
             with open(f"{self.path}/{w_str}.json", 'w') as f:
                 json.dump(data,f)
         except KeyboardInterrupt:
@@ -110,9 +114,9 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     np.random.seed(42)
     random.seed(42)
     
-    sample_name="wikidata_0_1_10_v2_path_weight_loss"
-    scale="planrgcn_binner"
-    url = "http://172.21.233.14:8891/sparql"
+    #sample_name="wikidata_0_1_10_v2_path_weight_loss"
+    #scale="planrgcn_binner"
+    #url = "http://172.21.233.14:8891/sparql"
     
     # Workload Setup
     df = pd.read_csv(f'/data/{sample_name}/test_sampled.tsv', sep='\t')
@@ -153,10 +157,10 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     
 
 if __name__ == "__main__":
-    sample_name="wikidata_0_1_10_v2_path_weight_loss"
-    scale="planrgcn_binner"
-    main_balance_runner(sample_name, scale)
-    
+    sample_name="wikidata_0_1_10_v3_path_weight_loss"
+    scale="planrgcn_binner_litplan"
+    url = "http://172.21.233.14:8891/sparql"
+    main_balance_runner(sample_name, scale, url=url)
     # for running for a specific amount of time
     #timeout -s 2 7200 python3 -m load_balance.fifo_balancer
     #for debug

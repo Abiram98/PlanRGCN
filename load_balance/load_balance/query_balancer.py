@@ -1,4 +1,5 @@
 import os
+from urllib.error import URLError
 from load_balance.workload.arrival_time import ArrivalRateDecider
 import pandas as pd
 from  load_balance.workload.workload import Workload, WorkloadV2, WorkloadV3
@@ -64,15 +65,18 @@ class Worker:
                         ret = self.execute_query(q.query_string)
                         q_end_time = time.time()
                         elapsed_time = q_end_time-q_start_time
-                        data.append({
-                            'query': str(q), 
-                            'start_time':self.start_time, 
-                            'arrival_time': q.arrival_time, 
-                            'queue_arrival_time':q.queue_arrival_time, 
-                            'query_execution_start': q_start_time, 
-                            'query_execution_end': q_end_time, 
-                            'execution_time': elapsed_time, 
-                            'response': ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                        try:
+                            data.append({
+                                'query': str(q), 
+                                'start_time':self.start_time, 
+                                'arrival_time': q.arrival_time, 
+                                'queue_arrival_time':q.queue_arrival_time, 
+                                'query_execution_start': q_start_time, 
+                                'query_execution_end': q_end_time, 
+                                'execution_time': elapsed_time, 
+                                'response': ret.reason if isinstance(ret, URLError) else ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                        except AttributeError:
+                            pass
                 case "med":
                     while True:
                         val = workload.med_queue.get()
@@ -86,15 +90,18 @@ class Worker:
                         ret = self.execute_query(q.query_string)
                         q_end_time = time.time()
                         elapsed_time = q_end_time-q_start_time
-                        data.append({
-                            'query': str(q), 
-                            'start_time':self.start_time, 
-                            'arrival_time': q.arrival_time, 
-                            'queue_arrival_time':q.queue_arrival_time, 
-                            'query_execution_start': q_start_time, 
-                            'query_execution_end': q_end_time, 
-                            'execution_time': elapsed_time, 
-                            'response': ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                        try:
+                            data.append({
+                                'query': str(q), 
+                                'start_time':self.start_time, 
+                                'arrival_time': q.arrival_time, 
+                                'queue_arrival_time':q.queue_arrival_time, 
+                                'query_execution_start': q_start_time, 
+                                'query_execution_end': q_end_time, 
+                                'execution_time': elapsed_time, 
+                                'response': ret.reason if isinstance(ret, URLError) else ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                        except AttributeError:
+                            pass
                 case "fast":
                     while True:
                         val = workload.fast_queue.get()
@@ -108,15 +115,18 @@ class Worker:
                         ret = self.execute_query(q.query_string)
                         q_end_time = time.time()
                         elapsed_time = q_end_time-q_start_time
-                        data.append({
-                            'query': str(q), 
-                            'start_time':self.start_time, 
-                            'arrival_time': q.arrival_time, 
-                            'queue_arrival_time':q.queue_arrival_time, 
-                            'query_execution_start': q_start_time, 
-                            'query_execution_end': q_end_time, 
-                            'execution_time': elapsed_time, 
-                            'response': ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                        try:
+                            data.append({
+                                'query': str(q), 
+                                'start_time':self.start_time, 
+                                'arrival_time': q.arrival_time, 
+                                'queue_arrival_time':q.queue_arrival_time, 
+                                'query_execution_start': q_start_time, 
+                                'query_execution_end': q_end_time, 
+                                'execution_time': elapsed_time, 
+                                'response': ret.reason if isinstance(ret, URLError) else ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                        except AttributeError:
+                            pass
             
             with open(f"{self.path}/{w_str}.json", 'w') as f:
                 json.dump(data,f)
@@ -126,6 +136,7 @@ class Worker:
         exit()
 
 def dispatcher(workload: WorkloadV3, start_time, path):
+    #ss = []
     try:
         for numb, (q, a) in enumerate(zip(workload.queries, workload.arrival_times)):
             if numb % 100 == 0:
@@ -134,6 +145,7 @@ def dispatcher(workload: WorkloadV3, start_time, path):
                 s['med'] = workload.med_queue.qsize()
                 s['slow'] = workload.slow_queue.qsize()
                 s['time'] = time.time() - start_time
+                #ss.append(s)
                 print(f"Main process: query {numb} / {len(workload.queries)}: {s}")
             n_arr = start_time + a
             q.arrival_time = n_arr
@@ -185,9 +197,9 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     np.random.seed(42)
     random.seed(42)
     
-    sample_name="wikidata_0_1_10_v2_path_weight_loss"
-    scale="planrgcn_binner"
-    url = "http://172.21.233.14:8891/sparql"
+    #sample_name="wikidata_0_1_10_v2_path_weight_loss"
+    #scale="planrgcn_binner"
+    #url = "http://172.21.233.14:8891/sparql"
     
     # Workload Setup
     df = pd.read_csv(f'/data/{sample_name}/test_sampled.tsv', sep='\t')
@@ -233,5 +245,8 @@ if __name__ == "__main__":
     #timeout -s 2 7200 python3 -m load_balance.query_balancer
     
     #main_balance_runner_v2(sample_name, scale, url = 'http://172.21.233.23:8891/sparql', bl_type='planRGCN')
-    main_balance_runner(sample_name, scale)
+    sample_name="wikidata_0_1_10_v3_path_weight_loss"
+    scale="planrgcn_binner_litplan"
+    url = "http://172.21.233.14:8891/sparql"
+    main_balance_runner(sample_name, scale, url=url)
     #main_balance_runnerFIFO(sample_name, scale)
