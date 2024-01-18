@@ -34,6 +34,7 @@ sample_name = "DBpedia2016_0_1_10_path_weight_loss"
 
 
 sample_name = "DBpedia2016_0_1_10_weight_loss"
+sample_name = "DBpedia2016_0_1_10_path_v3_weight_loss"
 
 
 train_path = f"/data/{sample_name}/train_sampled.tsv"
@@ -61,8 +62,8 @@ lit_path= (
 # Training Configurations
 num_samples = 1  # cpu cores to use
 num_samples = 8  # cpu cores to use
-num_samples = 32  # 4  # use this
-num_cpus= 20
+num_samples = 14  # 4  # use this
+num_cpus= 14
 max_num_epochs = 100
 # batch_size = 64
 query_plan_dir = qp_path
@@ -71,33 +72,24 @@ is_lsq = True
 cls_func = snap_lat2onehotv2
 #featurizer_class = FeaturizerPredCoEnt
 #featurizer_class = FeaturizerBinning
-featurizer_class = FeaturizerPath
 featurizer_class = FeaturizerBinning
+featurizer_class = FeaturizerPath
 #scaling = "robust"
 # scaling = "std"
 scaling = "binner"
 n_classes = 3
-query_plan = QueryPlanPath
 query_plan = QueryPlanLit
+query_plan = QueryPlanPath
 prepper = None
 resume=False
 # Results save path
 path_to_save = f"/data/{sample_name}/planrgcn_{scaling}"
-if query_plan is QueryPlanLit:
+if lit_path is not None:
     path_to_save += "_litplan"
 
 os.makedirs(path_to_save, exist_ok=True)
 
-ddscdsaonfig = {
-    "l1": tune.choice([128, 256, 512, 1024, 2048, 4096]),
-    "l2": tune.choice([128, 256, 512, 1024, 2048, 4096]),
-    "dropout": tune.grid_search([0.0, 0.6, 0.8]),
-    "wd": 0.01,
-    "lr": tune.grid_search([1e-5]),
-    "epochs": 100,
-    "batch_size": tune.choice([128, 256, 512]),
-    "loss_type": "cross-entropy",
-}
+
 # For fast debug purposes
 config = {
     "l1": tune.grid_search([10]),
@@ -110,18 +102,47 @@ config = {
     "loss_type": "cross-entropy",
 }
 
+
 config = {
-    "l1": tune.choice([64,512, 256, 1024, 2048, 4096]),
-    "l2": tune.choice([64,512, 256, 1024, 4096]),
+    "l1": tune.choice([512, 256, 1024, 2048, 4096]),
+    "l2": tune.choice([512, 256, 1024, 4096]),
     "dropout": tune.choice([0.0, 0.6]),
     "wd": 0.01,
     "lr": tune.grid_search([1e-5]),
     "epochs": 100,
-    "batch_size": tune.choice([128, 256]),
-    "loss_type": "cross-entropy",
+    "batch_size": tune.choice([128, 256, 512]),
+    "loss_type": tune.choice(["cross-entropy","mse"]),
     "pred_com_path": tune.choice(["pred2index_louvain.pickle"]),
 }
+config = {
+    "l1": tune.choice([ 1024, 2048, 4096]),
+    "l2": tune.choice([ 512, 1024, 2048, 4096]),
+    "dropout": tune.choice([0.0, 0.6]),
+    "wd": 0.01,
+    "lr": tune.grid_search([1e-5]),
+    "epochs": 100,
+    "batch_size": tune.choice([ 256]),
+    "loss_type": tune.choice(["cross-entropy","mse"]),
+    "pred_com_path": tune.choice(
+        [ "pred2index_louvain.pickle"]
+    ),
+}
 
+def earlystopDBpedia(trial_id: str, result: dict) -> bool:
+    """This function should return true when the trial should be stopped and false for continued training.
+
+    Args:
+        trial_id (str): _description_
+        result (dict): _description_
+
+    Returns:
+        bool: whether to stop trial or not
+    """
+    if result["val f1"] < 0.7 and result["training_iteration"] >= 50:
+        return True
+    if result["val f1"] < 0.5 and result["training_iteration"] >= 10:
+        return True
+    return False
 
 main(
     num_samples=num_samples,
@@ -144,5 +165,6 @@ main(
     path_to_save=path_to_save,
     config=config,
     resume=resume,
-    num_cpus=num_cpus
+    num_cpus=num_cpus,
+    earlystop=earlystopDBpedia,
 )

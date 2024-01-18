@@ -3,6 +3,7 @@ package com.org.Algebra;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,6 +22,7 @@ import org.apache.jena.sparql.algebra.op.OpPath;
 import org.apache.jena.sparql.algebra.op.OpProcedure;
 import org.apache.jena.sparql.algebra.op.OpPropFunc;
 import org.apache.jena.sparql.algebra.op.OpSequence;
+import org.apache.jena.sparql.function.library.leviathan.degreesToRadians;
 import org.apache.jena.sparql.path.P_Alt;
 import org.apache.jena.sparql.path.P_Mod;
 import org.apache.jena.sparql.path.P_NegPropSet;
@@ -63,6 +65,19 @@ public class ExecutionPlanVisitor extends OpVisitorByType {
 
     public ExecutionPlanVisitor(){
         this.stream = System.out;
+
+    }
+
+    public ExecutionPlanVisitor(boolean diable) {
+        if (!diable) {
+            this.stream = new PrintStream(new OutputStream() {
+                public void write(int b) {
+                    // DO NOTHING
+                }
+            });
+        } else {
+            this.stream = System.out;
+        }
 
     }
 

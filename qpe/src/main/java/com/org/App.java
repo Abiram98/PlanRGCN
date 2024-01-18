@@ -43,6 +43,10 @@ public class App
                 EntityLogExtractor.run(args[1], args[2]);
                 break;
             }
+            case "time-query-plan-gen": {
+                testQuery();
+                break;
+            }
             default: {
                 System.out.println("Something went wrong with the task specifications");
                 break;
@@ -86,5 +90,13 @@ public class App
                 Utils u = new Utils();
             query ="PREFIX category: <http://dbpedia.org/resource/Category:> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> SELECT DISTINCT ?super ?preferredLabel WHERE { ?super (^skos:broader){0,5} category:American_New_Wave_musicians . ?super (^skos:broader){0,5} category:Oral_hygiene . ?super skos:prefLabel ?preferredLabel }";
         u.create_algebra_test(query);
+    }
+
+    public static void testQuery() {
+        Utils u = new Utils();
+        String query = """
+                PREFIX dbpo: <http://dbpedia.org/ontology/> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX dbpr: <http://dbpedia.org/resource/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> SELECT * WHERE { <http://dbpedia.org/resource/Iv%C3%A1n_Amaya> ?p ?o FILTER ( ( ( ( ( ( ?p != owl:sameAs ) && ( ?p != foaf:thumbnail ) ) && ( ?p != dbpo:thumbnail ) ) && ( ?p != dbpo:wikiPageExternalLink ) ) && ( ?p != foaf:depiction ) ) && ( ?p != foaf:homepage ) ) }
+                    """;
+        System.out.println(u.time_query_plan(query));
     }
 }

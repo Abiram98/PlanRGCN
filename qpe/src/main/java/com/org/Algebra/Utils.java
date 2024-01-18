@@ -6,7 +6,9 @@ import org.apache.jena.sparql.sse.SSE;
 import com.org.QueryReader.LSQreader;
 
 import java.io.FileNotFoundException;
+import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 
@@ -40,6 +42,20 @@ public class Utils {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public long time_query_plan(String query) {
+        StopWatch watch = new StopWatch();
+        watch.start();
+        Query q = QueryFactory.create(query);
+        Op o = Algebra.compile(q);
+        o = Algebra.optimize(o);
+        // SSE.write(o);
+        ExecutionPlanVisitor visitor = new ExecutionPlanVisitor(false);
+        o.visit(visitor);
+        watch.stop();
+        long time = watch.getTime(TimeUnit.MILLISECONDS);
+        return time;
     }
 
     /*
