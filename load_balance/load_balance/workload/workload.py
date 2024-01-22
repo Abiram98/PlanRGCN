@@ -5,7 +5,8 @@ from sklearn.model_selection import train_test_split
 import multiprocessing
 
 class Workload:
-    def __init__(self) -> None:
+    def __init__(self, true_field_name='planrgcn_prediction') -> None:
+        self.true_field_name = true_field_name
         self.queries:list[Query] = list()
         self.arrival_times:list[float] = list()
         self.p_idx = 0
@@ -73,7 +74,7 @@ class Workload:
         n_qs = []
         for q in self.queries:
             try:
-                q.set_time_cls(df2.loc[q.ID]['planrgcn_prediction'])
+                q.set_time_cls(df2.loc[q.ID][self.true_field_name])
                 q.set_true_time_cls(df2.loc[q.ID]['time_cls'])
                 n_qs.append(q)
             except Exception:

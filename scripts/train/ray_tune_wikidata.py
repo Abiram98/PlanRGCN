@@ -19,7 +19,9 @@ sample_name = "wikidata_0_1_10_v2_path_weight_loss"
 sample_name = "wikidata_0_1_10_v2_path_hybrid"
 sample_name = "wikidata_0_1_10_v2_weight_loss"
 
-sample_name = "wikidata_0_1_10_v3_path_weight_loss"
+sample_name = "wikidata_0_1_10_v3_path_weight_loss" #already run
+
+sample_name = "wikidata_0_1_10_v3_weight_loss" # need to run
 
 # Results save path
 """if os.path.exists(path_to_save):
@@ -55,21 +57,19 @@ lit_path =(
 # Training Configurations
 num_samples = 1  # cpu cores to use
 num_samples = 8  # cpu cores to use
-num_samples = 13  # cpu cores to use
+num_samples = 20  # cpu cores to use
 max_num_epochs = 100
 # batch_size = 64
 query_plan_dir = qp_path
 time_col = "mean_latency"
 is_lsq = True
 cls_func = snap_lat2onehotv2
-featurizer_class = FeaturizerPredCoEnt
-featurizer_class = FeaturizerBinning
 featurizer_class = FeaturizerPath
+featurizer_class = FeaturizerBinning
 #scaling = "robust"
 n_classes = 3
-query_plan = QueryPlan
-query_plan = QueryPlanLit
 query_plan = QueryPlanPath
+query_plan = QueryPlanLit
 scaling = "binner"
 prepper = None
 resume = False

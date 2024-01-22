@@ -49,7 +49,7 @@ class Worker:
         w_type = "slow" if w_type.startswith('slow') else w_type
         data = []
         #debug code
-        ret = None
+        #ret = None
         try:
             match w_type:
                 case "slow":
@@ -145,8 +145,7 @@ def dispatcher(workload: WorkloadV3, start_time, path):
                 s['med'] = workload.med_queue.qsize()
                 s['slow'] = workload.slow_queue.qsize()
                 s['time'] = time.time() - start_time
-                #ss.append(s)
-                print(f"Main process: query {numb} / {len(workload.queries)}: {s}")
+                print(f"Main process: query {numb} / {len(workload.queries)}: {s}", flush=True)
             n_arr = start_time + a
             q.arrival_time = n_arr
             if n_arr > time.time():
@@ -193,7 +192,11 @@ def dispatcher(workload: WorkloadV3, start_time, path):
     exit()
 
 
-def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/sparql'):
+def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/sparql', save_dir='load_balance',cls_field='planrgcn_prediction', work_dict={
+                    'fast': 4,
+                    'med' : 3,
+                    'slow': 1
+                }):
     np.random.seed(42)
     random.seed(42)
     
@@ -205,7 +208,7 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     df = pd.read_csv(f'/data/{sample_name}/test_sampled.tsv', sep='\t')
     print(df)
     print(df['mean_latency'].quantile(q=0.25))
-    w = Workload()
+    w = Workload(true_field_name=cls_field)
     w.load_queries(f'/data/{sample_name}/test_sampled.tsv')
     w.set_time_cls(f"/data/{sample_name}/{scale}/test_pred.csv")
     a = ArrivalRateDecider()
@@ -213,11 +216,17 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     w.shuffle_queries()
     w.set_arrival_times(a.assign_arrival_rate(w, mu=const.MU))
     
-    f_lb =f'/data/{sample_name}/load_balance'
+    #f_lb =f'/data/{sample_name}/{save_name}'
+    f_lb = save_dir
     os.system(f'mkdir -p {f_lb}')
     path = f_lb
     procs = {}
-    work_names = ["slow","med1", "med2","med3","fast1","fast2","fast3","fast4" ]
+    #work_names = ["slow","med1", "med2","med3","fast1","fast2","fast3","fast4" ]
+    work_names = []
+    for i in ['slow', 'med', 'fast']:
+        for x in range(1, work_dict[i]+1):
+            work_names.append(f"{i}{x}")
+    
     start_time = time.time()
     for work_name in work_names:
         procs[work_name] = multiprocessing.Process(target=Worker(w,work_name,url, start_time,path).execute_query_worker)

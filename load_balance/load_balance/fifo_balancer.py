@@ -85,7 +85,7 @@ def dispatcher(workload: WorkloadV3, start_time, path):
                 s = {}
                 s['fifo'] = workload.FIFO_queue.qsize()
                 s['time'] = time.time() - start_time
-                print(f"Main process: query {numb} / {len(workload.queries)}: {s}")
+                print(f"Main process: query {numb} / {len(workload.queries)}: {s}", flush=True)
             n_arr = start_time + a
             q.arrival_time = n_arr
             if n_arr > time.time():
@@ -110,7 +110,7 @@ def dispatcher(workload: WorkloadV3, start_time, path):
         exit()           
     exit()    
 
-def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/sparql'):
+def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/sparql', save_dir='load_balance',cls_field='planrgcn_prediction',n_workers=8):
     np.random.seed(42)
     random.seed(42)
     
@@ -122,7 +122,7 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     df = pd.read_csv(f'/data/{sample_name}/test_sampled.tsv', sep='\t')
     print(df)
     print(df['mean_latency'].quantile(q=0.25))
-    w = Workload()
+    w = Workload(true_field_name=cls_field)
     w.load_queries(f'/data/{sample_name}/test_sampled.tsv')
     w.set_time_cls(f"/data/{sample_name}/{scale}/test_pred.csv")
     a = ArrivalRateDecider()
@@ -130,13 +130,12 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     w.shuffle_queries()
     w.set_arrival_times(a.assign_arrival_rate(w, mu=const.MU))
     
-    
-    
-    f_lb =f'/data/{sample_name}/load_balance_FIFO'
+    #f_lb =f'/data/{sample_name}/load_balance_FIFO'
+    f_lb = save_dir
     os.system(f'mkdir -p {f_lb}')
     path = f_lb
     procs = {}
-    work_names = [f"w_{x+1}" for x in range(8)]
+    work_names = [f"w_{x+1}" for x in range(n_workers)]
     start_time = time.time()
     for work_name in work_names:
         procs[work_name] = multiprocessing.Process(target=Worker(w,work_name,url, start_time,path).execute_query_worker)
@@ -146,9 +145,10 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
         for k in procs.keys():
             procs[k].start()
         
-        for k in work_names:
-            procs[k].join()
-        procs['main'].join()
+        if w.FIFO_queue.empty():
+            for k in work_names:
+                procs[k].join()
+            procs['main'].join()
         end_time = time.time()
         print(f"elapsed time: {end_time-start_time}")
     except KeyboardInterrupt:
