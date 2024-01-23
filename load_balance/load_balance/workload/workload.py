@@ -69,7 +69,7 @@ class Workload:
         
     def set_time_cls(self, path):
         df2 = pd.read_csv(path)
-        df2['id'] = df2['id'].apply(lambda x: f"http://lsq.aksw.org/{x}")
+        #df2['id'] = df2['id'].apply(lambda x: f"http://lsq.aksw.org/{x}")
         df2 = df2.set_index('id')
         n_qs = []
         for q in self.queries:
@@ -77,7 +77,7 @@ class Workload:
                 q.set_time_cls(df2.loc[q.ID][self.true_field_name])
                 q.set_true_time_cls(df2.loc[q.ID]['time_cls'])
                 n_qs.append(q)
-            except Exception:
+            except Exception as e:
                 pass
         print(f"skipped {len(self.queries)-len(n_qs)}")
         self.queries = n_qs
