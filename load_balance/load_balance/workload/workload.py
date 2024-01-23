@@ -67,9 +67,10 @@ class Workload:
     def shuffle_queries(self):
         random.shuffle(self.queries)
         
-    def set_time_cls(self, path):
+    def set_time_cls(self, path, add_lsq_url=False):
         df2 = pd.read_csv(path)
-        #df2['id'] = df2['id'].apply(lambda x: f"http://lsq.aksw.org/{x}")
+        if add_lsq_url:
+            df2['id'] = df2['id'].apply(lambda x: f"http://lsq.aksw.org/{x}")
         df2 = df2.set_index('id')
         n_qs = []
         for q in self.queries:

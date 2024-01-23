@@ -78,7 +78,7 @@ class Worker:
                 json.dump(data,f)
         exit()
 
-def dispatcher(workload: WorkloadV3, start_time, path):
+def dispatcher(workload: WorkloadV3, start_time, path, n_workers):
     try:
         for numb, (q, a) in enumerate(zip(workload.queries, workload.arrival_times)):
             if numb % 100 == 0:
@@ -95,7 +95,7 @@ def dispatcher(workload: WorkloadV3, start_time, path):
             workload.FIFO_queue.put(q)
         
         # Signal stop to workers
-        for _ in range(8):
+        for _ in range(n_workers):
             workload.FIFO_queue.put(None)
         
         with open(f"{path}/main.json", 'w') as f:
@@ -139,7 +139,7 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     start_time = time.time()
     for work_name in work_names:
         procs[work_name] = multiprocessing.Process(target=Worker(w,work_name,url, start_time,path).execute_query_worker)
-    procs['main'] = multiprocessing.Process(target=dispatcher, args=(w, start_time, path,))
+    procs['main'] = multiprocessing.Process(target=dispatcher, args=(w, start_time, path,n_workers,))
     
     try:
         for k in procs.keys():

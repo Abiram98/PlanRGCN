@@ -135,7 +135,7 @@ class Worker:
                 json.dump(data,f)
         exit()
 
-def dispatcher(workload: WorkloadV3, start_time, path):
+def dispatcher(workload: WorkloadV3, start_time, path, work_name):
     #ss = []
     try:
         for numb, (q, a) in enumerate(zip(workload.queries, workload.arrival_times)):
@@ -169,14 +169,18 @@ def dispatcher(workload: WorkloadV3, start_time, path):
         #for k in workload.queue_dct.keys():
         #    workload.queue_dct[k].put(None)
         
-        workload.slow_queue.put(None)
-        workload.med_queue.put(None)
-        workload.med_queue.put(None)
-        workload.med_queue.put(None)
-        workload.fast_queue.put(None)
-        workload.fast_queue.put(None)
-        workload.fast_queue.put(None)
-        workload.fast_queue.put(None)
+        for i in work_name:
+            if i.startswith('slow'):
+                workload.slow_queue.put(None)
+            elif i.startswith('med'):
+                workload.med_queue.put(None)
+            elif i.startswith('fast'):
+                workload.fast_queue.put(None)
+        #workload.med_queue.put(None)
+        #workload.med_queue.put(None)
+        #workload.fast_queue.put(None)
+        #workload.fast_queue.put(None)
+        #workload.fast_queue.put(None)
         with open(f"{path}/main.json", 'w') as f:
             f.write("done")
     except KeyboardInterrupt:
@@ -196,7 +200,7 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
                     'fast': 4,
                     'med' : 3,
                     'slow': 1
-                }):
+                },add_lsq_url=False):
     np.random.seed(42)
     random.seed(42)
     
@@ -210,7 +214,7 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     print(df['mean_latency'].quantile(q=0.25))
     w = Workload(true_field_name=cls_field)
     w.load_queries(f'/data/{sample_name}/test_sampled.tsv')
-    w.set_time_cls(f"/data/{sample_name}/{scale}/test_pred.csv")
+    w.set_time_cls(f"/data/{sample_name}/{scale}/test_pred.csv",add_lsq_url=add_lsq_url)
     a = ArrivalRateDecider()
     w.shuffle_queries()
     w.shuffle_queries()
@@ -230,7 +234,7 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     start_time = time.time()
     for work_name in work_names:
         procs[work_name] = multiprocessing.Process(target=Worker(w,work_name,url, start_time,path).execute_query_worker)
-    procs['main'] = multiprocessing.Process(target=dispatcher, args=(w, start_time, path,))
+    procs['main'] = multiprocessing.Process(target=dispatcher, args=(w, start_time, path,work_names,))
     
     try:
         for k in procs.keys():
