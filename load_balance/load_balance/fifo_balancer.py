@@ -88,8 +88,10 @@ def dispatcher(workload: WorkloadV3, start_time, path, n_workers):
                 print(f"Main process: query {numb} / {len(workload.queries)}: {s}", flush=True)
             n_arr = start_time + a
             q.arrival_time = n_arr
-            if n_arr > time.time():
+            try:
                 time.sleep(n_arr - time.time())
+            except Exception:
+                pass
             
             q.queue_arrival_time = time.time()
             workload.FIFO_queue.put(q)

@@ -148,8 +148,10 @@ def dispatcher(workload: WorkloadV3, start_time, path, work_name):
                 print(f"Main process: query {numb} / {len(workload.queries)}: {s}", flush=True)
             n_arr = start_time + a
             q.arrival_time = n_arr
-            if n_arr > time.time():
+            try:
                 time.sleep(n_arr - time.time())
+            except Exception:
+                pass
             
             match q.time_cls:
                 case 0:
