@@ -112,7 +112,7 @@ def dispatcher(workload: WorkloadV3, start_time, path, n_workers):
         exit()           
     exit()    
 
-def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/sparql', save_dir='load_balance',cls_field='planrgcn_prediction',n_workers=8):
+def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/sparql', save_dir='load_balance',cls_field='planrgcn_prediction',n_workers=8, add_lsq_url=False):
     np.random.seed(42)
     random.seed(42)
     
@@ -124,7 +124,7 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     df = pd.read_csv(f'/data/{sample_name}/test_sampled.tsv', sep='\t')
     print(df)
     print(df['mean_latency'].quantile(q=0.25))
-    w = Workload(true_field_name=cls_field)
+    w = Workload(true_field_name=cls_field, add_lsq_url=add_lsq_url)
     w.load_queries(f'/data/{sample_name}/test_sampled.tsv')
     w.set_time_cls(f"/data/{sample_name}/{scale}/test_pred.csv")
     a = ArrivalRateDecider()
