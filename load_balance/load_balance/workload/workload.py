@@ -3,7 +3,7 @@ from load_balance.workload.query import Query
 import random
 from sklearn.model_selection import train_test_split
 import multiprocessing
-
+import pickle
 class Workload:
     def __init__(self, true_field_name='planrgcn_prediction') -> None:
         self.true_field_name = true_field_name
@@ -45,6 +45,9 @@ class Workload:
             arrival_times = arrival_times.tolist()
         self.arrival_times = arrival_times
     
+    def pickle(self, fp):
+        pickle.dump((self.queries,self.arrival_times),fp)
+        
     def __len__(self):
         return len(self.queries)
     

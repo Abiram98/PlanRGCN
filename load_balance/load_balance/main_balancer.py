@@ -42,8 +42,7 @@ if __name__ == "__main__":
     os.makedirs(Path(save_dir), exist_ok=True)
     w = get_workload(sample_name, scale, add_lsq_url, cls_field)
     with open(os.path.join(save_dir,"workload.pcl"), 'wb') as wf:
-        pickle.dump(w, wf)
-    
+        w.pickle(wf)
     with open(os.path.join(save_dir, std_file), 'w') as sys.stdout:
         match config['TASK']['taskName']:
             case "fifo":
