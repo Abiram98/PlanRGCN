@@ -30,7 +30,7 @@ def monitor_queue(workload: WorkloadV2, start_time, path):
             s[k] = workload.queue_dct[k].qsize()
             if s[k] > 0:
                 nonempty=1
-        s['time'] = time.time()
+        s['time'] = time.perf_counter()
         data.append(s)
         if len(data) % 3 == 0:
             with open(f"{path}/monitor_con.json", 'w') as f:
@@ -39,7 +39,7 @@ def monitor_queue(workload: WorkloadV2, start_time, path):
             with open(f"{path}/monitor.json", 'w') as f:
                 json.dump(data, f)
             exit()
-        print(f"Monitor process: {time.time()-start_time} s")
+        print(f"Monitor process: {time.perf_counter()-start_time} s")
         time.sleep(10)
     
 def main_worker(workload: WorkloadV2, start_time, path):
@@ -52,19 +52,19 @@ def main_worker(workload: WorkloadV2, start_time, path):
             print(f"Main process: query {numb} / {len(workload.queries)}")
         n_arr = start_time + a
         q.arrival_time = n_arr
-        time.sleep(n_arr - time.time())
+        time.sleep(n_arr - time.perf_counter())
         
         match q.time_cls:
             case 0:
-                q.queue_arrival_time = time.time()
+                q.queue_arrival_time = time.perf_counter()
                 workload.queue_dct[fast_keys[fast_idx]].put(q)
                 fast_idx = 0 if (fast_idx + 1) == len(fast_keys) else (fast_idx + 1)
             case 1:
-                q.queue_arrival_time = time.time()
+                q.queue_arrival_time = time.perf_counter()
                 workload.queue_dct[medium_keys[med_idx]].put(q)
                 med_idx = 0 if (med_idx + 1) == len(medium_keys) else (med_idx + 1)
             case 2:
-                q.queue_arrival_time = time.time()
+                q.queue_arrival_time = time.perf_counter()
                 workload.queue_dct['slow'].put(q)
     for k in workload.queue_dct.keys():
         workload.queue_dct[k].put(None)
@@ -90,7 +90,7 @@ def main_balance_runner_v2(sample_name, scale, url = 'http://172.21.233.23:8891/
     #w.reorder_queries()
     w.set_arrival_times(a.assign_arrival_rate(w, mu=44))
     
-    start_time = time.time()
+    start_time = time.perf_counter()
     print(start_time)
     f_lb =f'/data/{sample_name}/load_balance'
     os.system(f'mkdir -p {f_lb}')
@@ -118,7 +118,7 @@ def main_balance_runner_v2(sample_name, scale, url = 'http://172.21.233.23:8891/
     
     for k in procs.keys():
         procs[k].join()
-    end_time = time.time()
+    end_time = time.perf_counter()
     print(f"elapsed time: {end_time-start_time}")
     
 def get_all_queries(b):
@@ -158,7 +158,7 @@ def execute_query_worker_v2(workload:WorkloadV2, w_type, url, start_time, path):
             break
         q = val
         
-        q_start_time = time.time()
+        q_start_time = time.perf_counter()
         #execute stuff
         ret = execute_query(q.query_string,sparql, timeout=900)
         #debug code /simulation
@@ -169,7 +169,7 @@ def execute_query_worker_v2(workload:WorkloadV2, w_type, url, start_time, path):
         elif w_type.startswith('slow'):
             time.sleep(10)
         ret = None"""
-        q_end_time = time.time()
+        q_end_time = time.perf_counter()
         elapsed_time = q_end_time-q_start_time
         data.append({
             'query': str(q), 
@@ -199,12 +199,12 @@ def execute_query_worker_FIFO(workload:Workload, w_type, url, start_time, path):
             break
         (q,ar) = val
         n_ar = ar+start_time
-        while( time.time()< n_ar):
+        while( time.perf_counter()< n_ar):
             pass
-        q_start_time = time.time()
+        q_start_time = time.perf_counter()
         #execute stuff
         ret = execute_query(q.query_string,url)
-        q_end_time = time.time()
+        q_end_time = time.perf_counter()
         elapsed_time = q_end_time-q_start_time
         print(w_type+ '  ', len(data))
         #qs.append(q)
@@ -243,7 +243,7 @@ def main_balance_runnerFIFO(sample_name, scale, url = 'http://172.21.233.23:8891
     w.initialise_FIFO_que()
     for _ in range(8):
         w.FIFO_queue.put(None)
-    start_time = time.time()
+    start_time = time.perf_counter()
     print(start_time)
     f_lb =f'/data/{sample_name}/load_balance_FIFO'
     os.system(f'mkdir -p {f_lb}')
@@ -264,5 +264,5 @@ def main_balance_runnerFIFO(sample_name, scale, url = 'http://172.21.233.23:8891
     
     for k in procs:
         k.join()
-    end_time = time.time()
+    end_time = time.perf_counter()
     print(f"elapsed time: {end_time-start_time}")

@@ -1,18 +1,12 @@
 import os
 from urllib.error import URLError
-from load_balance.workload.arrival_time import ArrivalRateDecider
-import pandas as pd
 from  load_balance.workload.workload import Workload, WorkloadV2, WorkloadV3
 import multiprocessing
-import time, datetime
+import time
 from SPARQLWrapper import SPARQLWrapper, JSON
-import random
-import numpy as np
 import json
 from load_balance.query_balancer_v1 import *
-from multiprocessing import Array, Value
 from load_balance.workload.query import Query
-import load_balance.const as const
 
 class Worker:
     def __init__(self, workload:WorkloadV3,w_type, url, start_time, path, timeout=900):
@@ -53,11 +47,11 @@ class Worker:
                     break
                 q = val
                 q:Query
-                q_start_time = time.time()
+                q_start_time = time.perf_counter()
                 
                 #execute stuff
                 ret = self.execute_query(q.query_string)
-                q_end_time = time.time()
+                q_end_time = time.perf_counter()
                 elapsed_time = q_end_time-q_start_time
                 try:
                     data.append({
@@ -68,7 +62,7 @@ class Worker:
                         'query_execution_start': q_start_time, 
                         'query_execution_end': q_end_time, 
                         'execution_time': elapsed_time, 
-                        'response': ret.reason if isinstance(ret, URLError) else ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                        'response': ret.reason if isinstance(ret, URLError) else repr(ret) if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
                 except AttributeError:
                     pass
             with open(f"{self.path}/{w_str}.json", 'w') as f:
@@ -84,16 +78,16 @@ def dispatcher(workload: WorkloadV3, start_time, path, n_workers):
             if numb % 100 == 0:
                 s = {}
                 s['fifo'] = workload.FIFO_queue.qsize()
-                s['time'] = time.time() - start_time
+                s['time'] = time.perf_counter() - start_time
                 print(f"Main process: query {numb} / {len(workload.queries)}: {s}", flush=True)
             n_arr = start_time + a
             q.arrival_time = n_arr
             try:
-                time.sleep(n_arr - time.time())
+                time.sleep(n_arr - time.perf_counter())
             except Exception:
                 pass
             
-            q.queue_arrival_time = time.time()
+            q.queue_arrival_time = time.perf_counter()
             workload.FIFO_queue.put(q)
         
         # Signal stop to workers
@@ -105,40 +99,21 @@ def dispatcher(workload: WorkloadV3, start_time, path, n_workers):
     except KeyboardInterrupt:
         s = {}
         s['fifo'] = workload.FIFO_queue.qsize()
-        s['time'] = time.time() - start_time
+        s['time'] = time.perf_counter() - start_time
         print(f"Main process: query {numb} / {len(workload.queries)}: {s}")
         with open(f"{path}/main.json", 'w') as f:
             f.write("done")
         exit()           
     exit()    
 
-def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/sparql', save_dir='load_balance',cls_field='planrgcn_prediction',n_workers=8):
-    np.random.seed(42)
-    random.seed(42)
-    
-    #sample_name="wikidata_0_1_10_v2_path_weight_loss"
-    #scale="planrgcn_binner"
-    #url = "http://172.21.233.14:8891/sparql"
-    
-    # Workload Setup
-    df = pd.read_csv(f'/data/{sample_name}/test_sampled.tsv', sep='\t')
-    print(df)
-    print(df['mean_latency'].quantile(q=0.25))
-    w = Workload(true_field_name=cls_field)
-    w.load_queries(f'/data/{sample_name}/test_sampled.tsv')
-    w.set_time_cls(f"/data/{sample_name}/{scale}/test_pred.csv")
-    a = ArrivalRateDecider()
-    w.shuffle_queries()
-    w.shuffle_queries()
-    w.set_arrival_times(a.assign_arrival_rate(w, mu=const.MU))
-    
+def main_balance_runner(w, url = 'http://172.21.233.23:8891/sparql', save_dir='load_balance',n_workers=8):
     #f_lb =f'/data/{sample_name}/load_balance_FIFO'
     f_lb = save_dir
     os.system(f'mkdir -p {f_lb}')
     path = f_lb
     procs = {}
     work_names = [f"w_{x+1}" for x in range(n_workers)]
-    start_time = time.time()
+    start_time = time.perf_counter()
     for work_name in work_names:
         procs[work_name] = multiprocessing.Process(target=Worker(w,work_name,url, start_time,path).execute_query_worker)
     procs['main'] = multiprocessing.Process(target=dispatcher, args=(w, start_time, path,n_workers,))
@@ -151,10 +126,10 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
             for k in work_names:
                 procs[k].join()
             procs['main'].join()
-        end_time = time.time()
+        end_time = time.perf_counter()
         print(f"elapsed time: {end_time-start_time}")
     except KeyboardInterrupt:
-        end_time = time.time()
+        end_time = time.perf_counter()
         print(f"elapsed time: {end_time-start_time}")
     
 

@@ -45,12 +45,12 @@ class WorkerSmart(Worker):
                             break
                         q = val
                         q:Query
-                        q_start_time = time.time()
+                        q_start_time = time.perf_counter()
                         
                         #execute stuff
                         time.sleep(1)
                         #ret = self.execute_query(q.query_string)
-                        q_end_time = time.time()
+                        q_end_time = time.perf_counter()
                         elapsed_time = q_end_time-q_start_time
                         data.append({
                             'query': str(q), 
@@ -68,11 +68,11 @@ class WorkerSmart(Worker):
                             break
                         q = val
                         q:Query
-                        q_start_time = time.time()
+                        q_start_time = time.perf_counter()
                         
                         #execute stuff
                         #ret = self.execute_query(q.query_string)
-                        q_end_time = time.time()
+                        q_end_time = time.perf_counter()
                         elapsed_time = q_end_time-q_start_time
                         data.append({
                             'query': str(q), 
@@ -90,11 +90,11 @@ class WorkerSmart(Worker):
                             break
                         q = val
                         q:Query
-                        q_start_time = time.time()
+                        q_start_time = time.perf_counter()
                         
                         #execute stuff
                         #ret = self.execute_query(q.query_string)
-                        q_end_time = time.time()
+                        q_end_time = time.perf_counter()
                         elapsed_time = q_end_time-q_start_time
                         data.append({
                             'query': str(q), 
@@ -121,26 +121,26 @@ def dispatcher_smart(workload: WorkloadV3, start_time, path):
                 s['fast'] = workload.fast_queue.qsize()
                 s['med'] = workload.med_queue.qsize()
                 s['slow'] = workload.slow_queue.qsize()
-                s['time'] = time.time() - start_time
+                s['time'] = time.perf_counter() - start_time
                 print(f"Main process: query {numb} / {len(workload.queries)}: {s}")
             n_arr = start_time + a
             q.arrival_time = n_arr
-            if n_arr > time.time():
-                time.sleep(n_arr - time.time())
+            if n_arr > time.perf_counter():
+                time.sleep(n_arr - time.perf_counter())
             
             match q.time_cls:
                 case 0:
-                    q.queue_arrival_time = time.time()
+                    q.queue_arrival_time = time.perf_counter()
                     workload.fast_queue.put(q)
                     #workload.queue_dct[fast_keys[fast_idx]].put(q)
                     #fast_idx = (fast_idx+1) % len(fast_keys)
                 case 1:
-                    q.queue_arrival_time = time.time()
+                    q.queue_arrival_time = time.perf_counter()
                     workload.med_queue.put(q)
                     #workload.queue_dct[medium_keys[med_idx]].put(q)
                     #med_idx = (med_idx+1) % len(medium_keys)
                 case 2:
-                    q.queue_arrival_time = time.time()
+                    q.queue_arrival_time = time.perf_counter()
                     workload.slow_queue.put(q)
                     #workload.queue_dct['slow'].put(q)
         #for k in workload.queue_dct.keys():
@@ -161,7 +161,7 @@ def dispatcher_smart(workload: WorkloadV3, start_time, path):
         s['fast'] = workload.fast_queue.qsize()
         s['med'] = workload.med_queue.qsize()
         s['slow'] = workload.slow_queue.qsize()
-        s['time'] = time.time() - start_time
+        s['time'] = time.perf_counter() - start_time
         print(f"Main process: query {numb} / {len(workload.queries)}: {s}")
         with open(f"{path}/main.json", 'w') as f:
             f.write("done")
@@ -199,7 +199,7 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
     worker_ids = []
     procs = {}
     work_names = ["slow","med1", "med2","med3","fast1","fast2","fast3","fast4" ]
-    start_time = time.time()
+    start_time = time.perf_counter()
     for work_name in work_names:
         procs[work_name] = multiprocessing.Process(target=WorkerSmart(w,work_name,url, start_time,path).execute_query_worker)
     procs['main'] = multiprocessing.Process(target=dispatcher_smart, args=(w, start_time, path,))
@@ -210,8 +210,8 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
         for k in work_names:
             procs[k].join()
         procs['main'].join()
-        end_time = time.time()
+        end_time = time.perf_counter()
         print(f"elapsed time: {end_time-start_time}")
     except KeyboardInterrupt:
-        end_time = time.time()
+        end_time = time.perf_counter()
         print(f"elapsed time: {end_time-start_time}")

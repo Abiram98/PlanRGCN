@@ -1,18 +1,14 @@
 import os
 from urllib.error import URLError
-from load_balance.workload.arrival_time import ArrivalRateDecider
-import pandas as pd
-from  load_balance.workload.workload import Workload, WorkloadV2, WorkloadV3
+from  load_balance.workload.workload import WorkloadV3
 import multiprocessing
-import time, datetime
+import time
 from SPARQLWrapper import SPARQLWrapper, JSON
-import random
-import numpy as np
 import json
 from load_balance.query_balancer_v1 import *
-from multiprocessing import Array, Value
 from load_balance.workload.query import Query
-import load_balance.const as const
+
+
 
 class Worker:
     def __init__(self, workload:WorkloadV3,w_type, url, start_time, path, timeout=900):
@@ -26,7 +22,6 @@ class Worker:
         self.sparql = SPARQLWrapper(url, defaultGraph='http://localhost:8890/dataspace')
         
         self.sparql.setReturnFormat(JSON)
-        #sparql.setTimeout(1800)
         self.sparql.setTimeout(timeout)
     
     def execute_query(self, query):
@@ -49,7 +44,7 @@ class Worker:
         w_type = "slow" if w_type.startswith('slow') else w_type
         data = []
         #debug code
-        #ret = None
+        ret = None
         try:
             match w_type:
                 case "slow":
@@ -59,11 +54,11 @@ class Worker:
                             break
                         q = val
                         q:Query
-                        q_start_time = time.time()
+                        q_start_time = time.perf_counter()
                         
                         #execute stuff
                         ret = self.execute_query(q.query_string)
-                        q_end_time = time.time()
+                        q_end_time = time.perf_counter()
                         elapsed_time = q_end_time-q_start_time
                         try:
                             data.append({
@@ -74,7 +69,7 @@ class Worker:
                                 'query_execution_start': q_start_time, 
                                 'query_execution_end': q_end_time, 
                                 'execution_time': elapsed_time, 
-                                'response': ret.reason if isinstance(ret, URLError) else ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                                'response': ret.reason if isinstance(ret, URLError) else repr(ret) if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
                         except AttributeError:
                             pass
                 case "med":
@@ -84,11 +79,11 @@ class Worker:
                             break
                         q = val
                         q:Query
-                        q_start_time = time.time()
+                        q_start_time = time.perf_counter()
                         
                         #execute stuff
                         ret = self.execute_query(q.query_string)
-                        q_end_time = time.time()
+                        q_end_time = time.perf_counter()
                         elapsed_time = q_end_time-q_start_time
                         try:
                             data.append({
@@ -99,7 +94,7 @@ class Worker:
                                 'query_execution_start': q_start_time, 
                                 'query_execution_end': q_end_time, 
                                 'execution_time': elapsed_time, 
-                                'response': ret.reason if isinstance(ret, URLError) else ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                                'response': ret.reason if isinstance(ret, URLError) else repr(ret) if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
                         except AttributeError:
                             pass
                 case "fast":
@@ -109,11 +104,11 @@ class Worker:
                             break
                         q = val
                         q:Query
-                        q_start_time = time.time()
+                        q_start_time = time.perf_counter()
                         
                         #execute stuff
                         ret = self.execute_query(q.query_string)
-                        q_end_time = time.time()
+                        q_end_time = time.perf_counter()
                         elapsed_time = q_end_time-q_start_time
                         try:
                             data.append({
@@ -124,7 +119,7 @@ class Worker:
                                 'query_execution_start': q_start_time, 
                                 'query_execution_end': q_end_time, 
                                 'execution_time': elapsed_time, 
-                                'response': ret.reason if isinstance(ret, URLError) else ret.message if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
+                                'response': ret.reason if isinstance(ret, URLError) else repr(ret) if isinstance(ret, Exception) else 'timed out' if ret == 1 else 'ok'})
                         except AttributeError:
                             pass
             
@@ -144,28 +139,28 @@ def dispatcher(workload: WorkloadV3, start_time, path, work_name):
                 s['fast'] = workload.fast_queue.qsize()
                 s['med'] = workload.med_queue.qsize()
                 s['slow'] = workload.slow_queue.qsize()
-                s['time'] = time.time() - start_time
+                s['time'] = time.perf_counter() - start_time
                 print(f"Main process: query {numb} / {len(workload.queries)}: {s}", flush=True)
             n_arr = start_time + a
             q.arrival_time = n_arr
             try:
-                time.sleep(n_arr - time.time())
+                time.sleep(n_arr - time.perf_counter())
             except Exception:
                 pass
             
             match q.time_cls:
                 case 0:
-                    q.queue_arrival_time = time.time()
+                    q.queue_arrival_time = time.perf_counter()
                     workload.fast_queue.put(q)
                     #workload.queue_dct[fast_keys[fast_idx]].put(q)
                     #fast_idx = (fast_idx+1) % len(fast_keys)
                 case 1:
-                    q.queue_arrival_time = time.time()
+                    q.queue_arrival_time = time.perf_counter()
                     workload.med_queue.put(q)
                     #workload.queue_dct[medium_keys[med_idx]].put(q)
                     #med_idx = (med_idx+1) % len(medium_keys)
                 case 2:
-                    q.queue_arrival_time = time.time()
+                    q.queue_arrival_time = time.perf_counter()
                     workload.slow_queue.put(q)
                     #workload.queue_dct['slow'].put(q)
         #for k in workload.queue_dct.keys():
@@ -178,11 +173,6 @@ def dispatcher(workload: WorkloadV3, start_time, path, work_name):
                 workload.med_queue.put(None)
             elif i.startswith('fast'):
                 workload.fast_queue.put(None)
-        #workload.med_queue.put(None)
-        #workload.med_queue.put(None)
-        #workload.fast_queue.put(None)
-        #workload.fast_queue.put(None)
-        #workload.fast_queue.put(None)
         with open(f"{path}/main.json", 'w') as f:
             f.write("done")
     except KeyboardInterrupt:
@@ -190,7 +180,7 @@ def dispatcher(workload: WorkloadV3, start_time, path, work_name):
         s['fast'] = workload.fast_queue.qsize()
         s['med'] = workload.med_queue.qsize()
         s['slow'] = workload.slow_queue.qsize()
-        s['time'] = time.time() - start_time
+        s['time'] = time.perf_counter() - start_time
         print(f"Main process: query {numb} / {len(workload.queries)}: {s}")
         with open(f"{path}/main.json", 'w') as f:
             f.write("done")
@@ -198,31 +188,11 @@ def dispatcher(workload: WorkloadV3, start_time, path, work_name):
     exit()
 
 
-def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/sparql', save_dir='load_balance',cls_field='planrgcn_prediction', work_dict={
+def main_balance_runner(w, url = 'http://172.21.233.23:8891/sparql', save_dir='load_balance', work_dict={
                     'fast': 4,
                     'med' : 3,
                     'slow': 1
-                },add_lsq_url=False):
-    np.random.seed(42)
-    random.seed(42)
-    
-    #sample_name="wikidata_0_1_10_v2_path_weight_loss"
-    #scale="planrgcn_binner"
-    #url = "http://172.21.233.14:8891/sparql"
-    
-    # Workload Setup
-    df = pd.read_csv(f'/data/{sample_name}/test_sampled.tsv', sep='\t')
-    print(df)
-    print(df['mean_latency'].quantile(q=0.25))
-    w = Workload(true_field_name=cls_field)
-    w.load_queries(f'/data/{sample_name}/test_sampled.tsv')
-    w.set_time_cls(f"/data/{sample_name}/{scale}/test_pred.csv",add_lsq_url=add_lsq_url)
-    a = ArrivalRateDecider()
-    w.shuffle_queries()
-    w.shuffle_queries()
-    w.set_arrival_times(a.assign_arrival_rate(w, mu=const.MU))
-    
-    #f_lb =f'/data/{sample_name}/{save_name}'
+                }):
     f_lb = save_dir
     os.system(f'mkdir -p {f_lb}')
     path = f_lb
@@ -233,7 +203,7 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
         for x in range(1, work_dict[i]+1):
             work_names.append(f"{i}{x}")
     
-    start_time = time.time()
+    start_time = time.perf_counter()
     for work_name in work_names:
         procs[work_name] = multiprocessing.Process(target=Worker(w,work_name,url, start_time,path).execute_query_worker)
     procs['main'] = multiprocessing.Process(target=dispatcher, args=(w, start_time, path,work_names,))
@@ -245,10 +215,10 @@ def main_balance_runner(sample_name, scale, url = 'http://172.21.233.23:8891/spa
         for k in work_names:
             procs[k].join()
         procs['main'].join()
-        end_time = time.time()
+        end_time = time.perf_counter()
         print(f"elapsed time: {end_time-start_time}")
     except KeyboardInterrupt:
-        end_time = time.time()
+        end_time = time.perf_counter()
         print(f"elapsed time: {end_time-start_time}")
     
 
