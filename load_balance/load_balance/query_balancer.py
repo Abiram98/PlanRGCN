@@ -199,7 +199,7 @@ def main_balance_runner(w, url = 'http://172.21.233.23:8891/sparql', save_dir='l
     procs = {}
     #work_names = ["slow","med1", "med2","med3","fast1","fast2","fast3","fast4" ]
     work_names = []
-    for i in ['slow', 'med', 'fast']:
+    for i in ['fast', 'med', 'slow']:
         for x in range(1, work_dict[i]+1):
             work_names.append(f"{i}{x}")
     
