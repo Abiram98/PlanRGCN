@@ -12,7 +12,7 @@ from load_balance.workload.arrival_time import ArrivalRateDecider
 import load_balance.const as const
 import pickle
 
-def get_workload(sample_name, scale, add_lsq_url,cls_field):
+def get_workload(sample_name, scale, add_lsq_url,cls_field, mu = const.MU):
     np.random.seed(42)
     random.seed(42)
     # Workload Setup
@@ -25,7 +25,7 @@ def get_workload(sample_name, scale, add_lsq_url,cls_field):
     a = ArrivalRateDecider()
     w.shuffle_queries()
     w.shuffle_queries()
-    w.set_arrival_times(a.assign_arrival_rate(w, mu=const.MU))
+    w.set_arrival_times(a.assign_arrival_rate(w, mu= mu))
     return w
     
 if __name__ == "__main__":
@@ -39,9 +39,10 @@ if __name__ == "__main__":
     cls_field = config['DATASET']['true_field_name']
     std_file = config['DATASET']['stdout']
     add_lsq_url = config['DATASET'].getboolean('add_lsq_url')
+    MU = config['DATASET'].getint('MU')
     os.makedirs(Path(save_dir), exist_ok=True)
-    w = get_workload(sample_name, scale, add_lsq_url, cls_field)
-    with open(os.path.join(save_dir,"workload.pcl"), 'wb') as wf:
+    w = get_workload(sample_name, scale, add_lsq_url, cls_field, mu = MU)
+    with open(os.path.join(save_dir,"workload.pck"), 'wb') as wf:
         w.pickle(wf)
     with open(os.path.join(save_dir, std_file), 'w') as sys.stdout:
         match config['TASK']['taskName']:
