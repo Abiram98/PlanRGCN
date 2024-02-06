@@ -29,7 +29,8 @@ db_restarter (){
     #docker stop wdbench_virt
     docker stop dbpedia_virt
     rm $1
-    lb_wikidata_qpp1
+    #lb_wikidata_qpp1
+    lb_dbpedia_qpp1
     echo Restarted
     sleep 5
     touch $2
