@@ -26,7 +26,8 @@ db_restarter (){
     do
         sleep 300 # checks every 5 min
     done
-    docker stop wdbench_virt
+    #docker stop wdbench_virt
+    docker stop dbpedia_virt
     rm $1
     lb_wikidata_qpp1
     echo Restarted
