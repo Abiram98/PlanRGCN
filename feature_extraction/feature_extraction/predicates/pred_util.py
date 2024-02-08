@@ -1,6 +1,7 @@
 import json
 import os
 import argparse
+import time
 from feature_extraction.sparql import Endpoint
 import numpy as np
 
@@ -86,11 +87,16 @@ class PredicateExtractor(ExtractorBase):
         super().__init__(endpoint, output_dir, predicate_file)
 
     def get_predicates_query(self):
+        start = time.time()
         query = """SELECT DISTINCT ?p WHERE {
             ?s ?p ?o
         }
         """
         res = self.endpoint.run_query(query)
+        end = time.time()
+        duration = end - start
+        with open(f"{self.output_dir}/predicate_result_time.txt", 'w') as f:
+            f.write(f"Predicate extraction time: {duration}")
         res_fp = f"{self.output_dir}/predicate_result.json"
         json.dump(res, open(res_fp, "w"))
         print("Predicates extracted")
@@ -125,15 +131,23 @@ class PredicateCoPredicateExtractor(ExtractorBase):
         if not hasattr(self, "batches"):
             self.load_batches()
         save_path = f"{self.output_dir}/batch_response"
+        f = open( f"{self.output_dir}/pred_co_time_log.txt" , 'a')
         os.system(f"mkdir -p {save_path}")
-        print(f"Literals stats are saved to: {save_path}")
+        print(f"Predicate Co-occurance stats are saved to: {save_path}")
         batch_end_idx = min(batch_end - 1, len(self.batches) - 1)
+        if batch_end_idx == -1:
+            batch_end_idx = len(self.batches) - 1
         for i, b in enumerate(self.batches[batch_start - 1 : batch_end_idx]):
             query = PredicateCoPredicateExtractor.query_gen(b)
+            start = time.time()
             res = self.endpoint.run_query(query)
+            dur = time.time()-start
             res_fp = f"{save_path}/batch_{batch_start+i}.json"
             json.dump(res, open(res_fp, "w"))
             print(f"batch {batch_start+i} extracted!")
+            f.write(f"batch {batch_start+i}: {dur}\n")
+            f.flush()
+        f.close()
 
     def query_gen(batch):
         pred_str = ""
@@ -161,7 +175,7 @@ if __name__ == "__main__":
     parser.add_argument("-e", "--endpoint")
     parser.add_argument("--dir", "--output_dir")
     parser.add_argument("--input_dir")
-    parser.add_argument("--pred_file")
+    parser.add_argument("--pred_file", default="predicates.json")
     parser.add_argument("--batch_start")
     parser.add_argument("--batch_end")
 
