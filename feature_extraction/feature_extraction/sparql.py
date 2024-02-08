@@ -13,6 +13,6 @@ class Endpoint:
             self.sparql.setQuery(query_str)
         except Exception:
             print("Query could not be executed!")
-            return
+            return query_str
         results = self.sparql.query().convert()
         return results
