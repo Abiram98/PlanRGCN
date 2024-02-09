@@ -10,9 +10,12 @@ class LiteralFreqExtractor(ExtractorBase):
         endpoint: Endpoint,
         output_dir: str,
         literal_file="literals.json",
+        time_log="lit_freq_time.log",
         batch_size = 1000
     ) -> None:
         super().__init__(endpoint, output_dir, literal_file)
+        self.time_log = f"{output_dir}/{time_log}"
+        
         self.batch_size = batch_size
         self.literal_file = literal_file
         if os.path.exists(literal_file):
@@ -33,10 +36,14 @@ class LiteralFreqExtractor(ExtractorBase):
 
     def query_distinct_lits(self):
         query = LiteralStatQueries.extract_all_literals()
+        start = time.time()
         res = self.endpoint.run_query(query)
-        res_fp = f"{self.batch_output_response_dir}/{self.literal_file}"
+        dur = time.time() - start
+        res_fp = f"{self.literal_file}"
         json.dump(res, open(res_fp, "w"))
-        print(f"batch literals extracted!")
+        with open(f"{self.output_dir}/literals_response_time.txt", 'w') as f:
+            f.write(f"Literals extraction time: {dur}\n")
+        print(f"Literals extracted!")
         
     def query_batches(self, batch_start=1, batch_end=2):
         if not hasattr(self, "batches"):
@@ -47,6 +54,7 @@ class LiteralFreqExtractor(ExtractorBase):
         os.system(f"mkdir -p {save_path}")
         print(f"Literals Stats are saved to: {save_path}")
         print(f"Beginning extraction of batch {batch_start - 1} to {batch_end - 1}")
+        f_time = open(self.time_log, 'a')
         for i, b in enumerate(self.batches[batch_start - 1 : batch_end - 1]):
             for query_generator, name in zip(
                 [
@@ -60,8 +68,12 @@ class LiteralFreqExtractor(ExtractorBase):
                     continue
                 query = query_generator(b)
                 try:
+                    start = time.time()
                     res = self.endpoint.run_query(query)
+                    dur = time.time()-start
                     json.dump(res, open(res_fp, "w"))
+                    f_time.write(f"batch {batch_start+i}, {name}, {dur}\n")
+                    f_time.flush()
                     print(f"batch {batch_start+i}/{len(self.batches)} extracted!")
                 except TimeoutError:
                     save_long = f"{save_path}/timedout/batch_{batch_start+i}.json"
@@ -74,6 +86,7 @@ class LiteralFreqExtractor(ExtractorBase):
                     with open("/data/unprocessed_batches3.log","a") as f:
                         f.write(query)
                         f.write("\n\n\n\n")
+        f_time.close()
         print("exiting after freq")
         exit()
         for i, b in enumerate(self.batches[batch_start - 1 : batch_end - 1]):
@@ -170,6 +183,7 @@ if __name__ == "__main__":
     parser.add_argument("--batch_start")
     parser.add_argument("--batch_end")
     parser.add_argument("--timeout", type=int, default=-1)
+    parser.add_argument("--time_log")
 
     args = parser.parse_args()
 
@@ -190,7 +204,7 @@ if __name__ == "__main__":
             print(f"Timeout {args.timeout} set")
             endpoint.sparql.setTimeout(args.timeout)
         os.system(f"mkdir -p {args.dir}")
-        extractor = LiteralFreqExtractor(endpoint, output_dir, args.lits_file, batch_size=200)
+        extractor = LiteralFreqExtractor(endpoint, output_dir, args.lits_file, batch_size=500,  time_log=args.time_log)
         extractor.load_batches()
         extractor.query_batches(int(args.batch_start), int(args.batch_end))
         

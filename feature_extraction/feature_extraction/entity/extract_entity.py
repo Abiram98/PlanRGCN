@@ -30,14 +30,17 @@ class EntityExtractor(ExtractorBase):
         os.system(f"mkdir -p {save_path}")
         print(f"Entities are saved to: {save_path}")
         query = EntityExtractor.get_query()
+        start = time.time()
         res = self.endpoint.run_query(query)
+        dur = time.time() - start
         res_fp = f"{save_path}/entities_response.json"
         json.dump(res, open(res_fp, "w"))
         res = res["results"]["bindings"]
         res = [x["entity"]["value"] for x in res]
         res_fp = f"{save_path}/entities.json"
         json.dump(res, open(res_fp, "w"))
-
+        with open(f"{self.output_dir}/entity_result_time.txt", 'w') as f:
+            f.write(f"Predicate extraction time: {dur}")
         print(f"entities extracted!")
 
 

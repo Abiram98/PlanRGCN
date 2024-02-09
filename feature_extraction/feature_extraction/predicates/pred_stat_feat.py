@@ -8,13 +8,16 @@ class PredicateFreqExtractor(ExtractorBase):
         input_dir: str,
         output_dir: str,
         predicate_file="predicates.json",
+        time_log="pred_freq_time.log"
     ) -> None:
         super().__init__(endpoint, output_dir, predicate_file)
+        self.time_log = f"{output_dir}/predicate/{time_log}"
+        
         self.input_dir = input_dir
         self.predicates = json.load(
             open(f"{self.input_dir}/predicate/{self.predicate_file}", "r")
         )
-        self.batch_output_dir = f"{output_dir}/predicate/pred_stat/batches"
+        self.batch_output_dir = f"{output_dir}/predicate/batches"
         os.system(f"mkdir -p {self.batch_output_dir}")
         # the
         # path to where the responses are saved with the features.
@@ -38,6 +41,9 @@ class PredicateFreqExtractor(ExtractorBase):
         batch_end_idx = min(batch_end - 1, len(self.batches) - 1)
         if batch_end == -1:
             batch_end_idx = len(self.batches) - 1
+            
+        f = open(self.time_log, 'a')
+        
         for i, b in enumerate(self.batches[batch_start - 1 : batch_end_idx]):
             for query_generator, name in zip(
                 [
@@ -52,9 +58,14 @@ class PredicateFreqExtractor(ExtractorBase):
                     print(f"Skipping {res_fp} as it already exists!")
                     continue
                 query = query_generator(b)
+                start = time.time()
                 res = self.endpoint.run_query(query)
+                dur = time.time()-start
                 json.dump(res, open(res_fp, "w"))
+                f.write(f"batch {batch_start+i}, {name}, {dur}\n")
+                f.flush()
                 print(f"batch {batch_start+i} extracted!")
+        f.close()
 
     def query_batches_subj_obj(self, batch_start=1, batch_end=2):
         if not hasattr(self, "batches"):
@@ -65,6 +76,7 @@ class PredicateFreqExtractor(ExtractorBase):
         batch_end_idx = min(batch_end - 1, len(self.batches) - 1)
         if batch_end == -1:
             batch_end_idx = len(self.batches) - 1
+        f = open(self.time_log, 'a')
         for i, b in enumerate(self.batches[batch_start - 1 : batch_end_idx]):
             for query_generator, name in zip(
                 [
@@ -74,10 +86,15 @@ class PredicateFreqExtractor(ExtractorBase):
                 ["subj", "obj"],
             ):
                 query = query_generator(b)
+                start = time.time()
                 res = self.endpoint.run_query(query)
+                dur = time.time()-start
                 res_fp = f"{save_path}/{name}/batch_{batch_start+i}.json"
                 json.dump(res, open(res_fp, "w"))
+                f.write(f"batch {batch_start+i}, {name}, {dur}\n")
+                f.flush()
                 print(f"batch {batch_start+i} extracted!")
+        f.close()
 
 
 class PredicateStatQueries:
@@ -91,7 +108,7 @@ class PredicateStatQueries:
 
     def unique_literals_for_predicate(batch):
         pred_str = PredicateStatQueries.pred_str_gen(batch)
-        return f"""SELECT ?p1 (COUNT(DISTINCT ?o) AS ?literals) WHERE {{
+        return f"""SELECT ?p1 (COUNT( ?o) AS ?literals) WHERE {{
             VALUES (?p1) {{ {pred_str}}}
             ?s ?p1 ?o .
             FILTER(isLiteral(?o))
@@ -102,7 +119,7 @@ class PredicateStatQueries:
     def unique_entity_for_predicate(batch):
         pred_str = PredicateStatQueries.pred_str_gen(batch)
         """This returns the count of unique entities in both subject and object positions."""
-        return f"""SELECT ?p1 (COUNT(DISTINCT ?e) AS ?entities) WHERE {{
+        return f"""SELECT ?p1 (COUNT( ?e) AS ?entities) WHERE {{
             VALUES (?p1) {{ {pred_str}}}
             {{?e ?p1 ?o .
             FILTER(isURI(?e))}}
@@ -115,7 +132,7 @@ class PredicateStatQueries:
     def unique_obj_for_predicate(batch):
         """This returns the count of unique object entities."""
         pred_str = PredicateStatQueries.pred_str_gen(batch)
-        return f"""SELECT ?p1 (COUNT(DISTINCT ?e) AS ?entities) WHERE {{
+        return f"""SELECT ?p1 (COUNT( ?e) AS ?entities) WHERE {{
             VALUES (?p1) {{ {pred_str}}}
             ?s ?p1 ?e .
             FILTER(isURI(?e))
@@ -126,7 +143,7 @@ class PredicateStatQueries:
     def unique_subj_for_predicate(batch):
         """This returns the count of unique object entities."""
         pred_str = PredicateStatQueries.pred_str_gen(batch)
-        return f"""SELECT ?p1 (COUNT(DISTINCT ?e) AS ?entities) WHERE {{
+        return f"""SELECT ?p1 (COUNT(?e) AS ?entities) WHERE {{
             VALUES (?p1) {{ {pred_str}}}
             ?e ?p1 ?o . 
         }}
@@ -154,9 +171,10 @@ if __name__ == "__main__":
     parser.add_argument("-e", "--endpoint")
     parser.add_argument("--dir", "--output_dir")
     parser.add_argument("--input_dir")
-    parser.add_argument("--pred_file")
+    parser.add_argument("--pred_file", default="predicates.json")
     parser.add_argument("--batch_start")
     parser.add_argument("--batch_end")
+    parser.add_argument("--time_log")
 
     args = parser.parse_args()
 
@@ -169,9 +187,8 @@ if __name__ == "__main__":
         os.system(f"mkdir -p {args.dir}")
         os.system(f"mkdir -p {input_dir}")
         extrator = PredicateFreqExtractor(
-            endpoint, input_dir, args.dir, predicate_file=args.pred_file
+            endpoint, input_dir, args.dir, predicate_file=args.pred_file,  time_log=args.time_log
         )
-        # extrator.query_batches()
         extrator.query_batches(int(args.batch_start), int(args.batch_end))
     elif args.task == "extract-predicates-stat-sub-obj":
         output_dir = f"{args.dir}/predicate"
@@ -182,7 +199,6 @@ if __name__ == "__main__":
         os.system(f"mkdir -p {args.dir}")
         os.system(f"mkdir -p {input_dir}")
         extrator = PredicateFreqExtractor(
-            endpoint, input_dir, args.dir, predicate_file=args.pred_file
+            endpoint, input_dir, args.dir, predicate_file=args.pred_file,  time_log=args.time_log
         )
-        # extrator.query_batches()
         extrator.query_batches_subj_obj(int(args.batch_start), int(args.batch_end))

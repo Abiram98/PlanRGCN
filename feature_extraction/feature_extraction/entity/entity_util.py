@@ -8,16 +8,20 @@ class EntityFreqExtractor(ExtractorBase):
         input_dir: str,
         output_dir: str,
         entity_file="entity.json",
+        time_log="ent_freq_time.log"
     ) -> None:
         super().__init__(endpoint, output_dir, entity_file)
         self.input_dir = input_dir
         self.entity_file = entity_file
         self.entities = json.load(open(entity_file, "r"))
-        # for backward compatibility
+        
+        self.time_log = f"{output_dir}/{time_log}"
+        
+        # for backward compatibility - batches are made using predicates field.
         self.predicates = self.entities
+        
         self.batch_output_dir = f"{output_dir}/ent_stat/batches"
         os.system(f"mkdir -p {self.batch_output_dir}")
-        # the
         # path to where the responses are saved with the features.
         self.batch_output_response_dir = f"{output_dir}/ent_stat/batches_response_stats"
         os.system(f"mkdir -p {self.batch_output_response_dir}")
@@ -35,6 +39,9 @@ class EntityFreqExtractor(ExtractorBase):
         os.system(f"mkdir -p {save_path}")
         print(f"Entity Stats are saved to: {save_path}")
         print(f"Beginning extraction of batch {batch_start - 1} to {batch_end - 1}")
+            
+        f = open(self.time_log, 'a')
+        
         for i, b in enumerate(self.batches[batch_start - 1 : batch_end - 1]):
             for query_generator, name in zip(
                 [
@@ -45,10 +52,15 @@ class EntityFreqExtractor(ExtractorBase):
                 ["freq", "subj", "obj"],
             ):
                 query = query_generator(b)
+                start = time.time()
                 res = self.endpoint.run_query(query)
+                dur = time.time() - start
                 res_fp = f"{save_path}/{name}/batch_{batch_start+i}.json"
                 json.dump(res, open(res_fp, "w"))
+                f.write(f"batch {batch_start+i}, {name}, {dur}\n")
+                f.flush()
                 print(f"batch {batch_start+i} extracted!")
+        f.close()
 
 
 class EntityStatQueries:
@@ -103,22 +115,21 @@ if __name__ == "__main__":
     parser.add_argument("-e", "--endpoint")
     parser.add_argument("--dir", "--output_dir")
     parser.add_argument("--input_dir")
-    parser.add_argument("--ent_file")
+    parser.add_argument("--ent_file", default='entities.json')
     parser.add_argument("--batch_start")
     parser.add_argument("--batch_end")
-
+    parser.add_argument("--time_log")
+    
     args = parser.parse_args()
 
     if args.task == "extract-entity-stat":
         output_dir = f"{args.dir}"
         os.system(f"mkdir -p {output_dir}")
         endpoint = Endpoint(args.endpoint)
-        # input_dir = f"{args.input_dir}/predicate"
         input_dir = f"{args.input_dir}"
         os.system(f"mkdir -p {args.dir}")
         os.system(f"mkdir -p {input_dir}")
         extrator = EntityFreqExtractor(
-            endpoint, input_dir, args.dir, entity_file=args.ent_file
+            endpoint, input_dir, args.dir, entity_file=args.ent_file,  time_log=args.time_log
         )
-        # extrator.query_batches()
         extrator.query_batches(int(args.batch_start), int(args.batch_end))
