@@ -102,7 +102,55 @@ class LiteralFreqExtractor(ExtractorBase):
                 res_fp = f"{save_path}/{name}/batch_{batch_start+i}.json"
                 json.dump(res, open(res_fp, "w"))
                 print(f"batch {batch_start+i}/{len(self.batches)} extracted!")
+    
+    def query_batches_lit_specific(self, batch_start=1, batch_end=2):
+        """Extract literal frequencies specific to literals
 
+        Args:
+            batch_start (int, optional): _description_. Defaults to 1.
+            batch_end (int, optional): _description_. Defaults to 2.
+        """
+        if not hasattr(self, "batches"):
+            self.load_batches()
+        if batch_end == -1:
+            batch_end = len(self.batches)
+        save_path = self.batch_output_response_dir
+        os.system(f"mkdir -p {save_path}")
+        print(f"Literals Stats are saved to: {save_path}")
+        print(f"Beginning extraction of batch {batch_start - 1} to {batch_end - 1}")
+        f_time = open(self.time_log, 'a')
+        for i, b in enumerate(self.batches[batch_start - 1 : batch_end - 1]):
+            for query_generator, name in zip(
+                [
+                    LiteralStatQueries.freq_lit,
+                ],
+                ["freq"],
+            ):
+                res_fp = f"{save_path}/{name}/batch_{batch_start+i}"
+                if os.path.exists(res_fp) or os.path.exists(f"{os.path.exists(res_fp)}.json"):
+                    print(f"skipping {batch_start+i}!")
+                    continue
+                os.mkdir(res_fp)
+                for idx_lit, lit in enumerate(b):
+                    start = time.time()
+                    try:
+                        query = query_generator(lit)
+                        res = self.endpoint.run_query(query)
+                        dur = time.time()-start
+                        val = res['results']['bindings'][0]['literals']['value']
+                        json.dump({lit[0]: val}, open(f"{res_fp}/{idx_lit}.json", "w"))
+                        f_time.write(f"batch {batch_start+i}_{idx_lit}, {name}, {dur}\n")
+                        f_time.flush()
+                    except TimeoutError:
+                        print(f"Did not work for {idx_lit,lit[0]}")
+                        f_time.write(f"batch {batch_start+i}_{idx_lit}, {name}, -1\n")
+                        f_time.flush()
+                    except Exception:
+                        print(f"Did not work for {batch_start+i}")
+                        with open("/data/unprocessed_batches3.log","a") as f:
+                            f.write(query)
+                            f.write("\n\n\n\n")
+        f_time.close()
 
 class LiteralStatQueries:
     def extract_all_literals():
@@ -149,12 +197,27 @@ class LiteralStatQueries:
                 
 
     def freq_lits(batch):
+        """Generates the query for a batch (a list of predicates)"""
         ent_str = LiteralStatQueries.pred_str_gen(batch)
         return f"""SELECT ?e (COUNT( *) AS ?entities) WHERE {{
             VALUES (?e) {{ {ent_str}}}
         ?s ?p2 ?e .
         }}
         GROUP BY ?e
+        """
+        
+    def freq_lit(lit):
+        """Generates the query for a specific literals. The input is a list of literal value and whether it a typed literal"""
+        if ("Point" in lit[0]):
+            return
+        if lit[1] == 'typed-literal':
+            lit = f"{lit[0]}"
+        else:
+            lit = f"(\"{lit[0]}\")"
+                
+        return f"""SELECT (COUNT( *) AS ?literals) WHERE {{
+        ?s ?p2 {lit} .
+        }}
         """
 
     def pred_lits(batch):
@@ -207,6 +270,18 @@ if __name__ == "__main__":
         extractor = LiteralFreqExtractor(endpoint, output_dir, args.lits_file, batch_size=500,  time_log=args.time_log)
         extractor.load_batches()
         extractor.query_batches(int(args.batch_start), int(args.batch_end))
+    elif args.task == "extract-lits-statv2":
+        output_dir = f"{args.dir}"
+        os.system(f"mkdir -p {output_dir}")
+        
+        endpoint = Endpoint(args.endpoint)
+        if args.timeout != -1:
+            print(f"Timeout {args.timeout} set")
+            endpoint.sparql.setTimeout(args.timeout)
+        os.system(f"mkdir -p {args.dir}")
+        extractor = LiteralFreqExtractor(endpoint, output_dir, args.lits_file, batch_size=500,  time_log=args.time_log)
+        extractor.load_batches()
+        extractor.query_batches_lit_specific(int(args.batch_start), int(args.batch_end))
         
         #python3 -m feature_extraction.literal_utils -e http://172.21.233/arql/ --dir /data/extracted_features_dbpedia2016 --lits_file literals.json --batch_start -1 --batch_end -1 distinct-literals
         #python3 -m feature_extraction.literal_utils -e httpi//172.21.233.14:8892/sparql/ --dir /data/extracted_features_dbpedia2016 --lits_file /data/extracted_features_dbpedia2016/literals_stat/batches_response_stats/literals.json --batch_start 1 --batch_end -1 extract-lits-stat
