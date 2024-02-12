@@ -284,8 +284,8 @@ def louvain_feat_const(config):
 if __name__ == "__main__":
     
     config = {
-        'save_dir' : '/data/data/dbpedia2016/predicate/pred_co',
-        'pred_co_pair_dir' : '/data/data/dbpedia2016/predicate/pred_co/batch_response/',
+        'save_dir' : '/PlanRGCN/data/wikidata/predicate/pred_co',
+        'pred_co_pair_dir' : '/PlanRGCN/data/wikidata/predicate/batch_response/',
     }
     config["comm"] = f"{config['save_dir']}/communities_louvain.pickle"
     config["p2i"] = f"{config['save_dir']}/pred2index_louvain.pickle"
