@@ -14,6 +14,7 @@ class PredicateCommunityCreator:
         verbose=True,
         ks=[10, 20, 30, 40, 50, 60, 100, 150, 200],
         save_dir="/PlanRGCN/data/pred/pred_co",
+        predicate_requests= '/PlanRGCN/data/pred/batch_response'
     ) -> None:
         self.verbose = verbose
         self.ks = ks
@@ -257,17 +258,60 @@ def create_kernighan_lin(
     with open(save_dict_path, "wb") as f_path:
         pickle.dump((pred2idx, m), f_path)
 
+def louvain_feat_const(config):
+    """Using the previously extracted predicate pair ({p1,p2 | <s,p1,s2>, <s2, p2, s3>}}), we first construct a predicate graph 
+    and then proceed to construct predicate to integer mapping by decomposing the graph into 
+    """
+    f = open(config['time_log'], 'a')
+    d = PredicateCommunityCreator(save_dir=config['save_dir'])
+    t = time.time()
+    d.get_louvain_communities(
+        dir=config['pred_co_pair_dir']
+    )
+    dur = time.time() - t
+    f.write(f"Louvain Communication, {dur}\n")
+    f.flush()
+    t = time.time()
+    create_louvain_to_p_index(
+        path=config["comm"],
+        output_path=config["p2i"],
+    )
+    dur = time.time()-t
+    f.write(f"pred2index, {dur}\n")
+    f.flush()
+    f.close()
 
 if __name__ == "__main__":
+    
+    config = {
+        'save_dir' : '/data/data/dbpedia2016/predicate/pred_co',
+        'pred_co_pair_dir' : '/data/data/dbpedia2016/predicate/pred_co/batch_response/',
+    }
+    config["comm"] = f"{config['save_dir']}/communities_louvain.pickle"
+    config["p2i"] = f"{config['save_dir']}/pred2index_louvain.pickle"
+    config["time_log"] = f"{config['save_dir']}/time_pred_co_louvain.txt"
+    
+    louvain_feat_const(config)
+    
+    
+    
+    exit()
     d = PredicateCommunityCreator(save_dir="/PlanRGCN/data/pred/pred_co")
+    t = time.time()
     d.get_louvain_communities(
         dir="/PlanRGCN/extracted_features/predicate/predicate_cooccurence/batch_response/"
     )
+    dur = time.time() - t
+    t = time.time()
     create_louvain_to_p_index(
         path="/PlanRGCN/data/pred/pred_co/communities_louvain.pickle",
         output_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
     )
+    dur = time.time()-t
+    
     exit()
+    """Girvan-newman and other clustering approach, but these are too time consuming.
+    """
     d.create_clusters(
         "/PlanRGCN/extracted_features/predicate/predicate_cooccurence/batch_response/"
     )
