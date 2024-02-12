@@ -6,7 +6,7 @@ import networkx as nx
 from pyvis.network import Network
 import itertools
 import time
-
+from feat_rep.config import config
 
 class PredicateCommunityCreator:
     def __init__(
@@ -283,13 +283,13 @@ def louvain_feat_const(config):
 
 if __name__ == "__main__":
     
-    config = {
-        'save_dir' : '/PlanRGCN/data/wikidata/predicate/pred_co',
-        'pred_co_pair_dir' : '/PlanRGCN/data/wikidata/predicate/batch_response/',
-    }
-    config["comm"] = f"{config['save_dir']}/communities_louvain.pickle"
-    config["p2i"] = f"{config['save_dir']}/pred2index_louvain.pickle"
-    config["time_log"] = f"{config['save_dir']}/time_pred_co_louvain.txt"
+    #config = {
+    #    'save_dir' : '/PlanRGCN/data/wikidata/predicate/pred_co',
+    #    'pred_co_pair_dir' : '/PlanRGCN/data/wikidata/predicate/batch_response/',
+    #}
+    #config["comm"] = f"{config['save_dir']}/communities_louvain.pickle"
+    #config["p2i"] = f"{config['save_dir']}/pred2index_louvain.pickle"
+    #config["time_log"] = f"{config['save_dir']}/time_pred_co_louvain.txt"
     
     louvain_feat_const(config)
     
