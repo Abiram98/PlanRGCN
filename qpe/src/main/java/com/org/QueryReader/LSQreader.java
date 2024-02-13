@@ -55,13 +55,6 @@ public class LSQreader {
             }else{
                 return null;
             }
-            /*List<String[]> allRows = c.readAll();
-            iter.next();
-            while( iter.hasNext()){
-                String[] i = iter.next();
-                queries.add(i[1]);
-                ids.add(i[0]);
-            }*/
         
         }catch (Exception e){
             e.printStackTrace();

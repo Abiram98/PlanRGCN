@@ -128,7 +128,7 @@ class LiteralFreqExtractor(ExtractorBase):
                 ["freq"],
             ):
                 res_fp = f"{save_path}/{name}/batch_{batch_start+i}"
-                if os.path.exists(res_fp) or os.path.exists(f"{os.path.exists(res_fp)}.json"):
+                if os.path.exists(res_fp) or os.path.exists(f"{res_fp}.json"):
                     print(f"skipping {batch_start+i}!")
                     continue
                 os.mkdir(res_fp)
@@ -136,6 +136,8 @@ class LiteralFreqExtractor(ExtractorBase):
                     start = time.time()
                     try:
                         query = query_generator(lit)
+                        if query is None:
+                            continue
                         res = self.endpoint.run_query(query)
                         dur = time.time()-start
                         val = res['results']['bindings'][0]['literals']['value']

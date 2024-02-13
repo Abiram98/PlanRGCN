@@ -5,27 +5,40 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import org.apache.commons.lang3.time.StopWatch;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
 public class DistanceLoader {
-    HashMap<String, String> map = new HashMap<>();
+    HashMap<StringPair, double[]> map = new HashMap<>();
 
     @SuppressWarnings("rawtypes")
     public void loadFile(String file) {
+        StopWatch watch = new StopWatch();
+        watch.start();
         try {
             Gson gson = new Gson();
             Reader reader = Files.newBufferedReader(Paths.get(file));
             ArrayList<?> list = gson.fromJson(reader, ArrayList.class);
             for (Object entry : list) {
-                entry = (LinkedTreeMap) entry;
-                System.out.println(entry);
+                String queryID2 = (String) ((LinkedTreeMap) entry).get("queryID2");
+                String queryID1 = (String) ((LinkedTreeMap) entry).get("queryID1");
+                double dist = Double.parseDouble((String) ((LinkedTreeMap) entry).get("dist"));
+                double time = Double.parseDouble((String) ((LinkedTreeMap) entry).get("time")) / 1000.0;
+                this.map.put(new StringPair(queryID1, queryID2), new double[] { dist, time });
             }
             reader.close();
         } catch (Exception ex) {
-            ex.printStackTrace();
+        }
+    }
+
+    public double get(String queryID1, String queryID2) {
+        double[] vals = this.map.get(new StringPair(queryID1, queryID2));
+        if (vals == null) {
+            return -1;
+        } else {
+            return vals[1];
         }
     }
 }
