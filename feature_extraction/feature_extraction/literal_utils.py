@@ -2,6 +2,7 @@ from feature_extraction.predicates.pred_util import *
 from unicodedata import normalize
 import rdflib.plugins.sparql.parser as SPARQLparser
 import urllib
+from datetime import datetime
 
 
 class LiteralFreqExtractor(ExtractorBase):
@@ -143,11 +144,11 @@ class LiteralFreqExtractor(ExtractorBase):
                         f_time.flush()
                     except TimeoutError:
                         print(f"Did not work for {idx_lit,lit[0]}")
-                        f_time.write(f"batch {batch_start+i}_{idx_lit}, {name}, -1\n")
+                        f_time.write(f"batch {batch_start+i}_{idx_lit}, {name}, -1, {lit[0]}\n")
                         f_time.flush()
                     except Exception:
                         print(f"Did not work for {batch_start+i}")
-                        with open("/data/unprocessed_batches3.log","a") as f:
+                        with open(f"/data/unprocessed_batches_{datetime.today().strftime('%Y_%m_%d')}.log","a") as f:
                             f.write(query)
                             f.write("\n\n\n\n")
         f_time.close()
@@ -213,7 +214,10 @@ class LiteralStatQueries:
         if lit[1] == 'typed-literal':
             lit = f"{lit[0]}"
         else:
-            lit = f"(\"{lit[0]}\")"
+            if "\"" in lit[0]:
+                lit = f"'{lit[0]}'"
+            else:
+                lit = f"\"{lit[0]}\""
                 
         return f"""SELECT (COUNT( *) AS ?literals) WHERE {{
         ?s ?p2 {lit} .
