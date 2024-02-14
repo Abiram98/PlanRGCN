@@ -36,6 +36,9 @@ public class DistanceLoader {
     }
 
     public double get(String queryID1, String queryID2) {
+        if (queryID1.equals(queryID2)) {
+            return 0;
+        }
         double[] vals = this.map.get(new StringPair(queryID1, queryID2));
         if (vals == null) {
             return -1;

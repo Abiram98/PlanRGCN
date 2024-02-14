@@ -10,7 +10,15 @@ import org.apache.commons.lang3.time.StopWatch;
 
 public class MainDistance {
     public static void main(String[] args) {
-        QueryLogReader reader = new QueryLogReader("/data/DBpedia2016_0_1_10_weight_loss/train_sampled.tsv");
+        if (args.length < 3) {
+            System.out.println("Missing Arguments");
+            System.exit(-1);
+        }
+        String queryLog = args[1];
+        String distanceDist = args[2];
+        String missPairs = args[3];
+
+        QueryLogReader reader = new QueryLogReader(queryLog);
         try {
             reader.read();
         } catch (IOException e) {
@@ -20,9 +28,9 @@ public class MainDistance {
         System.out.println(queryIds.get(0));
 
         DistanceLoader distLoader = new DistanceLoader();
-        File f = new File("/data/dbpedia_dist2bak/distances");
+        File f = new File(distanceDist);
         try {
-            FileWriter fw = new FileWriter("/data/dbpedia_dist2bak/combinations/comb.csv");
+            FileWriter fw = new FileWriter(missPairs);
             int i = 0;
             StopWatch watch = new StopWatch();
             watch.start();
@@ -34,7 +42,7 @@ public class MainDistance {
             double total = 0;
             int missingPairs = 0;
             for (int j = 0; j < queryIds.size(); j++) {
-                for (int v = j; v < queryIds.size(); v++) {
+                for (int v = j + 1; v < queryIds.size(); v++) {
                     double val = distLoader.get(queryIds.get(j), queryIds.get(v), fw);
                     if (val == -1) {
                         missingPairs++;
