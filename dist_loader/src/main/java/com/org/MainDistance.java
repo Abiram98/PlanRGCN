@@ -14,9 +14,10 @@ public class MainDistance {
             System.out.println("Missing Arguments");
             System.exit(-1);
         }
-        String queryLog = args[1];
-        String distanceDist = args[2];
-        String missPairs = args[3];
+
+        String queryLog = args[0];
+        String distanceDist = args[1];
+        String missPairs = args[2];
 
         QueryLogReader reader = new QueryLogReader(queryLog);
         try {
