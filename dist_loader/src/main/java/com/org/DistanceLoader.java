@@ -1,5 +1,7 @@
 package com.org;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -40,5 +42,13 @@ public class DistanceLoader {
         } else {
             return vals[1];
         }
+    }
+
+    public double get(String queryID1, String queryID2, FileWriter writer) throws IOException {
+        double val = get(queryID1, queryID2);
+        if (val == -1) {
+            writer.write(queryID1 + "," + queryID2 + "\n");
+        }
+        return val;
     }
 }
