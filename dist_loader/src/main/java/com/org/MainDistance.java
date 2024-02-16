@@ -12,6 +12,9 @@ public class MainDistance {
                 break;
 
             default:
+                // java -jar -Xms100G -Xmx100G target/dist_loader-1.0-SNAPSHOT.jar
+                // /data/wikidata_0_1_10_v3_weight_loss/train_sampled.tsv
+                // /data/wikidata_dists/distances /data/wikidata_dists/combinations/comb1.csv
                 System.out.println("Default Task is distance matrix calculator");
                 if (args.length < 3) {
                     System.out.println("Missing Arguments");
@@ -28,12 +31,22 @@ public class MainDistance {
     }
 
     public static void combCreator() {
-        System.exit(-1);
+        // file : /data/wikidata_0_1_10_v3_weight_loss/train_sampled.tsv
+        // combFile: /data/wikidata_dists/combinations/comb1.csv
+        // distance: /data/wikidata_dists/distances
+
         // file : /data/DBpedia2016_0_1_10_weight_loss/train_sampled.tsv
         // combFile: /data/dbpedia_dist2bak/combinations/comb1.csv
-        //
-        CombinationCreator cr = new CombinationCreator("/data/DBpedia2016_0_1_10_weight_loss/train_sampled.tsv",
-                "/data/dbpedia_dist2bak/combinations/comb1.csv", "/data/dbpedia_dist2bak/combinations2");
+        // combDir: "/data/dbpedia_dist2bak/combinations2"
+        CombinationCreator cr = new CombinationCreator("/data/wikidata_0_1_10_v3_weight_loss/train_sampled.tsv",
+                "/data/wikidata_dists/combinations/comb1.csv",
+                "/data/wikidata_dists/combinations2");
+        /*
+         * CombinationCreator cr = new
+         * CombinationCreator("/data/DBpedia2016_0_1_10_weight_loss/train_sampled.tsv",
+         * "/data/dbpedia_dist2bak/combinations/comb1.csv",
+         * "/data/dbpedia_dist2bak/combinations2");
+         */
         try {
             cr.read();
             cr.process();

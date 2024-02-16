@@ -11,7 +11,7 @@ def create_sh_cmds(com_folder, dist_dir, cmd_dir, jar_file):
     for i,(f,o) in enumerate(zip(files, out_files)):
         if i % cpus == 0:
             fw.write("wait\n")
-            fw.write("Finished After $SECONDS\n")
+            fw.write("echo Finished After $SECONDS\n")
             fw.flush()
             fw.close()
             cmd_count += 1
@@ -23,7 +23,7 @@ def create_sh_cmds(com_folder, dist_dir, cmd_dir, jar_file):
         fw.flush()
         
     fw.write("wait\n")
-    fw.write("Finished After $SECONDS\n")
+    fw.write("echo Finished After $SECONDS\n")
     fw.flush()
     fw.close()
     fw2.write(f"bash {cmd_dir}/cmd{cmd_count}.sh\n")
@@ -34,4 +34,9 @@ jarfile='/qpp/qpp_features/sparql-query2vec/target/sparql-query2vec-0.0.1.jar'
 com_folder = '/data/dbpedia_dist2bak/combinations2'
 cmd_dir = '/data/dbpedia_dist2bak/cmds'
 dist_dir = '/data/dbpedia_dist2bak/distances'
+
+jarfile='/qpp/qpp_features/sparql-query2vec/target/sparql-query2vec-0.0.1.jar'
+com_folder = '/data/wikidata_dists/combinations2'
+cmd_dir = '/data/wikidata_dists/cmds'
+dist_dir = '/data/wikidata_dists/distances'
 create_sh_cmds(com_folder, dist_dir, cmd_dir, jarfile)

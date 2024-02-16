@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.time.StopWatch;
@@ -29,6 +31,28 @@ public class DistanceLoader {
             for (Object entry : list) {
                 String queryID2 = (String) ((LinkedTreeMap) entry).get("queryID2");
                 String queryID1 = (String) ((LinkedTreeMap) entry).get("queryID1");
+                double dist = Double.parseDouble((String) ((LinkedTreeMap) entry).get("dist"));
+                double time = Double.parseDouble((String) ((LinkedTreeMap) entry).get("time")) / 1000.0;
+                this.map.put(new StringPair(queryID1, queryID2), new double[] { dist, time });
+            }
+            reader.close();
+        } catch (Exception ex) {
+        }
+    }
+
+    public void loadFile(String file, Set<String> ids) {
+        StopWatch watch = new StopWatch();
+        watch.start();
+        try {
+            Gson gson = new Gson();
+            Reader reader = Files.newBufferedReader(Paths.get(file));
+            ArrayList<?> list = gson.fromJson(reader, ArrayList.class);
+            for (Object entry : list) {
+                String queryID2 = (String) ((LinkedTreeMap) entry).get("queryID2");
+                String queryID1 = (String) ((LinkedTreeMap) entry).get("queryID1");
+                if ((!ids.contains(queryID1)) || (!ids.contains(queryID2))) {
+                    continue;
+                }
                 double dist = Double.parseDouble((String) ((LinkedTreeMap) entry).get("dist"));
                 double time = Double.parseDouble((String) ((LinkedTreeMap) entry).get("time")) / 1000.0;
                 this.map.put(new StringPair(queryID1, queryID2), new double[] { dist, time });
@@ -65,9 +89,7 @@ public class DistanceLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ArrayList<String> queryIds = reader.queryIDs;
-        System.out.println(queryIds.get(0));
-
+        Set<String> idSet = new HashSet<>(reader.queryIDs);
         DistanceLoader distLoader = new DistanceLoader();
         File f = new File(distanceDist);
         try {
@@ -76,10 +98,11 @@ public class DistanceLoader {
             StopWatch watch = new StopWatch();
             watch.start();
             for (String s : f.list()) {
-                distLoader.loadFile(f.getPath() + "/" + s);
+                distLoader.loadFile(f.getPath() + "/" + s, idSet);
                 i++;
                 System.out.println("File " + i + ": " + ((double) watch.getTime(TimeUnit.MILLISECONDS)) / 1000 + "\n");
             }
+            ArrayList<String> queryIds = reader.queryIDs;
             double total = 0;
             int missingPairs = 0;
             for (int j = 0; j < queryIds.size(); j++) {
@@ -97,6 +120,7 @@ public class DistanceLoader {
             System.out.println(total);
             System.out.println("Missing Pairs");
             System.out.println(missingPairs);
+            System.out.println("Distance HashSet size: " + distLoader.map.size());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
