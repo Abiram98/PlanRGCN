@@ -8,3 +8,13 @@ mvn package -f pom.xml
 java -jar -Xms80G -Xmx100G target/dist_loader-1.0-SNAPSHOT.jar $training_log_path $distanceDir $missingPairFile
 java -jar -Xms20G -Xmx20G target/dist_loader-1.0-SNAPSHOT.jar te
 ```
+
+
+
+
+
+______
+
+```
+mvn package -f pom.xml && java -jar target/dist_loader-1.0-SNAPSHOT.jar 
+```
