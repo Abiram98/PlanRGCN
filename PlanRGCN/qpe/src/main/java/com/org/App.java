@@ -1,6 +1,7 @@
 package  com.org;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -44,7 +45,17 @@ public class App
                 break;
             }
             case "time-query-plan-gen": {
-                testQuery();
+                Utils u = new Utils();
+                if (args[3].equals("lsq=true")) {
+                    Utils.sub_id = true;
+                }
+
+                try {
+                    u.time_query_plan_extraction(args[1], args[2]);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 break;
             }
             default: {

@@ -1,8 +1,10 @@
 import json
 import os
+import time
 import dgl
 from graph_construction.feats.featurizer_path import FeaturizerPath
 from graph_construction.nodes.PathComplexException import PathComplexException
+from graph_construction.qp.QueryPlanCommonBi import QueryPlanCommonBi
 from graph_construction.qp.qp_utils import QueryPlanUtils
 from graph_construction.qp.query_plan_path import QueryPlanPath
 import json5
@@ -17,60 +19,6 @@ import torch as th
 
 from graph_construction.qp.query_plan import QueryPlan
 
-
-def test(p, add_data=None):
-    pass
-    # print(p["level"])
-
-
-class QueryPlanCommonBi(QueryPlan):
-    """This query plan class only adds relations between binary BGP operations with the triple patterns share the same variables
-
-    Args:
-        QueryPlan (_type_): _description_
-    """
-
-    max_relations = 16
-
-    def __init__(self, data) -> None:
-        super().__init__(data)
-
-    def add_binaryOP(self, data, add_data=None):
-        assert len(data["subOp"]) == 2
-        left = data["subOp"][0]
-        right = data["subOp"][1]
-        left_triples = QueryPlanUtils.extract_triples(left)
-        left_triples = QueryPlanUtils.map_extracted_triples(left_triples, self.triples)
-        right_triples = QueryPlanUtils.extract_triples(right)
-        right_triples = QueryPlanUtils.map_extracted_triples(
-            right_triples, self.triples
-        )
-        for r in right_triples:
-            for l in left_triples:
-                # consider adding the other way for union as a special case
-                if self.is_triple_common(l, r):
-                    self.edges.append(
-                        (r, l, QueryPlanUtils.get_relations(data["opName"]))
-                    )
-
-    def is_triple_common(self, l: TriplePattern, r: TriplePattern):
-        """checks if the triple patterns are joinable
-
-        Args:
-            l (TriplePattern): left triple pattern
-            r (TriplePattern): right triple pattern
-        """
-        for lvar in l.get_joins():
-            for rvar in r.get_joins():
-                if lvar == rvar:
-                    return True
-        return False
-
-    def add_self_loop_triples(self):
-        for t in self.triples:
-            self.edges.append((t, t, 15))
-
-
 def create_query_plan(path, query_plan=QueryPlan):
     try:
         data = json.load(open(path, "r"))
@@ -84,17 +32,22 @@ def create_query_plan(path, query_plan=QueryPlan):
 def create_query_plans_dir(
     source_dir, ids: set[str] = None, add_id=False, query_plan=QueryPlanCommonBi
 ):
+    
     if ids is None:
         # TODO: check whether lsqQuery is necessary
         files = [x for x in os.listdir(source_dir) if x.startswith("lsqQuery")]
     else:
         ids = [str(x) for x in ids]
         files = [x for x in os.listdir(source_dir) if x in ids]
+    durationQP = []
     if add_id:
         temp = []
         for x in files:
             try:
+                start = time.time()
                 temp.append((create_query_plan(f"{source_dir}{x}", query_plan=query_plan), x))
+                end = time.time()
+                durationQP.append(end-start)
             except PathComplexException:
                 pass
         return temp
@@ -102,10 +55,13 @@ def create_query_plans_dir(
     query_plans = []
     for x in files:
         try:
+            start = time.time()
             query_plans.append(create_query_plan(f"{source_dir}{x}", query_plan=query_plan))
+            end = time.time()
+            durationQP.append(end-start)
         except PathComplexException:
             pass
-    return query_plans
+    return query_plans, durationQP
 
 
 def create_dgl_graphs(
@@ -150,7 +106,7 @@ def create_query_graphs_data_split(
     else:
         ids = set([x for x in df["queryID"]])
 
-    qps = create_query_plans_dir(source_dir, ids, query_plan=query_plan, add_id=True)
+    qps, durationQPS = create_query_plans_dir(source_dir, ids, query_plan=query_plan, add_id=True)
     for qp, id in qps:
         try:
             assert len(qp.G.nodes) > 0
@@ -158,7 +114,7 @@ def create_query_graphs_data_split(
             print(qp.data)
             print(qp.path)
             exit()
-    return create_dgl_graphs(qps, feat, without_id=False)
+    return create_dgl_graphs(qps, feat, without_id=False),durationQPS
 
 
 def query_graphs_with_lats(
@@ -176,7 +132,7 @@ def query_graphs_with_lats(
     df.set_index("queryID", inplace=True)
     # print(df.loc["lsqQuery-UBZNr7M1ITVUf21mrBIQ9W4f6cdpJr6DQbr0HkWKOnw"][time_col])
 
-    graphs_ids = create_query_graphs_data_split(
+    graphs_ids,durationQPS = create_query_graphs_data_split(
         source_dir,
         query_path=query_path,
         feat=feat,
@@ -193,7 +149,7 @@ def query_graphs_with_lats(
         samples.append((g, id, lat))
         if len(samples) == 10 and debug is True:
             break
-    return samples
+    return samples, durationQPS
 
 
 def query_graph_w_class_vec(
@@ -206,7 +162,7 @@ def query_graph_w_class_vec(
     is_lsq=False,
     debug = False
 ):
-    samples = query_graphs_with_lats(
+    samples,durationQPS = query_graphs_with_lats(
         source_dir=source_dir,
         query_path=query_path,
         feat=feat,
@@ -215,7 +171,7 @@ def query_graph_w_class_vec(
         is_lsq=is_lsq,
         debug = debug
     )
-    return query_graph_w_class_vec_helper(samples, cls_funct)
+    return query_graph_w_class_vec_helper(samples, cls_funct),durationQPS
 
 
 def snap_lat2onehot(lat):

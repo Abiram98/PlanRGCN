@@ -44,6 +44,56 @@ class Classifier2RGCN(nn.Module):
             # Calculate graph representation by average readout.
             hg = dgl.mean_nodes(g, "node_features")
             return F.softmax(self.classify(hg), dim=1)
+class ClassifierRGCNHidden(nn.Module):
+    def __init__(self, config={'in_dim':0, 'rel_layers':[100,200,100], 'hidden':[100,200,100], 'n_classes':3}, p=0.5):
+        """Note: Data loading needs to happen before model construction as there is a dependency on the QuerPlan.max_relations
+
+        Args:
+            config:
+                in_dim: input dimention
+                rel_layers : list of relation layers.
+                hidden : hidden layers.
+                n_classes : number of time intervals to predict between.
+            in_dim (int): _description_
+            hidden_dim1 (int): _description_
+            hidden_dim2 (int): _description_
+            p (float): _description_
+        """
+        super(ClassifierRGCNHidden, self).__init__()
+        prev = config['in_dim']
+        self.rel_convs = nn.ModuleList()
+        self.hidden_layers = nn.ModuleList()
+        for i in config['rel_layers']:
+            self.rel_convs.append(dglnn.RelGraphConv(
+                prev, i, QueryPlan.max_relations, dropout=p)
+            )
+            prev = i
+            
+        for i in config['hidden']:
+            self.hidden_layers.append(nn.Linear(
+                prev, i)
+            )
+            prev = i
+        
+        self.classify = nn.Linear(prev, config['n_classes'])
+        self.in_dim = config['in_dim']
+        self.config = config
+        self.n_classes = config['n_classes']
+
+    def forward(self, g, h, rel_types):
+        # Apply graph convolution and activation.
+        if h.dtype != torch.float32:
+            h = h.type(torch.float32)
+        for l in self.rel_convs:
+            h = l(g,h,rel_types)
+            h = F.relu(h)
+        with g.local_scope():
+            g.ndata["node_features"] = h
+            hg = dgl.mean_nodes(g, "node_features")
+            for l in self.hidden_layers:
+                hg = F.relu(l(hg),)
+            return F.softmax(self.classify(hg), dim=1)
+            
 
     def get_last_hidden_layer(self, g, h, rel_types):
         """This method will return the embedding of the last hidden layer from the model which can be used as an representation of the query plan in a downstream task
@@ -59,16 +109,18 @@ class Classifier2RGCN(nn.Module):
         # Apply graph convolution and activation.
         if h.dtype != torch.float32:
             h = h.type(torch.float32)
-        h = self.conv1(g, h, rel_types)
-        h = F.relu(h)
-        h = F.relu(self.conv2(g, h, rel_types))
+        for l in self.rel_convs:
+            h = l(g,h,rel_types)
+            h = F.relu(h)
         with g.local_scope():
             g.ndata["node_features"] = h
-            # Calculate graph representation by average readout.
-            return dgl.mean_nodes(g, "node_features")
+            hg = dgl.mean_nodes(g, "node_features")
+            for l in self.hidden_layers:
+                hg = F.relu(l(hg),)
+            return hg
 
     def get_dims(self):
-        return self.in_dim, self.hidden_dim1, self.hidden_dim2, self.n_classes
+        return self.config
 
 
 class Classifier2RGCNAuto(nn.Module):
@@ -363,3 +415,22 @@ class RegressorWSelfTriple(nn.Module):
             # Calculate graph representation by average readout.
             hg = dgl.mean_nodes(g, "node_features")
             return F.relu(self.classify(hg))
+
+if __name__ == "__main__":
+    import networkx as nx
+    import numpy as np
+    
+    edge_list = [(0,1),(0,2),(0,3),(0,4),(0,5) ]
+    edge_type = np.array([0,2,0,0,4], dtype=np.float32)
+    edge_type = torch.tensor(edge_type)
+    nodes = [x for x in range(10)]
+    node_feats = torch.tensor(np.random.sample([len(nodes),10]))
+    G = nx.DiGraph()
+    G.add_nodes_from(nodes)
+    G.add_edges_from(edge_list)
+    G = dgl.from_networkx(G)
+    #test code
+    config={'in_dim':10, 'rel_layers':[100,200,100], 'hidden':[], 'n_classes':3}
+    p=0.5
+    cls = ClassifierRGCNHidden(config=config, p=p)
+    print(cls(G,node_feats, edge_type))

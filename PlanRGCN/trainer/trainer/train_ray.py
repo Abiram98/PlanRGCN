@@ -37,7 +37,7 @@ from ray.air.config import CheckpointConfig
 from dgl.dataloading import GraphDataLoader
 AVG = "macro"
 
-
+import time
 th.manual_seed(42)
 np.random.seed(42)
 
@@ -104,6 +104,11 @@ def get_dataloaders(
     test_loader.dataset.save()
     return train_loader, val_loader, test_loader, prepper.vec_size
 
+def create_model(input_d = None, l1=None, l2=None, dropout=None, n_classes=3):
+    net = Classifier2RGCN(
+        input_d, l1,l2, dropout, n_classes
+    )
+    return net
 
 def train_function(
     config,
@@ -125,6 +130,7 @@ def train_function(
     query_plan=QueryPlanCommonBi,
     metric_default=0,
     path_to_save=tempfile.TemporaryDirectory(),
+    create_model=create_model,
 ):
     if isinstance(path_to_save, str):
         o_path_to_save = path_to_save
@@ -146,9 +152,11 @@ def train_function(
         scaling=scaling,
         query_plan=query_plan,
     )
-    net = Classifier2RGCN(
-        input_d, config["l1"], config["l2"], config["dropout"], n_classes
-    )
+    #net = Classifier2RGCN(
+    #    input_d, config["l1"], config["l2"], config["dropout"], n_classes
+    #)
+    net = create_model(**{'input_d' : input_d, 'l1':config["l1"], 'l2': config["l2"], 'dropout':config["dropout"], 'n_classes':n_classes})
+    
     if not isinstance(config["loss_type"], str):
         criterion = config["loss_type"]
     elif config["loss_type"] == "cross-entropy":
@@ -377,11 +385,12 @@ def predict(
             [train_loader, val_loader, test_loader],
             [train_p, val_p, test_p],
         ):
-            ids, preds, truths = predict_helper(loader, model, is_lsq)
+            ids, preds, truths, durations = predict_helper(loader, model, is_lsq)
             df = pd.DataFrame()
             df["id"] = ids
             df["time_cls"] = truths
             df["planrgcn_prediction"] = preds
+            df["inference_durations"] = durations
             df.to_csv(path, index=False)
 
 
@@ -389,10 +398,14 @@ def predict_helper(dataloader, model, is_lsq):
     all_preds = []
     all_ids = []
     all_truths = []
+    all_time = []
     for graphs, labels, ids in dataloader:
+        start = time.time()
         feats = graphs.ndata["node_features"]
         edge_types = graphs.edata["rel_type"]
         pred = model(graphs, feats, edge_types)
+        end = time.time()
+        all_time.append(end-start)
         pred = pred.tolist()
         pred = [np.argmax(x) for x in pred]
         truths = [np.argmax(x) for x in labels.tolist()]
@@ -403,7 +416,7 @@ def predict_helper(dataloader, model, is_lsq):
             ids = [f"{x}" for x in ids]
         all_ids.extend(ids)
         all_preds.extend(pred)
-    return all_ids, all_preds, all_truths
+    return all_ids, all_preds, all_truths, all_time
 
 
 def stop_bad_run(trial_id: str, result: dict) -> bool:
@@ -483,40 +496,6 @@ def main(
         grace_period=10,
         reduction_factor=2,
     )
-    """trainable_with_resources = tune.with_resources(
-        partial(
-            train_function,
-            train_path=train_path,
-            val_path=val_path,
-            test_path=test_path,
-            # batch_size=batch_size,
-            query_plan_dir=query_plan_dir,
-            pred_stat_path=pred_stat_path,
-            pred_com_path=pred_com_path,
-            ent_path=ent_path,
-            time_col=time_col,
-            is_lsq=is_lsq,
-            cls_func=cls_func,
-            featurizer_class=featurizer_class,
-            scaling=scaling,
-            n_classes=n_classes,
-            query_plan=query_plan,
-            path_to_save=path_to_save,
-        ),
-        {"cpu": 0.5},
-    )
-    tuner = tune.Tuner(
-        trainable_with_resources,
-        param_space=config,
-        tune_config=tune.TuneConfig(
-            num_samples=num_samples,
-            scheduler=scheduler,
-        ),
-    )
-    result = tuner.fit()
-    result.get_dataframe().to_csv(
-        Path(path_to_save).joinpath("hyper_search_results.csv")
-    )"""
     trainable = partial(
         train_function,
         train_path=train_path,
@@ -547,8 +526,8 @@ def main(
         stop=earlystop,
         resume=resume
     )
-    # best_trial = result.get_best_result("val f1", "max", "last")
     best_trial = result.get_best_trial("val f1", "max", "last")
+    
     print(f"Best trial config: {best_trial.config}")
     print(f"Best trial final validation f1: {best_trial.last_result['val f1']}")
     retrain_config = best_trial.config

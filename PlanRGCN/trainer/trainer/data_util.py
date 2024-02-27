@@ -14,10 +14,11 @@ import os
 import torch as th
 from pathlib import Path
 class GraphDataset:
-    def __init__(self, graphs, labels, ids, save_path, vec_size, scaling, literals=False) -> None:
+    def __init__(self, graphs, labels, ids, save_path, vec_size, scaling, literals=False,durationQPS=None) -> None:
         self.graph =  graphs
         self.labels = labels
         self.ids = ids
+        self.durationQPS = durationQPS
         self.save_path = save_path
         self.vec_size = vec_size
         self.scaling = scaling
@@ -131,7 +132,7 @@ class DatasetPrep:
         self.debug = debug
 
     def get_dataloader(self, path):
-        graphs, clas_list, ids = query_graph_w_class_vec(
+        (graphs, clas_list, ids),durationQPS = query_graph_w_class_vec(
             self.query_plan_dir,
             query_path=path,
             feat=self.feat,
@@ -141,7 +142,7 @@ class DatasetPrep:
             is_lsq=self.is_lsq,
             debug = self.debug
         )
-        train_dataset = GraphDataset(graphs, clas_list, ids, path, self.vec_size, self.scaling)
+        train_dataset = GraphDataset(graphs, clas_list, ids, path, self.vec_size, self.scaling,durationQPS=durationQPS)
         train_dataset.set_query_plan(self.query_plan)
         train_dataset.set_featurizer(self.feat)
         train_dataloader = GraphDataLoader(
