@@ -50,7 +50,7 @@ def create_query_plans_dir(
                 durationQP.append(end-start)
             except PathComplexException:
                 pass
-        return temp
+        return temp, durationQP
     
     query_plans = []
     for x in files:

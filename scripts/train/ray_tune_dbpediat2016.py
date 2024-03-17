@@ -1,7 +1,7 @@
-from graph_construction.feats.feature_binner import FeaturizerBinning
+#from graph_construction.feats.feature_binner import FeaturizerBinning
 from graph_construction.feats.featurizer_path import FeaturizerPath
 from trainer.train_ray import main
-from graph_construction.feats.featurizer import FeaturizerPredCoEnt
+#from graph_construction.feats.featurizer import FeaturizerPredCoEnt
 from graph_construction.query_graph import (
     QueryPlan,
     QueryPlanCommonBi,
@@ -9,7 +9,7 @@ from graph_construction.query_graph import (
     snap_lat2onehotv2,
 )
 from graph_construction.qp.query_plan_path import QueryPlanPath
-from graph_construction.qp.query_plan_lit import QueryPlanLit
+#from graph_construction.qp.query_plan_lit import QueryPlanLit
 from ray import tune
 import os
 
@@ -23,24 +23,11 @@ import os
 
 
 sample_name = "DBpedia2016_v2"  # balanced dataset
-sample_name = "DBpedia2016_v2_weight_loss"
-sample_name = "DBpedia2016_v2_hybrid"
 sample_name = "DBpedia2016_v2_aug"  # Previously best
-sample_name = "DBpedia2016_0_1_10_aug"
-
-sample_name = "DBpedia2016_0_1_10_path_aug"
-sample_name = "DBpedia2016_0_1_10_path_hybrid"
-sample_name = "DBpedia2016_0_1_10_path_weight_loss"
-
 
 sample_name = "DBpedia2016_0_1_10_weight_loss"
 sample_name = "DBpedia2016_0_1_10_path_v3_weight_loss"
-
-
-train_path = f"/data/{sample_name}/train_sampled.tsv"
-val_path = f"/data/{sample_name}/val_sampled.tsv"
-test_path = f"/data/{sample_name}/test_sampled.tsv"
-qp_path = f"/data/{sample_name}/queryplans/"
+sample_name = "DBpedia2016_0_1_10_weight_loss_retrain"
 
 train_path = f"/data/{sample_name}/train_sampled.tsv"
 val_path = f"/data/{sample_name}/val_sampled.tsv"
@@ -50,33 +37,25 @@ qp_path = f"/data/{sample_name}/queryplans/"
 
 # KG statistics feature paths
 pred_stat_path = (
-    "/data/planrgcn_features/extracted_features_dbpedia2016/predicate/pred_stat/batches_response_stats"
+    "/data/planrgcn_feat/extracted_features_dbpedia2016/predicate/pred_stat/batches_response_stats"
 )
-pred_com_path = "/data/planrgcn_features/extracted_features_dbpedia2016/predicate/pred_co"
-#ent_path = (
-#    "/PlanRGCN/extracted_features_dbpedia2016/entities/ent_stat/batches_response_stats"
-#)
+pred_com_path = "/PlanRGCN/data/dbpedia2016/predicate/pred_co"
 
 ent_path = (
-    "/data/planrgcn_features/extracted_features_dbpedia2016/entities/ent_stat/batches_response_stats"
+    "/data/planrgcn_feat/extracted_features_dbpedia2016/entities/ent_stat/batches_response_stats"
 )
 
 lit_path= (
-    "/data/planrgcn_features/extracted_features_dbpedia2016/literals_stat/batches_response_stats"
+    "/data/planrgcn_feat/extracted_features_dbpedia2016/literals_stat/batches_response_stats"
 )
 # Training Configurations
-num_samples = 1  # cpu cores to use
-num_samples = 8  # cpu cores to use
-num_samples = 14  # 4  # use this
-num_cpus= 14
+num_samples = 22  # 4  # use this
+num_cpus= 22
 max_num_epochs = 100
-# batch_size = 64
 query_plan_dir = qp_path
 time_col = "mean_latency"
 is_lsq = True
 cls_func = snap_lat2onehotv2
-#featurizer_class = FeaturizerPredCoEnt
-#featurizer_class = FeaturizerBinning
 #featurizer_class = FeaturizerBinning
 featurizer_class = FeaturizerPath
 #scaling = "robust"
@@ -89,9 +68,10 @@ prepper = None
 resume=False
 
 # Results save path
-path_to_save = f"/data/{sample_name}/planrgcn_{scaling}"
-if lit_path is not None:
-    path_to_save += "_litplan"
+#path_to_save = f"/data/{sample_name}/planrgcn_{scaling}"
+#if lit_path is not None:
+#    path_to_save += "_litplan"
+path_to_save = f"/data/DBpedia2016_0_1_10_weight_loss_retrain/plargcn_results_17_3"
 
 os.makedirs(path_to_save, exist_ok=True)
 

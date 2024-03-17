@@ -51,7 +51,6 @@ class BinnerEntPred:
             random_state=random_state,
         )
         self.pred_ents_scaler.fit(input_lst)
-
         # Entity Frequency
         input_lst = np.array(sorted([int(x) for x in ent_freq.values()])).reshape(-1, 1)
         self.ent_freq_scaler = KBinsDiscretizer(

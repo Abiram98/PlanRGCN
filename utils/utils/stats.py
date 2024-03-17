@@ -19,7 +19,7 @@ def load_pred_freq(file, dct, query_var="p1"):
 
 def get_rel_dict(path):
     if not os.path.exists(path):
-        raise Exception("Predicate feature not existing")
+        raise Exception("Predicate feature not existing, "+path)
     files = sorted([f"{path}{x}" for x in os.listdir(path) if x.endswith(".json")])
     freq_dct = dict()
     for f in files:
@@ -65,7 +65,7 @@ class PredStats:
             and os.path.exists(ent_path)
             and os.path.exists(lits_path)
         ):
-            raise Exception("Predicate feature not existing")
+            raise Exception("Predicate feature not existing ,"+ freq_path)
         for p, f in zip(
             [freq_path, ent_path, lits_path, subj_path, obj_path],
             [
