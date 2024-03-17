@@ -518,7 +518,7 @@ def main(
     result = tune.run(
         trainable,
         checkpoint_config=checkpoint_config,
-        resources_per_trial={"cpu": 1},
+        resources_per_trial={"cpu": 4},
         config=config,
         num_samples=num_samples,
         scheduler=scheduler,

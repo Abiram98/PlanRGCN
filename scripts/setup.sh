@@ -30,12 +30,12 @@ mvn install:install-file -Dfile=/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar -DpomF
 apt-get install graphviz graphviz-dev -y
 pip install pygraphviz
 
-pip3 install -e PlanRGCN/feature_representation/
-pip3 install -e PlanRGCN/trainer
+pip3 install -e PlanRGCN/PlanRGCN/feature_representation/
+pip3 install -e PlanRGCN/PlanRGCN/trainer
 pip3 install -e PlanRGCN/sample_checker 
 pip3 install -e PlanRGCN/utils/
 pip3 install -e load_balance/
-
+pip3 install -e inductive_query/
 pip3 install xgboost
 pip3 install xgboost_ray
 pip3 install -e PlanRegr/

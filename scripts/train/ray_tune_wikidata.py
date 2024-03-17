@@ -65,15 +65,16 @@ time_col = "mean_latency"
 is_lsq = True
 cls_func = snap_lat2onehotv2
 featurizer_class = FeaturizerPath
-featurizer_class = FeaturizerBinning
+#featurizer_class = FeaturizerBinning
 #scaling = "robust"
 n_classes = 3
 query_plan = QueryPlanPath
-query_plan = QueryPlanLit
+#query_plan = QueryPlanLit
 scaling = "binner"
 prepper = None
 resume = False
 path_to_save = f"/data/{sample_name}/planrgcn_{scaling}"
+
 if lit_path is not None:
     path_to_save += "_litplan"
 
@@ -115,7 +116,19 @@ config = {
         [ "pred2index_louvain.pickle"]
     ),
 }
-
+config = {
+    "l1": tune.choice([ 1024, 2048, 4096]),
+    "l2": tune.choice([ 512, 1024, 2048, 4096,8192]),
+    "dropout": tune.choice([0.0, 0.6]),
+    "wd": 0.01,
+    "lr": tune.grid_search([1e-5]),
+    "epochs": 100,
+    "batch_size": tune.choice([ 256]),
+    "loss_type": tune.choice(["cross-entropy","mse"]),
+    "pred_com_path": tune.choice(
+        [ "pred2index_louvain.pickle"]
+    ),
+}
 def earlystopWikidata(trial_id: str, result: dict) -> bool:
     """This function should return true when the trial should be stopped and false for continued training.
 
