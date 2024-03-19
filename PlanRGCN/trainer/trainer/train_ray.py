@@ -524,7 +524,8 @@ def main(
         scheduler=scheduler,
         local_dir=ray_save,
         stop=earlystop,
-        resume=resume
+        resume=resume,
+        raise_on_failed_trial=False
     )
     best_trial = result.get_best_trial("val f1", "max", "last")
     
