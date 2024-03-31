@@ -1,7 +1,7 @@
-from graph_construction.feats.feature_binner import FeaturizerBinning
+#from graph_construction.feats.feature_binner import FeaturizerBinning
 from graph_construction.feats.featurizer_path import FeaturizerPath
 from trainer.train_ray import main
-from graph_construction.feats.featurizer import FeaturizerPredCoEnt
+#from graph_construction.feats.featurizer import FeaturizerPredCoEnt
 from graph_construction.query_graph import (
     QueryPlan,
     QueryPlanCommonBi,
@@ -9,7 +9,7 @@ from graph_construction.query_graph import (
     snap_lat2onehotv2,
 )
 from graph_construction.qp.query_plan_path import QueryPlanPath
-from graph_construction.qp.query_plan_lit import QueryPlanLit
+#from graph_construction.qp.query_plan_lit import QueryPlanLit
 from ray import tune
 import os
 
@@ -22,6 +22,9 @@ sample_name = "wikidata_0_1_10_v2_weight_loss"
 sample_name = "wikidata_0_1_10_v3_path_weight_loss" #already run
 
 sample_name = "wikidata_0_1_10_v3_weight_loss" # need to run
+
+
+sample_name = "wikidata_0_1_10_v3_path_weight_loss_retrain" # need to run
 
 # Results save path
 """if os.path.exists(path_to_save):
@@ -41,25 +44,22 @@ qp_path = f"/data/{sample_name}/queryplans/"
 
 # KG statistics feature paths
 pred_stat_path = (
-    "/data/planrgcn_features/extracted_features_wd/predicate/pred_stat/batches_response_stats"
+    "/PlanRGCN/data/wikidata/predicate/pred_stat/batches_response_stats"
 )
-pred_com_path = "/data/planrgcn_features/extracted_features_wd/predicate/pred_co"
+pred_com_path = "/PlanRGCN/data/wikidata/predicate/pred_co"
 #ent_path = (
 #    "/PlanRGCN/extracted_features_dbpedia2016/entities/ent_stat/batches_response_stats"
 #)
 
 ent_path = (
-    "/data/planrgcn_features/extracted_features_wd/entities/ent_stat/batches_response_stats"
+    "/PlanRGCN/data/wikidata/entity/ent_stat/batches_response_stats"
 )
 lit_path =(
-        "/data/planrgcn_features/extracted_features_wd/literals_stat/batches_response_stats"
+        "/PlanRGCN/data/wikidata/literals/literals_stat/batches_response_stats"
 )
 # Training Configurations
-num_samples = 1  # cpu cores to use
-num_samples = 8  # cpu cores to use
-num_samples = 20  # cpu cores to use
+num_samples = 22  # cpu cores to use
 max_num_epochs = 100
-# batch_size = 64
 query_plan_dir = qp_path
 time_col = "mean_latency"
 is_lsq = True
@@ -73,12 +73,14 @@ query_plan = QueryPlanPath
 scaling = "binner"
 prepper = None
 resume = False
-path_to_save = f"/data/{sample_name}/planrgcn_{scaling}"
 
-if lit_path is not None:
-    path_to_save += "_litplan"
+#path_to_save = f"/data/{sample_name}/planrgcn_{scaling}"
+#if lit_path is not None:
+#    path_to_save += "_litplan"
 
+path_to_save = "/data/wikidata_0_1_10_v3_path_weight_loss_retrain/planrgcn_17_3"
 os.makedirs(path_to_save, exist_ok=True)
+
 config = {
     "l1": tune.grid_search([10]),
     "l2": tune.grid_search([10]),
@@ -92,7 +94,7 @@ config = {
 config = {
     "l1": tune.choice([ 512, 1024, 2048, 4096, 8192]),
     "l2": tune.choice([ 512, 1024, 2048, 4096, 8192]),
-    "dropout": tune.choice([0.0, 0.6, 0.8]),
+    "dropout": tune.choice([0.0, 0.6]),
     "wd": 0.01,
     "lr": tune.grid_search([1e-5]),
     "epochs": 100,

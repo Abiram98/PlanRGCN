@@ -82,6 +82,31 @@ public class DistanceLoader {
         return val;
     }
 
+    public static ArrayList<Object> getDistanceMapQueryIds(String queryLog, String distanceDist) {
+        QueryLogReader reader = new QueryLogReader(queryLog);
+        try {
+            reader.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Set<String> idSet = new HashSet<>(reader.queryIDs);
+        DistanceLoader distLoader = new DistanceLoader();
+        File f = new File(distanceDist);
+        int i = 0;
+        StopWatch watch = new StopWatch();
+        watch.start();
+        for (String s : f.list()) {
+            distLoader.loadFile(f.getPath() + "/" + s, idSet);
+            i++;
+            System.out.println("File " + i + ": " + ((double) watch.getTime(TimeUnit.MILLISECONDS)) / 1000 + "\n");
+        }
+        ArrayList<String> queryIds = reader.queryIDs;
+        ArrayList<Object> res = new ArrayList<>();
+        res.add(queryIds);
+        res.add(distLoader.map);
+        return res;
+    }
+
     public static void runComputationCalculator(String queryLog, String distanceDist, String missPairs) {
         QueryLogReader reader = new QueryLogReader(queryLog);
         try {

@@ -1,12 +1,24 @@
 package com.org;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class MainDistance {
     public static void main(String[] args) {
 
         switch (args[0]) {
+            case "sqlite":
+                String sqliteDBfile = args[1];
+                SQLiteConnector conn = new SQLiteConnector(sqliteDBfile, args[2], args[3]);
+                conn.runner();
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                ;
+                break;
             case "comb_creator":
                 combCreator();
                 break;
