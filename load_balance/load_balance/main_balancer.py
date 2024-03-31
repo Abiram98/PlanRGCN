@@ -22,7 +22,7 @@ def get_workload(sample_name, scale, add_lsq_url,cls_field, mu = const.MU):
     w = Workload(true_field_name=cls_field)
     w.load_queries(f'/data/{sample_name}/test_sampled.tsv')
     w.set_time_cls(f"/data/{sample_name}/{scale}/test_pred.csv",add_lsq_url=add_lsq_url)
-    a = ArrivalRateDecider(seed = 21)
+    a = ArrivalRateDecider(seed=21)
     w.shuffle_queries()
     w.shuffle_queries()
     w.set_arrival_times(a.assign_arrival_rate(w, mu= mu))
