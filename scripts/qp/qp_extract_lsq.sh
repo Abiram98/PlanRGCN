@@ -2,7 +2,7 @@
 queries=$1
 #mvn package -f '/PlanRGCN/qpe/pom.xml' > /dev/null
 #mvn package -f '/PlanRGCN/qpe/pom.xml'
-jarfile=/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar
+jarfile=/PlanRGCN/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar
 
 train=$queries/train_sampled.tsv
 val=$queries/val_sampled.tsv

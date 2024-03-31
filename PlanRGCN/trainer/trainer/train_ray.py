@@ -30,7 +30,7 @@ from ray import tune, train
 
 # from ray.air import Checkpoint, session
 from ray.train import Checkpoint
-
+import pickle as pcl
 # from ray.tune.schedulers import ASHAScheduler
 from ray.tune.schedulers import AsyncHyperBandScheduler
 from ray.air.config import CheckpointConfig
@@ -60,6 +60,7 @@ def get_dataloaders(
     scaling="None",
     query_plan=QueryPlanCommonBi,
     debug=False,
+    save_prep_path=None
 ):
     train_temp = GraphDataset.load_dataset(train_path, scaling, lit_path)
     val_temp = GraphDataset.load_dataset(val_path, scaling, lit_path)
@@ -95,7 +96,9 @@ def get_dataloaders(
         scaling=scaling,
         debug=debug
     )
-
+    if save_prep_path!=None and (not os.path.exists(save_prep_path)):
+        print("Saving dataset prepper to "+ save_prep_path)
+        pcl.dump(prepper, open(save_prep_path, 'wb') )
     train_loader = prepper.get_trainloader()
     train_loader.dataset.save()
     val_loader = prepper.get_valloader()
@@ -131,6 +134,7 @@ def train_function(
     metric_default=0,
     path_to_save=tempfile.TemporaryDirectory(),
     create_model=create_model,
+    save_prep_path=None,
 ):
     if isinstance(path_to_save, str):
         o_path_to_save = path_to_save
@@ -151,6 +155,7 @@ def train_function(
         featurizer_class=featurizer_class,
         scaling=scaling,
         query_plan=query_plan,
+        save_prep_path=save_prep_path
     )
     #net = Classifier2RGCN(
     #    input_d, config["l1"], config["l2"], config["dropout"], n_classes
@@ -472,6 +477,7 @@ def main(
     ),  # CheckpointConfig(12, "val f1", "max"),
     resume=False,
     earlystop = stop_bad_run,
+    save_prep_path=None
 ):
     config["epochs"] = max_num_epochs
     ray_temp_path = os.path.join(path_to_save, "temp_session")
@@ -513,6 +519,7 @@ def main(
         scaling=scaling,
         n_classes=n_classes,
         query_plan=query_plan,
+        save_prep_path=save_prep_path,
     )
 
     result = tune.run(

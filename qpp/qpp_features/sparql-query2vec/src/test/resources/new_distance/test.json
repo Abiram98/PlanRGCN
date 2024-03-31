@@ -1,0 +1,15 @@
+[
+{
+  "queryID1" : "queryid1",
+  "queryID2" : "queryid2",
+  "queryString1": "SELECT * {?s ?p <http://foo>}",
+  "queryString2": "SELECT * {?s ?p <http://foo2>}"
+},
+  {
+    "queryID1" : "queryid3",
+    "queryID2" : "queryid4",
+    "queryString1": "SELECT * {?s ?p <http://foo5>}",
+    "queryString2": "SELECT * {?s ?p <http://foo6>}"
+  }
+
+]

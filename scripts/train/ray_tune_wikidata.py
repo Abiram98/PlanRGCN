@@ -1,7 +1,5 @@
-#from graph_construction.feats.feature_binner import FeaturizerBinning
 from graph_construction.feats.featurizer_path import FeaturizerPath
 from trainer.train_ray import main
-#from graph_construction.feats.featurizer import FeaturizerPredCoEnt
 from graph_construction.query_graph import (
     QueryPlan,
     QueryPlanCommonBi,
@@ -9,19 +7,10 @@ from graph_construction.query_graph import (
     snap_lat2onehotv2,
 )
 from graph_construction.qp.query_plan_path import QueryPlanPath
-#from graph_construction.qp.query_plan_lit import QueryPlanLit
 from ray import tune
 import os
 
-
-sample_name = "wikidata_0_1_10_v2_path"  # balanced dataset
-sample_name = "wikidata_0_1_10_v2_path_weight_loss"
-sample_name = "wikidata_0_1_10_v2_path_hybrid"
-sample_name = "wikidata_0_1_10_v2_weight_loss"
-
-sample_name = "wikidata_0_1_10_v3_path_weight_loss" #already run
-
-sample_name = "wikidata_0_1_10_v3_weight_loss" # need to run
+sample_name = "wikidata_0_1_10_v3_weight_loss"
 
 
 sample_name = "wikidata_0_1_10_v3_path_weight_loss_retrain" # need to run

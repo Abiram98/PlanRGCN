@@ -4,178 +4,72 @@
 Docker should be installed
 
 ## Setup
-First start a docker container in interactive mode
-
-
-## To run
-In interactive mode:
+Run the following command in the super directory where this is cloned
 ```
-docker build -t bgp_cls:1 .
-export path_to_rdf/wikidata-prefiltered.nt
-docker run -m 20g -it --name bgp5 -v "$(pwd)"/:/work -v $path_to_rdf:/wikidata-prefiltered.nt -p 85:80 bgp_cls:1 bin/bash
-
-docker run -m 20g -it --name bgp5 -v "$(pwd)"/:/work -v /srv/data/abiram/blf_data/import/wikidata-prefiltered.nt:/wikidata-prefiltered.nt -p 85:80 bgp_cls:1 bin/bash
+DATA_PATH=/home/ubuntu/vol2/data_qpp2
+docker run --name all_final -it -v $(pwd)/query-performance:/query-performance -v $(pwd)/PlanRGCN:/PlanRGCN -v $(pwd)/SPARQLBench:/SPARQLBench -v $(pwd)/qpp:/qpp -v $DATA_PATH:/data --shm-size=12gb ubuntu:22.04
 ```
-### Configuration File - Not Necessary anymore
-First step is to create a configuration file with the appropriate features.
-Rember to set the proper path in /work/feature_extraction/constants.py
-
-### Predicate Features - Not Necessary anymore
-
-to collect predicate features:
+when in the container, run:
 ```
-python3 -m feature_check.predicate_check
+cd PlanRGCN && bash scripts/setup.sh
 ```
 
-### Python code to run - Not Necessary anymore
+## Feature Extraction
+Prerequisite: have the rdf store storing KG available.
+### KG Stats
+The KG stats are collected as:
+```
+URL=http://172.21.233.14:8892/sparql
+KGSTATFOLDER=/PlanRGCN/data/dbpedia2016 # where to store the extracted stat
+KGSTATFOLDER=/data/planrgcn_feat/extracted_features_dbpedia2016 # where to store the extracted stat
 
-``` 
-python3 -m classifier.trainer
+mkdir -p "$KGSTATFOLDER"/predicate/batches
+mkdir -p "$KGSTATFOLDER"/entity
+#predicate features
+python3 -m feature_extraction.predicates.pred_util extract-predicates -e $URL --output_dir $KGSTATFOLDER
+python3 -m feature_extraction.predicates.pred_util extract-co-predicates -e $URL --input_dir $KGSTATFOLDER --output_dir "$KGSTATFOLDER"/predicate --batch_start 1 --batch_end -1
+python3 -m feature_extraction.predicates.pred_stat_feat extract-predicates-stat -e $URL --input_dir $KGSTATFOLDER --output_dir "$KGSTATFOLDER" --batch_start 1 --time_log pred_freq_time_2.log --batch_end -1
+python3 -m feature_extraction.predicates.pred_stat_feat extract-predicates-stat-sub-obj -e $URL --input_dir $KGSTATFOLDER --output_dir "$KGSTATFOLDER" --batch_start 1 --time_log pred_stat_subj_obj_time_2.log --batch_end -1
+
+#entity Features
+#Missign one here
+python3 -m feature_extraction.entity.entity_util extract-entity-stat -e $URL --input_dir "$KGSTATFOLDER"/entity --output_dir "$KGSTATFOLDER"/entity --ent_file "$KGSTATFOLDER"/entity/entities.json --batch_start 1 --time_log ent_stat_time.log --batch_end -1
+
+#literal Features
+python3 -m feature_extraction.literal_utils distinct-literals -e $URL --output_dir "$KGSTATFOLDER"/literals --lits_file "$KGSTATFOLDER"/literals/literals.json
+python3 -m feature_extraction.literal_utils extract-lits-stat -e $URL --output_dir "$KGSTATFOLDER"/literals --lits_file "$KGSTATFOLDER"/literals/literals.json --time_log lit_stat_time_1.log --batch_start 1 --batch_end -1 --timeout 1200
+python3 -m feature_extraction.literal_utils extract-lits-statv2 -e $URL --output_dir "$KGSTATFOLDER"/literals --lits_file "$KGSTATFOLDER"/literals/literals.json --time_log lit_stat_time_30.log --batch_start 1 --batch_end -1 --timeout 1200
+```
+### Predicate Community Detection
+Specify:
+1. path to save predicate community features, e.g.,  "/PlanRGCN/extracted_features_wd/predicate/pred_co"
+2. path to extracted predicate cooccurence features, e.g., "/PlanRGCN/extracted_features_wd/predicate/predicate_cooccurence/batch_response/"
+```
+python3 /PlanRGCN/scripts/com_feat.py 
 ```
 
-Running the current code
-Removed 7263 of 464556 training data
-Removed 149 of 57588 test data uased as validation
 
-# Feature Extraction
-## Prerequsite
-1. have the rdf store running
-## Predicate Features
-```
-python3 -m 
-```
 ## Extracting query plans
-Example for dbpedia 2016 queries with limit removed:
 ```
-bash '/PlanRGCN/scripts/qp/qp_extract_lsq.sh' /qpp/dataset/DBpedia2016limitless
-```
-
-# Training model:
-f1 on validation: 0.19/ 0.10
-```
-python3 -c """
-from trainer.train import Trainer
-from graph_construction.featurizer import FeaturizerPredCo
-t = Trainer(featurizer_class=FeaturizerPredCo)
-t.train(epochs=100,verbosity=2,
-result_path='/PlanRGCN/results/results.json',
-path_to_save='/PlanRGCN/plan_model')
-t.predict(path_to_save='/PlanRGCN/results')
-"""
-```
-f1 on validation:  0.31
-```
-python3 -c """
-from trainer.train import Trainer
-from graph_construction.featurizer import FeaturizerPredStats
-t = Trainer(featurizer_class=FeaturizerPredStats)
-t.train(epochs=100,verbosity=2,
-result_path='/PlanRGCN/results/results.json',
-path_to_save='/PlanRGCN/plan_model')
-t.predict(path_to_save='/PlanRGCN/results')
-"""
+DATASET_PATH=/data/wikidata_0_1_10_weightloss
+bash scripts/qp/qp_extract_lsq.sh $DATASET_PATH
 ```
 
-## Experiment with self loop relation
-val f1=0.18
+## Model Training 
 ```
-python3 -c """
-from trainer.model import ClassifierWSelfTriple as CLS
-from trainer.train import Trainer
-from graph_construction.featurizer import FeaturizerPredStats
-from graph_construction.query_graph import QueryPlanCommonBi
-t = Trainer(featurizer_class=FeaturizerPredStats,query_plan=QueryPlanCommonBi)
-t.train(epochs=100,verbosity=2,
-result_path='/PlanRGCN/results/results.json',
-path_to_save='/PlanRGCN/plan_model')
-t.predict(path_to_save='/PlanRGCN/results')
-"""
+DATASET=dataset_debug
+SAVEPATH ="$DATASET_PATH"/planrgcn_binner_litplan
+python3 ray_tune.py $DATASET_PATH $SAVEPATH $KGSTATFOLDER
 ```
 
-# Regression with PlanRGCN
-val f1= 0.09566
-```
-python3 -c """
-from trainer.model import RegressorWSelfTriple as CLS
-from trainer.train import Trainer
-from graph_construction.featurizer import FeaturizerPredStats
-from graph_construction.query_graph import QueryPlanCommonBi
+Prediction quality is analyzed in the notebooks in the notebook folder.
 
-t = Trainer(
-    featurizer_class=FeaturizerPredStats,
-    query_plan=QueryPlanCommonBi,
-    cls_func=lambda x: x,
-    model=CLS,
-)
-t.train(
-    epochs=100,
-    verbosity=2,
-    result_path='/PlanRGCN/results/results.json',
-    path_to_save='/PlanRGCN/plan_model',
-    loss_type='mse',
-)
-t.predict(path_to_save='/PlanRGCN/results_reg')
-"""
+## Load Balancing
+Start the RDF store with the Virtuoso RDF store init files in virt_feat_conf folder.
+To run the experiment execute the following:
+```
+(cd $LB/load_balance_SVM_44_10_workers && timeout -s 2 7200 python3 -m load_balance.main_balancer config.conf)
 ```
 
-## Experiment with self loop relation and entity features
-val f1=
-```
-python3 -c """
-from trainer.model import ClassifierWSelfTriple as CLS
-from trainer.train import Trainer
-from graph_construction.featurizer import FeaturizerPredCoEnt
-from graph_construction.query_graph import QueryPlanCommonBi
-t = Trainer(featurizer_class=FeaturizerPredCoEnt,query_plan=QueryPlanCommonBi)
-t.train(epochs=100,verbosity=2,
-result_path='/PlanRGCN/results3/results.json',
-path_to_save='/PlanRGCN/plan_model')
-t.predict(path_to_save='/PlanRGCN/results3')
-"""
-```
-
-# Training model with simple queries:
-f1 on validation: 0.19/ 0.10
-```
-python3 -c """
-from trainer.train import Trainer
-from graph_construction.featurizer import FeaturizerPredCo
-from graph_construction.featurizer import FeaturizerPredCo
-from graph_construction.query_graph import QueryPlanCommonBi, snap_lat2onehot,snap_lat2onehotv2
-
-t = Trainer(featurizer_class=FeaturizerPredCo,
-train_path="/qpp/dataset/DBpedia_2016_12k_simple_opt_filt/train_sampled.tsv",
-val_path="/qpp/dataset/DBpedia_2016_12k_simple_opt_filt/val_sampled.tsv",
-test_path="/qpp/dataset/DBpedia_2016_12k_simple_opt_filt/test_sampled.tsv",
-batch_size=32,
-query_plan_dir="/PlanRGCN/extracted_features/queryplans/",
-pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
-time_col="mean_latency",
-hidden_dim=48,
-n_classes=3,
-featurizer_class=FeaturizerPredCo,
-query_plan=QueryPlanCommonBi,
-model=CLS,
-cls_func=snap_lat2onehotv2
-)
-t.train(epochs=100,verbosity=2,
-result_path='/PlanRGCN/results/results.json',
-path_to_save='/PlanRGCN/plan_model')
-t.predict(path_to_save='/PlanRGCN/results')
-"""
-```
-
-
-
-f1 on validation:  0.31
-```
-python3 -c """
-from trainer.train import Trainer
-from graph_construction.featurizer import FeaturizerPredStats
-t = Trainer(featurizer_class=FeaturizerPredStats)
-t.train(epochs=100,verbosity=2,
-result_path='/PlanRGCN/results/results.json',
-path_to_save='/PlanRGCN/plan_model')
-t.predict(path_to_save='/PlanRGCN/results')
-"""
-```
+## Baseline Methods
+The Baseline method's are explained in the qpp's README.
