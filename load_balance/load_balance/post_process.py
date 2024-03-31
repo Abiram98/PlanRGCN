@@ -242,10 +242,12 @@ def plot_box_lat_int_comb(
     x_label_size=10,
     x_rotation = 0,
     y_label_size=10,
-    save_path = None
+    save_path = None,
+    dpi = 100,
+    nrows = 1
 ):
     fig, axes = plt.subplots(
-        nrows=1, ncols=len(dcts), layout="constrained", figsize=figsize,sharey=True
+        nrows=nrows, ncols=len(dcts), layout="constrained", figsize=figsize,sharey=True
     )
 
     for i, (dct, log_name) in enumerate(dcts):
@@ -270,17 +272,19 @@ def plot_box_lat_int_comb(
             palette=int_to_col,
             ax=axes[i],
             order=time_intervals,
+           medianprops={'linewidth': 2}, whiskerprops={'linewidth': 2}, capprops={'linewidth': 2},
+            
         )
         axes[i].set_title(title, fontsize=14)
         if i == 0:
-            axes[i].set_ylabel("Query Latency (s)", fontsize=14)
+            axes[i].set_ylabel("Query Latency (s)", fontsize=14, weight='bold')
             axes[i].legend("", frameon=False)
         else:
             axes[i].set_ylabel("")
             axes[i].legend("", frameon=False)
         axes[i].set_xlabel(log_name)
     patches = [ mpatches.Patch(color=int_to_col[k], label=k) for k in int_to_col.keys()]
-    fig.legend(handles=patches,loc=2, **legend_dict)
+    lgd = fig.legend(handles=patches,loc=2, **legend_dict)
     if save_path != None:
-        fig.savefig(save_path)
+        fig.savefig(save_path, dpi=dpi,bbox_extra_artists=(lgd,), bbox_inches='tight')
     #plt.legend(loc=2, **legend_dict)

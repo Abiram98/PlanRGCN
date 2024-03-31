@@ -57,6 +57,18 @@ class PPQueryExtractor:
         trainExtractor = PPQueryExtractor.iterate_files(files, trainExtractor)
         return trainExtractor.pp_files
     
+    def get_train_PP_files(self):
+        trainExtractor = PPExtractor()
+        files = PPQueryExtractor.get_files(self.path, train=True, val = False, test=False)[0]
+        trainExtractor = PPQueryExtractor.iterate_files(files, trainExtractor)
+        return trainExtractor.pp_files
+    
+    def get_val_PP_files(self):
+        trainExtractor = PPExtractor()
+        files = PPQueryExtractor.get_files(self.path, train=False, val = True, test=False)[0]
+        trainExtractor = PPQueryExtractor.iterate_files(files, trainExtractor)
+        return trainExtractor.pp_files
+    
     def iterate_files(files, visitor:PPExtractor):
         for f in files:
             try:
