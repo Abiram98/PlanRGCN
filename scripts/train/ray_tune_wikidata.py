@@ -67,7 +67,7 @@ resume = False
 #if lit_path is not None:
 #    path_to_save += "_litplan"
 
-path_to_save = "/data/wikidata_0_1_10_v3_path_weight_loss_retrain/planrgcn_17_3"
+path_to_save = "/data/wikidata_0_1_10_v3_path_weight_loss_retrain/planrgcn_3_4"
 os.makedirs(path_to_save, exist_ok=True)
 
 config = {
