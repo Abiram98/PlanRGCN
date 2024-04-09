@@ -26,7 +26,7 @@ class ResultProcessor:
             sep (str, optional): seperator used seperate columns in path_to_pred. Defaults to ','.
             ground_truth_col (str, optional): ground truth column name in path_to_pred. Defaults to 'time_cls'.
             pred_col (str, optional): prediction column in path_to_pred. Defaults to 'planrgcn_prediction'.
-            id_col (str, optional): queryID column in path_to_pred. Defaults to 'id'.
+            id_col (str, optional): queryID column in path_to_pred. Defaults to 'id'.re
             ground_truth_labels (list, optional): The ordering of prediction meanings (e.g., 0-> [0-1], 1 -> [1,10], 2->[10, inf]). Defaults to [0,1,2] for 3 time interval classification.
             ground_truth_map (dict, optional): The ordering of prediction meanings (e.g., 0-> [0-1], 1 -> [1,10], 2->[10, inf]). Defaults to [0,1,2] for 3 time interval classification.
         """
@@ -60,14 +60,19 @@ class ResultProcessor:
         self.df = self.df[~self.df[self.id_col].isin(ids)]
         self.df = self.df.reset_index(drop=True)
     
-    def retain_ids(self, ids):
+    def retain_ids(self, ids, remove_prefix=0):
+        #if len(ids) > 0 and ids[0].startswith('http'):
+        ids = [x[remove_prefix:] for x in ids]
         self.df = self.df[self.df[self.id_col].isin(ids)]
         self.df = self.df.reset_index(drop=True)
     
-    def retain_path(self, path, sep='\t', id_col='id', remove_lsq=20):
+    def retain_path(self, path, sep='\t', id_col='id', remove_prefix=0):
         df = pd.read_csv(path, sep=sep)
-        ids = [x[remove_lsq:] for x in list(df[id_col])]
-        self.retain_ids(ids)
+        """if remove_lsq != -1:
+            ids = [x[remove_lsq:] for x in list(df[id_col])]
+        else:"""
+        ids = [x for x in list(df[id_col])]
+        self.retain_ids(ids, remove_prefix=remove_prefix)
         
     def get_predictions(self):
         return self.df[self.pred_col].to_numpy()

@@ -42,6 +42,19 @@ th.manual_seed(42)
 np.random.seed(42)
 
 
+#Temp json type converter
+import numpy as np
+
+class NpEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        if isinstance(obj, np.floating):
+            return float(obj)
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return super(NpEncoder, self).default(obj)
+
 # Dataloader wrapper in functions:
 def get_dataloaders(
     train_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
@@ -135,6 +148,7 @@ def train_function(
     path_to_save=tempfile.TemporaryDirectory(),
     create_model=create_model,
     save_prep_path=None,
+    patience = 5,
 ):
     if isinstance(path_to_save, str):
         o_path_to_save = path_to_save
@@ -189,6 +203,7 @@ def train_function(
             opt.load_state_dict(checkpoint_dict["optimizer_state_dict"])
     else:
         start_epoch = 0
+    val_f1_lst = []
     for epoch in range(start_epoch, config["epochs"]):
         print(
             f"Epoch {epoch+1}\n--------------------------------------------------------------"
@@ -210,6 +225,7 @@ def train_function(
             loss_type=config["loss_type"],
             metric_default=metric_default,
         )
+        val_f1_lst.append(val_f1)
         print(f"Train Avg Loss {epoch+1:4}: {train_loss:>8f}\n")
         print(f"Train Avg F1 {epoch+1:4}: {train_f1}\n")
         print(f"Val Avg Loss {epoch+1:4}: {val_loss:>8f}\n")
@@ -238,6 +254,7 @@ def train_function(
                     "input d": input_d,
                     "num_class": n_classes,
                     "batch_size": config["batch_size"],
+                    "val_f1_lst": val_f1_lst[-(patience):],
                 },
                 checkpoint=Checkpoint.from_directory(tempdir),
             )
@@ -395,7 +412,7 @@ def predict(
             df["id"] = ids
             df["time_cls"] = truths
             df["planrgcn_prediction"] = preds
-            df["inference_durations"] = durations
+            #df["inference_durations"] = durations
             df.to_csv(path, index=False)
 
 
@@ -477,7 +494,8 @@ def main(
     ),  # CheckpointConfig(12, "val f1", "max"),
     resume=False,
     earlystop = stop_bad_run,
-    save_prep_path=None
+    save_prep_path=None,
+    patience=5
 ):
     config["epochs"] = max_num_epochs
     ray_temp_path = os.path.join(path_to_save, "temp_session")
@@ -520,12 +538,13 @@ def main(
         n_classes=n_classes,
         query_plan=query_plan,
         save_prep_path=save_prep_path,
+        patience=patience,
     )
 
     result = tune.run(
         trainable,
         checkpoint_config=checkpoint_config,
-        resources_per_trial={"cpu": 4},
+        resources_per_trial={"cpu": 2},
         config=config,
         num_samples=num_samples,
         scheduler=scheduler,
@@ -575,6 +594,8 @@ def main(
     retrain_config['best_checkpoint'] =best_checkpoint 
     os.system(f"cp {best_checkpoint} {os.path.join(path_to_save,'best_model.pt')}")
     retrain_config["input d"] = best_trial.last_result["input d"] 
+    
+    json.dump(retrain_config, open(os.path.join(path_to_save, "model_config.json"),'w'), cls=NpEncoder)
     model_state = th.load(best_checkpoint)
     best_trained_model.load_state_dict(model_state["model_state"])
     
@@ -586,7 +607,6 @@ def main(
         is_lsq,
         path_to_save=path_to_save,
     )
-    json.dump(retrain_config, open(os.path.join(path_to_save, "model_config.json"),'w'))
 
 
 if __name__ == "__main__":

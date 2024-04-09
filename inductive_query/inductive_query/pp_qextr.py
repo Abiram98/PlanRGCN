@@ -97,7 +97,7 @@ class PPQueryExtractor:
         if test:
             df = pd.read_csv(f'{path}/test_sampled.tsv', sep='\t')
             test_ids = list(df['id'].apply(lambda x : x[20:]))
-            test_files = [f"{qp_path}/{x}" for x in os.listdir(qp_path) if not '.' in x and x in test_ids]
+            test_files = [f"{qp_path}/{x}" for x in os.listdir(qp_path) if x in test_ids]
         ret = []
         for i in [train_files, val_files, test_files]:
             if i is not None:
