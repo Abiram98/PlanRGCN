@@ -58,7 +58,6 @@ google-auth==2.25.2
 googleapis-common-protos==1.62.0
 gpustat==1.1.1
 -e /PlanRGCN/PlanRGCN/graph_construction
-graph-cosntruction==1.0
 grpcio==1.60.0
 h11==0.14.0
 httptools==0.6.1
@@ -146,10 +145,6 @@ pytz==2023.3.post1
 pyvis==0.3.2
 PyYAML==6.0.1
 pyzmq==25.1.2
-# Editable install with no version control (qpp-features==0.0.1)
--e /PlanRGCN/qpp/qpp_features
-# Editable install with no version control (qpp-new==1)
--e /PlanRGCN/qpp/qpp_new
 ray==2.9.0
 rdflib==7.0.0
 rdkit-pypi==2022.9.5
@@ -161,8 +156,6 @@ rpds-py==0.15.2
 rsa==4.9
 ruamel.yaml==0.18.5
 ruamel.yaml.clib==0.2.8
-# Editable install with no version control (sampler==0.0.1)
--e /SPARQLBench/sampler
 scikit-learn==1.3.2
 scipy==1.11.4
 seaborn==0.13.0
@@ -189,16 +182,8 @@ terminado==0.18.0
 threadpoolctl==3.2.0
 tinycss2==1.2.1
 tomli==2.0.1
-torch==2.1.2 --index-url https://download.pytorch.org/whl/test/cpu
-torch-scatter==2.1.2 -f https://data.pyg.org/whl/torch-2.1.2+cpu.html
-torch-sparse==0.6.18 -f https://data.pyg.org/whl/torch-2.1.2+cpu.html
-torch_geometric==2.4.0
-torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/test/cpu
-torchsummary==1.5.1
-torchvision==0.16.2 --index-url https://download.pytorch.org/whl/test/cpu
 tornado==6.4
 tqdm==4.66.1
--e /PlanRGCN/PlanRGCN/trainer
 traitlets==5.14.0
 typer==0.9.0
 types-python-dateutil==2.8.19.14
@@ -206,7 +191,6 @@ typing_extensions==4.9.0
 tzdata==2023.3
 uri-template==1.3.0
 urllib3==1.26.13
--e /PlanRGCN/utils
 uvicorn==0.25.0
 uvloop==0.19.0
 virtualenv==20.21.0
@@ -221,3 +205,11 @@ xgboost==2.0.3
 xgboost-ray==0.1.19
 yarl==1.9.4
 tensorflow
+# Editable install with no version control (qpp-features==0.0.1)
+-e /PlanRGCN/qpp/qpp_features
+# Editable install with no version control (qpp-new==1)
+-e /PlanRGCN/qpp/qpp_new
+# Editable install with no version control (sampler==0.0.1)
+-e /SPARQLBench/sampler
+-e /PlanRGCN/PlanRGCN/trainer
+-e /PlanRGCN/utils

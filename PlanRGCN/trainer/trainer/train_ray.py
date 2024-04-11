@@ -60,6 +60,7 @@ def get_dataloaders(
     train_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
     val_path="/qpp/dataset/DBpedia_2016_12k_sample/val_sampled.tsv",
     test_path="/qpp/dataset/DBpedia_2016_12k_sample/test_sampled.tsv",
+    val_pp_path= None,
     batch_size=32,
     query_plan_dir="/PlanRGCN/extracted_features/queryplans/",
     pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
@@ -77,6 +78,8 @@ def get_dataloaders(
 ):
     train_temp = GraphDataset.load_dataset(train_path, scaling, lit_path)
     val_temp = GraphDataset.load_dataset(val_path, scaling, lit_path)
+    if val_pp_path is not None:
+        val_pp_temp = GraphDataset.load_dataset(val_pp_path, scaling, lit_path)
     test_temp = GraphDataset.load_dataset(test_path, scaling, lit_path)
     if (train_temp is not None) or (val_temp is not None) or (test_temp is not None):
         train_dataloader = GraphDataLoader(
@@ -88,27 +91,38 @@ def get_dataloaders(
         test_dataloader = GraphDataLoader(
             test_temp, batch_size=batch_size, drop_last=False, shuffle=True
         )
+        if val_pp_path is not None:
+            val_pp_dataload = GraphDataLoader(
+            val_pp_temp, batch_size=batch_size, drop_last=False, shuffle=True
+        )
         vec_size = train_temp.vec_size
-        return train_dataloader,val_dataloader,test_dataloader, vec_size
+        if val_pp_path is not None:
+            return train_dataloader,val_dataloader,test_dataloader, vec_size, val_pp_dataload
+        return train_dataloader,val_dataloader,test_dataloader, vec_size, None
     
-    prepper = DatasetPrep(
-        train_path=train_path,
-        val_path=val_path,
-        test_path=test_path,
-        batch_size=batch_size,
-        query_plan_dir=query_plan_dir,
-        pred_stat_path=pred_stat_path,
-        pred_com_path=pred_com_path,
-        ent_path=ent_path,
-        lit_path=lit_path,
-        time_col=time_col,
-        cls_func=cls_func,
-        query_plan=query_plan,
-        featurizer_class=featurizer_class,
-        is_lsq=is_lsq,
-        scaling=scaling,
-        debug=debug
-    )
+    if save_prep_path!=None and (os.path.exists(save_prep_path)):
+        print("loading dataset prepper to "+ save_prep_path)
+        prepper = pcl.load(open(save_prep_path, 'rb') )
+    else:
+        prepper = DatasetPrep(
+            train_path=train_path,
+            val_path=val_path,
+            test_path=test_path,
+            val_pp_path = val_pp_path,
+            batch_size=batch_size,
+            query_plan_dir=query_plan_dir,
+            pred_stat_path=pred_stat_path,
+            pred_com_path=pred_com_path,
+            ent_path=ent_path,
+            lit_path=lit_path,
+            time_col=time_col,
+            cls_func=cls_func,
+            query_plan=query_plan,
+            featurizer_class=featurizer_class,
+            is_lsq=is_lsq,
+            scaling=scaling,
+            debug=debug
+        )
     if save_prep_path!=None and (not os.path.exists(save_prep_path)):
         print("Saving dataset prepper to "+ save_prep_path)
         pcl.dump(prepper, open(save_prep_path, 'wb') )
@@ -118,7 +132,11 @@ def get_dataloaders(
     val_loader.dataset.save()
     test_loader = prepper.get_testloader()
     test_loader.dataset.save()
-    return train_loader, val_loader, test_loader, prepper.vec_size
+    if val_pp_path is not None:
+        val_pp_dataload = prepper.get_pp_valloader()
+        val_pp_dataload.dataset.save()
+        return train_loader, val_loader, test_loader, prepper.vec_size, val_pp_dataload
+    return train_loader, val_loader, test_loader, prepper.vec_size, None
 
 def create_model(input_d = None, l1=None, l2=None, dropout=None, n_classes=3):
     net = Classifier2RGCN(
@@ -131,6 +149,7 @@ def train_function(
     train_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
     val_path="/qpp/dataset/DBpedia_2016_12k_sample/val_sampled.tsv",
     test_path="/qpp/dataset/DBpedia_2016_12k_sample/test_sampled.tsv",
+    val_pp_path= None,
     # batch_size=32,
     query_plan_dir="/PlanRGCN/extracted_features/queryplans/",
     pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
@@ -153,10 +172,11 @@ def train_function(
     if isinstance(path_to_save, str):
         o_path_to_save = path_to_save
         path_to_save = os.path.join(path_to_save, "session_data")
-    train_loader, val_loader, _, input_d = get_dataloaders(
+    train_loader, val_loader, _, input_d, val_pp_loader = get_dataloaders(
         train_path=train_path,
         val_path=val_path,
         test_path=test_path,
+        val_pp_path= val_pp_path,
         batch_size=config["batch_size"],
         query_plan_dir=query_plan_dir,
         pred_stat_path=pred_stat_path,
@@ -219,9 +239,10 @@ def train_function(
             metric_default=metric_default,
         )
 
-        val_loss, val_f1, val_prec, val_recall = evaluate(
+        val_loss, val_f1, val_prec, val_recall,ppf1 = evaluate(
             model=net,
             data_loader=val_loader,
+            pp_loader = val_pp_loader,
             loss_type=config["loss_type"],
             metric_default=metric_default,
         )
@@ -230,6 +251,7 @@ def train_function(
         print(f"Train Avg F1 {epoch+1:4}: {train_f1}\n")
         print(f"Val Avg Loss {epoch+1:4}: {val_loss:>8f}\n")
         print(f"Val Avg F1 {epoch+1:4}:  {val_f1}\n")
+        print(f"Val Avg PP F1 {epoch+1:4}:  {ppf1}\n")
         """checkpoint_data = {
             "epoch": epoch,
             "net_state_dict": net.state_dict(),
@@ -249,12 +271,14 @@ def train_function(
                 metrics={
                     "val loss": val_loss,
                     "val f1": val_f1,
-                    "train loss": train_loss,
                     "train f1": train_f1,
+                    "ppf1": ppf1,
+                    "train loss": train_loss,
                     "input d": input_d,
                     "num_class": n_classes,
                     "batch_size": config["batch_size"],
                     "val_f1_lst": val_f1_lst[-(patience):],
+                    "ppNvalf1": ppf1+val_f1,
                 },
                 checkpoint=Checkpoint.from_directory(tempdir),
             )
@@ -329,11 +353,12 @@ def train_epoch(
 
 
 # evaluate on validation data loader and also test
-def evaluate(model, data_loader, loss_type, metric_default=0):
+def evaluate(model, data_loader, loss_type, metric_default=0, pp_loader = None):
     loss = 0
     f1_val = 0
     recall_val = 0
     precision_val = 0
+    
     model.eval()
     with th.no_grad():
         for _, (graphs, labels, _) in enumerate(data_loader):
@@ -376,12 +401,33 @@ def evaluate(model, data_loader, loss_type, metric_default=0):
                 zero_division=metric_default,
             )
             recall_val += recall_batch_val
+    ppf1 = 0
+    if pp_loader != None:
+        with th.no_grad():
+            for _, (graphs, labels, _) in enumerate(pp_loader):
+                feats = graphs.ndata["node_features"]
+                edge_types = graphs.edata["rel_type"]
+                pred = model(graphs, feats, edge_types)
+
+                f1_pred_val = list(map(snap_pred, pred))
+                snapped_lebls = list(map(snap_pred, labels))
+
+                ppf1_batch_val = f1_score(
+                    snapped_lebls,
+                    f1_pred_val,
+                    average=AVG,
+                    zero_division=metric_default,
+                )
+                
+                
+                ppf1 += ppf1_batch_val
+        ppf1 = ppf1/len(pp_loader)
 
     loss = loss / len(data_loader)
     f1_val = f1_val / len(data_loader)
     precision_val = precision_val / len(data_loader)
     recall_val = recall_val / len(data_loader)
-    return loss, f1_val, precision_val, recall_val
+    return loss, f1_val, precision_val, recall_val,ppf1
 
 
 def snap_pred(pred, cls_func=None):
@@ -465,6 +511,7 @@ def main(
     train_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
     val_path="/qpp/dataset/DBpedia_2016_12k_sample/val_sampled.tsv",
     test_path="/qpp/dataset/DBpedia_2016_12k_sample/test_sampled.tsv",
+    val_pp_path= None,
     query_plan_dir="/PlanRGCN/extracted_features/queryplans/",
     pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
     pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
@@ -489,6 +536,9 @@ def main(
         "batch_size": tune.choice([64, 256]),
         "loss_type": "cross-entropy",
     },
+    #checkpoint_config=CheckpointConfig(
+    #    1, "val f1", "max"
+    #),  # CheckpointConfig(12, "val f1", "max"),
     checkpoint_config=CheckpointConfig(
         1, "val f1", "max"
     ),  # CheckpointConfig(12, "val f1", "max"),
@@ -503,7 +553,7 @@ def main(
     os.makedirs(ray_save, exist_ok=True)
     os.makedirs(ray_temp_path, exist_ok=True)
     context = ray.init(
-        num_cpus=num_cpus,  # only 2 cpus on strato2 sercer
+        num_cpus=num_cpus,
         _system_config={
             "local_fs_capacity_threshold": 0.99,
             "object_spilling_config": json.dumps(
@@ -514,10 +564,11 @@ def main(
     print(context.dashboard_url)
 
     scheduler = AsyncHyperBandScheduler(
-        metric="val f1",
+        #metric="val f1",
+        metric="ppNvalf1",
         mode="max",
         max_t=max_num_epochs,
-        grace_period=10,
+        grace_period=5,
         reduction_factor=2,
     )
     trainable = partial(
@@ -525,6 +576,7 @@ def main(
         train_path=train_path,
         val_path=val_path,
         test_path=test_path,
+        val_pp_path= val_pp_path,
         query_plan_dir=query_plan_dir,
         pred_stat_path=pred_stat_path,
         pred_com_path=pred_com_path,
@@ -544,7 +596,7 @@ def main(
     result = tune.run(
         trainable,
         checkpoint_config=checkpoint_config,
-        resources_per_trial={"cpu": 2},
+        resources_per_trial={"cpu": 1},
         config=config,
         num_samples=num_samples,
         scheduler=scheduler,
@@ -553,16 +605,17 @@ def main(
         resume=resume,
         raise_on_failed_trial=False
     )
-    best_trial = result.get_best_trial("val f1", "max", "last")
+    best_trial = result.get_best_trial("ppNvalf1", "max", "last")
     
     print(f"Best trial config: {best_trial.config}")
     print(f"Best trial final validation f1: {best_trial.last_result['val f1']}")
+    print(f"Best trial final validation f1 (PP): {best_trial.last_result['ppf1']}")
     retrain_config = best_trial.config
     (
         train_loader,
         val_loader,
         test_loader,
-        input_d,
+        input_d,_
     ) = get_dataloaders(
         train_path=train_path,
         val_path=val_path,

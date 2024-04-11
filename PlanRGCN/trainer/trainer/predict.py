@@ -56,7 +56,7 @@ data['n_classes'] = 3
 data["path_to_save"]= f"/PlanRGCN/{sample_name}" 
 def run_trained_model(data):
     model_state = th.load(data["checkpoint"])
-    train, val, test , input_d = get_dataloaders(train_path = data["train_path"],
+    train, val, test , input_d, _ = get_dataloaders(train_path = data["train_path"],
             val_path = data["val_path"],
             test_path= data["test_path"],
             batch_size=data["batch_size"],

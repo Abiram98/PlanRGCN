@@ -6,6 +6,14 @@ apt-get install python3-pip -y
 apt-get install tmux -y
 
 apt install libcairo2-dev pkg-config python3-dev -y
+
+pip3 install torch==2.1.2 --index-url https://download.pytorch.org/whl/test/cpu
+pip3 install torch-scatter==2.1.2 -f https://data.pyg.org/whl/torch-2.1.2+cpu.html
+pip3 install torch-sparse==0.6.18 -f https://data.pyg.org/whl/torch-2.1.2+cpu.html
+pip3 install torch_geometric==2.4.0
+pip3 install torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/test/cpu
+pip3 install torchsummary==1.5.1
+pip3 install torchvision==0.16.2 --index-url https://download.pytorch.org/whl/test/cpu
 pip3 install -r /PlanRGCN/requirements2.txt
 
 #java installation

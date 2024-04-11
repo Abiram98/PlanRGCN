@@ -14,6 +14,7 @@ class QueryPlanPath(QueryPlan):
     
     def set_max_rels(number=13):
         QueryPlan.max_relations = number
+        
     def process(self, data):
         self.level = 0
         self.data = data

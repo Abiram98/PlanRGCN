@@ -1,4 +1,5 @@
 from graph_construction.feats.featurizer import FeaturizerBase, FeaturizerPredStats
+from graph_construction.feats.featurizer_pathv2 import FeaturizerPathV2
 from graph_construction.query_graph import (
     QueryPlan,
     QueryPlanCommonBi,
@@ -94,6 +95,7 @@ class DatasetPrep:
         train_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
         val_path="/qpp/dataset/DBpedia_2016_12k_sample/val_sampled.tsv",
         test_path="/qpp/dataset/DBpedia_2016_12k_sample/test_sampled.tsv",
+        val_pp_path = None,
         batch_size=64,
         query_plan_dir="/PlanRGCN/extracted_features/queryplans/",
         pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
@@ -113,7 +115,8 @@ class DatasetPrep:
         self.val_path = val_path
         self.test_path = test_path
         self.cls_func = cls_func
-
+        self.val_pp_path = val_pp_path
+        
         self.time_col = time_col
         self.feat = featurizer_class(
             pred_stat_path,
@@ -124,6 +127,8 @@ class DatasetPrep:
             scaling=scaling,
         )
         self.vec_size = self.feat.filter_size + self.feat.tp_size
+        if isinstance(self.feat, FeaturizerPathV2):
+            self.vec_size += self.feat.pp_size
         self.query_plan_dir = query_plan_dir
         self.batch_size = batch_size
         self.query_plan = query_plan
@@ -158,6 +163,11 @@ class DatasetPrep:
 
     def get_testloader(self):
         return self.get_dataloader(self.test_path)
+    
+    def get_pp_valloader(self):
+        if not self.val_pp_path is None:
+            return self.get_dataloader(self.val_pp_path)
+    
 
 
 if __name__ == "__main__":

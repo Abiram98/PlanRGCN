@@ -73,8 +73,12 @@ class FeaturizerPredStats(FeaturizerBase):
         stat_vec = np.array([freq, lits, ents])
         return np.concatenate((var_vec, stat_vec, np.zeros(self.filter_size)), axis=0)
 
-    def get_value_dict(self, dct: dict, predicate):
+    def get_value_dict(self, dct: dict, predicate:str):
         try:
+            if predicate.startswith('<'):
+                predicate = predicate[1:]
+            if predicate.endswith('>'):
+                predicate = predicate[:-1]
             return dct[predicate]
         except KeyError:
             return 0
