@@ -62,14 +62,11 @@ def get_PP_result_processor(dataset_path, pred_path, split_path, unseen_type, na
     print(p.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict))
     return p
 
-def get_completely_unseen_r_processor(dataset_path, pred_path, split_path, name_dict, approach_name, filt_files,apply_cls_func=None):
+def get_completely_unseen_r_processor(dataset_path, pred_path, split_path, name_dict, approach_name, filt_files,apply_cls_func=None, pred_col='planrgcn_prediction'):
     unseen_pred_queryID =[pathlib.Path(x).name for x in filt_files] 
-    print(unseen_pred_queryID)
-    p = ResultProcessor(pred_path, approach_name=approach_name,apply_cls_func=apply_cls_func)
-    p.retain_path(split_path)
-    print(len(p.df))
+    p = ResultProcessor(pred_path, approach_name=approach_name,apply_cls_func=apply_cls_func, pred_col=pred_col)
+    p.retain_path(split_path,remove_prefix=20)
     p.retain_ids(unseen_pred_queryID)
-    print(len(p.df))
     print(p.confusion_matrix_to_latex_row_wise(name_dict=name_dict))
     print(p.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict))
     return p

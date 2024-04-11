@@ -44,6 +44,11 @@ class NNTrainer:
         stats, model, scaler = self.executar(
             self.train, self.val, self.test, train_aec=True
         )
+        model.save(os.path.join(self.resultDir,'nn.keras'))
+        with open(os.path.join(self.resultDir,'scaler.pickle'), 'wb') as f:
+            pickle.dump(scaler, f)
+        self.model = model
+        self.scaler = scaler
         print("AEC + ANN")
         print(stats)
         NNutils.printSTDVARMEAN(stats, "AEC + ANN")
@@ -55,6 +60,15 @@ class NNTrainer:
         )
         self.save_prediction(
             self.test, scaler, model, self.resultDir + "nn_test_pred.csv"
+        )
+        
+    def predict_trained(self, test, path):
+        
+        model = self.model
+        scaler = self.scaler
+        
+        self.save_prediction(
+            test, scaler, model, path
         )
 
     def save_prediction(self, xs, scaler, model, path_to_save):
@@ -233,6 +247,7 @@ class NNTrainer:
         NNutils.plot_history(
             history, metrics_list=["loss", "val_loss"], start_at_epoch=0
         )
+        
         return (
             model,
             scalery,

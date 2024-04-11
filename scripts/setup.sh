@@ -23,3 +23,5 @@ mvn package -f "/PlanRGCN/PlanRGCN/qpe/pom.xml"
 mvn install:install-file -Dfile=/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar -DpomFile=/PlanRGCN/qpe/pom.xml
 
 apt-get install graphviz graphviz-dev -y
+
+pip3 install pyclustering # for baseline

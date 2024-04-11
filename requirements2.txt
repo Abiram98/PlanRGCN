@@ -4,7 +4,6 @@ aiorwlock==1.3.0
 aiosignal==1.3.1
 alabaster==0.7.13
 # Editable install with no version control (analysis==0.0.1)
--e /SPARQLBench/analysis
 annotated-types==0.6.0
 anyio==3.7.1
 argon2-cffi==23.1.0
@@ -19,7 +18,6 @@ ba==0.0.2
 Babel==2.14.0
 beautifulsoup4==4.12.2
 # Editable install with no version control (benchmark==0.0.1)
--e /SPARQLBench/benchmark
 bleach==6.1.0
 blessed==1.20.0
 cachetools==5.3.2
@@ -210,6 +208,9 @@ tensorflow
 # Editable install with no version control (qpp-new==1)
 -e /PlanRGCN/qpp/qpp_new
 # Editable install with no version control (sampler==0.0.1)
--e /SPARQLBench/sampler
 -e /PlanRGCN/PlanRGCN/trainer
 -e /PlanRGCN/utils
+
+#-e /SPARQLBench/analysis
+#-e /SPARQLBench/benchmark
+#-e /SPARQLBench/sampler

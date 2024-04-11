@@ -20,8 +20,10 @@ bash /PlanRGCN/qpp/scripts/baseline_feat_const.sh $DATASET $DISTANCE > feature.l
 For SVM
 ````
 python3 -m qpp_new.trainer svm  --data-dir $DATASET --results-dir $DATASET
+python3 /PlanRGCN/qpp/scripts/rt_to_cls_converter.py $DATASET/svm/k25/test_pred.csv $DATASET/svm/test_pred.csv svm_prediction
 ```
 For NN
 ````
 python3 -m qpp_new.trainer nn  --data-dir $DATASET --results-dir $DATASET
+python3 /PlanRGCN/qpp/scripts/rt_to_cls_converter.py $DATASET/nn/k25/test_pred.csv $DATASET/nn/test_pred.csv nn_prediction
 ```

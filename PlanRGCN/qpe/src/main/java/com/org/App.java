@@ -20,6 +20,11 @@ public class App
                 test();
                 break;
             }
+	    case "extract-single":{
+	    	Utils u = new Utils();
+		u.create_algebra_singleQuery(args[1],args[2]);
+		break;
+	    }
             case "extract-query-plans":{
                 try {
                     LSQreader reader = new LSQreader(args[1]);

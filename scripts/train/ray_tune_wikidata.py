@@ -14,7 +14,9 @@ sample_name = "wikidata_0_1_10_v3_weight_loss"
 
 
 sample_name = "wikidata_0_1_10_v3_path_weight_loss_retrain" # need to run
-
+sample_name = "wikidata_0_1_10_v3_path_weight_loss" # need to run
+path_to_save = "/data/wikidata_0_1_10_v3_path_weight_loss/planrgcn"
+save_prep_path=f'{path_to_save}/prepper.pcl'
 # Results save path
 """if os.path.exists(path_to_save):
     resume = True
@@ -67,7 +69,6 @@ resume = False
 #if lit_path is not None:
 #    path_to_save += "_litplan"
 
-path_to_save = "/data/wikidata_0_1_10_v3_path_weight_loss_retrain/planrgcn_3_4"
 os.makedirs(path_to_save, exist_ok=True)
 
 config = {
@@ -158,4 +159,5 @@ main(
     config=config,
     resume = resume,
     earlystop=earlystopWikidata,
+    save_prep_path=save_prep_path
 )

@@ -39,6 +39,22 @@ public class Utils {
         }
     }
 
+    public void create_algebra_singleQuery(String query, String output) {
+        Query q = QueryFactory.create(query);
+        Op o = Algebra.compile(q);
+        o = Algebra.optimize(o);
+        SSE.write(o);
+        try {
+            ExecutionPlanVisitor visitor = new ExecutionPlanVisitor(output);
+            // o.visit(visitor);
+            // o.visit(new CustomWalker(visitor));
+            o.visit(visitor);
+            // OpWalker.walk(o, visitor);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void extract_query_plan(String query, String filepath) {
         Query q = QueryFactory.create(query);
         Op o = Algebra.compile(q);

@@ -296,6 +296,8 @@ class SVMTrainer:
         choice = np.argmin(dftable["rmse_val"])
         C = dftable["C"].iloc[choice]
         nu = dftable["nu"].iloc[choice]
+        self.C = C
+        self.nu = nu
         print(f"Optimal RMSE loss in Val is C={C}, nu={nu}")
         (
             result_table,
@@ -303,6 +305,10 @@ class SVMTrainer:
             scaler,
             best_model,
         ) = self.train_bestmodel_svr(C, nu, self.train, self.val, self.test)
+        self.best_model = best_model
+        self.result_table = result_table
+        self.result_baseline_model = result_baseline_model
+        self.scaler = scaler
         print(result_table)
         (
             x_train,
@@ -328,6 +334,34 @@ class SVMTrainer:
         )
         self.save_svm_prediction(
             self.test, x_test, scaler, best_model, self.resultDir + "test_pred.csv"
+        )
+        
+    def predict_trained(self, C=340, nu=0.10, test= None, output_path= None):
+        if output_path == None:
+            print('Please valide output_path')
+            exit()
+        C = self.C
+        nu = self.nu
+        
+        best_model = self.best_model 
+        result_table = self.result_table
+        result_baseline_model = self.result_baseline_model
+        scaler = self.scaler
+        (
+            x_train,
+            x_val,
+            x_test,
+            y_train,
+            y_val,
+            y_test,
+            y_train_log,
+            y_val_log,
+            y_test_log,
+        ) = self.scale_log_data_targets(self.train, self.val, test)
+
+        
+        self.save_svm_prediction(
+            test, x_test, scaler, best_model, output_path
         )
 
     def search_hiperparameter_svr(self, df_train, data_val, data_test):
