@@ -7,19 +7,27 @@ Docker should be installed
 Run the following command in the super directory where this is cloned
 ```
 DATA_PATH=/home/ubuntu/vol2/data_qpp2
-docker run --name all_final -it -v $(pwd)/query-performance:/query-performance -v $(pwd)/PlanRGCN:/PlanRGCN -v $(pwd)/SPARQLBench:/SPARQLBench -v $(pwd)/qpp:/qpp -v $DATA_PATH:/data --shm-size=12gb ubuntu:22.04
+docker run --name all_final -it -v $(pwd)/PlanRGCN:/PlanRGCN -v $(pwd)/PlanRGCN/qpp:/qpp -v $DATA_PATH:/data --shm-size=12gb ubuntu:22.04
 ```
 when in the container, run:
+
+(cd PlanRGCN && bash scripts/setup.sh)
+(cd qpp && bash scripts/ini.sh)
+
 ```
-cd PlanRGCN && bash scripts/setup.sh
+Then untar the query log split and files:
 ```
+tar -xvf /PlanRGCNdata/qpp_datasets.tar.gz
+```
+The collected MetaKG statistics are not included due to the file size limit on Github.
+Nevetherless, the Virtuoso Endpoint creation is specified in /Datasets/KG
 
 ## Feature Extraction
 Prerequisite: have the rdf store storing KG available.
 ### KG Stats
 The KG stats are collected as:
 ```
-URL=http://172.21.233.14:8892/sparql
+URL=http://ENDPOINT_URL:8892/sparql
 KGSTATFOLDER=/PlanRGCN/data/dbpedia2016 # where to store the extracted stat
 KGSTATFOLDER=/data/planrgcn_feat/extracted_features_dbpedia2016 # where to store the extracted stat
 
@@ -72,4 +80,4 @@ To run the experiment execute the following:
 ```
 
 ## Baseline Methods
-The Baseline method's are explained in the qpp's README.
+The Baseline method's are explained in the qpp folder's README.

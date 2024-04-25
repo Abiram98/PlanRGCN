@@ -202,4 +202,16 @@ class GEDDict(dict):
         return []
     def get(self, idx):
         return self.__getitem__(idx)
-    
+   
+if __name__ == "__main__":
+    import sys, json,os
+    dist_fold = sys.argv[1]
+    db_file = sys.argv[2]
+    db = GEDDatabase(file_name=db_file, create_table=True)
+    for i in os.listdir(dist_fold):
+        if not i.endswith("json"):
+            continue
+        dat = json.load(open(f"{dist_fold}/{i}",'r'))
+        for y in dat:
+            db.insert_ged(y['queryID1'], y['queryID2'], y['dist'])
+        db.checkpoint()
