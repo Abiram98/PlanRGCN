@@ -2,6 +2,7 @@ import pickle
 from graph_construction.feats.feature_binner import FeaturizerBinning
 from graph_construction.feats.feat_scale_util import BinnerEntPred
 from graph_construction.feats.featurizer import EntStats, LitStats
+from graph_construction.node import TriplePattern
 from graph_construction.nodes.path_node import PathNode
 from graph_construction.qp.qp_utils import pathOpTypes
 from graph_construction.qp.visitor.UtilVisitor import LiteralsFeaturizer
@@ -18,7 +19,6 @@ class FeaturizerPath(FeaturizerBinning):
         ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
         lit_path = None,
         bins=50,
-        pred_end_path=None,
         scaling="None",
     ) -> None:
         self.pred_stat_path = pred_stat_path
@@ -32,7 +32,10 @@ class FeaturizerPath(FeaturizerBinning):
         # self.tp_size = 6 # This value will be updated
         # super(FeaturizerPredStats,self).__init__(pred_stat_path)
 
-        self.pred2index, self.max_pred = pickle.load(open(pred_com_path, "rb"))
+        if not pred_com_path == None:
+            self.pred2index, self.max_pred = pickle.load(open(pred_com_path, "rb"))
+        else:
+            self.pred2index, self.max_pred = None, 0
         estat = EntStats(path=ent_path)
         self.ent_freq = estat.ent_freq
         self.ent_subj = estat.subj_ents
@@ -126,7 +129,22 @@ class FeaturizerPath(FeaturizerBinning):
             + 2
             + pathOpTypes.get_max_operations()
         )"""
-
+    
+    def pred_clust_features(self, node: TriplePattern):
+        if self.max_pred == 0:
+            return np.array([])
+        vec = np.zeros(self.max_pred)
+        try:
+            idx = self.pred2index[node.predicate.node_label]
+        except KeyError:
+            idx = self.max_pred - 1
+        if isinstance(idx, list):
+            for i in idx:
+                vec[i] = 1
+        else:
+            vec[idx] = 1
+        return vec
+    
     def tp_features(self, node):
         var_vec = np.array(
             [node.subject.nodetype, node.predicate.nodetype, node.object.nodetype]

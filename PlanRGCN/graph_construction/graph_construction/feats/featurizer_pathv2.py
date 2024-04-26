@@ -8,8 +8,7 @@ from graph_construction.qp.visitor.UtilVisitor import LiteralsFeaturizer
 import numpy as np
 from scalers import EntMinMaxScaler, EntStandardScaler
 from utils.stats import PredStats
-from graph_construction.node import FilterNode, TriplePattern2
-
+from graph_construction.node import FilterNode, TriplePattern, TriplePattern2
 
 
 class FeaturizerPathV2(FeaturizerBinning):
@@ -20,7 +19,6 @@ class FeaturizerPathV2(FeaturizerBinning):
         ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
         lit_path = None,
         bins=50,
-        pred_end_path=None,
         scaling="None",
     ) -> None:
         self.pred_stat_path = pred_stat_path
@@ -31,8 +29,11 @@ class FeaturizerPathV2(FeaturizerBinning):
         self.pred_lits = p.pred_lits
 
         self.filter_size = 6
-
-        self.pred2index, self.max_pred = pickle.load(open(pred_com_path, "rb"))
+        if not pred_com_path == None:
+            self.pred2index, self.max_pred = pickle.load(open(pred_com_path, "rb"))
+        else:
+            self.pred2index, self.max_pred = None, 0
+        
         estat = EntStats(path=ent_path)
         self.ent_freq = estat.ent_freq
         self.ent_subj = estat.subj_ents
@@ -133,8 +134,23 @@ class FeaturizerPathV2(FeaturizerBinning):
             + pathOpTypes.get_max_operations()
         )"""
         self.tp_mask = [1]*self.tp_size +[0]*self.pp_size + [0]*self.filter_size
-        self.pp_mask = [0]*self.tp_size +[1]*self.pp_size + [0]*self.filter_size
+        self.pp_mask = [1]*self.tp_size +[1]*self.pp_size + [0]*self.filter_size
         self.filter_mask = [0]*self.tp_size +[0]*self.pp_size + [1]*self.filter_size
+    
+    def pred_clust_features(self, node: TriplePattern):
+        if self.max_pred == 0:
+            return np.array([])
+        vec = np.zeros(self.max_pred)
+        try:
+            idx = self.pred2index[node.predicate.node_label]
+        except KeyError:
+            idx = self.max_pred - 1
+        if isinstance(idx, list):
+            for i in idx:
+                vec[i] = 1
+        else:
+            vec[idx] = 1
+        return vec
     
     def featurize(self, node):
         if isinstance(node, FilterNode):
@@ -149,6 +165,7 @@ class FeaturizerPathV2(FeaturizerBinning):
             ).astype("float32")
         else:
             raise Exception("unknown node type")
+    
     
     def filter_features(self, node):
         # vec = np.zeros(6)

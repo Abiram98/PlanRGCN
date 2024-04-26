@@ -74,13 +74,14 @@ def get_dataloaders(
     scaling="None",
     query_plan=QueryPlanCommonBi,
     debug=False,
-    save_prep_path=None
+    save_prep_path=None,
+    save_path=None,
 ):
-    train_temp = GraphDataset.load_dataset(train_path, scaling, lit_path)
-    val_temp = GraphDataset.load_dataset(val_path, scaling, lit_path)
+    train_temp = GraphDataset.load_dataset(train_path, scaling, lit_path,act_save= save_path)
+    val_temp = GraphDataset.load_dataset(val_path, scaling, lit_path, act_save=save_path)
     if val_pp_path is not None:
-        val_pp_temp = GraphDataset.load_dataset(val_pp_path, scaling, lit_path)
-    test_temp = GraphDataset.load_dataset(test_path, scaling, lit_path)
+        val_pp_temp = GraphDataset.load_dataset(val_pp_path, scaling, lit_path, act_save=save_path)
+    test_temp = GraphDataset.load_dataset(test_path, scaling, lit_path, act_save=save_path)
     if (train_temp is not None) or (val_temp is not None) or (test_temp is not None):
         train_dataloader = GraphDataLoader(
             train_temp, batch_size=batch_size, drop_last=False, shuffle=True
@@ -172,6 +173,12 @@ def train_function(
     if isinstance(path_to_save, str):
         o_path_to_save = path_to_save
         path_to_save = os.path.join(path_to_save, "session_data")
+    
+    if pred_com_path == None:
+        con_pred_com_path = None
+    else:
+        con_pred_com_path = os.path.join(pred_com_path, config["pred_com_path"])
+    
     train_loader, val_loader, _, input_d, val_pp_loader = get_dataloaders(
         train_path=train_path,
         val_path=val_path,
@@ -180,7 +187,7 @@ def train_function(
         batch_size=config["batch_size"],
         query_plan_dir=query_plan_dir,
         pred_stat_path=pred_stat_path,
-        pred_com_path=os.path.join(pred_com_path, config["pred_com_path"]),
+        pred_com_path=con_pred_com_path,
         ent_path=ent_path,
         lit_path=lit_path,
         time_col=time_col,
@@ -189,7 +196,8 @@ def train_function(
         featurizer_class=featurizer_class,
         scaling=scaling,
         query_plan=query_plan,
-        save_prep_path=save_prep_path
+        save_prep_path=save_prep_path,
+        save_path= Path(save_prep_path).parent.absolute()
     )
     #net = Classifier2RGCN(
     #    input_d, config["l1"], config["l2"], config["dropout"], n_classes

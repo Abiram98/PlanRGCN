@@ -15,7 +15,7 @@ import os
 import torch as th
 from pathlib import Path
 class GraphDataset:
-    def __init__(self, graphs, labels, ids, save_path, vec_size, scaling, literals=False,durationQPS=None) -> None:
+    def __init__(self, graphs, labels, ids, save_path, vec_size, scaling, literals=False,durationQPS=None, act_save=None) -> None:
         self.graph =  graphs
         self.labels = labels
         self.ids = ids
@@ -26,6 +26,7 @@ class GraphDataset:
         self.featurizer:FeaturizerBase = None
         self.query_plan :QueryPlan= None
         self.is_literals = literals
+        self.act_save = act_save
 
     def __getitem__(self, i):
         return self.graph[i], self.labels[i], self.ids[i]
@@ -34,10 +35,13 @@ class GraphDataset:
         return len(self.labels)
 
     def get_paths(self):
-        if self.is_literals:
+        if self.act_save != None:
+            dir_path = self.act_save
+        elif self.is_literals:
             dir_path = os.path.join(Path(self.save_path).parent.absolute(),f"planrgcn_{self.scaling}_litplan")
         else:
             dir_path = os.path.join(Path(self.save_path).parent.absolute(),f"planrgcn_{self.scaling}")
+        
         file_name = Path(self.save_path).name
         if file_name.endswith(".tsv"):
             file_name = file_name.replace(".tsv", "")
@@ -48,6 +52,7 @@ class GraphDataset:
     def save(self):
         # save graphs and labels
         graph_path, info_path= self.get_paths()
+        print(f"GraphDataset saved at {graph_path}")
         save_graphs(graph_path, self.graph, {'labels': self.labels})
         # save other information in python dict
         save_info(info_path, {'ids':self.ids, 'vec_size':self.vec_size, "featurizer":self.featurizer, "query_plan": self.query_plan})
@@ -66,12 +71,12 @@ class GraphDataset:
         self.featurizer = info_dict['featurizer']
         self.query_plan = info_dict['query_plan']
 
-    def load_dataset(path, scaling, lp):
+    def load_dataset(path, scaling, lp, act_save=None):
         if lp is not None:
             path += "_litplan"
-            temp =GraphDataset([],[],[], path, 0, scaling,  literals=True)
+            temp =GraphDataset([],[],[], path, 0, scaling,  literals=True, act_save=act_save)
         else:
-            temp =GraphDataset([],[],[], path, 0, scaling)
+            temp =GraphDataset([],[],[], path, 0, scaling, act_save=act_save)
         if temp.has_cache():
             temp.load()
             return temp
@@ -109,13 +114,15 @@ class DatasetPrep:
         query_plan=QueryPlan,
         is_lsq=False,
         scaling="None",
-        debug = False
+        debug = False,
+        save_path=None
     ) -> None:
         self.train_path = train_path
         self.val_path = val_path
         self.test_path = test_path
         self.cls_func = cls_func
         self.val_pp_path = val_pp_path
+        self.save_path = save_path
         
         self.time_col = time_col
         self.feat = featurizer_class(
@@ -123,7 +130,7 @@ class DatasetPrep:
             pred_com_path=pred_com_path,
             ent_path=ent_path,
             lit_path=lit_path,
-            pred_end_path=pred_end_path,
+            #pred_end_path=pred_end_path,
             scaling=scaling,
         )
         self.vec_size = self.feat.filter_size + self.feat.tp_size
@@ -147,7 +154,7 @@ class DatasetPrep:
             is_lsq=self.is_lsq,
             debug = self.debug
         )
-        train_dataset = GraphDataset(graphs, clas_list, ids, path, self.vec_size, self.scaling,durationQPS=durationQPS)
+        train_dataset = GraphDataset(graphs, clas_list, ids, path, self.vec_size, self.scaling,durationQPS=durationQPS,act_save=self.save_path)
         train_dataset.set_query_plan(self.query_plan)
         train_dataset.set_featurizer(self.feat)
         train_dataloader = GraphDataLoader(
