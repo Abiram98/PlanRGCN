@@ -191,7 +191,6 @@ def train_function(
         query_plan=query_plan,
         save_prep_path=save_prep_path
     )
-    exit()
     #net = Classifier2RGCN(
     #    input_d, config["l1"], config["l2"], config["dropout"], n_classes
     #)
