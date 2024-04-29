@@ -41,8 +41,8 @@ lit_path =(
         "/PlanRGCN/data/wikidata/literals/literals_stat/batches_response_stats"
 )
 # Training Configurations
-num_cpus=22
-num_samples = 22  # cpu cores to use
+num_cpus=16
+num_samples = 16  # cpu cores to use
 max_num_epochs = 100
 query_plan_dir = qp_path
 time_col = "mean_latency"
@@ -66,7 +66,7 @@ os.makedirs(path_to_save, exist_ok=True)
 
 config = {
     "l1": tune.choice([ 1024, 2048, 4096]),
-    "l2": tune.choice([ 512, 1024, 2048, 4096,8192]),
+    "l2": tune.choice([ 512, 1024, 2048, 4096]),
     "dropout": tune.choice([0.0, 0.6]),
     "wd": 0.01,
     "lr": tune.grid_search([1e-5]),
@@ -95,7 +95,7 @@ def earlystopWikidata(trial_id: str, result: dict) -> bool:
     l_n = len(result["val_f1_lst"])
     l = np.sum(np.diff(result["val_f1_lst"]))/l_n
     #if improvement in last patience epochs is less than 1% in validation loss then terminate trial.
-    if l <= 0.01:
+    if l <= 0.01 and result["training_iteration"] >= 10:
         return True
     return False
 
