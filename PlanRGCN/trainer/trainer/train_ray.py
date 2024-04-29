@@ -619,6 +619,10 @@ def main(
     print(f"Best trial final validation f1: {best_trial.last_result['val f1']}")
     print(f"Best trial final validation f1 (PP): {best_trial.last_result['ppf1']}")
     retrain_config = best_trial.config
+    if pred_com_path is None:
+       pred_c_path = None
+    else:
+        pred_c_path = os.path.join(pred_com_path, best_trial.config["pred_com_path"])
     (
         train_loader,
         val_loader,
@@ -631,7 +635,7 @@ def main(
         batch_size=best_trial.last_result["batch_size"],
         query_plan_dir=query_plan_dir,
         pred_stat_path=pred_stat_path,
-        pred_com_path=os.path.join(pred_com_path, best_trial.config["pred_com_path"]),
+        pred_com_path=pred_c_path,
         ent_path=ent_path,
         time_col=time_col,
         is_lsq=is_lsq,
