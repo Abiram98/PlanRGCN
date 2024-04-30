@@ -11,6 +11,8 @@ from sklearn.metrics import (
 class ResultProcessor:
     """This class should be a general result processing class. For one Prediction class.
     """
+    gt_labels = [0,1,2]
+    
     def __init__(self, path_to_pred, sep = ',', ground_truth_col='time_cls', pred_col='planrgcn_prediction', id_col='id', ground_truth_list =[0,1,2,],ground_truth_map = {0:"0s-1s", 1: "1s-10s", 2: "10s-∞"}, approach_name="PlanRGCN",apply_cls_func=None):
         """Prepares the result processor.
         In general case, the following methods need to run before result analysis:
@@ -95,7 +97,7 @@ class ResultProcessor:
         Returns:
             ndarray: confusion matrix, where rows represent true, and column predictions.
         """
-        conf_matrix = confusion_matrix(self.df[self.ground_truth_col], self.df[self.pred_col])
+        conf_matrix = confusion_matrix(self.df[self.ground_truth_col], self.df[self.pred_col], labels=ResultProcessor.gt_labels)
         return conf_matrix
     
     def confusion_matrix_to_latex(self, row_percentage=False,name_dict=None):
@@ -117,10 +119,34 @@ class ResultProcessor:
 
         return latex_table
 
-    def confusion_matrix_to_latex_row_wise(self, name_dict=None):
+    def confusion_matrix_to_latex_row_wise(self, name_dict=None, return_sums=False, add_sums = False):
         # Convert confusion matrix to pandas DataFrame
         conf_matrix = self.confusion_matrix_raw()
-        conf_matrix = self.compute_percentages_row(conf_matrix)
+        conf_matrix, sums = self.compute_percentages_row(conf_matrix)
+        df_confusion = pd.DataFrame(conf_matrix)
+        
+        # Rename columns and index if name dictionary is provided
+        if name_dict:
+            df_confusion = df_confusion.rename(columns=name_dict, index=name_dict)
+        
+        
+        df_confusion.columns.name = 'Predicted'
+        df_confusion.index.name = 'Actual'
+        
+        # Transpose the DataFrame to switch rows and columns
+        #df_confusion = df_confusion.transpose()
+        
+        # Convert DataFrame to LaTeX table format
+        if add_sums:
+            df_confusion['\# Total'] = sums.tolist()
+        latex_table = df_confusion.to_latex(multicolumn=True, multicolumn_format='c',**self.latex_options)
+        if return_sums:
+            return latex_table,sums
+        return latex_table
+    
+    def confusion_matrix_to_latex_row_wise_sklearn(self, name_dict=None):
+        # Convert confusion matrix to pandas DataFrame
+        conf_matrix = confusion_matrix(self.df[self.ground_truth_col], self.df[self.pred_col], labels=ResultProcessor.gt_labels,normalize='true')
         df_confusion = pd.DataFrame(conf_matrix)
         
         # Rename columns and index if name dictionary is provided
@@ -138,6 +164,8 @@ class ResultProcessor:
         latex_table = df_confusion.to_latex(multicolumn=True, multicolumn_format='c',**self.latex_options)
 
         return latex_table
+    
+    
     def get_class_wise_metrics(self):
         predicions = self.get_predictions()
         actual = self.get_ground_truth()
@@ -202,4 +230,4 @@ class ResultProcessor:
         # Compute percentages for each inner array
         percentages = (arr.T / sums * 100).T
         
-        return percentages
+        return percentages, sums

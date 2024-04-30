@@ -3,7 +3,7 @@ from inductive_query.result_processor import ResultProcessor
 
 from inductive_query.utils import UnseenQueryExtractor
 
-def get_unseen_result_processor(dataset_path, pred_path, split_path, unseen_type, name_dict, approach_name,apply_cls_func=None):
+def get_unseen_result_processor(dataset_path, pred_path, split_path, unseen_type, name_dict, approach_name,apply_cls_func=None,remove_prefix=0):
     if unseen_type != "default":
         ext = UnseenQueryExtractor(dataset_path)
         ext.set_train_pred_ents()
@@ -34,7 +34,7 @@ def get_unseen_result_processor(dataset_path, pred_path, split_path, unseen_type
         case "default":
             print("No unseen")
             p = ResultProcessor(pred_path, approach_name=approach_name,apply_cls_func=apply_cls_func)
-            p.retain_path(split_path)
+            p.retain_path(split_path, remove_prefix=remove_prefix)
             print(p.confusion_matrix_to_latex_row_wise(name_dict=name_dict))
             print(p.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict))
             return p
@@ -72,5 +72,5 @@ def get_completely_unseen_r_processor(dataset_path, pred_path, split_path, name_
     return p
     
 
-def get_result_processor(prediction_path, split_path, name_dict, approach_name, apply_cls_func=None):
-    return get_unseen_result_processor(None, prediction_path, split_path, "default", name_dict, approach_name,apply_cls_func=apply_cls_func)
+def get_result_processor(prediction_path, split_path, name_dict, approach_name, apply_cls_func=None,remove_prefix=0):
+    return get_unseen_result_processor(None, prediction_path, split_path, "default", name_dict, approach_name,apply_cls_func=apply_cls_func, remove_prefix=remove_prefix)
