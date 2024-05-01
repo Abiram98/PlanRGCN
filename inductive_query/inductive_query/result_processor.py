@@ -100,7 +100,7 @@ class ResultProcessor:
         conf_matrix = confusion_matrix(self.df[self.ground_truth_col], self.df[self.pred_col], labels=ResultProcessor.gt_labels)
         return conf_matrix
     
-    def confusion_matrix_to_latex(self, row_percentage=False,name_dict=None):
+    def confusion_matrix_to_latex(self, row_percentage=False,name_dict=None, to_latex=True):
         if row_percentage:
             return self.confusion_matrix_to_latex_row_wise(name_dict=name_dict)
         
@@ -113,13 +113,14 @@ class ResultProcessor:
         # Add row and column names for actual and predicted axes
         df_confusion.columns.name = 'Predicted'
         df_confusion.index.name = 'Actual'
-        
+        if not to_latex:
+            return df_confusion
         # Convert DataFrame to LaTeX table format
         latex_table = df_confusion.to_latex(multicolumn=True, multicolumn_format='c',**self.latex_options)
 
         return latex_table
 
-    def confusion_matrix_to_latex_row_wise(self, name_dict=None, return_sums=False, add_sums = False):
+    def confusion_matrix_to_latex_row_wise(self, name_dict=None, return_sums=False, add_sums = False, to_latex=True):
         # Convert confusion matrix to pandas DataFrame
         conf_matrix = self.confusion_matrix_raw()
         conf_matrix, sums = self.compute_percentages_row(conf_matrix)
@@ -139,6 +140,8 @@ class ResultProcessor:
         # Convert DataFrame to LaTeX table format
         if add_sums:
             df_confusion['\# Total'] = sums.tolist()
+        if not to_latex:
+            return df_confusion
         latex_table = df_confusion.to_latex(multicolumn=True, multicolumn_format='c',**self.latex_options)
         if return_sums:
             return latex_table,sums
