@@ -27,6 +27,7 @@ class GraphDataset:
         self.query_plan :QueryPlan= None
         self.is_literals = literals
         self.act_save = act_save
+        
 
     def __getitem__(self, i):
         return self.graph[i], self.labels[i], self.ids[i]
@@ -49,19 +50,19 @@ class GraphDataset:
         info_path = os.path.join(dir_path , f'{file_name}_info.pkl')
         return graph_path, info_path
     
-    def save(self):
+    def save(self, path):
         # save graphs and labels
-        graph_path, info_path= self.get_paths()
-        print(f"GraphDataset saved at {graph_path}")
+        graph_path =  f'{path}_dgl_graph.bin'
+        info_path =  f'{path}_info.pkl'
+        print(f"GraphDataset saved at {path}")
         save_graphs(graph_path, self.graph, {'labels': self.labels})
         # save other information in python dict
         save_info(info_path, {'ids':self.ids, 'vec_size':self.vec_size, "featurizer":self.featurizer, "query_plan": self.query_plan})
 
-    def load(self):
-        # load processed data from directory `self.save_path`
-        # save graphs and labels
-        graph_path, info_path= self.get_paths()
-        #graph_path = self.save_path +'_dgl_graph.bin'
+    def load(self, path):
+        graph_path =  f'{path}_dgl_graph.bin'
+        info_path =  f'{path}_info.pkl'
+        print(f"GraphDataset loaded from {path}")
         self.graph, label_dict = load_graphs(graph_path)
         self.labels = label_dict['labels']
         #info_path = self.save_path+ '_info.pkl'
@@ -142,6 +143,9 @@ class DatasetPrep:
         self.is_lsq = is_lsq
         self.scaling = scaling
         self.debug = debug
+        self.train_loader = None
+        self.val_loader = None
+        self.test_loader = None
 
     def get_dataloader(self, path):
         (graphs, clas_list, ids),durationQPS = query_graph_w_class_vec(
@@ -163,13 +167,23 @@ class DatasetPrep:
         return train_dataloader
 
     def get_trainloader(self):
-        return self.get_dataloader(self.train_path)
+        if self.train_loader != None:
+            return self.train_loader
+        self.train_loader = self.get_dataloader(self.train_path)    
+        return self.train_loader
 
     def get_valloader(self):
-        return self.get_dataloader(self.val_path)
+        if self.val_loader != None:
+            return self.val_loader
+        
+        self.val_loader = self.get_dataloader(self.val_path)
+        return self.val_loader
 
     def get_testloader(self):
-        return self.get_dataloader(self.test_path)
+        if self.test_loader != None:
+            return self.get_dataloader(self.test_path)
+        self.test_loader = self.get_dataloader(self.test_path)
+        return self.test_loader
     
     def get_pp_valloader(self):
         if not self.val_pp_path is None:

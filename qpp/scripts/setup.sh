@@ -7,5 +7,5 @@ apt install openjdk-17-jdk openjdk-17-jre -y
 mvn install:install-file -Dfile=jars/clust4j-1.2.4-SNAPSHOT.jar -DgroupId=com.clust4j -DartifactId=clust4j -Dversion=1.2.4 -Dpackaging=jar
 pip install pyclustering
 #pip install tensorflow-cpu
-pip install tensorflow
-pip install -e qpp_new/
+#pip install tensorflow
+#pip install -e qpp_new/

@@ -222,8 +222,7 @@ def multi_process_data(input_files, output_files, cpus=3):
 def calculate_dists(file, output_file, start):
     if start is None:
         start = time.time()
-    jarpath = "/Users/abirammohanaraj/Documents/GitHub/qpp2/qpp_features/sparql-query2vec/target/sparql-query2vec-0.0.1.jar"
-    jarpath = "/qpp/qpp_features/sparql-query2vec/target/sparql-query2vec-0.0.1.jar"
+    jarpath = "/PlanRGCN/qpp/jars/sparql-query2vec-0.0.1.jar"
 
     os.system(
         f"java -jar {jarpath} ged-opt --input-queryfile={file} --output-queryfile={output_file}"

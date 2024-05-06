@@ -36,14 +36,11 @@ from ray.tune.schedulers import AsyncHyperBandScheduler
 from ray.air.config import CheckpointConfig
 from dgl.dataloading import GraphDataLoader
 AVG = "macro"
-
+import numpy as np
 import time
 th.manual_seed(42)
 np.random.seed(42)
 
-
-#Temp json type converter
-import numpy as np
 
 class NpEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -76,8 +73,11 @@ def get_dataloaders(
     debug=False,
     save_prep_path=None,
     save_path=None,
+    config = None,
 ):
-    train_temp = GraphDataset.load_dataset(train_path, scaling, lit_path,act_save= save_path)
+    
+    
+    """train_temp = GraphDataset.load_dataset(train_path, scaling, lit_path,act_save= save_path)
     val_temp = GraphDataset.load_dataset(val_path, scaling, lit_path, act_save=save_path)
     if val_pp_path is not None:
         val_pp_temp = GraphDataset.load_dataset(val_pp_path, scaling, lit_path, act_save=save_path)
@@ -100,6 +100,7 @@ def get_dataloaders(
         if val_pp_path is not None:
             return train_dataloader,val_dataloader,test_dataloader, vec_size, val_pp_dataload
         return train_dataloader,val_dataloader,test_dataloader, vec_size, None
+        """
     
     if save_prep_path!=None and (os.path.exists(save_prep_path)):
         print("loading dataset prepper to "+ save_prep_path)
@@ -124,19 +125,26 @@ def get_dataloaders(
             scaling=scaling,
             debug=debug
         )
+        prepper.config = config # model parameters
+    
     if save_prep_path!=None and (not os.path.exists(save_prep_path)):
         print("Saving dataset prepper to "+ save_prep_path)
         pcl.dump(prepper, open(save_prep_path, 'wb') )
+    
     train_loader = prepper.get_trainloader()
-    train_loader.dataset.save()
     val_loader = prepper.get_valloader()
-    val_loader.dataset.save()
     test_loader = prepper.get_testloader()
-    test_loader.dataset.save()
-    if val_pp_path is not None:
-        val_pp_dataload = prepper.get_pp_valloader()
+    """if val_pp_path is not None:
+        val_pp_dataload = prepper.get_pp_valloader(os.path.join(save_path,"pp_sampled"))
         val_pp_dataload.dataset.save()
-        return train_loader, val_loader, test_loader, prepper.vec_size, val_pp_dataload
+        return train_loader, val_loader, test_loader, prepper.vec_size, val_pp_dataload"""
+    
+    """if not os.path.exists(os.path.join(save_path,"val_sampled_dgl_graph.bin")):
+        train_loader.dataset.save(os.path.join(save_path,"train_sampled"))
+        val_loader.dataset.save(os.path.join(save_path,"val_sampled"))
+        test_loader.dataset.save(os.path.join(save_path,"test_sampled"))
+        if val_pp_path is not None:
+            val_pp_dataload.dataset.save()"""
     return train_loader, val_loader, test_loader, prepper.vec_size, None
 
 def create_model(input_d = None, l1=None, l2=None, dropout=None, n_classes=3):
@@ -169,6 +177,7 @@ def train_function(
     create_model=create_model,
     save_prep_path=None,
     patience = 5,
+    save_path=None
 ):
     if isinstance(path_to_save, str):
         o_path_to_save = path_to_save
@@ -197,7 +206,8 @@ def train_function(
         scaling=scaling,
         query_plan=query_plan,
         save_prep_path=save_prep_path,
-        save_path= Path(save_prep_path).parent.absolute()
+        save_path= save_path,
+        config=config
     )
     #net = Classifier2RGCN(
     #    input_d, config["l1"], config["l2"], config["dropout"], n_classes
@@ -598,6 +608,7 @@ def main(
         n_classes=n_classes,
         query_plan=query_plan,
         save_prep_path=save_prep_path,
+        save_path = path_to_save,
         patience=patience,
     )
 

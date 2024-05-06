@@ -26,7 +26,7 @@ if __name__ == "__main__":
         #python3 -m qpp_features.feature_generator /data/DBpedia2016_0_1_10_path_weight_loss/all.tsv /data/DBpedia2016_0_1_10_path_weight_loss -t alg_feat
         #python3 -m qpp_features.feature_generator /data/wikidata_0_1_10_v2_path_weight_loss/all.tsv /data/wikidata_0_1_10_v2_path_weight_loss -t alg_feat
         output_file2 = os.path.join(output_folder,'baseline','extra')
-        jarfile = "/qpp/qpp_features/sparql-query2vec/target/sparql-query2vec-0.0.1.jar"
+        jarfile = "/PlanRGCN/qpp/jars/sparql-query2vec-0.0.1.jar"
         if not os.path.exists(jarfile):
             os.system("mvn package -f /qpp/qpp_features/sparql-query2vec/pom.xml")
         for i in [("train_alg.tsv","train_sampled.tsv"), ("val_alg.tsv","val_sampled.tsv"),("test_alg.tsv","test_sampled.tsv")]:

@@ -208,10 +208,16 @@ if __name__ == "__main__":
     dist_fold = sys.argv[1]
     db_file = sys.argv[2]
     db = GEDDatabase(file_name=db_file, create_table=True)
-    for i in os.listdir(dist_fold):
+    files = os.listdir(dist_fold) 
+    for n,i in enumerate(files):
         if not i.endswith("json"):
             continue
+        print(f"beginning {n} of {len(files)}: {dist_fold}/{i}")
         dat = json.load(open(f"{dist_fold}/{i}",'r'))
         for y in dat:
-            db.insert_ged(y['queryID1'], y['queryID2'], y['dist'])
+            print(y)
+            if y['dist'] == 'None':
+                db.insert_ged(y['queryID1'], y['queryID2'], 1000000000)
+            else:
+                db.insert_ged(y['queryID1'], y['queryID2'], y['dist'])
         db.checkpoint()

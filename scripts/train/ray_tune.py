@@ -2,9 +2,6 @@ import sys
 from graph_construction.feats.featurizer_path import FeaturizerPath
 from trainer.train_ray import main
 from graph_construction.query_graph import (
-    QueryPlan,
-    QueryPlanCommonBi,
-    snap_lat2onehot,
     snap_lat2onehotv2,
 )
 from graph_construction.qp.query_plan_path import QueryPlanPath
@@ -13,7 +10,7 @@ import os
 
 sample_name = sys.argv[1]
 path_to_save = sys.argv[2]
-
+use_pred_co = sys.argv[4]
 train_path = f"/data/{sample_name}/train_sampled.tsv"
 val_path = f"/data/{sample_name}/val_sampled.tsv"
 test_path = f"/data/{sample_name}/test_sampled.tsv"
@@ -27,15 +24,17 @@ pred_stat_path = (
     f"{feat_base_path}/predicate/pred_stat/batches_response_stats"
 )
 
-pred_com_path = "/PlanRGCN/data/dbpedia2016/predicate/pred_co"
-pred_com_path = f"{feat_base_path}/predicate/pred_co"
+if use_pred_co == 'no':
+    pred_com_path = None
+else:
+    pred_com_path = f"{feat_base_path}/predicate/pred_co"
 
 ent_path = (
-    f"{feat_base_path}/entities/ent_stat/batches_response_stats"
+    f"{feat_base_path}/entity/ent_stat/batches_response_stats"
 )
 
 lit_path= (
-    f"{feat_base_path}/literals_stat/batches_response_stats"
+    f"{feat_base_path}/literals/literals_stat/batches_response_stats"
 )
 
 # Training Configurations
@@ -48,8 +47,6 @@ is_lsq = True
 cls_func = snap_lat2onehotv2
 #featurizer_class = FeaturizerBinning
 featurizer_class = FeaturizerPath
-#scaling = "robust"
-# scaling = "std"
 scaling = "binner"
 n_classes = 3
 query_plan = QueryPlanPath
@@ -61,17 +58,20 @@ os.makedirs(path_to_save, exist_ok=True)
 
 config = {
     "l1": tune.choice([ 1024, 2048, 4096]),
-    "l2": tune.choice([ 512, 1024, 2048, 4096,8192]),
+    "l2": tune.choice([ 512, 1024, 2048, 4096]),
     "dropout": tune.choice([0.0, 0.6]),
     "wd": 0.01,
     "lr": tune.grid_search([1e-5]),
     "epochs": 100,
     "batch_size": tune.choice([ 256]),
-    "loss_type": tune.choice(["cross-entropy","mse"]),
+    "loss_type": tune.choice(["cross-entropy"]),
     "pred_com_path": tune.choice(
         [ "pred2index_louvain.pickle"]
     ),
 }
+
+
+import numpy as np
 
 def earlystop(trial_id: str, result: dict) -> bool:
     """This function should return true when the trial should be stopped and false for continued training.
@@ -81,11 +81,16 @@ def earlystop(trial_id: str, result: dict) -> bool:
         result (dict): _description_
 
     Returns:
-        bool: whether to stop trial or not
+        bool: _description_
     """
     if result["val f1"] < 0.7 and result["training_iteration"] >= 50:
         return True
     if result["val f1"] < 0.5 and result["training_iteration"] >= 10:
+        return True
+    l_n = len(result["val_f1_lst"])
+    l = np.sum(np.diff(result["val_f1_lst"]))/l_n
+    #if improvement in last patience epochs is less than 1% in validation loss then terminate trial.
+    if l <= 0.01 and result["training_iteration"] >= 10:
         return True
     return False
 
@@ -112,5 +117,6 @@ main(
     resume=resume,
     num_cpus=num_cpus,
     earlystop=earlystop,
-    save_prep_path=save_prep_path
+    save_prep_path=save_prep_path,
+    patience=5
 )

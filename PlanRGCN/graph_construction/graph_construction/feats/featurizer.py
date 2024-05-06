@@ -401,7 +401,7 @@ class EntStats:
             and os.path.exists(subj_path)
             and os.path.exists(obj_path)
         ):
-            raise Exception("Predicate feature not existing")
+            raise Exception("Predicate feature not existing "+ self.path)
         for p, f in zip(
             [freq_path, subj_path, obj_path],
             [self.load_pred_freq, self.load_subj_ents, self.load_obj_ents],
