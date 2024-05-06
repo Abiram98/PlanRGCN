@@ -9,3 +9,5 @@ pip install pyclustering
 #pip install tensorflow-cpu
 #pip install tensorflow
 #pip install -e qpp_new/
+pip install --force-reinstall tensorflow==2.14.1
+pip install -e qpp_new/

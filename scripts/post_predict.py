@@ -230,16 +230,22 @@ with open(os.path.join(output_fold,'confusion_matrix_all_row_wise.txt'),'w') as 
     f.write(c)
     f.write('\n')
     f.write(str(t))
+dbpedia_base_df_row = dbpedia_base.confusion_matrix_to_latex_row_wise(name_dict=name_dict, return_sums=True, add_sums=False,to_latex =False)
+dbpedia_base_df_row.to_csv(os.path.join(output_fold,'confusion_matrix_all_row_wise.csv'))
+
 with open(os.path.join(output_fold,'confusion_matrix_all.txt'),'w') as f:
     f.write(dbpedia_base.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict))
-    
+dbpedia_base.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict,to_latex =False).to_csv(os.path.join(output_fold,'confusion_matrix_all.csv'))
+
 DBpedia_PP = get_PP_result_processor(path, pred_path, split_path, name_dict, approach_name, split_type='test')
 with open(os.path.join(output_fold,'confusion_matrix_PP_row_wise.txt'),'w') as f:
     c,t = DBpedia_PP.confusion_matrix_to_latex_row_wise(name_dict=name_dict, return_sums=True, add_sums=True)
     f.write(c)
     f.write('\n')
     f.write(str(t))
-    
+DBpedia_PP.confusion_matrix_to_latex_row_wise(name_dict=name_dict, return_sums=False, add_sums=False,to_latex =False).to_csv(os.path.join(output_fold,'confusion_matrix_PP_row_wise.csv'))
+
+
 with open(os.path.join(output_fold,'confusion_matrix_PP.txt'),'w') as f:    
     f.write(DBpedia_PP.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict))
-    
+DBpedia_PP.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict,to_latex =False).to_csv(os.path.join(output_fold,'confusion_matrix_PP.csv'))

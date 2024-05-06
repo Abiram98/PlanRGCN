@@ -54,6 +54,12 @@ class ResultProcessor:
                 self.df[self.pred_col] = self.df['svm_prediction'].apply(apply_cls_func)
             if 'nn_prediction' in self.df.columns:
                 self.df[self.pred_col] = self.df['nn_prediction'].apply(apply_cls_func)
+        if 'nn_prediction' in self.df.columns:
+            self.pred_col = 'nn_prediction'
+        elif 'svm_prediction' in self.df.columns:
+            self.pred_col = 'svm_prediction'
+        
+        
         if self.df.iloc[0][self.id_col].startswith("http"):
             self.df[self.id_col] = self.df[self.id_col].apply(lambda x: x[20:])
         self.latex_options = {'decimal':'.','float_format':"%.2f"}
@@ -102,7 +108,7 @@ class ResultProcessor:
         conf_matrix = confusion_matrix(self.df[self.ground_truth_col], self.df[self.pred_col], labels=ResultProcessor.gt_labels)
         return conf_matrix
     
-    def confusion_matrix_to_latex(self, row_percentage=False,name_dict=None):
+    def confusion_matrix_to_latex(self, row_percentage=False,name_dict=None, to_latex=True):
         if row_percentage:
             return self.confusion_matrix_to_latex_row_wise(name_dict=name_dict)
         
@@ -115,13 +121,14 @@ class ResultProcessor:
         # Add row and column names for actual and predicted axes
         df_confusion.columns.name = 'Predicted'
         df_confusion.index.name = 'Actual'
-        
+        if not to_latex:
+            return df_confusion
         # Convert DataFrame to LaTeX table format
         latex_table = df_confusion.to_latex(multicolumn=True, multicolumn_format='c',**self.latex_options)
 
         return latex_table
 
-    def confusion_matrix_to_latex_row_wise(self, name_dict=None, return_sums=False, add_sums = False):
+    def confusion_matrix_to_latex_row_wise(self, name_dict=None, return_sums=False, add_sums = False, to_latex=True):
         # Convert confusion matrix to pandas DataFrame
         conf_matrix = self.confusion_matrix_raw()
         conf_matrix, sums = self.compute_percentages_row(conf_matrix)
@@ -141,6 +148,8 @@ class ResultProcessor:
         # Convert DataFrame to LaTeX table format
         if add_sums:
             df_confusion['\# Total'] = sums.tolist()
+        if not to_latex:
+            return df_confusion
         latex_table = df_confusion.to_latex(multicolumn=True, multicolumn_format='c',**self.latex_options)
         if return_sums:
             return latex_table,sums
