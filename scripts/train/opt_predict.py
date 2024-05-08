@@ -1,9 +1,8 @@
+
+from graph_construction.query_graph import snap_lat2onehotv2
+from trainer.train_ray import get_dataloaders
 import sys
 from graph_construction.feats.featurizer_path import FeaturizerPath
-from trainer.train_ray import main
-from graph_construction.query_graph import (
-    snap_lat2onehotv2,
-)
 from graph_construction.qp.query_plan_path import QueryPlanPath
 from ray import tune
 import os
@@ -53,9 +52,8 @@ query_plan = QueryPlanPath
 prepper = None
 resume=False
 
-
-os.makedirs(path_to_save, exist_ok=True)
-
+val_pp_path= None,
+time_col="mean_latency",
 config = {
     "l1": tune.choice([ 1024, 2048, 4096]),
     "l2": tune.choice([ 512, 1024, 2048, 4096]),
@@ -70,39 +68,23 @@ config = {
     ),
 }
 
+resume=False
+patience=5
+    
+if pred_com_path == None:
+    con_pred_com_path = None
+else:
+    con_pred_com_path = os.path.join(pred_com_path, config["pred_com_path"])
 
-import numpy as np
-
-def earlystop(trial_id: str, result: dict) -> bool:
-    """This function should return true when the trial should be stopped and false for continued training.
-
-    Args:
-        trial_id (str): _description_
-        result (dict): _description_
-
-    Returns:
-        bool: _description_
-    """
-    if result["val_f1"] < 0.7 and result["training_iteration"] >= 50:
-        return True
-    if result["val_f1"] < 0.5 and result["training_iteration"] >= 10:
-        return True
-    l_n = len(result["val_f1_lst"])
-    l = np.sum(np.diff(result["val_f1_lst"]))/l_n
-    #if improvement in last patience epochs is less than 1% in validation loss then terminate trial.
-    if l <= 0.01 and result["training_iteration"] >= 10:
-        return True
-    return False
-
-main(
-    num_samples=num_samples,
-    max_num_epochs=max_num_epochs,
+train_loader, val_loader, test_loader, input_d, val_pp_loader = get_dataloaders(
     train_path=train_path,
     val_path=val_path,
     test_path=test_path,
-    query_plan_dir=qp_path,
+    val_pp_path= val_pp_path,
+    batch_size=config["batch_size"],
+    query_plan_dir=query_plan_dir,
     pred_stat_path=pred_stat_path,
-    pred_com_path=pred_com_path,
+    pred_com_path=con_pred_com_path,
     ent_path=ent_path,
     lit_path=lit_path,
     time_col=time_col,
@@ -110,13 +92,8 @@ main(
     cls_func=cls_func,
     featurizer_class=featurizer_class,
     scaling=scaling,
-    n_classes=n_classes,
     query_plan=query_plan,
-    path_to_save=path_to_save,
-    config=config,
-    resume=resume,
-    num_cpus=num_cpus,
-    earlystop=earlystop,
     save_prep_path=save_prep_path,
-    patience=5
+    save_path= None,
+    config=config
 )

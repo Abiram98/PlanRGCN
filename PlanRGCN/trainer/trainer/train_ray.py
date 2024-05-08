@@ -127,13 +127,15 @@ def get_dataloaders(
         )
         prepper.config = config # model parameters
     
-    if save_prep_path!=None and (not os.path.exists(save_prep_path)):
-        print("Saving dataset prepper to "+ save_prep_path)
-        pcl.dump(prepper, open(save_prep_path, 'wb') )
     
     train_loader = prepper.get_trainloader()
     val_loader = prepper.get_valloader()
     test_loader = prepper.get_testloader()
+    
+    if save_prep_path!=None and (not os.path.exists(save_prep_path)):
+        print("Saving dataset prepper to "+ save_prep_path)
+        pcl.dump(prepper, open(save_prep_path, 'wb') )
+    
     """if val_pp_path is not None:
         val_pp_dataload = prepper.get_pp_valloader(os.path.join(save_path,"pp_sampled"))
         val_pp_dataload.dataset.save()
@@ -287,12 +289,12 @@ def train_function(
             )
             train.report(
                 metrics={
-                    "val loss": val_loss,
-                    "val f1": val_f1,
-                    "train f1": train_f1,
+                    "val_loss": val_loss,
+                    "val_f1": val_f1,
+                    "train_f1": train_f1,
                     "ppf1": ppf1,
-                    "train loss": train_loss,
-                    "input d": input_d,
+                    "train_loss": train_loss,
+                    "input_d": input_d,
                     "num_class": n_classes,
                     "batch_size": config["batch_size"],
                     "val_f1_lst": val_f1_lst[-(patience):],
@@ -515,9 +517,9 @@ def stop_bad_run(trial_id: str, result: dict) -> bool:
     Returns:
         bool: _description_
     """
-    if result["val f1"] < 0.7 and result["training_iteration"] >= 50:
+    if result["val_f1"] < 0.7 and result["training_iteration"] >= 50:
         return True
-    if result["val f1"] < 0.5 and result["training_iteration"] >= 20:
+    if result["val_f1"] < 0.5 and result["training_iteration"] >= 20:
         return True
 
     return False
@@ -558,7 +560,7 @@ def main(
     #    1, "val f1", "max"
     #),  # CheckpointConfig(12, "val f1", "max"),
     checkpoint_config=CheckpointConfig(
-        1, "val f1", "max"
+        1, "val_f1", "max"
     ),  # CheckpointConfig(12, "val f1", "max"),
     resume=False,
     earlystop = stop_bad_run,
@@ -627,14 +629,14 @@ def main(
     best_trial = result.get_best_trial("ppNvalf1", "max", "last")
     
     print(f"Best trial config: {best_trial.config}")
-    print(f"Best trial final validation f1: {best_trial.last_result['val f1']}")
+    print(f"Best trial final validation f1: {best_trial.last_result['val_f1']}")
     print(f"Best trial final validation f1 (PP): {best_trial.last_result['ppf1']}")
     retrain_config = best_trial.config
     if pred_com_path is None:
        pred_c_path = None
     else:
         pred_c_path = os.path.join(pred_com_path, best_trial.config["pred_com_path"])
-    (
+    """(
         train_loader,
         val_loader,
         test_loader,
@@ -662,7 +664,7 @@ def main(
         best_trial.config["l2"],
         best_trial.config["dropout"],
         n_classes,
-    )
+    )"""
     best_checkpoint = os.path.join(
         best_trial.checkpoint.to_directory(), "checkpoint.pt"
     )  # .to_air_checkpoint()
@@ -672,17 +674,17 @@ def main(
     retrain_config["input d"] = best_trial.last_result["input d"] 
     
     json.dump(retrain_config, open(os.path.join(path_to_save, "model_config.json"),'w'), cls=NpEncoder)
-    model_state = th.load(best_checkpoint)
-    best_trained_model.load_state_dict(model_state["model_state"])
+    #model_state = th.load(best_checkpoint)
+    #best_trained_model.load_state_dict(model_state["model_state"])
     
-    predict(
+    """predict(
         best_trained_model,
         train_loader,
         val_loader,
         test_loader,
         is_lsq,
         path_to_save=path_to_save,
-    )
+    )"""
 
 
 if __name__ == "__main__":
