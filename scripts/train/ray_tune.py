@@ -87,10 +87,11 @@ def earlystop(trial_id: str, result: dict) -> bool:
         return True
     if result["val_f1"] < 0.5 and result["training_iteration"] >= 10:
         return True
-    l_n = len(result["val_f1_lst"])
-    l = np.sum(np.diff(result["val_f1_lst"]))/l_n
+    #l_n = len(result["val_f1_lst"])
+    #l = np.sum(np.diff(result["val_f1_lst"]))/l_n
+    l = result["val_f1_lst"]
     #if improvement in last patience epochs is less than 1% in validation loss then terminate trial.
-    if l <= 0.01 and result["training_iteration"] >= 10:
+    if result["training_iteration"] >= 10 and np.max(l) > result["val_f1"]:
         return True
     return False
 
