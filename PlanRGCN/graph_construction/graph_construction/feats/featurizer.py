@@ -472,7 +472,7 @@ class LitStats:
     def load_lit_freqs(self):
         freq_path = self.path + "/freq/"
         if not os.path.exists(freq_path):
-            raise Exception("Literal feature not existing")
+            raise Exception("Literal feature not existing " + freq_path)
         files = sorted(
             [f"{freq_path}{x}" for x in os.listdir(freq_path) if x.endswith(".json")]
         )
