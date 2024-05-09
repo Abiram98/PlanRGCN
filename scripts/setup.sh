@@ -20,7 +20,7 @@ pip3 install -r /PlanRGCN/requirements2.txt
 apt-get -y install maven
 apt-get -y install openjdk-17-jdk openjdk-17-jre
 mvn package -f "/PlanRGCN/PlanRGCN/qpe/pom.xml"
-mvn install:install-file -Dfile=/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar -DpomFile=/PlanRGCN/qpe/pom.xml
+mvn install:install-file -Dfile=/PlanRGCN/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar -DpomFile=/PlanRGCN/PlanRGCN/qpe/pom.xml
 
 apt-get install graphviz graphviz-dev -y
 
