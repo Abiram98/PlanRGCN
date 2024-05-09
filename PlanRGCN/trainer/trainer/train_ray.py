@@ -278,7 +278,7 @@ def train_function(
             "optimizer_state_dict": opt.state_dict(),
         }"""
         # checkpoint = Checkpoint.from_dict(checkpoint_data)
-        with tempfile.TemporaryDirectory() as tempdir:
+        with tempfile.TemporaryDirectory(dir=save_prep_path) as tempdir:
             th.save(
                 {
                     "epoch": epoch,
@@ -577,7 +577,7 @@ def main(
         _system_config={
             "local_fs_capacity_threshold": 0.99,
             "object_spilling_config": json.dumps(
-                {"type": "filesystem", "params": {"directory_path": "/PlanRGCN/temp"}},
+                {"type": "filesystem", "params": {"directory_path": "/data/tmp"}},
             ),
         },
     )
