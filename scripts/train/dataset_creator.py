@@ -4,21 +4,22 @@ from trainer.train_ray import get_dataloaders
 from graph_construction.feats.featurizer_path import FeaturizerPath
 from graph_construction.qp.query_plan_path import QueryPlanPath
 from ray import tune
-import os
+import os,sys
 
-#sample_name = sys.argv[1]
-#path_to_save = sys.argv[2]
-#feat_base_path=sys.argv[3]
-#use_pred_co = sys.argv[4]
-sample_name = "wikidata_3_class_full"
-path_to_save = "/tmp/test2"
-feat_base_path="/data/metaKGStat/wikidata"
-use_pred_co = "no"
+sample_name = sys.argv[1]
+path_to_save = sys.argv[2]
+feat_base_path=sys.argv[3]
+use_pred_co = sys.argv[4]
+# sample_name = "wikidata_3_class_full"
+# path_to_save = "/tmp/test2"
+# feat_base_path="/data/metaKGStat/wikidata"
+# use_pred_co = "no"
+batch_size=256
 train_path = f"/data/{sample_name}/train_sampled.tsv"
 val_path = f"/data/{sample_name}/val_sampled.tsv"
 test_path = f"/data/{sample_name}/test_sampled.tsv"
 qp_path = f"/data/{sample_name}/queryplans/"
-save_prep_path=f'{path_to_save}/prepper.pcl'
+save_prep_path=os.path.join(path_to_save,'prepper.pcl')
 
 
 # KG statistics feature paths
@@ -75,7 +76,7 @@ train_loader, val_loader, test_loader, input_d, val_pp_loader = get_dataloaders(
     val_path=val_path,
     test_path=test_path,
     val_pp_path= None,
-    batch_size=256,
+    batch_size=batch_size,
     query_plan_dir=query_plan_dir,
     pred_stat_path=pred_stat_path,
     pred_com_path=pred_com_path,

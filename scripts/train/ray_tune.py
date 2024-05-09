@@ -1,3 +1,4 @@
+import pickle
 import sys
 from graph_construction.feats.featurizer_path import FeaturizerPath
 from trainer.train_ray import main
@@ -10,7 +11,6 @@ import os
 
 sample_name = sys.argv[1]
 path_to_save = sys.argv[2]
-use_pred_co = sys.argv[4]
 train_path = f"/data/{sample_name}/train_sampled.tsv"
 val_path = f"/data/{sample_name}/val_sampled.tsv"
 test_path = f"/data/{sample_name}/test_sampled.tsv"
@@ -24,10 +24,8 @@ pred_stat_path = (
     f"{feat_base_path}/predicate/pred_stat/batches_response_stats"
 )
 
-if use_pred_co == 'no':
-    pred_com_path = None
-else:
-    pred_com_path = f"{feat_base_path}/predicate/pred_co"
+
+pred_com_path = f"{feat_base_path}/predicate/pred_co"
 
 ent_path = (
     f"{feat_base_path}/entity/ent_stat/batches_response_stats"
@@ -39,7 +37,7 @@ lit_path= (
 
 # Training Configurations
 num_samples = 22  # 4
-num_cpus= 16
+num_cpus= 22
 max_num_epochs = 100
 query_plan_dir = qp_path
 time_col = "mean_latency"
@@ -50,7 +48,13 @@ featurizer_class = FeaturizerPath
 scaling = "binner"
 n_classes = 3
 query_plan = QueryPlanPath
-prepper = None
+
+if not os.path.exists(save_prep_path):
+    print("Please create datasets first!")
+    exit()
+with open(save_prep_path, 'rb') as prepf:
+    prepper = pickle.load(prepf)
+
 resume=False
 
 
@@ -119,5 +123,6 @@ main(
     num_cpus=num_cpus,
     earlystop=earlystop,
     save_prep_path=save_prep_path,
-    patience=5
+    patience=5,
+    prepper=None,
 )

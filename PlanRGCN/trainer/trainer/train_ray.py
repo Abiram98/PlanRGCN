@@ -128,9 +128,9 @@ def get_dataloaders(
         prepper.config = config # model parameters
     
     
+    test_loader = prepper.get_testloader()
     train_loader = prepper.get_trainloader()
     val_loader = prepper.get_valloader()
-    test_loader = prepper.get_testloader()
     
     if save_prep_path!=None and (not os.path.exists(save_prep_path)):
         print("Saving dataset prepper to "+ save_prep_path)
@@ -179,38 +179,49 @@ def train_function(
     create_model=create_model,
     save_prep_path=None,
     patience = 5,
-    save_path=None
+    save_path=None,
+    prepper:DatasetPrep=None,
 ):
     if isinstance(path_to_save, str):
         o_path_to_save = path_to_save
         path_to_save = os.path.join(path_to_save, "session_data")
     
-    if pred_com_path == None:
-        con_pred_com_path = None
+    if prepper == None:
+        with open(save_prep_path, 'rb') as prepf:
+            prepper = pcl.load(prepf)
+        prepper 
+        raise Exception("prepper not provided")
+        if pred_com_path == None:
+            con_pred_com_path = None
+        else:
+            con_pred_com_path = os.path.join(pred_com_path, config["pred_com_path"])
+        
+        train_loader, val_loader, _, input_d, val_pp_loader = get_dataloaders(
+            train_path=train_path,
+            val_path=val_path,
+            test_path=test_path,
+            val_pp_path= val_pp_path,
+            batch_size=config["batch_size"],
+            query_plan_dir=query_plan_dir,
+            pred_stat_path=pred_stat_path,
+            pred_com_path=con_pred_com_path,
+            ent_path=ent_path,
+            lit_path=lit_path,
+            time_col=time_col,
+            is_lsq=is_lsq,
+            cls_func=cls_func,
+            featurizer_class=featurizer_class,
+            scaling=scaling,
+            query_plan=query_plan,
+            save_prep_path=save_prep_path,
+            save_path= save_path,
+            config=config
+        )
     else:
-        con_pred_com_path = os.path.join(pred_com_path, config["pred_com_path"])
-    
-    train_loader, val_loader, _, input_d, val_pp_loader = get_dataloaders(
-        train_path=train_path,
-        val_path=val_path,
-        test_path=test_path,
-        val_pp_path= val_pp_path,
-        batch_size=config["batch_size"],
-        query_plan_dir=query_plan_dir,
-        pred_stat_path=pred_stat_path,
-        pred_com_path=con_pred_com_path,
-        ent_path=ent_path,
-        lit_path=lit_path,
-        time_col=time_col,
-        is_lsq=is_lsq,
-        cls_func=cls_func,
-        featurizer_class=featurizer_class,
-        scaling=scaling,
-        query_plan=query_plan,
-        save_prep_path=save_prep_path,
-        save_path= save_path,
-        config=config
-    )
+        train_loader = prepper.get_trainloader()
+        val_loader = prepper.get_valloader()
+        val_pp_loader = None
+        input_d = prepper.vec_size
     #net = Classifier2RGCN(
     #    input_d, config["l1"], config["l2"], config["dropout"], n_classes
     #)
@@ -565,7 +576,8 @@ def main(
     resume=False,
     earlystop = stop_bad_run,
     save_prep_path=None,
-    patience=5
+    patience=5,
+    prepper:DatasetPrep=None,
 ):
     config["epochs"] = max_num_epochs
     ray_temp_path = os.path.join(path_to_save, "temp_session")
@@ -612,6 +624,7 @@ def main(
         save_prep_path=save_prep_path,
         save_path = path_to_save,
         patience=patience,
+        prepper=None
     )
 
     result = tune.run(
@@ -632,10 +645,8 @@ def main(
     print(f"Best trial final validation f1: {best_trial.last_result['val_f1']}")
     print(f"Best trial final validation f1 (PP): {best_trial.last_result['ppf1']}")
     retrain_config = best_trial.config
-    if pred_com_path is None:
-       pred_c_path = None
-    else:
-        pred_c_path = os.path.join(pred_com_path, best_trial.config["pred_com_path"])
+    
+    
     """(
         train_loader,
         val_loader,
@@ -659,7 +670,7 @@ def main(
     )
 
     best_trained_model = Classifier2RGCN(
-        best_trial.last_result["input d"],
+        best_trial.last_result["input_d"],
         best_trial.config["l1"],
         best_trial.config["l2"],
         best_trial.config["dropout"],
@@ -671,20 +682,35 @@ def main(
     print(f"path to best checkpoint {best_checkpoint}")
     retrain_config['best_checkpoint'] =best_checkpoint 
     os.system(f"cp {best_checkpoint} {os.path.join(path_to_save,'best_model.pt')}")
-    retrain_config["input d"] = best_trial.last_result["input d"] 
+    retrain_config["input_d"] = best_trial.last_result["input_d"] 
     
     json.dump(retrain_config, open(os.path.join(path_to_save, "model_config.json"),'w'), cls=NpEncoder)
-    #model_state = th.load(best_checkpoint)
-    #best_trained_model.load_state_dict(model_state["model_state"])
     
-    """predict(
+    #with open(save_prep_path, 'rb') as fprep:
+    #    prepper = pcl.load(fprep)
+    with open(save_prep_path, 'rb') as prepf:
+        prepper = pcl.load(prepf)
+    train_loader = prepper.get_trainloader()
+    val_loader = prepper.get_valloader()
+    test_loader = prepper.get_testloader()
+    best_trained_model = Classifier2RGCN(
+        prepper.vec_size,
+        best_trial.config["l1"],
+        best_trial.config["l2"],
+        best_trial.config["dropout"],
+        n_classes,
+    )
+    model_state = th.load(best_checkpoint)
+    best_trained_model.load_state_dict(model_state["model_state"])
+    
+    predict(
         best_trained_model,
         train_loader,
         val_loader,
         test_loader,
         is_lsq,
         path_to_save=path_to_save,
-    )"""
+    )
 
 
 if __name__ == "__main__":

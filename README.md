@@ -81,3 +81,14 @@ To run the experiment execute the following:
 
 ## Baseline Methods
 The Baseline method's are explained in the qpp folder's README.
+
+
+
+# Updated training scheme
+First create the datasets:
+```
+mkdir -p /data/wikidata_3_class_full/planRGCNpred_co
+python3 /PlanRGCN/scripts/train/dataset_creator.py wikidata_3_class_full /data/wikidata_3_class_full/planRGCNpred_co /data/metaKGStat/wikidata yes
+```
+then train a model:
+python3 /PlanRGCN/scripts/train/ray_tune.py wikidata_3_class_full /data/wikidata_3_class_full/planRGCNpred_co

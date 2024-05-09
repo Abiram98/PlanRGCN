@@ -4,7 +4,13 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
         {
             "name": "embed",
             "type": "python",
@@ -12,22 +18,20 @@
             "console": "integratedTerminal",
             "module": "trainer.embed"
         },
-
-        {"name": "query plan debug",
-        "type": "python",
-        "request": "launch",
-        "console": "integratedTerminal",
-        "program": "/PlanRGCN/graph_construction/graph_construction/query_graph.py"
-    
+        {
+            "name": "query plan debug",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "program": "/PlanRGCN/graph_construction/graph_construction/query_graph.py"
         },
-        {"name": "train_temp",
-        "type": "python",
-        "request": "launch",
-        "console": "integratedTerminal",
-        "program": "/PlanRGCN/tq_temp.py"
-    
+        {
+            "name": "train_temp",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "program": "/PlanRGCN/tq_temp.py"
         },
-
         {
             "name": "query plan constr",
             "type": "python",

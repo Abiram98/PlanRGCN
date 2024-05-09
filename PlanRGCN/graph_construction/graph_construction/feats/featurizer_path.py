@@ -62,26 +62,16 @@ class FeaturizerPath(FeaturizerBinning):
                     self.lit_freq,
                     bins=bins,
                 )
-                if lit_path is not None:
-                    self.tp_size = (
-                        self.max_pred
-                        + 3
-                        + self.scaler.ent_scale_len() * 2
-                        + self.scaler.pred_scale_len()
-                        + self.scaler.lit_scale_len()
-                        + LiteralsFeaturizer.feat_size()
-                        + 2
-                        + pathOpTypes.get_max_operations()
-                    )
-                else:
-                    self.tp_size = (
-                        self.max_pred
-                        + 3
-                        + self.scaler.ent_scale_len() * 2
-                        + self.scaler.pred_scale_len()
-                        + 2
-                        + pathOpTypes.get_max_operations()
-                    )
+                self.tp_size = (
+                    self.max_pred
+                    + 3
+                    + self.scaler.ent_scale_len() * 2
+                    + self.scaler.pred_scale_len()
+                    + self.scaler.lit_scale_len()
+                    + LiteralsFeaturizer.feat_size()
+                    + 2
+                    + pathOpTypes.get_max_operations()
+                )
                 """self.tp_size = (
                     self.max_pred
                     + 3
