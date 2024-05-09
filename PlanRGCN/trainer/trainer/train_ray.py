@@ -186,10 +186,10 @@ def train_function(
         o_path_to_save = path_to_save
         path_to_save = os.path.join(path_to_save, "session_data")
     
+    with open(save_prep_path, 'rb') as prepf:
+        prepper = pcl.load(prepf)
     if prepper == None:
-        with open(save_prep_path, 'rb') as prepf:
-            prepper = pcl.load(prepf)
-        prepper 
+        
         raise Exception("prepper not provided")
         if pred_com_path == None:
             con_pred_com_path = None
