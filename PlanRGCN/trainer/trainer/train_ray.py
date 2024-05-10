@@ -289,7 +289,7 @@ def train_function(
             "optimizer_state_dict": opt.state_dict(),
         }"""
         # checkpoint = Checkpoint.from_dict(checkpoint_data)
-        with tempfile.TemporaryDirectory(dir=save_prep_path) as tempdir:
+        with tempfile.TemporaryDirectory(dir="/data/tmp") as tempdir:
             th.save(
                 {
                     "epoch": epoch,
