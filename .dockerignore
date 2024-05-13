@@ -1,2 +1,4 @@
-data
-.vscode
+**/data
+**/.vscode
+**/dbpedia2016
+**/__pycache__

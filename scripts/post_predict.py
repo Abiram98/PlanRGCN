@@ -182,11 +182,11 @@ def get_PP_result_processor(dataset_path, pred_path, split_path, name_dict, appr
 #######################
 
 parse = argparse.ArgumentParser(prog="PredictionProcessor", description="Post Processing of results for data. Formatted from the Notebooks")
-parse.add_argument('-s','--split_dir')
-parse.add_argument('-t','--time_intervals', type=int)
-parse.add_argument('-f','--pred')
-parse.add_argument('-a', '--approach')
-parse.add_argument('-o', '--outputfolder', default=None)
+parse.add_argument('-s','--split_dir', help='Folder name in path to where the test_sampled.tsv file is located')
+parse.add_argument('-t','--time_intervals', type=int, help='the amount of time intervals. Choices are 3, 5!')
+parse.add_argument('-f','--pred', help='The prediction files')
+parse.add_argument('-a', '--approach', help='the name of the results')
+parse.add_argument('-o', '--outputfolder', default=None, help='the path where the result folder should be created')
 
 
 args = parse.parse_args()
