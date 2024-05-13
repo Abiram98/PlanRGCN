@@ -64,10 +64,40 @@ bash scripts/qp/qp_extract_lsq.sh $DATASET_PATH
 ```
 
 ## Model Training 
+First create dataset loader ...
+```
+...
+```
+The peform hyperparameter search
 ```
 DATASET=dataset_debug
 SAVEPATH ="$DATASET_PATH"/planrgcn_binner_litplan
 python3 ray_tune.py $DATASET_PATH $SAVEPATH $KGSTATFOLDER
+```
+After hyper-parameter search, use tensorboard to verify that there isn't a model with similar validation F1 score but with fewer network parameters.
+
+Then execute the following to get the predictions and inference time:
+```
+DATASET_PATH=/data/DBpedia_3_class_full
+EXP_PATH=/data/DBpedia_3_class_full/planRGCNWOpredCo
+python3 -m trainer.predict2 \
+    -p "$EXP_PATH"/prepper.pcl \
+    -m "$EXP_PATH"/best_model.pt \
+    -n 3 \
+    -o "$EXP_PATH"
+```
+
+To get confusion matrix results, run
+```
+DATASET_PATH=/data/DBpedia_3_class_full
+EXP_PATH=/data/DBpedia_3_class_full/planRGCNWOpredCo
+
+python3 /PlanRGCN/scripts/post_predict.py \
+    -s $DATASET_PATH \
+    -t 3 \
+    -f "$EXP_PATH"/test_pred.csv \
+    -a PlanRGCNWOpredCo \
+    -o "$EXP_PATH"/results
 ```
 
 Prediction quality is analyzed in the notebooks in the notebook folder.

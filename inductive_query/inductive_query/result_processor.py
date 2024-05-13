@@ -75,9 +75,7 @@ class ResultProcessor:
         self.df = self.df.reset_index(drop=True)
     
     def retain_path(self, path, sep='\t', id_col='id', remove_prefix=0):
-        print(self.df)
         df = pd.read_csv(path, sep=sep)
-        print(df)
         """if remove_lsq != -1:
             ids = [x[remove_lsq:] for x in list(df[id_col])]
         else:"""
