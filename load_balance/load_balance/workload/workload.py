@@ -82,7 +82,7 @@ class Workload:
                 q.set_true_time_cls(df2.loc[q.ID]['time_cls'])
                 n_qs.append(q)
             except Exception as e:
-                pass
+                print("Workload cannot load for ",q.ID, self.true_field_name)
         print(f"skipped {len(self.queries)-len(n_qs)}")
         self.queries = n_qs
     

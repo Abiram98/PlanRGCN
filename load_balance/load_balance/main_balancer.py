@@ -21,6 +21,7 @@ def get_workload(sample_name, scale, add_lsq_url,cls_field, mu = const.MU, seed=
     print(df['mean_latency'].quantile(q=0.25))
     w = Workload(true_field_name=cls_field)
     w.load_queries(f'/data/{sample_name}/test_sampled.tsv')
+    print('after load', df)
     w.set_time_cls(f"/data/{sample_name}/{scale}/test_pred.csv",add_lsq_url=add_lsq_url)
     a = ArrivalRateDecider(seed=seed)
     w.shuffle_queries()
@@ -42,7 +43,7 @@ if __name__ == "__main__":
     parser.add_argument('-b', '--scale')
     parser.add_argument('-t', '--true_field_name')
     parser.add_argument('-o', '--save_dir')
-    parser.add_argument('-l', '--add_lsq_url', default='true')
+    parser.add_argument('-l', '--add_lsq_url', default='yes')
     parser.add_argument('-r', '--MU', default=44, type=int)
     parser.add_argument('-u', '--url')
     parser.add_argument('-f', '--FastWorkers')
@@ -75,16 +76,15 @@ if __name__ == "__main__":
         save_dir = args.save_dir
         cls_field = args.true_field_name
         std_file = "main_file.log"
-        add_lsq_url = True if args.add_lsq_url.lower() == 'true' else False
+        add_lsq_url = True if args.add_lsq_url.lower() == 'yes' else False
         MU = int(args.MU)
         os.makedirs(Path(save_dir), exist_ok=True)
         w = get_workload(sample_name, scale, add_lsq_url, cls_field, mu = MU, seed=args.seed)
         with open(os.path.join(save_dir,"workload.pck"), 'wb') as wf:
             w.pickle(wf)
         print(args)
-        exit()
         with open(os.path.join(save_dir, std_file), 'w') as sys.stdout:
-            match config['TASK']['taskName']:
+            match args.task:
                 case "fifo":
                     workers = int(args.FIFOWorkers)
                     fifo.main_balance_runner(w, url=url, save_dir=save_dir, n_workers=workers)
