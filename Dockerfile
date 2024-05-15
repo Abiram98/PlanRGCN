@@ -1,15 +1,15 @@
 FROM ubuntu:22.04
 COPY PlanRGCN/ /PlanRGCN/PlanRGCN/
-COPY PlanRegr/ /PlanRGCN/PlanRegr/
+#COPY PlanRegr/ /PlanRGCN/PlanRegr/
 COPY dist_loader/ /PlanRGCN/dist_loader/
 COPY feat_con_time/ /PlanRGCN/feat_con_time/
-COPY feature_extraction/ /PlanRGCN/feature_extraction/
-COPY feature_representation/ /PlanRGCN/feature_representation/
-COPY graph_construction/ /PlanRGCN/graph_construction/
+#COPY feature_extraction/ /PlanRGCN/feature_extraction/
+#COPY feature_representation/ /PlanRGCN/feature_representation/
+#COPY graph_construction/ /PlanRGCN/graph_construction/
 COPY inductive_query/ /PlanRGCN/inductive_query/
 COPY load_balance/ /PlanRGCN/load_balance/
 COPY notebooks/ /PlanRGCN/notebooks/
-COPY qpe/ /PlanRGCN/qpe/
+#COPY qpe/ /PlanRGCN/qpe/
 COPY qpp/ /PlanRGCN/qpp/
 COPY sample_checker/ /PlanRGCN/sample_checker/
 COPY scripts/ /PlanRGCN/scripts/
