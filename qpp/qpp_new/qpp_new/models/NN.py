@@ -75,10 +75,14 @@ class NNTrainer:
     def save_prediction(self, xs, scaler, model, path_to_save):
         x_pred = xs.drop(columns=["time"])
         # TODO: in svm np.exp is not used.
+        start = time()
         y_pred_train = np.exp(scaler.inverse_transform(model.predict(x_pred)))
+        dur = time()-start
+        dur = dur/len(xs)
         xs["nn_prediction"] = y_pred_train
         remove_columns = [x for x in xs.columns if not x in ["time", "nn_prediction"]]
         x_pred = xs.drop(columns=remove_columns)
+        x_pred['inference'] = dur
         x_pred.to_csv(path_to_save)
 
     def executar(self, x_train, x_val, x_test, train_aec=True, with_aec=True):

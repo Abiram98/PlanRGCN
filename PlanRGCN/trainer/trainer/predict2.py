@@ -86,7 +86,7 @@ best_trained_model = Classifier2RGCN(
 )
 model_state = th.load(args.model_state)
 best_trained_model.load_state_dict(model_state["model_state"])
-
+print(prepper.vec_size)
 predict(
     best_trained_model,
     train_loader,

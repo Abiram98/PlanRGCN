@@ -563,9 +563,12 @@ class SVMTrainer:
         return scaler, y_train_log_std, y_val_log_std, y_test_log_std
 
     def save_svm_prediction(self, df, xs, scaler, model, path_to_save):
+        start = time()
         y_train_hat_svr = scaler.inverse_transform(
             np.exp(model.predict(xs.values).reshape(-1, 1))
         )
+        dur = time() - start
+        dur = dur/len(df)
         # y_train_hat_svr = scaler.inverse_transform( model.predict(xs).reshape(-1, 1))
 
         df = pd.DataFrame(
@@ -575,6 +578,7 @@ class SVMTrainer:
                 "svm_prediction": y_train_hat_svr.flatten(),
             }
         )
+        df['inference'] =dur
         df.to_csv(path_to_save)
 
     def baseline_svr(self, C, nu, Xdata, Ydata):
