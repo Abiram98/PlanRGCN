@@ -134,6 +134,7 @@ def get_dataloaders(
     
     if save_prep_path!=None and (not os.path.exists(save_prep_path)):
         print("Saving dataset prepper to "+ save_prep_path)
+        prepper.cls_func = None
         pcl.dump(prepper, open(save_prep_path, 'wb') )
     
     """if val_pp_path is not None:
@@ -578,6 +579,7 @@ def main(
     save_prep_path=None,
     patience=5,
     prepper:DatasetPrep=None,
+    resources_per_trial={"cpu": 1},
 ):
     config["epochs"] = max_num_epochs
     ray_temp_path = os.path.join(path_to_save, "temp_session")
@@ -630,7 +632,7 @@ def main(
     result = tune.run(
         trainable,
         checkpoint_config=checkpoint_config,
-        resources_per_trial={"cpu": 1},
+        resources_per_trial=resources_per_trial,
         config=config,
         num_samples=num_samples,
         scheduler=scheduler,
