@@ -213,7 +213,7 @@ if __name__ == "__main__":
         if not i.endswith("json"):
             continue
         print(f"beginning {n} of {len(files)}: {dist_fold}/{i}")
-        dat = json.load(open(f"{dist_fold}/{i}",'r'))
+        dat = json.load(open(os.path.join(dist_fold,i),'r'))
         for y in dat:
             print(y)
             if y['dist'] == 'None':
