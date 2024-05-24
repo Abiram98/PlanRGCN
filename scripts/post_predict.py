@@ -187,6 +187,7 @@ parse.add_argument('-t','--time_intervals', type=int, help='the amount of time i
 parse.add_argument('-f','--pred', help='The prediction files')
 parse.add_argument('-a', '--approach', help='the name of the results')
 parse.add_argument('-o', '--outputfolder', default=None, help='the path where the result folder should be created')
+parse.add_argument('--objective', default=None, help=' the objective.py function')
 
 
 args = parse.parse_args()
@@ -201,6 +202,15 @@ def time_ints(t):
                 2: '$>$ 10s',
             }, snap_lat2onehotv2
         case 5:
+            ResultProcessor.gt_labels = [0,1,2,3,4]
+            return {
+                0: '(0s; 0.004]',
+                1: '(0.004s; 1]',
+                2: '(1s; 10]',
+                3: '(10; timeout]',
+                4: 'timeout',
+            }, snap5cls
+        case 51:
             ResultProcessor.gt_labels = [0,1,2,3,4]
             return {
                 0: '(0s; 0.004]',
