@@ -1,15 +1,40 @@
 
-from graph_construction.query_graph import snap_lat2onehotv2
+
+
 from trainer.train_ray import get_dataloaders
 from graph_construction.feats.featurizer_path import FeaturizerPath
 from graph_construction.qp.query_plan_path import QueryPlanPath
 from ray import tune
 import os,sys
+import argparse
 
-sample_name = sys.argv[1]
-path_to_save = sys.argv[2]
-feat_base_path=sys.argv[3]
-use_pred_co = sys.argv[4]
+def parse_args():
+    parser = argparse.ArgumentParser(description="Train a model with a specific configuration.")
+
+    # Required arguments
+    parser.add_argument('sample_name', type=str, help="Name of the dataset to use.")
+    parser.add_argument('path_to_save', type=str, help="Path to save all artifacts.")
+
+    # Optional arguments
+    parser.add_argument('--feat_path', type=str, default='/data/planrgcn_feat/extracted_features_dbpedia2016', help="Path to metaKG statistics used for the model.")
+    parser.add_argument('--use_pred_co', type=str, default="yes", help="whether to use predicat co-occurence features.")
+    parser.add_argument('--class_path', type=str, default=None, help="path that defined 'n_classes' and 'cls_func' for prediction objective")
+
+    return parser.parse_args()
+
+args = parse_args()
+sample_name = args.sample_name
+path_to_save =  args.path_to_save
+feat_base_path=args.feat_path
+use_pred_co = args.use_pred_co
+print(args)
+
+if args.class_path is not None:
+    exec(open(args.class_path).read(), globals())
+if not 'cls_func' in globals():
+    from graph_construction.query_graph import snap_lat2onehotv2
+    cls_func = snap_lat2onehotv2
+    n_classes = 3
 # sample_name = "wikidata_3_class_full"
 # path_to_save = "/tmp/test2"
 # feat_base_path="/data/metaKGStat/wikidata"
@@ -20,8 +45,12 @@ val_path = f"/data/{sample_name}/val_sampled.tsv"
 test_path = f"/data/{sample_name}/test_sampled.tsv"
 qp_path = f"/data/{sample_name}/queryplans/"
 save_prep_path=os.path.join(path_to_save,'prepper.pcl')
-
-
+"""if os.path.exists(save_prep_path):
+    print('prepeper already exists. Do you want to continue recreating prepper? (y/n)')
+    x = input()
+    if x == 'n':
+        exit()
+"""
 # KG statistics feature paths
 pred_stat_path = (
     f"{feat_base_path}/predicate/pred_stat/batches_response_stats"
@@ -45,11 +74,9 @@ lit_path= (
 query_plan_dir = qp_path
 time_col = "mean_latency"
 is_lsq = True
-cls_func = snap_lat2onehotv2
 #featurizer_class = FeaturizerBinning
 featurizer_class = FeaturizerPath
 scaling = "binner"
-n_classes = 3
 query_plan = QueryPlanPath
 prepper = None
 resume=False
