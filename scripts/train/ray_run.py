@@ -10,6 +10,7 @@ from graph_construction.qp.query_plan_path import QueryPlanPath
 from ray import tune
 import os
 import argparse
+import numpy as np
 def parse_args():
     parser = argparse.ArgumentParser(description="Train a model with a specific configuration.")
 
@@ -22,6 +23,7 @@ def parse_args():
     parser.add_argument('--layer1_size', type=int, default=4096, help="Size of the first layer.")
     parser.add_argument('--layer2_size', type=int, default=4096, help="Size of the second layer.")
     parser.add_argument('--class_path', type=str, default=None, help="path that defined 'n_classes' and 'cls_func' for prediction objective")
+    parser.add_argument('--use_pred_co', type=str, default='yes', help="path that defined 'n_classes' and 'cls_func' for prediction objective")
 
     return parser.parse_args()
 
@@ -44,7 +46,7 @@ qp_path = f"/data/{sample_name}/queryplans/"
 save_prep_path=f'{path_to_save}/prepper.pcl'
 feat_base_path=args.feat_path
 
-if args.class_path is not None:
+if not (args.class_path == None or args.class_path == 'None'):
     exec(open(args.class_path).read(), globals())
 if not 'cls_func' in globals():
     from graph_construction.query_graph import snap_lat2onehotv2
@@ -65,7 +67,7 @@ def loss_weight_cal(train_path, output_path):
         json.dump(weights, f)
 
 loss_weight_cal(train_path, f"/data/{sample_name}/loss_weight.json")
-os.system(f"python3 '/PlanRGCN/scripts/train/dataset_creator.py' {args.sample_name} {args.path_to_save} --feat_path {feat_base_path} --class_path {args.class_path}")
+os.system(f"python3 '/PlanRGCN/scripts/train/dataset_creator.py' {args.sample_name} {args.path_to_save} --feat_path {feat_base_path} --class_path {args.class_path} --use_pred_co {args.use_pred_co}")
 
 
 # KG statistics feature paths
@@ -86,8 +88,8 @@ lit_path= (
 
 # Training Configurations
 num_samples = 1
-num_cpus= 4
-max_num_epochs = 100
+num_cpus= 8
+max_num_epochs = 40
 query_plan_dir = qp_path
 time_col = "mean_latency"
 is_lsq = True
@@ -122,7 +124,6 @@ config = {
 }
 
 
-import numpy as np
 
 def earlystop(trial_id: str, result: dict) -> bool:
     """This function should return true when the trial should be stopped and false for continued training.
@@ -136,13 +137,11 @@ def earlystop(trial_id: str, result: dict) -> bool:
     """
     if result["val_f1"] < 0.7 and result["training_iteration"] >= 50:
         return True
-    if result["val_f1"] < 0.5 and result["training_iteration"] >= 10:
-        return True
     #l_n = len(result["val_f1_lst"])
     #l = np.sum(np.diff(result["val_f1_lst"]))/l_n
     l = result["val_f1_lst"][:-1]
     #if improvement in last patience epochs is less than 1% in validation loss then terminate trial.
-    if result["training_iteration"] >= 10 and (np.min(l)+(np.min(l)*0.1)) >= result["val_f1"]:
+    if result["training_iteration"] >= 10 and np.min(l) >= result["val_f1"]:
         return True
     return False
 
@@ -172,5 +171,5 @@ main(
     save_prep_path=save_prep_path,
     patience=5,
     prepper=None,
-    resources_per_trial={"cpu": 4}
+    resources_per_trial={"cpu": num_cpus}
 )
