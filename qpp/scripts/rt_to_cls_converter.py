@@ -16,5 +16,9 @@ pred_field = sys.argv[3]
 df = pd.read_csv(ip)
 df['time_cls'] = df['time'].apply(snap_lat2onehotv2)
 df[pred_field] = df[pred_field].apply(snap_lat2onehotv2)
-df = df[['id','time_cls',pred_field]]
+col = ['id','time_cls',pred_field]
+for c in df.columns:
+    if c not in col:
+        col.append(c)
+df = df[col]
 df.to_csv(op,index=False)
