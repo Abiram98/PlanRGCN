@@ -54,10 +54,14 @@ class ResultProcessor:
                 self.df[self.pred_col] = self.df['svm_prediction'].apply(apply_cls_func)
             if 'nn_prediction' in self.df.columns:
                 self.df[self.pred_col] = self.df['nn_prediction'].apply(apply_cls_func)
+            if 'planrgcn_prediction' in self.df.columns:
+                self.df[self.pred_col] = self.df['planrgcn_prediction'].apply(apply_cls_func)
         if 'nn_prediction' in self.df.columns:
             self.pred_col = 'nn_prediction'
         elif 'svm_prediction' in self.df.columns:
             self.pred_col = 'svm_prediction'
+        elif 'planrgcn_prediction' in self.df.columns:
+            self.pred_col = 'planrgcn_prediction'
         
         
         if self.df.iloc[0][self.id_col].startswith("http"):

@@ -179,6 +179,14 @@ def get_PP_result_processor(dataset_path, pred_path, split_path, name_dict, appr
     print(p.confusion_matrix_to_latex_row_wise(name_dict=name_dict))
     print(p.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict))
     return p
+def clean_latex_tables(c):
+    c = c.replace('toprule', 'hline')
+    c = c.replace('midrule', 'hline')
+    c = c.replace('bottomrule', 'hline')
+    
+    c = c.replace('Predicted', ' ')
+    c = c.replace('Actual', ' ')
+    return c
 #######################
 
 parse = argparse.ArgumentParser(prog="PredictionProcessor", description="Post Processing of results for data. Formatted from the Notebooks")
@@ -187,6 +195,7 @@ parse.add_argument('-t','--time_intervals', type=int, help='the amount of time i
 parse.add_argument('-f','--pred', help='The prediction files')
 parse.add_argument('-a', '--approach', help='the name of the results')
 parse.add_argument('-o', '--outputfolder', default=None, help='the path where the result folder should be created')
+parse.add_argument('--set', default='test_sampled.tsv', help='the path where the result folder should be created')
 
 
 args = parse.parse_args()
@@ -222,11 +231,13 @@ cls_func = lambda x: np.argmax(temp_c_func(x))
 approach_name = f"{args.approach}"
 path = args.split_dir
 pred_path = args.pred
-split_path = f"{args.split_dir}/test_sampled.tsv"
+split_path = f"{args.split_dir}/{args.set}"
 dbpedia_base = get_result_processor(pred_path, split_path, name_dict, approach_name, remove_prefix=20)
-
+print(dbpedia_base.df)
+os.makedirs(output_fold, exist_ok=True)
 with open(os.path.join(output_fold,'confusion_matrix_all_row_wise.txt'),'w') as f:
     c, t = dbpedia_base.confusion_matrix_to_latex_row_wise(name_dict=name_dict, return_sums=True, add_sums=True)
+    c = clean_latex_tables(c)
     f.write(c)
     f.write('\n')
     f.write(str(t))
@@ -236,10 +247,17 @@ dbpedia_base_df_row.to_csv(os.path.join(output_fold,'confusion_matrix_all_row_wi
 with open(os.path.join(output_fold,'confusion_matrix_all.txt'),'w') as f:
     f.write(dbpedia_base.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict))
 dbpedia_base.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict,to_latex =False).to_csv(os.path.join(output_fold,'confusion_matrix_all.csv'))
-
-DBpedia_PP = get_PP_result_processor(path, pred_path, split_path, name_dict, approach_name, split_type='test')
+if 'test' in args.set:
+    DBpedia_PP = get_PP_result_processor(path, pred_path, split_path, name_dict, approach_name, split_type='test')
+elif 'train' in args.set:
+    DBpedia_PP = get_PP_result_processor(path, pred_path, split_path, name_dict, approach_name, split_type='train')
+elif 'val' in args.set:
+    DBpedia_PP = get_PP_result_processor(path, pred_path, split_path, name_dict, approach_name, split_type='val')
+else:
+    raise Exception('Incorrect set '+ arg.set)
 with open(os.path.join(output_fold,'confusion_matrix_PP_row_wise.txt'),'w') as f:
     c,t = DBpedia_PP.confusion_matrix_to_latex_row_wise(name_dict=name_dict, return_sums=True, add_sums=True)
+    c = clean_latex_tables(c)
     f.write(c)
     f.write('\n')
     f.write(str(t))

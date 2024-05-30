@@ -35,6 +35,7 @@ def get_unseen_result_processor(dataset_path, pred_path, split_path, unseen_type
             print("No unseen")
             p = ResultProcessor(pred_path, approach_name=approach_name,apply_cls_func=apply_cls_func)
             p.retain_path(split_path, remove_prefix=remove_prefix)
+            #p.retain_path(split_path, remove_prefix=20)
             print(p.confusion_matrix_to_latex_row_wise(name_dict=name_dict))
             print(p.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict))
             return p
