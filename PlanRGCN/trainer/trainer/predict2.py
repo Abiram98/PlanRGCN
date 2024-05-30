@@ -18,6 +18,7 @@ def predict(
 ):
     def predict_helper(dataloader, model, is_lsq):
         all_preds = []
+        all_preds_unprocessed = []
         all_ids = []
         all_truths = []
         all_time = []
@@ -28,8 +29,9 @@ def predict(
             pred = model(graphs, feats, edge_types)
             end = time.time()
             all_time.append(end-start)
-            pred = pred.tolist()
-            pred = np.argmax(pred)
+            or_pred = pred.tolist()
+            all_preds_unprocessed.append(or_pred)
+            pred = np.argmax(or_pred)
             truths = np.argmax(labels.tolist())
             all_truths.append(truths)
             if not is_lsq:
@@ -38,7 +40,7 @@ def predict(
                 id = f"{id}"
             all_ids.append(id)
             all_preds.append(pred)
-        return all_ids, all_preds, all_truths, all_time
+        return all_ids, all_preds, all_truths, all_time,all_preds_unprocessed
     
     os.system(f"mkdir -p {path_to_save}")
     model.eval()
@@ -51,12 +53,13 @@ def predict(
             [train_loader, val_loader, test_loader],
             [train_p, val_p, test_p],
         ):
-            ids, preds, truths, durations = predict_helper(loader, model, is_lsq)
+            ids, preds, truths, durations,all_preds_unprocessed = predict_helper(loader, model, is_lsq)
             df = pd.DataFrame()
             df["id"] = ids
             df["time_cls"] = truths
             df["planrgcn_prediction"] = preds
             df["inference_durations"] = durations
+            df["planrgcn_prediction_no_thres"] = all_preds_unprocessed
             df.to_csv(path, index=False)
 
 

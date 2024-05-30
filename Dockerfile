@@ -21,4 +21,18 @@ RUN bash scripts/setup.sh
 COPY requirements2.txt /PlanRGCN/requirements2.txt
 COPY pp_only_qs.py /PlanRGCN/pp_only_qs.py
 RUN pip3 install -r requirements2.txt
-CMD bash
+COPY .git/ /PlanRGCN/.git/
+COPY .gitignore /PlanRGCN/.gitignore
+RUN apt-get install git -y
+#COPY .vscode/launch.json /PlanRGCN/.vscode/launch.json
+#COPY .vscode/settings.json /PlanRGCN/.vscode/settings.json
+COPY Dockerfile /PlanRGCN/Dockerfile
+COPY .dockerignore /PlanRGCN/.dockerignore
+COPY data /PlanRGCN/data
+COPY run.sh /PlanRGCN/run.sh
+COPY README.md /PlanRGCN/README.md
+COPY test_inference_time.py /PlanRGCN/test_inference_time.py
+
+RUN apt-get install ssh -y
+RUN apt-get install rsync -y
+CMD /bin/bash
