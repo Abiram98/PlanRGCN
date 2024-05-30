@@ -192,6 +192,12 @@ parse.add_argument('--objective', default=None, help=' the objective.py function
 
 args = parse.parse_args()
 
+
+if args.objective is not None:
+    exec(open(args.objective).read(), globals())
+    cls_func = lambda x: np.argmax(temp_c_func(x))
+    ResultProcessor.gt_labels = [x for x in range(n_classes)]
+
 def time_ints(t):
     match t:
         case 3:
@@ -227,8 +233,10 @@ if args.outputfolder == None:
 else:
     output_fold = args.outputfolder
 
-name_dict, temp_c_func = time_ints(args.time_intervals)
-cls_func = lambda x: np.argmax(temp_c_func(x))
+if args.objective is None:
+	name_dict, temp_c_func = time_ints(args.time_intervals)
+	cls_func = lambda x: np.argmax(temp_c_func(x))
+
 approach_name = f"{args.approach}"
 path = args.split_dir
 pred_path = args.pred
