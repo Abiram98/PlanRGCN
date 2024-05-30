@@ -48,15 +48,18 @@ def predict(
         test_p = os.path.join(path_to_save,"test_pred.csv")
         
         for loader, path in zip(
-            [train_loader, val_loader, test_loader],
-            [train_p, val_p, test_p],
+            [ val_loader, test_loader],
+            [ val_p, test_p],
         ):
+            print('predict helper begin')
             ids, preds, truths, durations = predict_helper(loader, model, is_lsq)
             df = pd.DataFrame()
             df["id"] = ids
             df["time_cls"] = truths
             df["planrgcn_prediction"] = preds
             df["inference_durations"] = durations
+            ids, preds, truths, durations = predict_helper(loader, model, is_lsq)
+            print('outputting')
             df.to_csv(path, index=False)
 
 
@@ -69,23 +72,31 @@ parser.add_argument('-p', '--prepper', help='Path to prepper')
 parser.add_argument('-m', '--model_state', help='Path to model state o f best model')
 parser.add_argument('-n', '--n_classes', default=3, type=int, help='time interval numbers')
 parser.add_argument('-o', '--save_path', help='path to save the results')
+parser.add_argument('--l1',type=int, default=None, help='path to save the results')
+parser.add_argument( '--l2', type=int, default=None,help='path to save the results')
+parser.add_argument('-d', '--dropout', type=float, default=0.0,help='path to save the results')
 
 args = parser.parse_args()
+print(args)
 with open(args.prepper, 'rb') as f:
     prepper = pickle.load(f)
-
-train_loader = prepper.get_trainloader()
-val_loader = prepper.get_valloader()
-test_loader = prepper.get_testloader()
+print('train loading')
+train_loader = prepper.train_loader
+print('val loading')
+val_loader = prepper.val_loader
+print('tes loading')
+test_loader = prepper.test_loader
+print('model loading')
 best_trained_model = Classifier2RGCN(
     prepper.vec_size,
-    prepper.config["l1"],
-    prepper.config["l2"],
-    prepper.config["dropout"],
+    args.l1 if args.l1 != None else prepper.config["l1"],
+    args.l2 if args.l2 != None else prepper.config["l2"],
+    args.dropout if args.dropout != None else prepper.config["dropout"],
     args.n_classes,
 )
 model_state = th.load(args.model_state)
 best_trained_model.load_state_dict(model_state["model_state"])
+
 print(prepper.vec_size)
 predict(
     best_trained_model,
