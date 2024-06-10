@@ -15,6 +15,7 @@ import ray
 from trainer.data_util import DatasetPrep, GraphDataset
 from trainer.model import (
     Classifier as CLS,
+    Classifier2SAGE,
     RegressorWSelfTriple as CLS,
     Classifier2RGCN,
 )
@@ -150,11 +151,18 @@ def get_dataloaders(
             val_pp_dataload.dataset.save()"""
     return train_loader, val_loader, test_loader, prepper.vec_size, None
 
-def create_model(input_d = None, l1=None, l2=None, dropout=None, n_classes=3):
-    net = Classifier2RGCN(
-        input_d, l1,l2, dropout, n_classes
-    )
+def create_model(input_d = None, l1=None, l2=None, dropout=None, n_classes=3, conv_type='RGCN'):
+    if conv_type == 'SAGE':
+        net = Classifier2SAGE(
+            input_d, l1,l2, dropout, n_classes
+        )
+    else:
+        net = Classifier2RGCN(
+            input_d, l1,l2, dropout, n_classes
+        )
+        
     return net
+    
 
 def train_function(
     config,
@@ -226,7 +234,7 @@ def train_function(
     #net = Classifier2RGCN(
     #    input_d, config["l1"], config["l2"], config["dropout"], n_classes
     #)
-    net = create_model(**{'input_d' : input_d, 'l1':config["l1"], 'l2': config["l2"], 'dropout':config["dropout"], 'n_classes':n_classes})
+    net = create_model(**{'input_d' : input_d, 'l1':config["l1"], 'l2': config["l2"], 'dropout':config["dropout"], 'n_classes':n_classes, 'conv_type':config["conv_type"]})
     
     if not isinstance(config["loss_type"], str):
         criterion = config["loss_type"]

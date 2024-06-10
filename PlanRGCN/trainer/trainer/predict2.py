@@ -2,7 +2,7 @@ import argparse
 import pickle
 
 import torch as th
-from trainer.model import Classifier2RGCN
+from trainer.model import Classifier2RGCN, Classifier2SAGE
 import os
 import time
 import numpy as np
@@ -69,6 +69,9 @@ parser.add_argument('-p', '--prepper', help='Path to prepper')
 parser.add_argument('-m', '--model_state', help='Path to model state o f best model')
 parser.add_argument('-n', '--n_classes', default=3, type=int, help='time interval numbers')
 parser.add_argument('-o', '--save_path', help='path to save the results')
+parser.add_argument('--conv_type', help='path to save the results')
+parser.add_argument('--layer1_size', type=int, default=None, help="(DEPRECATED!) Size of the first layer.")
+parser.add_argument('--layer2_size', type=int, default=None, help="(DEPRECATED!) Size of the second layer.")
 
 args = parser.parse_args()
 with open(args.prepper, 'rb') as f:
@@ -77,13 +80,22 @@ with open(args.prepper, 'rb') as f:
 train_loader = prepper.get_trainloader()
 val_loader = prepper.get_valloader()
 test_loader = prepper.get_testloader()
-best_trained_model = Classifier2RGCN(
-    prepper.vec_size,
-    prepper.config["l1"],
-    prepper.config["l2"],
-    prepper.config["dropout"],
-    args.n_classes,
-)
+if args.conv_type == 'SAGE':
+    best_trained_model = Classifier2SAGE(
+        prepper.vec_size,
+        prepper.config["l1"],
+        prepper.config["l2"],
+        prepper.config["dropout"],
+        args.n_classes,
+    )
+else:
+    best_trained_model = Classifier2RGCN(
+        prepper.vec_size,
+        prepper.config["l1"],
+        prepper.config["l2"],
+        prepper.config["dropout"],
+        args.n_classes,
+    )
 model_state = th.load(args.model_state)
 best_trained_model.load_state_dict(model_state["model_state"])
 print(prepper.vec_size)

@@ -44,6 +44,46 @@ class Classifier2RGCN(nn.Module):
             # Calculate graph representation by average readout.
             hg = dgl.mean_nodes(g, "node_features")
             return F.softmax(self.classify(hg), dim=1)
+        
+class Classifier2SAGE(nn.Module):
+    def __init__(self, in_dim, hidden_dim1, hidden_dim2, p, n_classes, aggregate='pool'):
+        """
+
+        Args:
+            in_dim (int): _description_
+            hidden_dim1 (int): _description_
+            hidden_dim2 (int): _description_
+            p (float): _description_
+            n_classes (int): _description_
+        """
+        super(Classifier2SAGE, self).__init__()
+        self.conv1 = dglnn.SAGEConv(
+            in_dim, hidden_dim1,aggregate , feat_drop=p
+        )
+        # self.conv1 = dglnn.GraphConv(in_dim, hidden_ˇdim)
+        self.conv2 = dglnn.SAGEConv(
+            hidden_dim1, hidden_dim2, aggregate, feat_drop=p
+        )
+        # self.conv2 = dglnn.GraphConv(hidden_dim, hidden_dim)
+        self.classify = nn.Linear(hidden_dim2, n_classes)
+        self.in_dim = in_dim
+        self.hidden_dim1 = hidden_dim1
+        self.hidden_dim2 = hidden_dim2
+        self.n_classes = n_classes
+
+    def forward(self, g, h, rel_types):
+        # Apply graph convolution and activation.
+        if h.dtype != torch.float32:
+            h = h.type(torch.float32)
+        h = self.conv1(g, h)
+        h = F.relu(h)
+        h = F.relu(self.conv2(g, h))
+        with g.local_scope():
+            g.ndata["node_features"] = h
+            # Calculate graph representation by average readout.
+            hg = dgl.mean_nodes(g, "node_features")
+            return F.softmax(self.classify(hg), dim=1)
+        
 class ClassifierRGCNHidden(nn.Module):
     def __init__(self, config={'in_dim':0, 'rel_layers':[100,200,100], 'hidden':[100,200,100], 'n_classes':3}, p=0.5):
         """Note: Data loading needs to happen before model construction as there is a dependency on the QuerPlan.max_relations

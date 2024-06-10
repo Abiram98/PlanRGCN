@@ -22,6 +22,8 @@ def parse_args():
     parser.add_argument('--layer1_size', type=int, default=4096, help="Size of the first layer.")
     parser.add_argument('--layer2_size', type=int, default=4096, help="Size of the second layer.")
     parser.add_argument('--class_path', type=str, default=None, help="path that defined 'n_classes' and 'cls_func' for prediction objective")
+    parser.add_argument('--use_pred_co', type=str, default="yes", help="whether to use predicat co-occurence features.")
+    parser.add_argument('--conv_type', type=str, default='RGCN', help="the graph convolution operation to use")
 
     return parser.parse_args()
 
@@ -34,6 +36,9 @@ if args.layer1_size:
     print("Layer 1 Size:", args.layer1_size)
 if args.layer2_size:
     print("Layer 2 Size:", args.layer2_size)
+    print("Layer 1 Size:", args.layer1_size)
+if args.conv_type:
+    print("conv_type :", args.conv_type)
 
 sample_name = args.sample_name
 path_to_save = args.path_to_save
@@ -65,7 +70,7 @@ def loss_weight_cal(train_path, output_path):
         json.dump(weights, f)
 
 loss_weight_cal(train_path, f"/data/{sample_name}/loss_weight.json")
-os.system(f"python3 '/PlanRGCN/scripts/train/dataset_creator.py' {args.sample_name} {args.path_to_save} --feat_path {feat_base_path} --class_path {args.class_path}")
+os.system(f"python3 '/PlanRGCN/scripts/train/dataset_creator.py' {args.sample_name} {args.path_to_save} --feat_path {feat_base_path} --class_path {args.class_path} --use_pred_co {args.use_pred_co}")
 
 
 # KG statistics feature paths
@@ -119,6 +124,7 @@ config = {
     "pred_com_path": tune.grid_search(
         [ "pred2index_louvain.pickle"]
     ),
+    "conv_type" : args.conv_type,
 }
 
 
@@ -142,7 +148,7 @@ def earlystop(trial_id: str, result: dict) -> bool:
     #l = np.sum(np.diff(result["val_f1_lst"]))/l_n
     l = result["val_f1_lst"][:-1]
     #if improvement in last patience epochs is less than 1% in validation loss then terminate trial.
-    if result["training_iteration"] >= 10 and (np.min(l)+(np.min(l)*0.1)) >= result["val_f1"]:
+    if result["training_iteration"] >= 10 and (np.min(l)) >= result["val_f1"]:
         return True
     return False
 
