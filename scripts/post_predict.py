@@ -191,7 +191,7 @@ def clean_latex_tables(c):
 
 parse = argparse.ArgumentParser(prog="PredictionProcessor", description="Post Processing of results for data. Formatted from the Notebooks")
 parse.add_argument('-s','--split_dir', help='Folder name in path to where the test_sampled.tsv file is located')
-parse.add_argument('-t','--time_intervals', type=int, help='the amount of time intervals. Choices are 3, 5!')
+parse.add_argument('-t','--time_intervals', default=None,type=int, help='the amount of time intervals. Choices are 3, 5!')
 parse.add_argument('-f','--pred', help='The prediction files')
 parse.add_argument('-a', '--approach', help='the name of the results')
 parse.add_argument('-o', '--outputfolder', default=None, help='the path where the result folder should be created')
@@ -217,15 +217,6 @@ def time_ints(t):
                 2: '$>$ 10s',
             }, snap_lat2onehotv2
         case 5:
-            ResultProcessor.gt_labels = [0,1,2,3,4]
-            return {
-                0: '(0s; 0.004]',
-                1: '(0.004s; 1]',
-                2: '(1s; 10]',
-                3: '(10; timeout]',
-                4: 'timeout',
-            }, snap5cls
-        case 51:
             ResultProcessor.gt_labels = [0,1,2,3,4]
             return {
                 0: '(0s; 0.004]',

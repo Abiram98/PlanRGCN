@@ -18,6 +18,7 @@ def predict(
 ):
     def predict_helper(dataloader, model, is_lsq):
         all_preds = []
+        all_preds_unprocessed = []
         all_ids = []
         all_truths = []
         all_time = []
@@ -28,8 +29,9 @@ def predict(
             pred = model(graphs, feats, edge_types)
             end = time.time()
             all_time.append(end-start)
-            pred = pred.tolist()
-            pred = np.argmax(pred)
+            or_pred = pred.tolist()
+            all_preds_unprocessed.append(or_pred)
+            pred = np.argmax(or_pred)
             truths = np.argmax(labels.tolist())
             all_truths.append(truths)
             if not is_lsq:
@@ -38,7 +40,7 @@ def predict(
                 id = f"{id}"
             all_ids.append(id)
             all_preds.append(pred)
-        return all_ids, all_preds, all_truths, all_time
+        return all_ids, all_preds, all_truths, all_time,all_preds_unprocessed
     
     os.system(f"mkdir -p {path_to_save}")
     model.eval()
@@ -48,15 +50,17 @@ def predict(
         test_p = os.path.join(path_to_save,"test_pred.csv")
         
         for loader, path in zip(
-            [train_loader, val_loader, test_loader],
-            [train_p, val_p, test_p],
+            [ val_loader, test_loader],
+            [ val_p, test_p],
         ):
-            ids, preds, truths, durations = predict_helper(loader, model, is_lsq)
+            print('predict helper begin')
+            ids, preds, truths, durations,all_preds_unprocessed = predict_helper(loader, model, is_lsq)
             df = pd.DataFrame()
             df["id"] = ids
             df["time_cls"] = truths
             df["planrgcn_prediction"] = preds
             df["inference_durations"] = durations
+            df["planrgcn_prediction_no_thres"] = all_preds_unprocessed
             df.to_csv(path, index=False)
 
 
@@ -69,17 +73,19 @@ parser.add_argument('-p', '--prepper', help='Path to prepper')
 parser.add_argument('-m', '--model_state', help='Path to model state o f best model')
 parser.add_argument('-n', '--n_classes', default=3, type=int, help='time interval numbers')
 parser.add_argument('-o', '--save_path', help='path to save the results')
+
 parser.add_argument('--conv_type', help='path to save the results')
-parser.add_argument('--layer1_size', type=int, default=None, help="(DEPRECATED!) Size of the first layer.")
-parser.add_argument('--layer2_size', type=int, default=None, help="(DEPRECATED!) Size of the second layer.")
+
+parser.add_argument('--l1',type=int, default=None, help='path to save the results')
+parser.add_argument( '--l2', type=int, default=None,help='path to save the results')
+parser.add_argument('-d', '--dropout', type=float, default=0.0,help='path to save the results')
+
 
 args = parser.parse_args()
+print(args)
 with open(args.prepper, 'rb') as f:
     prepper = pickle.load(f)
 
-train_loader = prepper.get_trainloader()
-val_loader = prepper.get_valloader()
-test_loader = prepper.get_testloader()
 if args.conv_type == 'SAGE':
     best_trained_model = Classifier2SAGE(
         prepper.vec_size,
@@ -96,8 +102,18 @@ else:
         prepper.config["dropout"],
         args.n_classes,
     )
+
+print('train loading')
+train_loader = prepper.train_loader
+print('val loading')
+val_loader = prepper.val_loader
+print('tes loading')
+test_loader = prepper.test_loader
+print('model loading')
+
 model_state = th.load(args.model_state)
 best_trained_model.load_state_dict(model_state["model_state"])
+
 print(prepper.vec_size)
 predict(
     best_trained_model,

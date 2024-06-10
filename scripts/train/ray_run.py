@@ -10,6 +10,7 @@ from graph_construction.qp.query_plan_path import QueryPlanPath
 from ray import tune
 import os
 import argparse
+import numpy as np
 def parse_args():
     parser = argparse.ArgumentParser(description="Train a model with a specific configuration.")
 
@@ -49,7 +50,7 @@ qp_path = f"/data/{sample_name}/queryplans/"
 save_prep_path=f'{path_to_save}/prepper.pcl'
 feat_base_path=args.feat_path
 
-if args.class_path is not None:
+if not (args.class_path == None or args.class_path == 'None'):
     exec(open(args.class_path).read(), globals())
 if not 'cls_func' in globals():
     from graph_construction.query_graph import snap_lat2onehotv2
@@ -91,8 +92,8 @@ lit_path= (
 
 # Training Configurations
 num_samples = 1
-num_cpus= 4
-max_num_epochs = 100
+num_cpus= 8
+max_num_epochs = 40
 query_plan_dir = qp_path
 time_col = "mean_latency"
 is_lsq = True
@@ -128,7 +129,6 @@ config = {
 }
 
 
-import numpy as np
 
 def earlystop(trial_id: str, result: dict) -> bool:
     """This function should return true when the trial should be stopped and false for continued training.
@@ -142,13 +142,11 @@ def earlystop(trial_id: str, result: dict) -> bool:
     """
     if result["val_f1"] < 0.7 and result["training_iteration"] >= 50:
         return True
-    if result["val_f1"] < 0.5 and result["training_iteration"] >= 10:
-        return True
     #l_n = len(result["val_f1_lst"])
     #l = np.sum(np.diff(result["val_f1_lst"]))/l_n
     l = result["val_f1_lst"][:-1]
     #if improvement in last patience epochs is less than 1% in validation loss then terminate trial.
-    if result["training_iteration"] >= 10 and (np.min(l)) >= result["val_f1"]:
+    if result["training_iteration"] >= 10 and np.min(l) <= result["val_f1"]:
         return True
     return False
 
@@ -178,5 +176,5 @@ main(
     save_prep_path=save_prep_path,
     patience=5,
     prepper=None,
-    resources_per_trial={"cpu": 4}
+    resources_per_trial={"cpu": num_cpus}
 )

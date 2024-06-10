@@ -29,7 +29,7 @@ feat_base_path=args.feat_path
 use_pred_co = args.use_pred_co
 print(args)
 
-if args.class_path is not None:
+if not (args.class_path == None or args.class_path == "None"):
     exec(open(args.class_path).read(), globals())
 if not 'cls_func' in globals():
     from graph_construction.query_graph import snap_lat2onehotv2
