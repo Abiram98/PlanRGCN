@@ -88,14 +88,14 @@ with open(args.prepper, 'rb') as f:
 
 if args.conv_type == 'SAGE':
     if not isinstance(prepper.config["l1"], int):
-        l1 = prepper.config["l1"][0]
-    else:
         l1 = prepper.config["l1"]
+    else:
+        l1 = args.l1
 
     if not isinstance(prepper.config["l2"], int):
         l2 = prepper.config["l2"][0]
     else:
-        l2 = prepper.config["l2"]
+        l2 = args.l2
     best_trained_model = Classifier2SAGE(
         prepper.vec_size,
         args.l1,
@@ -104,11 +104,20 @@ if args.conv_type == 'SAGE':
         args.n_classes,
     )
 else:
+    if not isinstance(prepper.config["l1"], int):
+        l1 = prepper.config["l1"][0]
+    else:
+        l1 = args.l1
+
+    if not isinstance(prepper.config["l2"], int):
+        l2 = prepper.config["l2"][0]
+    else:
+        l2 = args.l2
     best_trained_model = Classifier2RGCN(
         prepper.vec_size,
-        prepper.config["l1"],
-        prepper.config["l2"],
-        prepper.config["dropout"],
+        args.l1,
+        args.l2,
+        0.0,
         args.n_classes,
     )
 
