@@ -10,7 +10,7 @@ DATA_PATH=/home/ubuntu/vol2/data_qpp2
 docker run --name all_final -it -v $(pwd)/PlanRGCN:/PlanRGCN -v $(pwd)/PlanRGCN/qpp:/qpp -v $DATA_PATH:/data --shm-size=12gb ubuntu:22.04
 ```
 when in the container, run:
-
+```
 (cd PlanRGCN && bash scripts/setup.sh)
 (cd qpp && bash scripts/ini.sh)
 
