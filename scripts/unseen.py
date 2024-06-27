@@ -59,7 +59,7 @@ get_completely_unseen_r_processor = help.get_completely_unseen_r_processor
 c = CompletelyUnseenQueryExtractor(args.split_dir)
 q_files = c.run()
 
-dbpedia_base = get_completely_unseen_r_processor(args.split_dir, args.pred, os.path.join(args.split_dir, "test_sampled.tsv")), name_dict, "PlanRGCN Completely unseen", q_files,apply_cls_func=None, pred_col=args.pred_col)
+dbpedia_base = get_completely_unseen_r_processor(args.split_dir, args.pred, os.path.join(args.split_dir, "test_sampled.tsv"), name_dict, "PlanRGCN Completely unseen", q_files,apply_cls_func=None, pred_col=args.pred_col)
 
 with open(os.path.join(output_fold,'confusion_matrix_all_row_wise.txt'),'w') as f:
     c, t = dbpedia_base.confusion_matrix_to_latex_row_wise(name_dict=name_dict, return_sums=True, add_sums=True)

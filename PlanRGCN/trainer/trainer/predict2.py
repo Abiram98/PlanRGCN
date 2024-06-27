@@ -2,7 +2,7 @@ import argparse
 import pickle
 
 import torch as th
-from trainer.model import Classifier2RGCN
+from trainer.model import Classifier2RGCN, Classifier2SAGE
 import os
 import time
 import numpy as np
@@ -73,14 +73,54 @@ parser.add_argument('-p', '--prepper', help='Path to prepper')
 parser.add_argument('-m', '--model_state', help='Path to model state o f best model')
 parser.add_argument('-n', '--n_classes', default=3, type=int, help='time interval numbers')
 parser.add_argument('-o', '--save_path', help='path to save the results')
+
+parser.add_argument('--conv_type', help='path to save the results')
+
 parser.add_argument('--l1',type=int, default=None, help='path to save the results')
 parser.add_argument( '--l2', type=int, default=None,help='path to save the results')
 parser.add_argument('-d', '--dropout', type=float, default=0.0,help='path to save the results')
+
 
 args = parser.parse_args()
 print(args)
 with open(args.prepper, 'rb') as f:
     prepper = pickle.load(f)
+
+if args.conv_type == 'SAGE':
+    if not isinstance(prepper.config["l1"], int):
+        l1 = prepper.config["l1"]
+    else:
+        l1 = args.l1
+
+    if not isinstance(prepper.config["l2"], int):
+        l2 = prepper.config["l2"][0]
+    else:
+        l2 = args.l2
+    best_trained_model = Classifier2SAGE(
+        prepper.vec_size,
+        args.l1,
+        args.l2,
+        0.0,
+        args.n_classes,
+    )
+else:
+    if not isinstance(prepper.config["l1"], int):
+        l1 = prepper.config["l1"][0]
+    else:
+        l1 = args.l1
+
+    if not isinstance(prepper.config["l2"], int):
+        l2 = prepper.config["l2"][0]
+    else:
+        l2 = args.l2
+    best_trained_model = Classifier2RGCN(
+        prepper.vec_size,
+        args.l1,
+        args.l2,
+        0.0,
+        args.n_classes,
+    )
+
 print('train loading')
 train_loader = prepper.train_loader
 print('val loading')
@@ -88,13 +128,7 @@ val_loader = prepper.val_loader
 print('tes loading')
 test_loader = prepper.test_loader
 print('model loading')
-best_trained_model = Classifier2RGCN(
-    prepper.vec_size,
-    args.l1 if args.l1 != None else prepper.config["l1"],
-    args.l2 if args.l2 != None else prepper.config["l2"],
-    args.dropout if args.dropout != None else prepper.config["dropout"],
-    args.n_classes,
-)
+
 model_state = th.load(args.model_state)
 best_trained_model.load_state_dict(model_state["model_state"])
 

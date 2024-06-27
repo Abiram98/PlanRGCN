@@ -10,7 +10,7 @@ DATA_PATH=/home/ubuntu/vol2/data_qpp2
 docker run --name all_final -it -v $(pwd)/PlanRGCN:/PlanRGCN -v $(pwd)/PlanRGCN/qpp:/qpp -v $DATA_PATH:/data --shm-size=12gb ubuntu:22.04
 ```
 when in the container, run:
-
+```
 (cd PlanRGCN && bash scripts/setup.sh)
 (cd qpp && bash scripts/ini.sh)
 
@@ -122,3 +122,15 @@ python3 /PlanRGCN/scripts/train/dataset_creator.py wikidata_3_class_full /data/w
 ```
 then train a model:
 python3 /PlanRGCN/scripts/train/ray_tune.py wikidata_3_class_full /data/wikidata_3_class_full/planRGCNpred_co
+
+## Processing results
+```
+SPLIT_DIR=/data/wikidata_3_class_full
+TIMECLS=3
+EXP_NAME=plan_l18192_l24096_no_pred_co
+PRED_FILE="$SPLIT_DIR"/"$EXP_NAME"/test_pred.csv
+APPROACH="PlanRGCN"
+OUTPUTFOLDER="$SPLIT_DIR"/"$EXP_NAME"/results
+python3 /PlanRGCN/scripts/post_predict.py -s $SPLIT_DIR -t $TIMECLS -f $PRED_FILE -a $APPROACH -o $OUTPUTFOLDER
+
+```

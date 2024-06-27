@@ -23,7 +23,8 @@ def parse_args():
     parser.add_argument('--layer1_size', type=int, default=4096, help="Size of the first layer.")
     parser.add_argument('--layer2_size', type=int, default=4096, help="Size of the second layer.")
     parser.add_argument('--class_path', type=str, default=None, help="path that defined 'n_classes' and 'cls_func' for prediction objective")
-    parser.add_argument('--use_pred_co', type=str, default='yes', help="path that defined 'n_classes' and 'cls_func' for prediction objective")
+    parser.add_argument('--use_pred_co', type=str, default="yes", help="whether to use predicat co-occurence features.")
+    parser.add_argument('--conv_type', type=str, default='RGCN', help="the graph convolution operation to use")
 
     return parser.parse_args()
 
@@ -36,6 +37,9 @@ if args.layer1_size:
     print("Layer 1 Size:", args.layer1_size)
 if args.layer2_size:
     print("Layer 2 Size:", args.layer2_size)
+    print("Layer 1 Size:", args.layer1_size)
+if args.conv_type:
+    print("conv_type :", args.conv_type)
 
 sample_name = args.sample_name
 path_to_save = args.path_to_save
@@ -121,6 +125,7 @@ config = {
     "pred_com_path": tune.grid_search(
         [ "pred2index_louvain.pickle"]
     ),
+    "conv_type" : args.conv_type,
 }
 
 
@@ -135,13 +140,13 @@ def earlystop(trial_id: str, result: dict) -> bool:
     Returns:
         bool: _description_
     """
-    if result["val_f1"] < 0.7 and result["training_iteration"] >= 50:
+    if result["training_iteration"] >= 10 and result["val_f1"] < 0.7 and result["training_iteration"] >= 50:
         return True
     #l_n = len(result["val_f1_lst"])
     #l = np.sum(np.diff(result["val_f1_lst"]))/l_n
     l = result["val_f1_lst"][:-1]
     #if improvement in last patience epochs is less than 1% in validation loss then terminate trial.
-    if result["training_iteration"] >= 10 and np.min(l) <= result["val_f1"]:
+    if result["training_iteration"] >= 20 and np.min(l) <= result["val_f1"]:
         return True
     return False
 
