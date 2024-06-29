@@ -163,8 +163,8 @@ def plot_box_queu_wait_time_int(
     ax.set_ylabel("Queue Wait Time (s)", fontsize=14)
     ax.legend(loc=2)
 
-
-def get_latency_bxp_data(dct, time_intervals):
+import ast
+"""def get_latency_bxp_data(dct, time_intervals):
     load_balancer = []
     latencies = []
     runtime_interval = []
@@ -172,6 +172,8 @@ def get_latency_bxp_data(dct, time_intervals):
         for q in dct[k]:
             load_balancer.append(k)
             latencies.append(q["latency"])
+            print('hello')
+            
             match q["true_interval"]:
                 case "0":
                     runtime_interval.append(time_intervals[0])
@@ -179,7 +181,7 @@ def get_latency_bxp_data(dct, time_intervals):
                     runtime_interval.append(time_intervals[1])
                 case "2":
                     runtime_interval.append(time_intervals[2])
-    return load_balancer, runtime_interval, latencies
+    return load_balancer, runtime_interval, latencies"""
 
 
 def plot_box_latency_int(
@@ -223,13 +225,44 @@ def get_latency_bxp_data(dct, time_intervals):
         for q in dct[k]:
             load_balancer.append(k)
             latencies.append(q["latency"])
+            if isinstance(q["true_interval"], str):
+                q["true_interval"] = int(ast.literal_eval(q["true_interval"]))
+            if isinstance(q["true_interval"], float):
+                q["true_interval"] = int(q["true_interval"])
             match q["true_interval"]:
-                case "0":
+                case 0:
                     runtime_interval.append(time_intervals[0])
-                case "1":
+                case 1:
                     runtime_interval.append(time_intervals[1])
-                case "2":
+                case 2:
                     runtime_interval.append(time_intervals[2])
+                case _:
+                    print(q)
+                    raise Exception("Should not happen")
+    return load_balancer, runtime_interval, latencies
+
+def get_query_per_interval(dct, time_intervals):
+    load_balancer = []
+    latencies = []
+    runtime_interval = []
+    for k in dct.keys():
+        for q in dct[k]:
+            load_balancer.append(k)
+            latencies.append(q["latency"])
+            if isinstance(q["true_interval"], str):
+                q["true_interval"] = int(ast.literal_eval(q["true_interval"]))
+            if isinstance(q["true_interval"], float):
+                q["true_interval"] = int(q["true_interval"])
+            match q["true_interval"]:
+                case 0:
+                    runtime_interval.append(time_intervals[0])
+                case 1:
+                    runtime_interval.append(time_intervals[1])
+                case 2:
+                    runtime_interval.append(time_intervals[2])
+                case _:
+                    print(q)
+                    raise Exception("Should not happen")
     return load_balancer, runtime_interval, latencies
 
 def plot_box_lat_int_comb(
@@ -239,6 +272,7 @@ def plot_box_lat_int_comb(
     time_intervals=["fast", "medium", "slow"],
     legend_dict={"bbox_to_anchor": (1.1, 1.05)},
     int_to_col = { 'FIFO (μ=44)':'#a1c9f4','PlanRGCN (μ=44)':'#ffb482',  'Oracle (μ=44)':'#8de5a1'},
+    hatch_dict = None,
     x_label_size=10,
     x_rotation = 0,
     y_label_size=10,
@@ -249,7 +283,6 @@ def plot_box_lat_int_comb(
     fig, axes = plt.subplots(
         nrows=nrows, ncols=len(dcts), layout="constrained", figsize=figsize,sharey=True
     )
-
     for i, (dct, log_name) in enumerate(dcts):
         load_balancer, runtime_interval, latencies = get_latency_bxp_data(
             dct, time_intervals
@@ -261,30 +294,78 @@ def plot_box_lat_int_comb(
                 "queue wait time": latencies,
             }
         )
-        axes[i].tick_params(axis="x", rotation=x_rotation)
-        axes[i].tick_params(axis="x", labelsize=x_label_size)
-        axes[i].tick_params(axis="y", labelsize=y_label_size)
-        axes[i] = sns.boxplot(
-            x="Runtime Interval",
-            y="queue wait time",
-            data=df,
-            hue="Approach",
-            palette=int_to_col,
-            ax=axes[i],
-            order=time_intervals,
-           medianprops={'linewidth': 2}, whiskerprops={'linewidth': 2}, capprops={'linewidth': 2},
-            
-        )
-        axes[i].set_title(title, fontsize=14)
-        if i == 0:
-            axes[i].set_ylabel("Query Latency (s)", fontsize=14, weight='bold')
-            axes[i].legend("", frameon=False)
+        if len(dcts)==1:
+            axes.tick_params(axis="x", rotation=x_rotation)
+            axes.tick_params(axis="x", labelsize=x_label_size)
+            axes.tick_params(axis="y", labelsize=y_label_size)
+            axes = sns.boxplot(
+                x="Runtime Interval",
+                y="queue wait time",
+                data=df,
+                hue="Approach",
+                palette=int_to_col,
+                ax=axes,
+                order=time_intervals,
+               medianprops={'linewidth': 2}, whiskerprops={'linewidth': 2}, capprops={'linewidth': 2},
+                
+            )
+            axes.set_title(title, fontsize=14)
+            if i == 0:
+                axes.set_ylabel("Query Latency (s)", fontsize=14, weight='bold')
+                axes.legend("", frameon=False)
+            else:
+                axes.set_ylabel("")
+                axes.legend("", frameon=False)
+            axes.set_xlabel(log_name)
         else:
-            axes[i].set_ylabel("")
-            axes[i].legend("", frameon=False)
-        axes[i].set_xlabel(log_name)
-    patches = [ mpatches.Patch(color=int_to_col[k], label=k) for k in int_to_col.keys()]
+            axes[i].tick_params(axis="x", rotation=x_rotation)
+            axes[i].tick_params(axis="x", labelsize=x_label_size)
+            axes[i].tick_params(axis="y", labelsize=y_label_size)
+            axes[i] = sns.boxplot(
+                x="Runtime Interval",
+                y="queue wait time",
+                data=df,
+                hue="Approach",
+                palette=int_to_col,
+                ax=axes[i],
+                order=time_intervals,
+               medianprops={'linewidth': 2}, whiskerprops={'linewidth': 2}, capprops={'linewidth': 2},
+                
+            )
+            axes[i].set_title(title, fontsize=14)
+            #print(axes[i].)
+            if i == 0:
+                axes[i].set_ylabel("Query Latency (s)", fontsize=14, weight='bold')
+                axes[i].legend("", frameon=False)
+            else:
+                axes[i].set_ylabel("")
+                axes[i].legend("", frameon=False)
+            axes[i].set_xlabel(log_name)
+            # Add hatch patterns if hatch_dict is provided
+    if hatch_dict != None:
+        print(hatch_dict)
+        patches = [ mpatches.Patch(facecolor=int_to_col[k], label=k, hatch=hatch_dict[k]) for k in int_to_col.keys()]
+    else:
+        patches = [ mpatches.Patch(color=int_to_col[k], label=k, ) for k in int_to_col.keys()]
     lgd = fig.legend(handles=patches,loc=2, **legend_dict)
     if save_path != None:
         fig.savefig(save_path, dpi=dpi,bbox_extra_artists=(lgd,), bbox_inches='tight')
     #plt.legend(loc=2, **legend_dict)
+
+def check_interval_change(
+    *dcts,
+    figsize=(4, 6),
+    time_intervals=["fast", "medium", "slow"],
+    int_to_col = { 'FIFO (μ=44)':'#a1c9f4','PlanRGCN (μ=44)':'#ffb482',  'Oracle (μ=44)':'#8de5a1'},
+):
+    for i, (dct, log_name) in enumerate(dcts):
+        load_balancer, runtime_interval, latencies = get_latency_bxp_data(
+            dct, time_intervals
+        )
+        df = pd.DataFrame.from_dict(
+            {
+                "Approach": load_balancer,
+                "Runtime Interval": runtime_interval,
+                "queue wait time": latencies,
+            }
+        )

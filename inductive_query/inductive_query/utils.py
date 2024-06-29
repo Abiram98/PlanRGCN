@@ -55,11 +55,20 @@ class UnseenQueryExtractor:
         #set by set_train_pred_ents
         self.train_ents, self.train_preds = None, None
         
+        #set by set_val_pred_ents
+        self.val_ents, self.val_preds = None, None
+        
         #set by set_train_pred_queryIDs
         self.train_pred_queryIDs = None
         
         #set by set_train_ent_queryIDs
         self.train_ent_queryIDs = None
+        
+        #set by set_val_pred_queryIDs
+        self.val_pred_queryIDs = None
+        
+        #set by set_val_ent_queryIDs
+        self.val_ent_queryIDs = None
         
         #set byset_test_pred_ents
         self.test_ents, self.test_preds = None, None
@@ -98,6 +107,10 @@ class UnseenQueryExtractor:
     
     def set_test_pred_queryIDs(self):
         self.test_pred_queryIDs = self.get_pred_queryIDs(self.test_preds)
+        
+    def set_val_pred_queryIDs(self):
+        self.val_pred_queryIDs = self.get_pred_queryIDs(self.val_preds)
+    
     
     def get_pred_queryIDs(self, preds):
         pred_queries = set()
@@ -108,6 +121,9 @@ class UnseenQueryExtractor:
     
     def set_train_ent_queryIDs(self):
         self.train_ent_queryIDs = self.get_ent_queryIDs(self.train_ents)
+    
+    def set_val_ent_queryIDs(self):
+        self.val_ent_queryIDs = self.get_ent_queryIDs(self.val_ents)
     
     def set_test_ent_queryIDs(self):
         self.test_ent_queryIDs = self.get_ent_queryIDs(self.test_ents)
@@ -126,11 +142,24 @@ class UnseenQueryExtractor:
         files = UnseenQueryExtractor.get_files(self.path, train=True, val = False, test=False)[0]
         trainExtractor = UnseenQueryExtractor.iterate_files(files, trainExtractor)
         return trainExtractor.ents, trainExtractor.preds
+        
+    def get_val_pred_ents(self):
+        """Extracts query plan files predicates and entities in training
+        """
+        trainExtractor = DatExtractor()
+        files = UnseenQueryExtractor.get_files(self.path, train=False, val = True, test=False)[0]
+        trainExtractor = UnseenQueryExtractor.iterate_files(files, trainExtractor)
+        return trainExtractor.ents, trainExtractor.preds
     
     def set_train_pred_ents(self):
         """ Saves extracted query plan files predicates and entities in training in self.test_ents, and self.test_preds fields
         """
         self.train_ents, self.train_preds = self.get_train_pred_ents()
+        
+    def set_val_pred_ents(self):
+        """ Saves extracted query plan files predicates and entities in training in self.test_ents, and self.test_preds fields
+        """
+        self.val_ents, self.val_preds = self.get_val_pred_ents()
         
     def get_test_pred_ents(self):
         """Extracts query plan files predicates and entities in training

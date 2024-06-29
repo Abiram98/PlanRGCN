@@ -58,46 +58,6 @@ import matplotlib.pyplot as plt
 import matplotlib
 sns.set_theme(font='serif')
 
-class MultiResultProcessor:
-    def __init__(self, *resultProcessors:ResultProcessor, ground_truth_label_order=['0s-1s','1s-10s','10s-∞']) -> None:
-        self.ground_truth_label_order = ground_truth_label_order
-        self.resProcessor :list[ResultProcessor]= []
-        for x in resultProcessors:
-            self.resProcessor.append(x)
-        
-    def get_metrics_dict(self):
-        met_dict = {"Approach": [], "metric_val":[], "Metric": [], "Time Interval": []}
-        for x in self.resProcessor:
-            dct = x.get_class_wise_metrics()
-            for k in dct.keys():
-                met_dict[k].extend(dct[k])
-        return met_dict
-    def sort_met_dict(self, metrics_dict):
-        print(metrics_dict)
-    def metric_table(self):
-        met_dict = {}
-        cols = None
-        for i in self.resProcessor:
-            i_met_dct, t_cols = i.class_wise_metrics_for_table()
-            cols = t_cols
-            met_lst = [i_met_dct[x] for x in self.ground_truth_label_order]
-            met_dict[i.approach_name] = met_lst
-            
-        df = pd.DataFrame.from_dict(met_dict, orient='index', columns = self.ground_truth_label_order)
-        return df
-    
-    def scatter_metrics(self, fig_size= (4,4), rotation = 20):
-        metrics_dict = self.get_metrics_dict()
-        
-        self.sort_met_dict(metrics_dict)
-        df = pd.DataFrame(metrics_dict)
-        fig, ax = plt.subplots(figsize=fig_size)
-        markers = ['o', '^','s']
-        sns.scatterplot(data=df, x= "Approach", y="metric_val", hue='Metric', ax=ax, style='Metric',markers=markers)
-        plt.legend(loc=4)
-        plt.xticks(rotation=rotation)
-        plt.xlabel("")
-        ax.set_ylabel("Metric Values")
 from inductive_query.res_proc_helper import get_unseen_result_processor
 from graph_construction.query_graph import snap_lat2onehotv2
 cls_func = lambda x: np.argmax(snap_lat2onehotv2(x))
@@ -187,9 +147,11 @@ def clean_latex_tables(c):
     c = c.replace('Predicted', ' ')
     c = c.replace('Actual', ' ')
     return c
+
+UnseenResultProcessor = help.UnseenResultProcessor
 #######################
 
-parse = argparse.ArgumentParser(prog="PredictionProcessor", description="Post Processing of results for data. Formatted from the Notebooks")
+parse = argparse.ArgumentParser(prog="PartiallyUnseenPredictionProcessor", description="Post Processing of results for data. Formatted from the Notebooks")
 parse.add_argument('-s','--split_dir', help='Folder name in path to where the test_sampled.tsv file is located')
 parse.add_argument('-t','--time_intervals', default=None,type=int, help='the amount of time intervals. Choices are 3, 5!')
 parse.add_argument('-f','--pred', help='The prediction files')
@@ -241,29 +203,26 @@ approach_name = f"{args.approach}"
 path = args.split_dir
 pred_path = args.pred
 split_path = f"{args.split_dir}/{args.set}"
-c = CompletelyUnseenQueryExtractor(path)
-q_files = c.run()
-print("completely unseen query plans ", len(q_files))
-dbpedia_base = get_completely_unseen_r_processor(path, pred_path, split_path, name_dict, "PlanRGCN Completely unseen", q_files,apply_cls_func=None, prefix=20)
-print(dbpedia_base.df)
 
-os.makedirs(output_fold, exist_ok=True)
-with open(os.path.join(output_fold,'confusion_matrix_completelyUnseen_row_wise.txt'),'w') as f:
-    c, t = dbpedia_base.confusion_matrix_to_latex_row_wise(name_dict=name_dict, return_sums=True, add_sums=True)
-    c = clean_latex_tables(c)
-    f.write(c)
-    f.write('\n')
-    f.write(str(t))
-dbpedia_base_df_row = dbpedia_base.confusion_matrix_to_latex_row_wise(name_dict=name_dict, return_sums=True, add_sums=False,to_latex =False)
-dbpedia_base_df_row.to_csv(os.path.join(output_fold,'confusion_matrix_all_row_wise.csv'))
-
-with open(os.path.join(output_fold,'confusion_matrix_completelyUnseen.txt'),'w') as f:
-    f.write(dbpedia_base.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict))
-dbpedia_base.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict,to_latex =False).to_csv(os.path.join(output_fold,'confusion_matrix_all.csv'))
-
-
+analyser= UnseenResultProcessor(path, pred_path, split_path, name_dict, approach_name, remove_prefix=20)
+for t in ['All', 'pred', 'entity']:
+    match t:
+        case 'All':
+            p = analyser.get_partially_unseen_all()
+        case "pred":
+            p = analyser.get_partially_unseen_predicate()
+        case "entity":
+            p = analyser.get_partially_unseen_entity()
+        
+    with open(os.path.join(output_fold,f'{t}_Partial_unseen_conf_matrix_row_wise.txt'),'w') as f:
+        c,t = p.confusion_matrix_to_latex_row_wise(name_dict=name_dict, return_sums=True, add_sums=True)
+        c = clean_latex_tables(c)
+        f.write(c)
+        f.write('\n')
+        f.write(str(t))
 exit()
 
+exit()
 if 'test' in args.set:
     DBpedia_PP = get_PP_result_processor(path, pred_path, split_path, name_dict, approach_name, split_type='test')
 elif 'train' in args.set:
