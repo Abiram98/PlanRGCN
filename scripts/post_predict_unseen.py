@@ -261,7 +261,8 @@ with open(os.path.join(output_fold,'confusion_matrix_completelyUnseen.txt'),'w')
     f.write(dbpedia_base.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict))
 dbpedia_base.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict,to_latex =False).to_csv(os.path.join(output_fold,'confusion_matrix_all.csv'))
 
-
+with open(os.path.join(output_fold,'completelyUnseen_queryids.json'),'w') as f:
+    json.dump(list(dbpedia_base.df['id']),f)
 exit()
 
 if 'test' in args.set:

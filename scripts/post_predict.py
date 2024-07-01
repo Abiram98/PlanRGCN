@@ -258,12 +258,18 @@ with open(os.path.join(output_fold,'confusion_matrix_all.txt'),'w') as f:
 dbpedia_base.confusion_matrix_to_latex(row_percentage=False,name_dict=name_dict,to_latex =False).to_csv(os.path.join(output_fold,'confusion_matrix_all.csv'))
 if 'test' in args.set:
     DBpedia_PP = get_PP_result_processor(path, pred_path, split_path, name_dict, approach_name, split_type='test')
+    DBpedia_PP.df.to_csv(os.path.join(output_fold,f'{approach_name}_PP_df_test.csv'))
 elif 'train' in args.set:
     DBpedia_PP = get_PP_result_processor(path, pred_path, split_path, name_dict, approach_name, split_type='train')
+    DBpedia_PP.df.to_csv(os.path.join(output_fold,f'{approach_name}_PP_df_train.csv'))
 elif 'val' in args.set:
     DBpedia_PP = get_PP_result_processor(path, pred_path, split_path, name_dict, approach_name, split_type='val')
+    DBpedia_PP.df.to_csv(os.path.join(output_fold,f'{approach_name}_PP_df_val.csv'))
 else:
     raise Exception('Incorrect set '+ arg.set)
+
+
+
 with open(os.path.join(output_fold,'confusion_matrix_PP_row_wise.txt'),'w') as f:
     c,t = DBpedia_PP.confusion_matrix_to_latex_row_wise(name_dict=name_dict, return_sums=True, add_sums=True)
     c = clean_latex_tables(c)
