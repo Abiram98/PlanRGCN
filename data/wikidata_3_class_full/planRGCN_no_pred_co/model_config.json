@@ -1,0 +1,1 @@
+{"l1": 4096, "l2": 2048, "dropout": 0.0, "wd": 0.01, "lr": 1e-05, "epochs": 100, "batch_size": 256, "loss_type": "cross-entropy", "pred_com_path": "pred2index_louvain.pickle", "best_checkpoint": "/tmp/checkpoint_tmp_d4c732305d374653bb82310b12bea7b9/checkpoint.pt", "input_d": 432}
