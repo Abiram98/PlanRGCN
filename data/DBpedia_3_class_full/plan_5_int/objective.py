@@ -15,14 +15,13 @@ def cls_func(lat):
         vec[4] = 1
     return vec
 
-name_dict = {
+n_classes = 5
+name_dict ={
                 0: '(0s; 0.004]',
                 1: '(0.004s; 1]',
                 2: '(1s; 10]',
-                3: '(10; timeout]',
+                3: '(10; timeout=15min]',
                 4: 'timeout',
-            }
+            } 
 
-
-n_classes = 5
 
