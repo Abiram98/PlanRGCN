@@ -1,0 +1,23 @@
+{"opName": "project", "subOp": [
+  {"opName": "disjunction", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName": "filter" , "expr": " [(regex (str ?label) \"^schema\" \"i\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "??0", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?type"}, "opName": "Triple"}
+          ,
+          {"Subject": "?type", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "filter" , "expr": " [(regex (str ?label) \"^schema\" \"i\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "??0", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?type"}, "opName": "Triple"}
+          ,
+          {"Subject": "?type", "Predicate": "http://www.w3.org/2004/02/skos/core#prefLabel", "Object": {"value":"?label"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

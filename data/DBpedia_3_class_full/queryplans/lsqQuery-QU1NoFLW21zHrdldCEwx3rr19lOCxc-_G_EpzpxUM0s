@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/United_States_House_Appropriations_Subcommittee_on_Agriculture,_Rural_Development,_Food_and_Drug_Administration,_and_Related_Agencies", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?type"}, "opName": "Triple"}
+  ]}
+]}

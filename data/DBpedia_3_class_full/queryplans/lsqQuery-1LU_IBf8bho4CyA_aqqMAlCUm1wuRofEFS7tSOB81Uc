@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/La_squadra_%28TV_series%29", "Predicate": "http://dbpedia.org/ontology/wikiPageRedirects", "Object": {"value":"?redirectUrl"}, "opName": "Triple"}
+]}

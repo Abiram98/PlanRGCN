@@ -1,0 +1,29 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "?super", "Object": {"value":"http://dbpedia.org/resource/Category:2009_American_television_series_endings"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/2004/02/skos/core#broader>"
+      ]
+      }
+      ,
+      {"opName": "path", "Subject": "?super", "Object": {"value":"http://dbpedia.org/resource/Category:Oral_hygiene"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/2004/02/skos/core#broader>"
+      ]
+      }
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?super", "Predicate": "http://www.w3.org/2004/02/skos/core#prefLabel", "Object": {"value":"?preferredLabel"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

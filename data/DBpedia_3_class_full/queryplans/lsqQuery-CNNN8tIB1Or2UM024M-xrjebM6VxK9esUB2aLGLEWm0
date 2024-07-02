@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex (str ?o) \"^http://wikidata.org/entity/\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/20,000_Leagues_Under_the_Sea_(1954_film)", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?o"}, "opName": "Triple"}
+  ]}
+]}

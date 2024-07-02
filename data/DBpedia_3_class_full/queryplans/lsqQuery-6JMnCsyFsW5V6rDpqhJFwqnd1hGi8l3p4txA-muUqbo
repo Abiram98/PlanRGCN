@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Work_(Kelly_Rowland_song)", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?Sub"}, "opName": "Triple"}
+]}

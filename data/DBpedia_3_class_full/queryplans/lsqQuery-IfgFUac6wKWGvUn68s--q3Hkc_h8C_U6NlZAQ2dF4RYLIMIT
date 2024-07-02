@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?subcategory", "Predicate": "http://www.w3.org/2004/02/skos/core#broader", "Object": {"value":"http://dbpedia.org/resource/Category:Web_development"}, "opName": "Triple"}
+    ,
+    {"Subject": "?subcategory", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?wikiPageID"}, "opName": "Triple"}
+  ]}
+]}

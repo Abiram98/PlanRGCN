@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Humphrey_S._Milford", "Predicate": "http://dbpedia.org/ontology/computingPlatform", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

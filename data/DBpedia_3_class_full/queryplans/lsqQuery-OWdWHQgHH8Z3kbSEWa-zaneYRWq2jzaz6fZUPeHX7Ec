@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?ress", "Predicate": "?prop", "Object": {"value":"http://dbpedia.org/class/yago/AmericanRomanticComedyFilms"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

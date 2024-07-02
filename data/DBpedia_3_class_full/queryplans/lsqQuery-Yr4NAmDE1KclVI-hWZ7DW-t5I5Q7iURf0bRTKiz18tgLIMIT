@@ -1,0 +1,29 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (str ?Label) \"New York City\"), (langMatches (lang ?Label) \"en\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(langMatches (lang ?Description) \"en\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?Resource", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Place"}, "opName": "Triple"}
+                ,
+                {"Subject": "?Resource", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?Description"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?Resource", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?Country"}, "opName": "Triple"}
+              ,
+              {"Subject": "?Resource", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?Label"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?Resource", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?Thumbnail"}, "opName": "Triple"}
+      ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?Resource", "Predicate": "http://dbpedia.org/ontology/populationTotal", "Object": {"value":"?Population"}, "opName": "Triple"}
+  ]}
+]}

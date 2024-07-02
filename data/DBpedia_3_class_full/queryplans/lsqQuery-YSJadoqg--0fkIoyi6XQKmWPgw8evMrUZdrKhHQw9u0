@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Bard_High_School_Early_College", "Predicate": "http://dbpedia.org/ontology/type", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

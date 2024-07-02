@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?nombreMusico) \"es\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?musico", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"http://dbpedia.org/resource/Category:Spanish_musicians"}, "opName": "Triple"}
+          ,
+          {"Subject": "?musico", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?nombreMusico"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?musico", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?fechaNacimiento"}, "opName": "Triple"}
+        ,
+        {"Subject": "?musico", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?fechaFallecimiento"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

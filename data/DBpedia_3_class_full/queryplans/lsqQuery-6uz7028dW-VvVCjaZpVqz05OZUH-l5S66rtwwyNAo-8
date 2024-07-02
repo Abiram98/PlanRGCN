@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex (str ?pred1) \"ontology\"), (! (regex (str ?pred1) \"wiki\"))]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Bernie_Sanders", "Predicate": "?pred1", "Object": {"value":"http://dbpedia.org/resource/South_Carolina"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

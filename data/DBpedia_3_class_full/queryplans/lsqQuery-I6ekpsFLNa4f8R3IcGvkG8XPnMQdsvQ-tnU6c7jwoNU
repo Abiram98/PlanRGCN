@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Retail_Food_Group", "Predicate": "http://dbpedia.org/ontology/locationCity", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

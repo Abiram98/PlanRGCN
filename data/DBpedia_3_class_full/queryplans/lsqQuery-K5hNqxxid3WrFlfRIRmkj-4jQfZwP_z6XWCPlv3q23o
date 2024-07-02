@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/One_of_Those_Hideous_Books_Where_the_Mother_Dies", "Predicate": "?predicate", "Object": {"value":"?y"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

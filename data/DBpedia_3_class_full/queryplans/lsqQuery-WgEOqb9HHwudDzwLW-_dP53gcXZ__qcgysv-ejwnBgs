@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?company", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"IBM","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+    ,
+    {"Subject": "?company", "Predicate": "http://dbpedia.org/ontology/predecessor", "Object": {"value":"?predecessor"}, "opName": "Triple"}
+    ,
+    {"Subject": "?company", "Predicate": "http://dbpedia.org/ontology/industry", "Object": {"value":"?industrie"}, "opName": "Triple"}
+  ]}
+]}

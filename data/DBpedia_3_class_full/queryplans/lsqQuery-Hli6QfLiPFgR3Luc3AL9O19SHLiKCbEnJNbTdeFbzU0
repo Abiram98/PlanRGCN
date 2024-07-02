@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Makam_Sultan_Mahmud_Mangkat_Dijulang", "Predicate": "http://dbpedia.org/ontology/foundingYear", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

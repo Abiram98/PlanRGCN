@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?subject", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?object"}, "opName": "Triple"}
+]}

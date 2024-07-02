@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?concept", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"http://dbpedia.org/resource/Category:Wikipedia_features"}, "opName": "Triple"}
+      ,
+      {"Subject": "?concept", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

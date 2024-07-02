@@ -1,0 +1,21 @@
+{"opName": "filter" , "expr": " [(regex (str ?pred3) \"ontology\"), (! (regex (str ?pred3) \"wiki\"))]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(!= ?ogg2 <http://dbpedia.org/resource/South_Carolina>), (!= ?ogg2 <http://dbpedia.org/resource/Hampshire>), (regex (str ?pred2) \"ontology\"), (! (regex (str ?pred2) \"wiki\")), (regex (str ?ogg2) \"resource\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(!= ?ogg1 <http://dbpedia.org/resource/South_Carolina>), (!= ?ogg1 <http://dbpedia.org/resource/Hampshire>), (regex (str ?pred1) \"ontology\"), (! (regex (str ?pred1) \"wiki\")), (regex (str ?ogg1) \"resource\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/South_Carolina", "Predicate": "?pred1", "Object": {"value":"?ogg1"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?ogg2", "Predicate": "?pred2", "Object": {"value":"?ogg1"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Hampshire", "Predicate": "?pred3", "Object": {"value":"?ogg2"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

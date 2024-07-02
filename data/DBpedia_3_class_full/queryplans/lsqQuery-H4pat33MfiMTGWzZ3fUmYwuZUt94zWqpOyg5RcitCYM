@@ -1,0 +1,31 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "http://dbpedia.org/resource/Pope_Gregory_IX", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://dbpedia.org/resource/Pope_Gregory_IX", "Predicate": "http://dbpedia.org/property/dateOfBirth", "Object": {"value":"?dateOfBirth"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Pope_Gregory_IX", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Pope_Gregory_IX", "Predicate": "http://dbpedia.org/property/dateOfDeath", "Object": {"value":"?dateOfDeath"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Pope_Gregory_IX", "Predicate": "http://dbpedia.org/ontology/deathDate", "Object": {"value":"?deathDate"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

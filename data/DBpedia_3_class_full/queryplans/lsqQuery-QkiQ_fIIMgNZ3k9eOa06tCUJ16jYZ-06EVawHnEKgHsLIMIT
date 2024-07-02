@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(isLiteral ?o), (! (contains (str ?prop) \"http://www.openlinksw.com/schemas/virtrdf#\")), (! (contains (str ?prop) \"http://www.w3.org/2000/01/rdf-schema#\"))]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?s", "Predicate": "?prop", "Object": {"value":"?o"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

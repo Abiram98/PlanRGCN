@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex (str ?h) \"org\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?x", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?n"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "http://xmlns.com/foaf/0.1/homepage", "Object": {"value":"?h"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

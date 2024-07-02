@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Commius", "Predicate": "http://dbpedia.org/ontology/almaMater", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

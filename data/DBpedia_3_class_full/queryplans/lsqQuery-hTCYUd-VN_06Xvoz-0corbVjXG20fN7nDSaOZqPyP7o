@@ -1,0 +1,11 @@
+{"opName": "conditional", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Tajikistan", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Place"}, "opName": "Triple"}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Tajikistan", "Predicate": "http://dbpedia.org/ontology/capital", "Object": {"value":"?capital"}, "opName": "Triple"}
+    ,
+    {"Subject": "?capital", "Predicate": "http://www.georss.org/georss/point", "Object": {"value":"?coord"}, "opName": "Triple"}
+  ]}
+]}

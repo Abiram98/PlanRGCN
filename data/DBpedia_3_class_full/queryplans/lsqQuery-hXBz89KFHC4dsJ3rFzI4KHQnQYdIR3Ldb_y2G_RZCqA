@@ -1,0 +1,13 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?label) \"it\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/James_Comey", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName": "filter" , "expr": " [(regex ?freebaseMid \"freebase\" \"i\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/James_Comey", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?freebaseMid"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

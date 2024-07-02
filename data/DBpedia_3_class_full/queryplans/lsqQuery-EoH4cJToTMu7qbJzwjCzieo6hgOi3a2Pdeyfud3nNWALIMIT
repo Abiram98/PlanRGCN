@@ -1,0 +1,27 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(langMatches (lang ?b) \"en\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?a", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"ABC's Of Type","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+              ,
+              {"Subject": "?a", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?b"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?a", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?wiki"}, "opName": "Triple"}
+          ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?a", "Predicate": "http://dbpedia.org/ontology/wikiPageRedirects", "Object": {"value":"?pageRedirect"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?a", "Predicate": "http://dbpedia.org/ontology/wikiPageDisambiguates", "Object": {"value":"?ambigu"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

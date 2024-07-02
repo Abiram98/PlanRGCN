@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/profession", "Object": {"value":"http://dbpedia.org/ontology/Publisher"}, "opName": "Triple"}
+    ,
+    {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/occupation", "Object": {"value":"http://dbpedia.org/ontology/Publisher"}, "opName": "Triple"}
+    ,
+    {"Subject": "?person", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+  ]}
+]}

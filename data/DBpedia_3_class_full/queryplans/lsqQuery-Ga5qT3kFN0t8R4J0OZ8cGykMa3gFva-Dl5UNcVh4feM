@@ -1,0 +1,13 @@
+{"opName": "filter" , "expr": " [(= (lang ?description) \"en\")]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Utrecht", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Utrecht", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?description"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

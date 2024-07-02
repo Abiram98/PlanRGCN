@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?b \"Rare_diseases\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?c", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?b"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

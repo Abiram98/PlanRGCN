@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(< ?c1 ?c2)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?person", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Athlete"}, "opName": "Triple"}
+      ,
+      {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/activeYearsStartYear", "Object": {"value":"?c1"}, "opName": "Triple"}
+      ,
+      {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/activeYearsStartYear", "Object": {"value":"?c2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

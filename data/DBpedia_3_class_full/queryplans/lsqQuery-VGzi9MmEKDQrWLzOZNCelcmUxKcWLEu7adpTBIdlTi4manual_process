@@ -1,0 +1,18 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "path", "Subject": "http://dbpedia.org/resource/Calcimycin", "Object": {"value":"?redirected"}
+    , "pathComplexity": [
+    "P_OneOrMore1"
+    ]
+
+    , "pathType": "OneOrMore"
+    ,"Predicates":[
+     "<http://dbpedia.org/ontology/wikiPageRedirect>"
+    ]
+    }
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?redirected", "Predicate": "http://dbpedia.org/ontology/wikiPageRedirects", "Object": {"value":"?concept"}, "opName": "Triple"}
+      ,
+      {"Subject": "?concept", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?type"}, "opName": "Triple"}
+    ]}
+]}

@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?title \".*Lone Survivor.*\" \"i\"), (langMatches (lang ?title) \"en\")]", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?movie", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Film"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?movie", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?title"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

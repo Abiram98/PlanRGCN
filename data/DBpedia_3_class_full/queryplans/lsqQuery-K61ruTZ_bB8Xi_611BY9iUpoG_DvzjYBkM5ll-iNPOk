@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(regex ?manager \"Tito_Vilanova\" \"i\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?player", "Predicate": "http://dbpedia.org/property/clubs", "Object": {"value":"http://dbpedia.org/resource/FC_Barcelona"}, "opName": "Triple"}
+          ,
+          {"Subject": "?player", "Predicate": "http://dbpedia.org/property/position", "Object": {"value":"?position"}, "opName": "Triple"}
+          ,
+          {"Subject": "?manager", "Predicate": "http://dbpedia.org/property/managerClub", "Object": {"value":"http://dbpedia.org/resource/FC_Barcelona"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?manager", "Predicate": "http://dbpedia.org/property/manageryears", "Object": {"value":"?years"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

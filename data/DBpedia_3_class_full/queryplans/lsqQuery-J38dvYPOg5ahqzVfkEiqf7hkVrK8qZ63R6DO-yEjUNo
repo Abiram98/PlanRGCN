@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Dylan_(1964_play)", "Predicate": "http://dbpedia.org/ontology/type", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

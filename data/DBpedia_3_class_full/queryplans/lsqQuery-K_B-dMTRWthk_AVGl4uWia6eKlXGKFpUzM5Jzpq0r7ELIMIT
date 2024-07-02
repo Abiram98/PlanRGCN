@@ -1,0 +1,185 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "conditional", "subOp": [
+                    {"opName": "conditional", "subOp": [
+                      {"opName": "conditional", "subOp": [
+                        {"opName": "conditional", "subOp": [
+                          {"opName": "conditional", "subOp": [
+                            {"opName": "conditional", "subOp": [
+                              {"opName": "conditional", "subOp": [
+                                {"opName": "conditional", "subOp": [
+                                  {"opName": "table", "subOp": []}
+                                  ,
+                                  {"opName":"BGP", "subOp": [
+                                    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/officialName", "Object": {"value":"?officialName"}, "opName": "Triple"}
+                                  ]}
+                                ]}
+                                ,
+                                {"opName":"BGP", "subOp": [
+                                  {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?foaf_name"}, "opName": "Triple"}
+                                ]}
+                              ]}
+                              ,
+                              {"opName":"BGP", "subOp": [
+                                {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+                                ,
+                                {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/ontology/wikiPageExternalLink", "Object": {"value":"?wikiPageExternalLink"}, "opName": "Triple"}
+                              ]}
+                            ]}
+                            ,
+                            {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+                              {"opName":"BGP", "subOp": [
+                                {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+                              ]}
+                            ]}
+                          ]}
+                          ,
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/subdivisionName", "Object": {"value":"?subdivisionName"}, "opName": "Triple"}
+                          ]}
+                        ]}
+                        ,
+                        {"opName":"BGP", "subOp": [
+                          {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/imageSkyline", "Object": {"value":"?imageSkyline"}, "opName": "Triple"}
+                        ]}
+                      ]}
+                      ,
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/imageSeal", "Object": {"value":"?imageSeal"}, "opName": "Triple"}
+                      ]}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/imageFlag", "Object": {"value":"?imageFlag"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/website", "Object": {"value":"?website"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/imageMap", "Object": {"value":"?imageMap"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/mapCaption", "Object": {"value":"?mapCaption"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://xmlns.com/foaf/0.1/depiction", "Object": {"value":"?depiction"}, "opName": "Triple"}
+                ,
+                {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/imageCaption", "Object": {"value":"?imageCaption"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/imageSeal", "Object": {"value":"?imageSeal"}, "opName": "Triple"}
+              ,
+              {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/imageMap", "Object": {"value":"?imageMap"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/ontology/foundingDate", "Object": {"value":"?foundingDate"}, "opName": "Triple"}
+            ,
+            {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/establishedDate", "Object": {"value":"?establishedDate"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?name"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/ontology/populationTotal", "Object": {"value":"?populationTotal"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/ontology/populationTotalRanking", "Object": {"value":"?populationTotalRanking"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/janHighC", "Object": {"value":"?janHighC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/janLowC", "Object": {"value":"?janLowC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/febHighC", "Object": {"value":"?febHighC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/febLowC", "Object": {"value":"?febLowC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/marHighC", "Object": {"value":"?marHighC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/marLowC", "Object": {"value":"?marLowC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/aprHighC", "Object": {"value":"?aprHighC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/aprLowC", "Object": {"value":"?aprLowC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/mayHighC", "Object": {"value":"?mayHighC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/mayLowC", "Object": {"value":"?mayLowC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/junHighC", "Object": {"value":"?junHighC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/junLowC", "Object": {"value":"?junLowC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/julHighC", "Object": {"value":"?julHighC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/julLowC", "Object": {"value":"?julLowC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/augHighC", "Object": {"value":"?augHighC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/augLowC", "Object": {"value":"?augLowC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/sepHighC", "Object": {"value":"?sepHighC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/sepLowC", "Object": {"value":"?sepLowC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/octHighC", "Object": {"value":"?octHighC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/octLowC", "Object": {"value":"?octLowC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/novHighC", "Object": {"value":"?novHighC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/novLowC", "Object": {"value":"?novLowC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/decHighC", "Object": {"value":"?decHighC"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/decLowC", "Object": {"value":"?decLowC"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/janPrecipitationInch", "Object": {"value":"?janPrecipitationInch"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/febPrecipitationInch", "Object": {"value":"?febPrecipitationInch"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/marPrecipitationInch", "Object": {"value":"?marPrecipitationInch"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/aprPrecipitationInch", "Object": {"value":"?aprPrecipitationInch"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/mayPrecipitationInch", "Object": {"value":"?mayPrecipitationInch"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/junPrecipitationInch", "Object": {"value":"?junPrecipitationInch"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/julPrecipitationInch", "Object": {"value":"?julPrecipitationInch"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/augPrecipitationInch", "Object": {"value":"?augPrecipitationInch"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/sepPrecipitationInch", "Object": {"value":"?sepPrecipitationInch"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/octPrecipitationInch", "Object": {"value":"?octPrecipitationInch"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/novPrecipitationInch", "Object": {"value":"?novPrecipitationInch"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Oceanside,_California", "Predicate": "http://dbpedia.org/property/decPrecipitationInch", "Object": {"value":"?decPrecipitationInch"}, "opName": "Triple"}
+  ]}
+]}

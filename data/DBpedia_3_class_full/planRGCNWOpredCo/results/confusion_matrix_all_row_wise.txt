@@ -1,0 +1,12 @@
+\begin{tabular}{lrrrr}
+\toprule
+Predicted & 0s to 1s & 1s to 10s & $>$ 10s & \# Total \\
+Actual &  &  &  &  \\
+\midrule
+0s to 1s & 84.18 & 6.57 & 9.25 & 2358.00 \\
+1s to 10s & 1.51 & 90.93 & 7.56 & 529.00 \\
+$>$ 10s & 5.18 & 35.61 & 59.21 & 733.00 \\
+\bottomrule
+\end{tabular}
+
+[2358.  529.  733.]

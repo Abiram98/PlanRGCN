@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex ?resource \"Acetamiprid \" \"i\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?resource", "Predicate": "?property", "Object": {"value":"?value"}, "opName": "Triple"}
+  ]}
+]}

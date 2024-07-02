@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "filter" , "expr": " [(regex ?City \"Newquay\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?Place", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/PopulatedPlace"}, "opName": "Triple"}
+        ,
+        {"Subject": "?Place", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?City"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?Place", "Predicate": "http://dbpedia.org/ontology/areaCode", "Object": {"value":"?City_Since"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

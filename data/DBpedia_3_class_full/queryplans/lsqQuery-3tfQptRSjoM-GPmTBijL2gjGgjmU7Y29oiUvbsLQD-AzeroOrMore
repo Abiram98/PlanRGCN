@@ -1,0 +1,22 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?entity", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?type"}, "opName": "Triple"}
+          ]}
+          ,
+          {"opName": "path", "Subject": "?type", "Object": {"value":"http://dbpedia.org/class/yago/MUDGames"}
+          , "pathComplexity": [
+          "P_ZeroOrMore1"
+          ]
+
+          , "pathType": "ZeroOrMore"
+          ,"Predicates":[
+           "<http://www.w3.org/1999/02/22-rdf-syntax-ns#subClassOf>"
+          ]
+          }
+      ]}
+    ]}
+  ]}
+]}

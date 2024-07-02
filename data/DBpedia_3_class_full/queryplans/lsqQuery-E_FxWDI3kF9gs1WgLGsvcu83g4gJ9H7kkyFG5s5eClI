@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Saddleback_Mountain_(New_South_Wales)", "Predicate": "http://dbpedia.org/ontology/creator", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

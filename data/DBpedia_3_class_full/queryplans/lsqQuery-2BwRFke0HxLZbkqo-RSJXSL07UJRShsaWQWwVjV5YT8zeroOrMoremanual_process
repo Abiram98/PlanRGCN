@@ -1,0 +1,24 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "??P112", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"http://dbpedia.org/resource/Category:Discovery_and_exploration_of_the_Solar_System"}, "opName": "Triple"}
+          ]}
+          ,
+          {"opName": "path", "Subject": "?s", "Object": {"value":"??P112"}
+          , "pathComplexity": [
+          "P_OneOrMore1"
+          ]
+
+          , "pathType": "OneOrMore"
+          ,"Predicates":[
+           "<http://www.w3.org/2004/02/skos/core#broader>"
+          ]
+          }
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/property/satelliteOf", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

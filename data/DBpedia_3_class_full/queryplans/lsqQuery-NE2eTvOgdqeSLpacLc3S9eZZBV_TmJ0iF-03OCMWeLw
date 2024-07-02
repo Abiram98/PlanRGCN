@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/12_Hours_of_Sebring", "Predicate": "http://dbpedia.org/ontology/locationCity", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

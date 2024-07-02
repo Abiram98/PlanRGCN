@@ -1,0 +1,43 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Category:Companies_based_in_San_Mateo_County,_California", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName": "filter" , "expr": " [(regex ?subject \"[^a-z A-Z 0-9]*\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?subject", "Predicate": "http://www.w3.org/2004/02/skos/core#subject", "Object": {"value":"http://dbpedia.org/resource/Category:Companies_based_in_San_Mateo_County,_California"}, "opName": "Triple"}
+              ]}
+            ]}
+          ]}
+          ,
+          {"opName": "filter" , "expr": " [(= (lang ?label_en) \"en\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?subject", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label_en"}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?label_it) \"it\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?subject", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label_it"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?subject", "Predicate": "http://xmlns.com/foaf/0.1/page", "Object": {"value":"?page"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?subject", "Predicate": "http://dbpedia.org/ontology/knownFor", "Object": {"value":"?kfor"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

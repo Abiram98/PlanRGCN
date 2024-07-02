@@ -1,0 +1,24 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(regex ?p \"http://dbpedia.org/ontology/\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?p", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?p", "Predicate": "http://www.w3.org/2000/01/rdf-schema#range", "Object": {"value":"?class"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "path", "Subject": "?c", "Object": {"value":"?class"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/2000/01/rdf-schema#subClassOf>"
+      ]
+      }
+  ]}
+]}

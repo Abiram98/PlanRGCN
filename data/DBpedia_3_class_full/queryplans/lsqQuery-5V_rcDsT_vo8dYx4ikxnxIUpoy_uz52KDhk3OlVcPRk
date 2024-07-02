@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://pl.dbpedia.org/resource/Vanessa_Hudgens", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

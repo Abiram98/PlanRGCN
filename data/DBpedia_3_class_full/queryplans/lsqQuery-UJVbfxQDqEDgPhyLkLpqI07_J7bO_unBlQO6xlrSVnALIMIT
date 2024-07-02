@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?city", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?country"}, "opName": "Triple"}
+    ,
+    {"Subject": "?country", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?col"}, "opName": "Triple"}
+  ]}
+]}

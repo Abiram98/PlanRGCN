@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(contains (str ?link) \"wikidata.org\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Valkyrie_(film)", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?link"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?variable", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2004/02/skos/core#Concept"}, "opName": "Triple"}
+  ,
+  {"Subject": "?s", "Predicate": "http://www.w3.org/2004/02/skos/core#broader", "Object": {"value":"?n"}, "opName": "Triple"}
+]}

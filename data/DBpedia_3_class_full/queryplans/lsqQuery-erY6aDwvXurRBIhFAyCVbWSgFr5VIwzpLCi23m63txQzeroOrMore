@@ -1,0 +1,16 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "path", "Subject": "http://dbpedia.org/page/Steroidal_Abortifacient_Agents", "Object": {"value":"?concept"}
+    , "pathComplexity": [
+    "P_ZeroOrMore1"
+    ]
+
+    , "pathType": "ZeroOrMore"
+    ,"Predicates":[
+     "<http://dbpedia.org/ontology/wikiPageRedirect>"
+    ]
+    }
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?concept", "Predicate": "http://dbpedia.org/ontology/wikiPageRedirects", "Object": {"value":"?redirected"}, "opName": "Triple"}
+    ]}
+]}

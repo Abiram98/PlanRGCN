@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://id.dbpedia.org/resource/Avatar_(film_2009)", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Methods_of_virtual_reality", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail_link"}, "opName": "Triple"}
+  ]}
+]}

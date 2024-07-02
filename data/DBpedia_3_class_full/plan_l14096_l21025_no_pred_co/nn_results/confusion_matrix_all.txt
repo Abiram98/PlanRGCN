@@ -1,0 +1,10 @@
+\begin{tabular}{lrrr}
+\toprule
+Predicted & (0; 1] & (1; 10] & (10; $\infty$ \\
+Actual &  &  &  \\
+\midrule
+(0; 1] & 2276 & 58 & 23 \\
+(1; 10] & 25 & 187 & 317 \\
+(10; $\infty$ & 75 & 121 & 537 \\
+\bottomrule
+\end{tabular}

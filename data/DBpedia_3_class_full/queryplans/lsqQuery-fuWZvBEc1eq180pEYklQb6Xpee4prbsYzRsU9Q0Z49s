@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Gmail", "Predicate": "http://xmlns.com/foaf/0.1/homepage", "Object": {"value":"?pagina"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Gmail", "Predicate": "http://dbpedia.org/property/type", "Object": {"value":"?tipo"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Gmail", "Predicate": "http://dbpedia.org/property/language", "Object": {"value":"?idioma"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Gmail", "Predicate": "http://dbpedia.org/property/owner", "Object": {"value":"?propietario"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Gmail", "Predicate": "http://dbpedia.org/property/author", "Object": {"value":"?creador"}, "opName": "Triple"}
+  ]}
+]}

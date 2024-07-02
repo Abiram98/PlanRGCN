@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?hp", "Predicate": "http://xmlns.com/foaf/0.1/homepage", "Object": {"value":"http://dbpedia.org/resource/Tom_Cruise"}, "opName": "Triple"}
+  ]}
+]}

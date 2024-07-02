@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Brad_Pitt", "Predicate": "?p", "Object": {"value":"http://dbpedia.org/resource/The_Rainbow_Warrior_(film)"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

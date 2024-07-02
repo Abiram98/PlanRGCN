@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Helter_Skelter_(song)", "Predicate": "http://dbpedia.org/ontology/almaMater", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

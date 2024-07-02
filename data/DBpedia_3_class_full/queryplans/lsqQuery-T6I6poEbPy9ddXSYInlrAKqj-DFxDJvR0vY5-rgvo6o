@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(regex ?b \"Rare_diseases\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?c", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?b"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?c", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?a"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

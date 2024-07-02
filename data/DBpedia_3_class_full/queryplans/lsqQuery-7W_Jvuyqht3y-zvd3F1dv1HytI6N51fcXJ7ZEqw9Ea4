@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?Film", "Predicate": "http://dbpedia.org/ontology/producer", "Object": {"value":"http://dbpedia.org/resource/Hal_Roach"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

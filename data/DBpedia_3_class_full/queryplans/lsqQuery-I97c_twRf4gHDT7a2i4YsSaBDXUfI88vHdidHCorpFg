@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?subject", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#NaturalPerson"}, "opName": "Triple"}
+  ,
+  {"Subject": "?subject", "Predicate": "?predicate", "Object": {"value":"?object"}, "opName": "Triple"}
+]}

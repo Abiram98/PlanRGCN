@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/North_Devon", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

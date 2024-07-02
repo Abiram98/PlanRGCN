@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Chip_Esten", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?birthPlaceObj"}, "opName": "Triple"}
+      ,
+      {"Subject": "?birthPlaceObj", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

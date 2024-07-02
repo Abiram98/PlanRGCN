@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Nedlands,_Western_Australia", "Predicate": "http://dbpedia.org/ontology/foundingYear", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

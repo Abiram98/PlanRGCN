@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(strstarts (str ?dbpediaIT) \"http://it.dbpedia.org/resource\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?dbpediaIT", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"http://dbpedia.org/resource/The_Birth_of_a_Nation"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

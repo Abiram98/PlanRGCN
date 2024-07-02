@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?DBpediaInstitution", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/University"}, "opName": "Triple"}
+    ,
+    {"Subject": "?DBPediaInstitution", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?wikiPageID"}, "opName": "Triple"}
+    ,
+    {"Subject": "?DBpediaInstitution", "Predicate": "http://dbpedia.org/ontology/city", "Object": {"value":"?City"}, "opName": "Triple"}
+    ,
+    {"Subject": "?DBpediaInstitution", "Predicate": "http://dbpedia.org/ontology/viceChancellor", "Object": {"value":"?VC"}, "opName": "Triple"}
+    ,
+    {"Subject": "?DBpediaInstitution", "Predicate": "http://dbpedia.org/ontology/numberOfStudents", "Object": {"value":"?NumberOfStudents"}, "opName": "Triple"}
+    ,
+    {"Subject": "?DBpediaInstitution", "Predicate": "http://dbpedia.org/ontology/city", "Object": {"value":"http://dbpedia.org/resource/Oxford"}, "opName": "Triple"}
+    ,
+    {"Subject": "?DBpediaInstitution", "Predicate": "http://dbpedia.org/ontology/affiliation", "Object": {"value":"http://dbpedia.org/resource/Russell_Group"}, "opName": "Triple"}
+  ]}
+]}

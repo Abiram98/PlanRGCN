@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?s2492", "Predicate": "?p3001", "Object": {"value":"?o2662"}, "opName": "Triple"}
+    ,
+    {"Subject": "?s2662", "Predicate": "http://dbpedia.org/property/capital", "Object": {"value":"?o2662"}, "opName": "Triple"}
+    ,
+    {"Subject": "?s2492", "Predicate": "http://dbpedia.org/property/hostCity", "Object": {"value":"?o2492"}, "opName": "Triple"}
+  ]}
+]}

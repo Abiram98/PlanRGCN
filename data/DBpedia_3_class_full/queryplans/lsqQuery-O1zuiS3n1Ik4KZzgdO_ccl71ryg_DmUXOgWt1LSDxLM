@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/A-League_(1995???2004)", "Predicate": "http://dbpedia.org/ontology/creator", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

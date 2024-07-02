@@ -1,0 +1,25 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(regex ?surname \"^Duncan\" \"i\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?x", "Predicate": "http://xmlns.com/foaf/0.1/surname", "Object": {"value":"?surname"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?x", "Predicate": "http://xmlns.com/foaf/0.1/givenName", "Object": {"value":"?givenName"}, "opName": "Triple"}
+          ,
+          {"Subject": "?x", "Predicate": "http://purl.org/dc/elements/1.1/description", "Object": {"value":"?d"}, "opName": "Triple"}
+        ]}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(regex ?nameP \"^Barack\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?x", "Predicate": "http://dbpedia.org/property/president", "Object": {"value":"?president"}, "opName": "Triple"}
+        ,
+        {"Subject": "?president", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?nameP"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

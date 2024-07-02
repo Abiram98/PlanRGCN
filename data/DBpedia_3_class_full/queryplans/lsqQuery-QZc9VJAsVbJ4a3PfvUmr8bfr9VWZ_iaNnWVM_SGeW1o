@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Jay's_Journal", "Predicate": "?predicate", "Object": {"value":"?y"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

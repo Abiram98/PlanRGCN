@@ -1,0 +1,17 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(regex (str ?dbname) \"Ellen Burstyn\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?z", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Actor"}, "opName": "Triple"}
+        ,
+        {"Subject": "?z", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?dbname"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?z", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?desc"}, "opName": "Triple"}
+      ,
+      {"Subject": "?z", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birth"}, "opName": "Triple"}
+      ,
+      {"Subject": "?z", "Predicate": "http://dbpedia.org/property/caption", "Object": {"value":"?caption"}, "opName": "Triple"}
+    ]}
+]}

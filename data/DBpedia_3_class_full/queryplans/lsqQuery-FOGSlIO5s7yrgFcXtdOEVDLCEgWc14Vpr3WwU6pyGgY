@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/R&G_(Rhythm_&_Gangsta):_The_Masterpiece", "Predicate": "http://dbpedia.org/property/rev2score", "Object": {"value":"?subject"}, "opName": "Triple"}
+  ]}
+]}

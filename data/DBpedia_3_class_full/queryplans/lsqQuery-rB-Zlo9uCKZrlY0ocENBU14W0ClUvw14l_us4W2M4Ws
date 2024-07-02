@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://data.linkedmdb.org/resource/actor/42981", "Predicate": "http://dbpedia.org/ontology/name", "Object": {"value":"Robert Colbert","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+  ,
+  {"Subject": "http://data.linkedmdb.org/resource/actor/42981", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+]}

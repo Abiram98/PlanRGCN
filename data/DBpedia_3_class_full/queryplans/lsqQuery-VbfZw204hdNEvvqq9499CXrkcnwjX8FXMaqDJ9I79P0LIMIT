@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex ?s \"brincos_aplique_madeira_\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?s", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Place"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?s \"http://dbpedia.org/ontology\" \"i\"), (regex ?ss \"http://dbpedia.org/ontology\" \"i\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?s", "Predicate": "http://www.w3.org/2000/01/rdf-schema#subClassOf", "Object": {"value":"?ss"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

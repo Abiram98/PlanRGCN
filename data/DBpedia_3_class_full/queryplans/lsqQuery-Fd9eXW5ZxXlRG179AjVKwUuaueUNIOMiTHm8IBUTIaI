@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(> ?birth \"1980-01-01\"^^<http://www.w3.org/2001/XMLSchema#date>)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?person", "Predicate": "http://dbpedia.org/property/birthPlace", "Object": {"value":"http://dbpedia.org/resource/Mexico"}, "opName": "Triple"}
+          ,
+          {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birth"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?person", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

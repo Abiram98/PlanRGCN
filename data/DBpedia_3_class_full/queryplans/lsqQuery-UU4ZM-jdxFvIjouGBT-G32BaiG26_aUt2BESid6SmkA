@@ -1,0 +1,11 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(regex (str ?n) \"Kennedy\" \"i\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?q", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?n"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?q", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://xmlns.com/foaf/0.1/Person"}, "opName": "Triple"}
+    ]}
+]}

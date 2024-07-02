@@ -1,0 +1,25 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?actordb", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"Mae Busch","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+        ,
+        {"Subject": "?actordb", "Predicate": "http://dbpedia.org/property/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+        ,
+        {"Subject": "?actordb", "Predicate": "http://dbpedia.org/property/birthPlace", "Object": {"value":"?birthPlace"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?birthPlace", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?birthPlaceName"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?shortBio) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?actordb", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?picture"}, "opName": "Triple"}
+        ,
+        {"Subject": "?actordb", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?wikiPage"}, "opName": "Triple"}
+        ,
+        {"Subject": "?actordb", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?shortBio"}, "opName": "Triple"}
+      ]}
+    ]}
+]}

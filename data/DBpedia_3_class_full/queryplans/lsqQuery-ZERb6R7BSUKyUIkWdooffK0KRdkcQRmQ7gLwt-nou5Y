@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(!= ?p <http://www.w3.org/2002/07/owl#sameAs>), (!= ?p <http://xmlns.com/foaf/0.1/thumbnail>), (!= ?p <http://dbpedia.org/ontology/thumbnail>), (!= ?p <http://dbpedia.org/ontology/wikiPageExternalLink>), (!= ?p <http://xmlns.com/foaf/0.1/depiction>), (!= ?p <http://xmlns.com/foaf/0.1/homepage>)]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Emlyn_Davies", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,77 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "conditional", "subOp": [
+                    {"opName": "sequence", "subOp": [
+                        {"opName": "conditional", "subOp": [
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "?x", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"U . S ","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+                          ]}
+                          ,
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?photo"}, "opName": "Triple"}
+                          ]}
+                        ]}
+                        ,
+                        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"EN\")]", "subOp": [
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+                          ]}
+                        ]}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?country"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?x", "Predicate": "http://dbpedia.org/property/category", "Object": {"value":"?locationCategory"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?x", "Predicate": "http://dbpedia.org/property/population", "Object": {"value":"?people"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?x", "Predicate": "http://dbpedia.org/property/area", "Object": {"value":"?area"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?x", "Predicate": "http://dbpedia.org/property/officialName", "Object": {"value":"?fullName"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/postalCode", "Object": {"value":"?postalCode"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/timeZome", "Object": {"value":"?time"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?x", "Predicate": "http://dbpedia.org/property/placeOfBirth", "Object": {"value":"?important"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/property/region", "Object": {"value":"?region"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?x", "Predicate": "http://dbpedia.org/property/established", "Object": {"value":"?originDate"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Arizona_State_Route_101", "Predicate": "http://dbpedia.org/ontology/portrayer", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

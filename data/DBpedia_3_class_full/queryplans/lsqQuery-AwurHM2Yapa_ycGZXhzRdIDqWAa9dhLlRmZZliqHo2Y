@@ -1,0 +1,13 @@
+{"opName": "filter" , "expr": " [(regex ?abs \"american\" \"i\"), (regex ?abs \"musician\" \"i\")]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (str ?name) \"Rana Alamudin Karam\"), (= (lang ?name) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?actor", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?name"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?actor", "Predicate": "http://purl.org/dc/elements/1.1/description", "Object": {"value":"?abs"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

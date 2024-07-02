@@ -1,0 +1,33 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(< ?sd1 ?sd2)]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(> ?f1 ?f2)]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(!= ?s1 ?s2)]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?s1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/EducationalInstitution"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?s1", "Predicate": "?p", "Object": {"value":"http://dbpedia.org/resource/United_States"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?s1", "Predicate": "http://dbpedia.org/property/faculty", "Object": {"value":"?f1"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?s1", "Predicate": "http://dbpedia.org/property/students", "Object": {"value":"?sd1"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?s2", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/EducationalInstitution"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?s2", "Predicate": "?p", "Object": {"value":"http://dbpedia.org/resource/United_States"}, "opName": "Triple"}
+                ,
+                {"Subject": "?s2", "Predicate": "http://dbpedia.org/property/faculty", "Object": {"value":"?f2"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?s2", "Predicate": "http://dbpedia.org/property/faculty", "Object": {"value":"?sd2"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

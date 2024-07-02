@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?subject", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"1-(2-Ethanone)-2-Hydroxy-2-(1-Amino-2-Methyl-2-Ethanol)-4-(2-Dimethyl)Ethane-Imidazoline-5-One;Chromophore (Thr-Leu-Gly)","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+          ,
+          {"Subject": "?subject", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?subject", "Predicate": "http://dbpedia.org/property/atcPrefix", "Object": {"value":"?atcCode"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

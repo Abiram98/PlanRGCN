@@ -1,0 +1,25 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(> ?date \"0001-01-01\"^^<http://www.w3.org/2001/XMLSchema#date>), (< ?date \"2099-12-31\"^^<http://www.w3.org/2001/XMLSchema#date>)]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(|| (regex ?label \"migrants\" \"i\") (regex ?comment \"migrants\" \"i\")), (langMatches (lang ?label) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?comment) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?event", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Event"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?event", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?comment"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?event", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?event", "Predicate": "http://dbpedia.org/ontology/date", "Object": {"value":"?date"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

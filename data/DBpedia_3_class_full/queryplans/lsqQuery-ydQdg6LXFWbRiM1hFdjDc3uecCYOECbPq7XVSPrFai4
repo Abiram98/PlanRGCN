@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?currency) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/South_Africa", "Predicate": "http://dbpedia.org/ontology/currency", "Object": {"value":"?currencyResource"}, "opName": "Triple"}
+      ,
+      {"Subject": "?currencyResource", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?currency"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

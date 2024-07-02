@@ -1,0 +1,25 @@
+{"opName": "extend", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?Abstract) \"EN\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?Person", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"http://dbpedia.org/resource/Varberg"}, "opName": "Triple"}
+            ,
+            {"Subject": "?Person", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?Abstract"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?Person", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?BirthDate"}, "opName": "Triple"}
+          ,
+          {"Subject": "?Person", "Predicate": "http://dbpedia.org/property/shortDescription", "Object": {"value":"?Description"}, "opName": "Triple"}
+          ,
+          {"Subject": "?Person", "Predicate": "http://dbpedia.org/ontology/birthName", "Object": {"value":"?Name"}, "opName": "Triple"}
+        ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?Person", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?picture"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

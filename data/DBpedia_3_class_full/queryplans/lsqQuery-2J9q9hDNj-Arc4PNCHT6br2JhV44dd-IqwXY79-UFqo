@@ -1,0 +1,7 @@
+{"opName": "filter" , "expr": " [(regex ?t \"paris\" \"i\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?c", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/City"}, "opName": "Triple"}
+    ,
+    {"Subject": "?t", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/PopulatedPlace"}, "opName": "Triple"}
+  ]}
+]}

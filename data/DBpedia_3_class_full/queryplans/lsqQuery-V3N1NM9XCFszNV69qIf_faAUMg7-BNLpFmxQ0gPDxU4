@@ -1,0 +1,21 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "filter" , "expr": " [(= ?label \"M??laga\"@en)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?company", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Country"}, "opName": "Triple"}
+          ,
+          {"Subject": "?company", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?company", "Predicate": "http://dbpedia.org/property/establishedDate", "Object": {"value":"?establishedDate"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?company", "Predicate": "http://dbpedia.org/ontology/foundingDate", "Object": {"value":"?foundingDate"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

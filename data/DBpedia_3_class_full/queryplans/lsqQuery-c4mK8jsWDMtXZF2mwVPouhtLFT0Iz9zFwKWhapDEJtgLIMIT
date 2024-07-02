@@ -1,0 +1,25 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lang ?ArtistName) \"en\")]", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(= (lang ?albumName) \"en\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?album", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Album"}, "opName": "Triple"}
+              ,
+              {"Subject": "?album", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?albumName"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?album", "Predicate": "http://dbpedia.org/ontology/artist", "Object": {"value":"?Artist"}, "opName": "Triple"}
+            ,
+            {"Subject": "?album", "Predicate": "http://dbpedia.org/ontology/genre", "Object": {"value":"http://dbpedia.org/resource/Progressive_metal"}, "opName": "Triple"}
+            ,
+            {"Subject": "?Artist", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?ArtistName"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?album", "Predicate": "http://dbpedia.org/property/cover", "Object": {"value":"?albumCover"}, "opName": "Triple"}
+    ]}
+]}

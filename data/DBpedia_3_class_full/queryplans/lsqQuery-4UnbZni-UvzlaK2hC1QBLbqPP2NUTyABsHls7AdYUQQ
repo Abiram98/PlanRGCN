@@ -1,0 +1,67 @@
+{"opName": "project", "subOp": [
+  {"opName": "disjunction", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"27793896","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/property/birthDate", "Object": {"value":"?v"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"27793896","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/property/birthPlace", "Object": {"value":"?v"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"27793896","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/property/deathDate", "Object": {"value":"?v"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"27793896","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/property/deathPlace", "Object": {"value":"?v"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"27793896","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/occupation", "Object": {"value":"?v"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"27793896","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/office", "Object": {"value":"?v"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"27793896","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/spouse", "Object": {"value":"?v"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"27793896","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/property/jr/sr", "Object": {"value":"?v"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

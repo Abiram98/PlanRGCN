@@ -1,0 +1,7 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?city", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"Kuopio","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+  ,
+  {"Subject": "?lati", "Predicate": "http://dbpedia.org/property/latitude", "Object": {"value":"?lat"}, "opName": "Triple"}
+  ,
+  {"Subject": "?longi", "Predicate": "http://dbpedia.org/property/longitude", "Object": {"value":"?long"}, "opName": "Triple"}
+]}

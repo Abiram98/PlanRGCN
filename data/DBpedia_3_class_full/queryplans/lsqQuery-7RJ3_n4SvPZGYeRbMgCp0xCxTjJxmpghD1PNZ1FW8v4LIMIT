@@ -1,0 +1,13 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(regex ?fn \"Soren\" \"i\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://xmlns.com/foaf/0.1/Person"}, "opName": "Triple"}
+        ,
+        {"Subject": "?s", "Predicate": "http://xmlns.com/foaf/0.1/givenName", "Object": {"value":"?fn"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?s", "Predicate": "http://xmlns.com/foaf/0.1/surname", "Object": {"value":"?sn"}, "opName": "Triple"}
+    ]}
+]}

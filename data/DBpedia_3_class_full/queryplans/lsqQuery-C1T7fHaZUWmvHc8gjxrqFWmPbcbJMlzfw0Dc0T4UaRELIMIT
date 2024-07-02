@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?album", "Predicate": "http://dbpedia.org/ontology/producer", "Object": {"value":"http://dbpedia.org/resource/Timbaland"}, "opName": "Triple"}
+    ,
+    {"Subject": "?album", "Predicate": "http://dbpedia.org/ontology/musicalArtist", "Object": {"value":"?artist"}, "opName": "Triple"}
+    ,
+    {"Subject": "?album", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?albumName"}, "opName": "Triple"}
+    ,
+    {"Subject": "?artist", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?artistName"}, "opName": "Triple"}
+  ]}
+]}

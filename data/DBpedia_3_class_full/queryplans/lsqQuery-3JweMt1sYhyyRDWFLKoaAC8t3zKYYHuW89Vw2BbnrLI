@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex (str ?citynameen) \"Kuopio\" \"i\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?city", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?citynameen"}, "opName": "Triple"}
+  ]}
+]}

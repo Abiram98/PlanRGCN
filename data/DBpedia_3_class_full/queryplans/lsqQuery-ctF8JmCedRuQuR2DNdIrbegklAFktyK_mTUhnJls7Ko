@@ -1,0 +1,63 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "conditional", "subOp": [
+                    {"opName": "filter" , "expr": " [(= (lang ?abstract) \"en\")]", "subOp": [
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "http://dbpedia.org/resource/Genzyme", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+                      ]}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "http://dbpedia.org/resource/Genzyme", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "http://dbpedia.org/resource/Genzyme", "Predicate": "http://dbpedia.org/property/website", "Object": {"value":"?website"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Genzyme", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?wikipedia"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName": "filter" , "expr": " [(= (lang ?title) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Genzyme", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?title"}, "opName": "Triple"}
+                ]}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "http://dbpedia.org/resource/Genzyme", "Predicate": "http://dbpedia.org/ontology/locationCity", "Object": {"value":"?location"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://dbpedia.org/resource/Genzyme", "Predicate": "http://dbpedia.org/ontology/numberOfEmployees", "Object": {"value":"?employees"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Genzyme", "Predicate": "http://dbpedia.org/ontology/revenue", "Object": {"value":"?revenue"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Genzyme", "Predicate": "http://dbpedia.org/ontology/netIncome", "Object": {"value":"?netIncome"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Genzyme", "Predicate": "http://dbpedia.org/ontology/foundingDate", "Object": {"value":"?foundingDate"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

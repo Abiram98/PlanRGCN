@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?agent", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Agent"}, "opName": "Triple"}
+    ,
+    {"Subject": "?agent", "Predicate": "http://dbpedia.org/ontology/birthName", "Object": {"value":"?name"}, "opName": "Triple"}
+    ,
+    {"Subject": "?movie", "Predicate": "http://dbpedia.org/ontology/producer", "Object": {"value":"?agent"}, "opName": "Triple"}
+    ,
+    {"Subject": "?movie", "Predicate": "http://dbpedia.org/property/starring", "Object": {"value":"http://dbpedia.org/resource/Natalie_Portman"}, "opName": "Triple"}
+  ]}
+]}

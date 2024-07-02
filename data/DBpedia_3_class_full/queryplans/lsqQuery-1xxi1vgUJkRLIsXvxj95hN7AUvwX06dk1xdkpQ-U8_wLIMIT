@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(!= ?country <http://dbpedia.org/resource/France>)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?river", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/River"}, "opName": "Triple"}
+      ,
+      {"Subject": "?river", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"http://dbpedia.org/resource/France"}, "opName": "Triple"}
+      ,
+      {"Subject": "?river", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?country"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

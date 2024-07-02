@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Packaging_companies", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?wikiPageID"}, "opName": "Triple"}
+    ,
+    {"Subject": "?subcategory", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?wikiPageID"}, "opName": "Triple"}
+  ]}
+]}

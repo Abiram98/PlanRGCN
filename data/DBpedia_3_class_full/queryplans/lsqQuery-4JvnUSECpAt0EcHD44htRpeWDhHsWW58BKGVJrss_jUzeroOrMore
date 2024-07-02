@@ -1,0 +1,21 @@
+{"opName": "filter" , "expr": " [(>= ?date (<http://www.w3.org/2001/XMLSchema#date> \"1970\")), (<= ?date (<http://www.w3.org/2001/XMLSchema#date> \"1980\"))]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(regex (str ?description) \"American .*actor\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(= (str ?name) \"Jack Warner\"), (= (lang ?name) \"en\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?actor_", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?name"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?actor_", "Predicate": "http://purl.org/dc/elements/1.1/description", "Object": {"value":"?description"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?actor_", "Predicate": "http://dbpedia.org/ontology/birthYear", "Object": {"value":"?date"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

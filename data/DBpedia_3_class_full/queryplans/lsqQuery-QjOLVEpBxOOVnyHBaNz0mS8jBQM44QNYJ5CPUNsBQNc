@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Andy_Townsend", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

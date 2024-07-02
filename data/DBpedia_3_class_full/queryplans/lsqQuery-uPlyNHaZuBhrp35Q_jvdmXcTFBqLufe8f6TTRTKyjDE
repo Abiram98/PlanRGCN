@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Metzingen", "Predicate": "http://dbpedia.org/property/isoRegion", "Object": {"value":"?val"}, "opName": "Triple"}
+  ]}
+]}

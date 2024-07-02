@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(= (str ?label) \"Kuopio\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?sub2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+  ]}
+]}

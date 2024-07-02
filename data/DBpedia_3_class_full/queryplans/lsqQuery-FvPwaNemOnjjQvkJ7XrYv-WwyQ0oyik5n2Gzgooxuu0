@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?track", "Predicate": "http://dbpedia.org/property/album", "Object": {"value":"http://dbpedia.org/resource/They_Never_Saw_Me_Coming"}, "opName": "Triple"}
+  ]}
+]}

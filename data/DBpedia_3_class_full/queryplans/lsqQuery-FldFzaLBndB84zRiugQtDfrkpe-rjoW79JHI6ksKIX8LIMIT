@@ -1,0 +1,21 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?person) \"en\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(> ?deathDate \"1821-09-11\"^^<http://www.w3.org/2001/XMLSchema#date>), (< ?deathDate \"1821-09-13\"^^<http://www.w3.org/2001/XMLSchema#date>)]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?object", "Predicate": "http://dbpedia.org/ontology/deathDate", "Object": {"value":"?deathDate"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?object", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?person"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?object", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?wikipedia"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

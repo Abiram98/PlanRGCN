@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?player", "Predicate": "http://dbpedia.org/property/clubs", "Object": {"value":"http://dbpedia.org/resource/FC_Barcelona"}, "opName": "Triple"}
+    ,
+    {"Subject": "?position", "Predicate": "http://dbpedia.org/property/position", "Object": {"value":"http://dbpedia.org/resource/Midfielder"}, "opName": "Triple"}
+  ]}
+]}

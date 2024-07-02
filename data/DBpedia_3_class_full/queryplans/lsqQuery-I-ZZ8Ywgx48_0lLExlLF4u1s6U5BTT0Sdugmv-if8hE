@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Farley_Flex", "Predicate": "http://dbpedia.org/ontology/associatedBand", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

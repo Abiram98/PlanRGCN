@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"EN\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "file:///data/DBpedia_3_class_full/#Caesium", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,23 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(! (regex ?actor2 \"Kevin_Bacon\"))]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(! (regex ?actor1 \"Kevin_Bacon\"))]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?film1", "Predicate": "http://dbpedia.org/property/starring", "Object": {"value":"http://dbpedia.org/resource/Kevin_Bacon"}, "opName": "Triple"}
+                ,
+                {"Subject": "?film1", "Predicate": "http://dbpedia.org/property/starring", "Object": {"value":"?actor1"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?film2", "Predicate": "http://dbpedia.org/property/starring", "Object": {"value":"?actor1"}, "opName": "Triple"}
+              ,
+              {"Subject": "?film2", "Predicate": "http://dbpedia.org/property/starring", "Object": {"value":"?actor2"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

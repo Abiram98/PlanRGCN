@@ -1,0 +1,15 @@
+{"opName": "filter" , "expr": " [(= ?t <http://dbpedia.org/resource/Gaetano_Monachello>), (!= ?pf2 <http://www.w3.org/2002/07/owl#sameAs>), (!= ?pf2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>), (!= ?pf2 <http://www.w3.org/2002/07/owl#equivalentClass>), (!= ?pf2 <http://dbpedia.org/property/wikiPageUsesTemplate>), (!= ?pf2 <http://dbpedia.org/property/wordnet_type>), (!= ?pf2 <http://dbpedia.org/ontology/wikiPageRedirects>), (!= ?pf2 <http://dbpedia.org/ontology/wikiPageDisambiguates>)]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(!= ?pf1 <http://www.w3.org/2002/07/owl#sameAs>), (!= ?pf1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>), (!= ?pf1 <http://www.w3.org/2002/07/owl#equivalentClass>), (!= ?pf1 <http://dbpedia.org/property/wikiPageUsesTemplate>), (!= ?pf1 <http://dbpedia.org/property/wordnet_type>), (!= ?pf1 <http://dbpedia.org/ontology/wikiPageRedirects>), (!= ?pf1 <http://dbpedia.org/ontology/wikiPageDisambiguates>), (! (isLiteral ?of1))]", "subOp": [
+        {"opName": "assign", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://dbpedia.org/resource/Justin_Bieber", "Predicate": "?pf1", "Object": {"value":"?of1"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?of1", "Predicate": "?pf2", "Object": {"value":"?t"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

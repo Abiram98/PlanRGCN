@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex (str ?r) \"^http://dbpedia[.]org/resource/ISO_3166-1:\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/wikiPageRedirects", "Object": {"value":"?r"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

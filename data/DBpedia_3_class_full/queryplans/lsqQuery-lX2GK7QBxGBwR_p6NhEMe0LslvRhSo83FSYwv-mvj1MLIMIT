@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"EN\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?_relation_s", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"Ron Howard","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+          ,
+          {"Subject": "?_relation_s", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?photo"}, "opName": "Triple"}
+          ,
+          {"Subject": "?_relation_s", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?_relation_s", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+        ,
+        {"Subject": "?_relation_s", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?birthPlace"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

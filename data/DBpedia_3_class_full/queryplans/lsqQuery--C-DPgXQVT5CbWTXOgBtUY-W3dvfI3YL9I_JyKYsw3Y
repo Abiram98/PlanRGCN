@@ -1,0 +1,11 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?s", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Place"}, "opName": "Triple"}
+  ,
+  {"Subject": "?s", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "Object": {"value":"?lat"}, "opName": "Triple"}
+  ,
+  {"Subject": "?s", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#long", "Object": {"value":"?long"}, "opName": "Triple"}
+  ,
+  {"Subject": "?s", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?type"}, "opName": "Triple"}
+  ,
+  {"Subject": "?s", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?sub"}, "opName": "Triple"}
+]}

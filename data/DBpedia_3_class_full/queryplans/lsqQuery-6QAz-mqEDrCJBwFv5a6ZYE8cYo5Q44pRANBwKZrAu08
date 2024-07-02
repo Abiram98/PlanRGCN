@@ -1,0 +1,31 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= ?bin_name \"Porphyrio porphyrio\"@en)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/property/classis", "Object": {"value":"http://dbpedia.org/resource/Bird"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?bird_name"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?image"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/conservationStatus", "Object": {"value":"?consv_status"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/conservationStatusSystem", "Object": {"value":"?consv_status_syst"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/kingdom", "Object": {"value":"?kingdom"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/phylum", "Object": {"value":"?phylum"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/class", "Object": {"value":"?class"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/order", "Object": {"value":"?order"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/family", "Object": {"value":"?family"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/genus", "Object": {"value":"?genus"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/property/species", "Object": {"value":"?species"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/property/binomial", "Object": {"value":"?bin_name"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

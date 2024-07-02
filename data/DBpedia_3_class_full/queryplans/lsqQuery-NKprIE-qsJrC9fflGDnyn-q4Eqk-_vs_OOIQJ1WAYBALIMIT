@@ -1,0 +1,13 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lang ?name) \"En\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?person", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Person"}, "opName": "Triple"}
+        ,
+        {"Subject": "?person", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?name"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?person", "Predicate": "http://purl.org/dc/elements/1.1/description", "Object": {"value":"?desc"}, "opName": "Triple"}
+    ]}
+]}

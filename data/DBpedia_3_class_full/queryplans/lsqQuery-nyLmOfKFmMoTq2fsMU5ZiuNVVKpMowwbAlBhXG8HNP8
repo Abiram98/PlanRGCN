@@ -1,0 +1,21 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "filter" , "expr": " [(= ?label \"system\"@en)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?city", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://umbel.org/umbel/rc/PopulatedPlace"}, "opName": "Triple"}
+          ,
+          {"Subject": "?city", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?city", "Predicate": "http://dbpedia.org/ontology/foundingDate", "Object": {"value":"?foundingDate"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?city", "Predicate": "http://dbpedia.org/property/currentCatDate", "Object": {"value":"?currentCatDate"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

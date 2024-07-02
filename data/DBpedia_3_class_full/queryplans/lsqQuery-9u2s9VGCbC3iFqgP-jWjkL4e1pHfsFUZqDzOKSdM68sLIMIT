@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex ?o \"^http://data.nytimes\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?s", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?o"}, "opName": "Triple"}
+  ]}
+]}

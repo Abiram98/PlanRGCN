@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/All_About_Steve", "Predicate": "http://dbpedia.org/ontology/budget", "Object": {"value":"?budget"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://dbpedia.org/resource/All_About_Steve", "Predicate": "http://dbpedia.org/ontology/gross", "Object": {"value":"?gross"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

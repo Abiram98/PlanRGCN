@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Blood_of_the_Fold", "Predicate": "?predicate", "Object": {"value":"?y"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

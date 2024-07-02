@@ -1,0 +1,19 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "extend", "subOp": [
+        {"opName": "table", "subOp": []}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#Thing"}, "opName": "Triple"}
+        ,
+        {"Subject": "?s", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?labelen"}, "opName": "Triple"}
+      ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://www.cs.helsinki.fi/group/seco/ns/2004/03/18-esinekortti#LahtiLKM_LHM_LHM_ES_2002070", "Predicate": "http://dbpedia.org/property/latd", "Object": {"value":"?lat"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://www.cs.helsinki.fi/group/seco/ns/2004/03/18-esinekortti#LahtiLKM_LHM_LHM_ES_2002070", "Predicate": "http://dbpedia.org/property/longd", "Object": {"value":"?lon"}, "opName": "Triple"}
+  ]}
+]}

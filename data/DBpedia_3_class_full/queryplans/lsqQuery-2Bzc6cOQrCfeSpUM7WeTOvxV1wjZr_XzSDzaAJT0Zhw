@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?o) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?instance", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Food"}, "opName": "Triple"}
+      ,
+      {"Subject": "?instance", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(contains (lcase (str ?s)) \"toys\"), (! (contains (lcase (str ?s)) \"films\")), (! (contains (lcase (str ?s)) \"series\")), (! (contains (lcase (str ?s)) \"manufacturers\")), (! (contains (lcase (str ?s)) \"companies\"))]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?item", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?s"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

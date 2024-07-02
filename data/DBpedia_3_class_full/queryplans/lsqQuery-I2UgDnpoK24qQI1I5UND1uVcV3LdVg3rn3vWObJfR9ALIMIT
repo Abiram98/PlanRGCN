@@ -1,0 +1,9 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?p1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/PrimeMinister"}, "opName": "Triple"}
+  ,
+  {"Subject": "?p1", "Predicate": "?r1", "Object": {"value":"?x"}, "opName": "Triple"}
+  ,
+  {"Subject": "?x", "Predicate": "?r2", "Object": {"value":"?p2"}, "opName": "Triple"}
+  ,
+  {"Subject": "?p2", "Predicate": "http://dbpedia.org/property/starring", "Object": {"value":"?m"}, "opName": "Triple"}
+]}

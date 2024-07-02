@@ -1,0 +1,18 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(contains (str ?entity) \"Apple\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?entity", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?type"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "path", "Subject": "?type", "Object": {"value":"http://dbpedia.org/ontology/Food"}
+    , "pathComplexity": [
+    "P_OneOrMore1"
+    ]
+
+    , "pathType": "OneOrMore"
+    ,"Predicates":[
+     "<http://www.w3.org/2000/01/rdf-schema#subClassOf>"
+    ]
+    }
+]}

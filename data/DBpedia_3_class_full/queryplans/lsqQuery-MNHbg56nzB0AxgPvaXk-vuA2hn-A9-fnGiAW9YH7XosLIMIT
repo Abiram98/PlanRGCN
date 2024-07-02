@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Gas_turbine_locomotives_of_Germany", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?wikiPageID"}, "opName": "Triple"}
+    ,
+    {"Subject": "?subcategory", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?wikiPageID"}, "opName": "Triple"}
+  ]}
+]}

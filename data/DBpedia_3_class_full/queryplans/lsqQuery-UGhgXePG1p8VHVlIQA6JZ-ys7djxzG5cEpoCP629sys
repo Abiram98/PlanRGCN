@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/British_Phonographic_Industry", "Predicate": "http://dbpedia.org/ontology/foundingYear", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

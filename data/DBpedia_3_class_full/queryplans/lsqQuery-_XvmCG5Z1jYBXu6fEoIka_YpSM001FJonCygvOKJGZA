@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"http://dbpedia.org/resource/Glory_Road_(film)"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

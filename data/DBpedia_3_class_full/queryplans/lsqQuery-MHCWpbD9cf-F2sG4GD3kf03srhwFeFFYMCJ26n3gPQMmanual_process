@@ -1,0 +1,18 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "http://dbpedia.org/page/Occupational_Accidents", "Object": {"value":"?redirected"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://dbpedia.org/ontology/wikiPageRedirect>"
+      ]
+      }
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?redirected", "Predicate": "http://dbpedia.org/ontology/wikiPageRedirects", "Object": {"value":"?concept"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

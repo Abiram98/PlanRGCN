@@ -1,0 +1,25 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Ethiopia", "Predicate": "http://dbpedia.org/property/capital", "Object": {"value":"?capital"}, "opName": "Triple"}
+          ,
+          {"Subject": "http://dbpedia.org/resource/Ethiopia", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+          ,
+          {"Subject": "http://dbpedia.org/resource/Ethiopia", "Predicate": "http://dbpedia.org/ontology/populationTotal", "Object": {"value":"?population"}, "opName": "Triple"}
+          ,
+          {"Subject": "http://dbpedia.org/resource/Ethiopia", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?flag"}, "opName": "Triple"}
+          ,
+          {"Subject": "http://dbpedia.org/resource/Ethiopia", "Predicate": "http://dbpedia.org/property/governmentType", "Object": {"value":"?gov"}, "opName": "Triple"}
+          ,
+          {"Subject": "http://dbpedia.org/resource/Ethiopia", "Predicate": "http://dbpedia.org/property/currency", "Object": {"value":"?currency"}, "opName": "Triple"}
+          ,
+          {"Subject": "http://dbpedia.org/resource/Ethiopia", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?capital", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?nameCapital"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

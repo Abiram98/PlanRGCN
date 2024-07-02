@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?thing", "Predicate": "http://www.w3.org/2000/01/rdf-schema#subClassOf", "Object": {"value":"http://dbpedia.org/ontology/Nutrition"}, "opName": "Triple"}
+]}

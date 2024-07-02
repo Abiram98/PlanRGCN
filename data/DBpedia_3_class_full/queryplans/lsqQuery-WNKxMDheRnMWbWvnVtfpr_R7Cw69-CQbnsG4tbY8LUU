@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Interstate_295_(Virginia)", "Predicate": "http://dbpedia.org/ontology/associatedBand", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

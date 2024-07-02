@@ -1,0 +1,37 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (= ?bin_name \"Amaurornis phoenicurus\"@en) (= ?bin_name \"Porphyrio porphyrio\"@en)) (= ?bin_name \"Gallinula chloropus\"@en)) (= ?bin_name \"Tachybaptus ruficollis\"@en)) (= ?bin_name \"Podiceps cristatus\"@en)) (= ?bin_name \"Nettapus coromandelianus\"@en)) (= ?bin_name \"Anas acuta\"@en)) (= ?bin_name \"Fulica atra\"@en)) (= ?bin_name \"Anas poecilorhyncha\"@en)) (= ?bin_name \"Anas clypeata\"@en)) (= ?bin_name \"Aythya ferina\"@en)) (= ?bin_name \"Aythya faligula\"@en)) (= ?bin_name \"Aythya nyroca\"@en)) (= ?bin_name \"Netta rufina\"@en)) (= ?bin_name \"Mergus merganser\"@en)) (= ?bin_name \"Anas penelope\"@en)) (= ?bin_name \"Anas crecca\"@en)) (= ?bin_name \"Anas platyrhynchos\"@en)) (= ?bin_name \"Anas strepera\"@en)) (= ?bin_name \"Anas querquedula\"@en)) (= ?bin_name \"Dendrocygna javanica\"@en)) (= ?bin_name \"Tadorna ferruginea\"@en)) (= ?bin_name \"Tadorna tadorna\"@en)) (= ?bin_name \"Anser indicus\"@en)) (= ?bin_name \"Anser albifrons\"@en)) (= ?bin_name \"Anser erythropus\"@en)) (= ?bin_name \"Anser anser\"@en)) (= ?bin_name \"Cygnus cygnus\"@en)) (= ?bin_name \"Tringa glareola\"@en)) (= ?bin_name \"Actitis hypoleucos\"@en)) (= ?bin_name \"Tringa ochropus\"@en)) (= ?bin_name \"Xenus cinereus\"@en)) (= ?bin_name \"Calidris tenuirostris\"@en)) (= ?bin_name \"Calidris alpina\"@en)) (= ?bin_name \"Tringa nebularia\"@en)) (= ?bin_name \"Tringa totanus\"@en)) (= ?bin_name \"Tringa erythropus\"@en)) (= ?bin_name \"Rostratula benghalensis\"@en)) (= ?bin_name \"Philomachus pugnax\"@en)) (= ?bin_name \"Gallinago gallinago\"@en)) (= ?bin_name \"Charadrius dubius\"@en)) (= ?bin_name \"Charadrius alexandrinus\"@en)) (= ?bin_name \"Charadrius leschenaultii\"@en)) (= ?bin_name \"Charadrius mongolus\"@en)) (= ?bin_name \"Pluvialis fulva\"@en)) (= ?bin_name \"Arenaria interpres\"@en)) (= ?bin_name \"Phalaropus lobatus\"@en)) (= ?bin_name \"Limosa limosa\"@en)) (= ?bin_name \"Numenius phaeopus\"@en)) (= ?bin_name \"Numenius arquata\"@en)) (= ?bin_name \"Calidris minuta\"@en)) (= ?bin_name \"Calidris temminckii\"@en)) (= ?bin_name \"Egretta gularis\"@en)) (= ?bin_name \"Bubulcus ibis\"@en)) (= ?bin_name \"Egretta garzetta\"@en)) (= ?bin_name \"Casmerodius albus\"@en)) (= ?bin_name \"Podiceps grisegena\"@en)) (= ?bin_name \"Podiceps nigricollis\"@en)) (= ?bin_name \"Ardea purpurea\"@en)) (= ?bin_name \"Ergetta intermedia\"@en)) (= ?bin_name \"Ardea alba\"@en)) (= ?bin_name \"Ixobrychus cinnamomeus\"@en)) (= ?bin_name \"Anastomus oscitans\"@en)) (= ?bin_name \"Ciconia nigra\"@en)) (= ?bin_name \"Platela leucorodia\"@en)) (= ?bin_name \"Anas falcata\"@en)) (= ?bin_name \"Haliaeetus leucoryphus\"@en)) (= ?bin_name \"Aquila clanga\"@en)) (= ?bin_name \"Haematopus ostralegus\"@en)) (= ?bin_name \"Burhinus indicus\"@en)) (= ?bin_name \"Vanellus leucurus\"@en)) (= ?bin_name \"Pluvialis apricaria\"@en)) (= ?bin_name \"Pluvalis squatarola\"@en)) (= ?bin_name \"Dromas ardeola\"@en)) (= ?bin_name \"Lymnocryptes minimus\"@en))]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/property/classis", "Object": {"value":"http://dbpedia.org/resource/Bird"}, "opName": "Triple"}
+          ,
+          {"Subject": "?x", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?bird_name"}, "opName": "Triple"}
+          ,
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?image"}, "opName": "Triple"}
+          ,
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/conservationStatus", "Object": {"value":"?consv_status"}, "opName": "Triple"}
+          ,
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/conservationStatusSystem", "Object": {"value":"?consv_status_syst"}, "opName": "Triple"}
+          ,
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/kingdom", "Object": {"value":"?kingdom"}, "opName": "Triple"}
+          ,
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/phylum", "Object": {"value":"?phylum"}, "opName": "Triple"}
+          ,
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/class", "Object": {"value":"?class"}, "opName": "Triple"}
+          ,
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/order", "Object": {"value":"?order"}, "opName": "Triple"}
+          ,
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/family", "Object": {"value":"?family"}, "opName": "Triple"}
+          ,
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/genus", "Object": {"value":"?genus"}, "opName": "Triple"}
+          ,
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/property/species", "Object": {"value":"?species"}, "opName": "Triple"}
+          ,
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/property/binomial", "Object": {"value":"?bin_name"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/binomialAuthority", "Object": {"value":"?bin_auth"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

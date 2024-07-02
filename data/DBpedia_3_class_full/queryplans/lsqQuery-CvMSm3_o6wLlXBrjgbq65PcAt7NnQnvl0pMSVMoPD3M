@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?x2", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Film"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Casablanca", "Predicate": "?r0", "Object": {"value":"?x2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?x0", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Actor"}, "opName": "Triple"}
+    ,
+    {"Subject": "?x0", "Predicate": "?r31", "Object": {"value":"http://dbpedia.org/resource/Casablanca_(film)"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Roman_Empire", "Predicate": "?r68", "Object": {"value":"http://dbpedia.org/resource/Author"}, "opName": "Triple"}
+  ]}
+]}

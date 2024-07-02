@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?title", "Predicate": "?p", "Object": {"value":"?books"}, "opName": "Triple"}
+]}

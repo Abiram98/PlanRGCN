@@ -1,0 +1,7 @@
+{"opName": "filter" , "expr": " [(langMatches (lang ?name) \"ru\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?a", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"http://dbpedia.org/resource/Category:Defunct_political_parties_in_Tunisia"}, "opName": "Triple"}
+    ,
+    {"Subject": "?a", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?name"}, "opName": "Triple"}
+  ]}
+]}

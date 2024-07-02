@@ -1,0 +1,23 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?Author) \"en\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?Title) \"en\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?a", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Book"}, "opName": "Triple"}
+            ,
+            {"Subject": "?a", "Predicate": "http://dbpedia.org/property/pubDate", "Object": {"value":"?PubYear"}, "opName": "Triple"}
+            ,
+            {"Subject": "?a", "Predicate": "http://dbpedia.org/ontology/numberOfPages", "Object": {"value":"?NumberOfPages"}, "opName": "Triple"}
+            ,
+            {"Subject": "?a", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?Title"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?a", "Predicate": "http://dbpedia.org/ontology/author", "Object": {"value":"?name"}, "opName": "Triple"}
+          ,
+          {"Subject": "?name", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?Author"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

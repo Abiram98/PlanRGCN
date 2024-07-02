@@ -1,0 +1,21 @@
+{"opName": "filter" , "expr": " [(! (sameTerm ?p2_3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>)), (! (sameTerm ?p2_3 <http://www.w3.org/2000/01/rdf-schema#subClassOf>)), (! (sameTerm ?p2_3 <http://www.w3.org/2002/07/owl#sameAs>))]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(! (sameTerm ?p2_1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>)), (! (sameTerm ?p2_1 <http://www.w3.org/2000/01/rdf-schema#subClassOf>)), (! (sameTerm ?p2_1 <http://www.w3.org/2002/07/owl#sameAs>))]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(! (sameTerm ?p0_1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>)), (! (sameTerm ?p0_1 <http://www.w3.org/2000/01/rdf-schema#subClassOf>)), (! (sameTerm ?p0_1 <http://www.w3.org/2002/07/owl#sameAs>)), (isIRI ?v1), (isIRI ?v1)]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Republican_Party_(United_States)", "Predicate": "?p0_1", "Object": {"value":"?v1"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?v2", "Predicate": "?p2_1", "Object": {"value":"?v1"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?v2", "Predicate": "?p2_3", "Object": {"value":"http://dbpedia.org/resource/Beck"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

@@ -1,0 +1,9 @@
+{"opName": "filter" , "expr": " [(= (lang ?Abstract) \"en\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?DBpediaInstitution", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/University"}, "opName": "Triple"}
+    ,
+    {"Subject": "?DBpediaInstitution", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?PageID_2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?DBpediaInstitution", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?Abstract"}, "opName": "Triple"}
+  ]}
+]}

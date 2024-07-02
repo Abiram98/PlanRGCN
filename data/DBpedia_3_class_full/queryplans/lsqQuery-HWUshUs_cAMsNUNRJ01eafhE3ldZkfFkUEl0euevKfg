@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?films", "Predicate": "http://dbpedia.org/property/starring", "Object": {"value":"http://dbpedia.org/resource/Leonardo_DiCaprio"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

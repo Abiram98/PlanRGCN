@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (str ?label) \"Adler, Philip\"), (isIRI ?entity)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?entity", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

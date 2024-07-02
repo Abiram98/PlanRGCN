@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?description) \"es\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?name) \"es\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?instanceOfGame", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Game"}, "opName": "Triple"}
+            ,
+            {"Subject": "?instanceOfGame", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?name"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?instanceOfGame", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?alt_f"}, "opName": "Triple"}
+          ,
+          {"Subject": "?instanceOfGame", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?description"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

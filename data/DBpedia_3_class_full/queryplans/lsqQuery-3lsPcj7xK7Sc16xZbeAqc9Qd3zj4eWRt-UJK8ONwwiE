@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?description) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?concept1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?description"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

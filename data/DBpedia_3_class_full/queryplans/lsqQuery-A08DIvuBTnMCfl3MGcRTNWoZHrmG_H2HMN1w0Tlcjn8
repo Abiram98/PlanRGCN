@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/The_Karate_Dog", "Predicate": "?p", "Object": {"value":"http://dbpedia.org/resource/Transformers_(film)"}, "opName": "Triple"}
+]}

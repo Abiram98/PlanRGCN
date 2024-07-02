@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?l) \"ar\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Jennie_Garth", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?l"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

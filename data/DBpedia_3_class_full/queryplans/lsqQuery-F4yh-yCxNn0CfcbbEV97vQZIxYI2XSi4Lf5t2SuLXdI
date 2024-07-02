@@ -1,0 +1,15 @@
+{"opName": "conditional", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?inst", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Person"}, "opName": "Triple"}
+    ,
+    {"Subject": "?inst", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?y"}, "opName": "Triple"}
+  ]}
+  ,
+  {"opName": "filter" , "expr": " [(langMatches (lang ?rangeLabel) \"EN\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?property", "Predicate": "http://www.w3.org/2000/01/rdf-schema#range", "Object": {"value":"?range"}, "opName": "Triple"}
+      ,
+      {"Subject": "?range", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?rangeLabel"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

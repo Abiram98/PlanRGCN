@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(strstarts (str ?obj) \"http://dbpedia.org/ontology/icd10\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?sub", "Predicate": "?pred", "Object": {"value":"?obj"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

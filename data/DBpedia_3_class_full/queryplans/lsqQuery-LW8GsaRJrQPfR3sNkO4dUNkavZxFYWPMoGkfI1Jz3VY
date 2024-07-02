@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?city", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type1", "Object": {"value":"http://dbpedia.org/ontology/City"}, "opName": "Triple"}
+        ,
+        {"Subject": "?city", "Predicate": "http://dbpedia.org/ontology/city", "Object": {"value":"?inhabitants"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://dbpedia.org/resource/Canada", "Predicate": "http://dbpedia.org/ontology/largestCity", "Object": {"value":"?city"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Four_Dead_in_Five_Seconds_Gunfight", "Predicate": "http://dbpedia.org/ontology/foundingYear", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

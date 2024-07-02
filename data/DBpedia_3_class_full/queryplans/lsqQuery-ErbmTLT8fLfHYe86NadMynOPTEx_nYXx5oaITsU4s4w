@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Treaty_of_Rheinfelden", "Predicate": "http://dbpedia.org/ontology/creator", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

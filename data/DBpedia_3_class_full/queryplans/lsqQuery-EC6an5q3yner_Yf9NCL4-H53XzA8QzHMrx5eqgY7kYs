@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Vampire_Weekend", "Predicate": "http://dbpedia.org/ontology/creator", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://mpii.de/yago/resource/Peter_%28actor%29", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://xmlns.com/foaf/0.1/Person"}, "opName": "Triple"}
+]}

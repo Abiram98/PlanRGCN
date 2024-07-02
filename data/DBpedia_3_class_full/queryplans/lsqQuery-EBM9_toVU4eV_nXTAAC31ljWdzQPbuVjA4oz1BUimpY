@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Lone_Star_(TV_series)", "Predicate": "?p", "Object": {"value":"http://dbpedia.org/resource/Brad_Pitt"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

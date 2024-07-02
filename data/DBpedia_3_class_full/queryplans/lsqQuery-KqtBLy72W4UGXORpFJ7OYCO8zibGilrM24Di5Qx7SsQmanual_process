@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(regex ?capital \"Kigali\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?s", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"??P17"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P17", "Predicate": "http://dbpedia.org/ontology/capital", "Object": {"value":"?capital"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

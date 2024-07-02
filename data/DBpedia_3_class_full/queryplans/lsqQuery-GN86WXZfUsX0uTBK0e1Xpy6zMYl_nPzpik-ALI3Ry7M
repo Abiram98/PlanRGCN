@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?n2 \"Basketball player\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(regex ?n1 \"Germany\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?s", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+            ,
+            {"Subject": "?o", "Predicate": "?p1", "Object": {"value":"?n1"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?s", "Predicate": "?p2", "Object": {"value":"?o2"}, "opName": "Triple"}
+          ,
+          {"Subject": "?o2", "Predicate": "?p3", "Object": {"value":"?n2"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

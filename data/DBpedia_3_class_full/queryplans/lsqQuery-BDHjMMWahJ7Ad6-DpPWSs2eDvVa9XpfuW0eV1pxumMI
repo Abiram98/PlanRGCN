@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "filter" , "expr": " [(contains (str ?name) \"Targa\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?company", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?name"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?company", "Predicate": "http://dbpedia.org/ontology/predecessor", "Object": {"value":"?predecessor"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

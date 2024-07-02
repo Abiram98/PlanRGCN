@@ -1,0 +1,35 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "extend", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?cityname", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?country"}, "opName": "Triple"}
+            ,
+            {"Subject": "?country", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"Finland","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+            ,
+            {"Subject": "?city", "Predicate": "http://dbpedia.org/ontology/city", "Object": {"value":"?cityResource"}, "opName": "Triple"}
+            ,
+            {"Subject": "?cityResource", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?cityname2"}, "opName": "Triple"}
+            ,
+            {"Subject": "?cityResource", "Predicate": "http://dbpedia.org/property/latd", "Object": {"value":"?latitudeDegree"}, "opName": "Triple"}
+            ,
+            {"Subject": "?cityResource", "Predicate": "http://dbpedia.org/property/latm", "Object": {"value":"?latitudeMinute"}, "opName": "Triple"}
+            ,
+            {"Subject": "?cityResource", "Predicate": "http://dbpedia.org/property/lats", "Object": {"value":"?latitudeSecond"}, "opName": "Triple"}
+            ,
+            {"Subject": "?cityResource", "Predicate": "http://dbpedia.org/property/latns", "Object": {"value":"?latitudeDirection"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?cityResource", "Predicate": "http://dbpedia.org/property/longd", "Object": {"value":"?longDegree"}, "opName": "Triple"}
+          ,
+          {"Subject": "?cityResource", "Predicate": "http://dbpedia.org/property/latm", "Object": {"value":"?longMinute"}, "opName": "Triple"}
+          ,
+          {"Subject": "?cityResource", "Predicate": "http://dbpedia.org/property/lats", "Object": {"value":"?longSecond"}, "opName": "Triple"}
+          ,
+          {"Subject": "?cityResource", "Predicate": "http://dbpedia.org/property/latns", "Object": {"value":"?longDirection"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

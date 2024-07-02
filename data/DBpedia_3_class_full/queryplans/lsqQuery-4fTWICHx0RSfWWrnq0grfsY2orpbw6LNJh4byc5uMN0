@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?categoryName) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Fluorine", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?categoryUri"}, "opName": "Triple"}
+      ,
+      {"Subject": "?categoryUri", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?categoryName"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

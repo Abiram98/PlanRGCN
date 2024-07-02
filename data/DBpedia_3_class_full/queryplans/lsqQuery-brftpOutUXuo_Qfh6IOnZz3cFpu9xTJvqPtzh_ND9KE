@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Template:Republic_of_Macedonia_presidential_election,_2004", "Predicate": "?property", "Object": {"value":"?value"}, "opName": "Triple"}
+]}

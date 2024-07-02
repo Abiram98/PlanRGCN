@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Pride_and_Glory_(film)", "Predicate": "?p", "Object": {"value":"http://dbpedia.org/resource/The_General_(1998_film)"}, "opName": "Triple"}
+]}

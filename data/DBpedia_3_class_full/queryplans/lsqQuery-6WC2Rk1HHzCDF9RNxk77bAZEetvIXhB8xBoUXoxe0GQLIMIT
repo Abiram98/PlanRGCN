@@ -1,0 +1,15 @@
+{"opName": "filter" , "expr": " [(= ?t <http://dbpedia.org/resource/Chris_Lent>), (!= ?ps1 <http://www.w3.org/2002/07/owl#sameAs>), (!= ?ps1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>), (!= ?ps1 <http://www.w3.org/2002/07/owl#equivalentClass>), (!= ?ps1 <http://dbpedia.org/property/wikiPageUsesTemplate>), (!= ?ps1 <http://dbpedia.org/property/wordnet_type>), (!= ?ps1 <http://dbpedia.org/ontology/wikiPageRedirects>), (!= ?ps1 <http://dbpedia.org/ontology/wikiPageDisambiguates>)]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(!= ?pf1 <http://www.w3.org/2002/07/owl#sameAs>), (!= ?pf1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>), (!= ?pf1 <http://www.w3.org/2002/07/owl#equivalentClass>), (!= ?pf1 <http://dbpedia.org/property/wikiPageUsesTemplate>), (!= ?pf1 <http://dbpedia.org/property/wordnet_type>), (!= ?pf1 <http://dbpedia.org/ontology/wikiPageRedirects>), (!= ?pf1 <http://dbpedia.org/ontology/wikiPageDisambiguates>), (! (isLiteral ?middle))]", "subOp": [
+        {"opName": "assign", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://dbpedia.org/resource/Justin_Bieber", "Predicate": "?pf1", "Object": {"value":"?middle"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?t", "Predicate": "?ps1", "Object": {"value":"?middle"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

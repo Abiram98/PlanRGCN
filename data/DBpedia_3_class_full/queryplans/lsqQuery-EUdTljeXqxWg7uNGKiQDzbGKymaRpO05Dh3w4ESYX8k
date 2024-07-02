@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"EN\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?series", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"http://de.dbpedia.org/resource/Mummy_Nanny"}, "opName": "Triple"}
+      ,
+      {"Subject": "?series", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

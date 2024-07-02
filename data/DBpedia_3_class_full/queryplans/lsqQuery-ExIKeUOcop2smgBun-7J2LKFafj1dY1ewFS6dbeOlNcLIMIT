@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Advanced_Micro_Devices_microprocessors", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail_link"}, "opName": "Triple"}
+  ]}
+]}

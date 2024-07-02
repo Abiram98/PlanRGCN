@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?v2", "Predicate": "?v13", "Object": {"value":"http://dbpedia.org/ontology/Person"}, "opName": "Triple"}
+    ,
+    {"Subject": "?v2", "Predicate": "?v4", "Object": {"value":"http://dbpedia.org/resource/The_Prize_(novel)"}, "opName": "Triple"}
+  ]}
+]}

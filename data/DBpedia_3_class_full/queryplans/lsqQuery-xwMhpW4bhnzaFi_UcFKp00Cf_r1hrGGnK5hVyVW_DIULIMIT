@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?subsidiary", "Predicate": "http://dbpedia.org/ontology/education", "Object": {"value":"http://dbpedia.org/resource/Glasgow,_Delaware"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/TUI_Travel", "Predicate": "http://dbpedia.org/ontology/subsidiary", "Object": {"value":"?subsidiary"}, "opName": "Triple"}
+  ]}
+]}

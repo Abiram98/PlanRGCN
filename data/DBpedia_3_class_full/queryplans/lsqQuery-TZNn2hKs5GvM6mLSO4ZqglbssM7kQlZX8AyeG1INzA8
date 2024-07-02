@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Australia", "Predicate": "http://dbpedia.org/ontology/largestCity", "Object": {"value":"?x"}, "opName": "Triple"}
+  ,
+  {"Subject": "?x", "Predicate": "http://dbpedia.org/property/largestCity", "Object": {"value":"?y"}, "opName": "Triple"}
+]}

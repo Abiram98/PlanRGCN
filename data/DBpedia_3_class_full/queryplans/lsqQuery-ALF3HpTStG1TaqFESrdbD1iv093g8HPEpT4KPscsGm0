@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?movie", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Film"}, "opName": "Triple"}
+    ,
+    {"Subject": "?movie", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?mcountry"}, "opName": "Triple"}
+    ,
+    {"Subject": "?mcountry", "Predicate": "http://dbpedia.org/ontology/language", "Object": {"value":"http://dbpedia.org/resource/English_language"}, "opName": "Triple"}
+    ,
+    {"Subject": "?p", "Predicate": "http://dbpedia.org/property/birthPlace", "Object": {"value":"?pcountry"}, "opName": "Triple"}
+    ,
+    {"Subject": "?pcountry", "Predicate": "http://dbpedia.org/ontology/language", "Object": {"value":"http://dbpedia.org/resource/German_language"}, "opName": "Triple"}
+    ,
+    {"Subject": "?movie", "Predicate": "http://dbpedia.org/ontology/starring", "Object": {"value":"?p"}, "opName": "Triple"}
+  ]}
+]}

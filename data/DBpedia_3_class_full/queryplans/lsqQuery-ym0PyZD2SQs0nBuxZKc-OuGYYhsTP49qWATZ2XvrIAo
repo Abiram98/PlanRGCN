@@ -1,0 +1,149 @@
+{"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "conditional", "subOp": [
+                    {"opName": "conditional", "subOp": [
+                      {"opName": "conditional", "subOp": [
+                        {"opName": "conditional", "subOp": [
+                          {"opName": "conditional", "subOp": [
+                            {"opName": "conditional", "subOp": [
+                              {"opName": "conditional", "subOp": [
+                                {"opName": "conditional", "subOp": [
+                                  {"opName": "conditional", "subOp": [
+                                    {"opName": "conditional", "subOp": [
+                                      {"opName": "conditional", "subOp": [
+                                        {"opName": "conditional", "subOp": [
+                                          {"opName": "conditional", "subOp": [
+                                            {"opName": "conditional", "subOp": [
+                                              {"opName": "conditional", "subOp": [
+                                                {"opName": "conditional", "subOp": [
+                                                  {"opName":"BGP", "subOp": [
+                                                    {"Subject": "?x", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"Zollernalbkreis","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+                                                  ]}
+                                                  ,
+                                                  {"opName":"BGP", "subOp": [
+                                                    {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/populationTotal", "Object": {"value":"?pop"}, "opName": "Triple"}
+                                                  ]}
+                                                ]}
+                                                ,
+                                                {"opName":"BGP", "subOp": [
+                                                  {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+                                                ]}
+                                              ]}
+                                              ,
+                                              {"opName":"BGP", "subOp": [
+                                                {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/areaTotal", "Object": {"value":"?areaTotal"}, "opName": "Triple"}
+                                              ]}
+                                            ]}
+                                            ,
+                                            {"opName":"BGP", "subOp": [
+                                              {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/postalCode", "Object": {"value":"?postalCode"}, "opName": "Triple"}
+                                            ]}
+                                          ]}
+                                          ,
+                                          {"opName":"BGP", "subOp": [
+                                            {"Subject": "?x", "Predicate": "http://dbpedia.org/property/governor", "Object": {"value":"?governor"}, "opName": "Triple"}
+                                          ]}
+                                        ]}
+                                        ,
+                                        {"opName":"BGP", "subOp": [
+                                          {"Subject": "?x", "Predicate": "http://www.w3.org/2002/07/owl#thumbnail_link", "Object": {"value":"?image"}, "opName": "Triple"}
+                                        ]}
+                                      ]}
+                                      ,
+                                      {"opName":"BGP", "subOp": [
+                                        {"Subject": "?x", "Predicate": "http://www.w3.org/2002/07/owl#leader", "Object": {"value":"?owlpropgovernor_name"}, "opName": "Triple"}
+                                      ]}
+                                    ]}
+                                    ,
+                                    {"opName":"BGP", "subOp": [
+                                      {"Subject": "?x", "Predicate": "http://www.w3.org/2002/07/owl#leaderParty", "Object": {"value":"?owlpropleaderParty"}, "opName": "Triple"}
+                                    ]}
+                                  ]}
+                                  ,
+                                  {"opName":"BGP", "subOp": [
+                                    {"Subject": "?x", "Predicate": "http://dbpedia.org/property/party", "Object": {"value":"?party"}, "opName": "Triple"}
+                                  ]}
+                                ]}
+                                ,
+                                {"opName":"BGP", "subOp": [
+                                  {"Subject": "?x", "Predicate": "http://dbpedia.org/property/leaderParty", "Object": {"value":"?propleaderParty"}, "opName": "Triple"}
+                                ]}
+                              ]}
+                              ,
+                              {"opName":"BGP", "subOp": [
+                                {"Subject": "?x", "Predicate": "http://dbpedia.org/property/legislature", "Object": {"value":"?legislature"}, "opName": "Triple"}
+                              ]}
+                            ]}
+                            ,
+                            {"opName":"BGP", "subOp": [
+                              {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+                            ]}
+                          ]}
+                          ,
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "?x", "Predicate": "http://dbpedia.org/property/leader", "Object": {"value":"?propgovernor_name"}, "opName": "Triple"}
+                          ]}
+                        ]}
+                        ,
+                        {"opName":"BGP", "subOp": [
+                          {"Subject": "?x", "Predicate": "http://dbpedia.org/property/mayor", "Object": {"value":"?mayor"}, "opName": "Triple"}
+                        ]}
+                      ]}
+                      ,
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "?x", "Predicate": "http://dbpedia.org/property/leaderTitle", "Object": {"value":"?leaderTitle"}, "opName": "Triple"}
+                      ]}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?x", "Predicate": "http://www.w3.org/2002/07/owl#leaderTitle", "Object": {"value":"?owlleaderTitle"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?x", "Predicate": "http://dbpedia.org/property/upperhouse", "Object": {"value":"?upperhouse"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?x", "Predicate": "http://dbpedia.org/property/lowerhouse", "Object": {"value":"?lowerhouse"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?x", "Predicate": "http://dbpedia.org/property/website", "Object": {"value":"?website"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?x", "Predicate": "http://xmlns.com/foaf/0.1/homepage", "Object": {"value":"?homepage"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?x", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?x", "Predicate": "http://www.opengis.net/ont/geosparql#lat", "Object": {"value":"?latitude"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?x", "Predicate": "http://www.opengis.net/ont/geosparql#long", "Object": {"value":"?longitude"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?x", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?geodatasubject"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

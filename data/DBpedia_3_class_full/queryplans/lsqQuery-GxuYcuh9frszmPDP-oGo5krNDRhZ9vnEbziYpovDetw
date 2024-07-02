@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?description) \"EN\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Ayan_Panja", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?description"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

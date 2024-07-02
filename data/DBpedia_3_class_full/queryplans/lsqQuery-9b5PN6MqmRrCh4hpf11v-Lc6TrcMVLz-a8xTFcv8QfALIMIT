@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?value) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Giuseppe_Veronese", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?value"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

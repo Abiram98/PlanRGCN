@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex ?abstract \"Dryburgh Abbey\"), (langMatches (lang ?abstract) \"en\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+  ]}
+]}

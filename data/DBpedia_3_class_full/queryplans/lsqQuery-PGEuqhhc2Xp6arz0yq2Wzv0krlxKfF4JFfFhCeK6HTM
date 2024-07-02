@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Orchard_Beach,_New_York", "Predicate": "http://dbpedia.org/ontology/locationCity", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

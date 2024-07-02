@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Return_to_Lonesome_Dove", "Predicate": "?p", "Object": {"value":"http://dbpedia.org/resource/Fearless_Frank"}, "opName": "Triple"}
+]}

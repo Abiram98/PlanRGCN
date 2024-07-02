@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(regex ?abstract \"Search of Lost Time\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/author", "Object": {"value":"?author"}, "opName": "Triple"}
+        ,
+        {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/publisher", "Object": {"value":"?publisher"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

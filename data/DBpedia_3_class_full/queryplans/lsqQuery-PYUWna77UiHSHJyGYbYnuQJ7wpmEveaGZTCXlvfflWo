@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?name) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?country", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Country"}, "opName": "Triple"}
+      ,
+      {"Subject": "?country", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://schema.org/Country"}, "opName": "Triple"}
+      ,
+      {"Subject": "?country", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?name"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

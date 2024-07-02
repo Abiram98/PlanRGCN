@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?s", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?p"}, "opName": "Triple"}
+]}

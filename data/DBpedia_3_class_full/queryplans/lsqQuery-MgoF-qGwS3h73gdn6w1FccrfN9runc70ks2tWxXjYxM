@@ -1,0 +1,33 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(langMatches (lang ?company_information_field_abstract1) \"EN\")]", "subOp": [
+            {"opName": "sequence", "subOp": [
+                {"opName": "filter" , "expr": " [(langMatches (lang ?company_information_field_company_name1) \"EN\")]", "subOp": [
+                  {"opName": "sequence", "subOp": [
+                      {"opName": "filter" , "expr": " [(regex ?var758969774 \"3D_printing\")]", "subOp": [
+                        {"opName":"BGP", "subOp": [
+                          {"Subject": "?company_information", "Predicate": "http://dbpedia.org/ontology/industry", "Object": {"value":"?var758969774"}, "opName": "Triple"}
+                        ]}
+                      ]}
+                      ,
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "?company_information", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?company_information_field_company_name1"}, "opName": "Triple"}
+                      ]}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?company_information", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?company_information_field_abstract1"}, "opName": "Triple"}
+                ]}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?company_information", "Predicate": "http://xmlns.com/foaf/0.1/homepage", "Object": {"value":"?company_information_field_homepage"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+  ]}
+]}

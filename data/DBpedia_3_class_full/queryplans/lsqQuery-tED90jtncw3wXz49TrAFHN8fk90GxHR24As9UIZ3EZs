@@ -1,0 +1,43 @@
+{"opName": "filter" , "expr": " [(regex (str ?occupation) \"actor\" \"i\")]", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "filter" , "expr": " [(= (str ?imeDBP) \"Arnold Schwarzenegger\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?Actor", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?imeDBP"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?Actor", "Predicate": "http://dbpedia.org/property/occupation", "Object": {"value":"?occupation"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?Actor", "Predicate": "http://dbpedia.org/property/nickname", "Object": {"value":"?nickName"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?Actor", "Predicate": "http://dbpedia.org/property/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?Actor", "Predicate": "http://dbpedia.org/property/placeOfBirth", "Object": {"value":"?placeOfBirth"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?Actor", "Predicate": "http://dbpedia.org/property/residence", "Object": {"value":"?residence"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?Actor", "Predicate": "http://purl.org/dc/elements/1.1/description", "Object": {"value":"?description"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

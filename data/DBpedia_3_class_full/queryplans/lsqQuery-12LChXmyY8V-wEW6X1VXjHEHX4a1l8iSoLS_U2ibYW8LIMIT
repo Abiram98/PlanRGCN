@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(regex ?place \"germany\" \"i\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?s", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Writer"}, "opName": "Triple"}
+          ,
+          {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?b_palce"}, "opName": "Triple"}
+          ,
+          {"Subject": "?b_palce", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?place"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

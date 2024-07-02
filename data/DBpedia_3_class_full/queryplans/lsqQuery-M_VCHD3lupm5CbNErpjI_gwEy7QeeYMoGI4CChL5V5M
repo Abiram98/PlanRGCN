@@ -1,0 +1,27 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(langMatches (lang ?company_field_abstract) \"EN\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(langMatches (lang ?company_field_name) \"EN\")]", "subOp": [
+              {"opName": "sequence", "subOp": [
+                  {"opName": "filter" , "expr": " [(regex ?var1214897220 \"3D printing\"@en)]", "subOp": [
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?company", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?var1214897220"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?company", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?company_field_name"}, "opName": "Triple"}
+                  ]}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?company", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?company_field_abstract"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

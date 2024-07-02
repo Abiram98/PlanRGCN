@@ -1,0 +1,45 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(langMatches (lang ?snippet) \"en\"), (langMatches (lang ?alias_1) \"en\"), (langMatches (lang ?alias_2) \"en\")]", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "filter" , "expr": " [(langMatches (lang ?name) \"en\")]", "subOp": [
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?e", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/class/yago/EducationalInstitution108276342"}, "opName": "Triple"}
+                      ,
+                      {"Subject": "?e", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?name"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?e", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?snippet"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?e", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?url"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?e", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?pageId"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?e", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?alias_1"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?e", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?alias_2"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

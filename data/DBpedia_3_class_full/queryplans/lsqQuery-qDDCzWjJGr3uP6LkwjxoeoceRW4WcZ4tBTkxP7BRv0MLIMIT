@@ -1,0 +1,21 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?musician", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/MusicalArtist"}, "opName": "Triple"}
+  ,
+  {"Subject": "?musician", "Predicate": "http://dbpedia.org/ontology/activeYearsStartYear", "Object": {"value":"?activeyearsstartyear"}, "opName": "Triple"}
+  ,
+  {"Subject": "?musician", "Predicate": "http://dbpedia.org/ontology/associatedBand", "Object": {"value":"?associatedband"}, "opName": "Triple"}
+  ,
+  {"Subject": "?musician", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?birthplace"}, "opName": "Triple"}
+  ,
+  {"Subject": "?musician", "Predicate": "http://dbpedia.org/ontology/genre", "Object": {"value":"?genre"}, "opName": "Triple"}
+  ,
+  {"Subject": "?musician", "Predicate": "http://dbpedia.org/ontology/recordLabel", "Object": {"value":"?recordlable"}, "opName": "Triple"}
+  ,
+  {"Subject": "?musician", "Predicate": "http://dbpedia.org/property/voiceType", "Object": {"value":"?voicetype"}, "opName": "Triple"}
+  ,
+  {"Subject": "?artist", "Predicate": "http://dbpedia.org/property/artist", "Object": {"value":"?musician"}, "opName": "Triple"}
+  ,
+  {"Subject": "?starring", "Predicate": "http://dbpedia.org/ontology/starring", "Object": {"value":"?musician"}, "opName": "Triple"}
+  ,
+  {"Subject": "?writer", "Predicate": "http://dbpedia.org/ontology/writer", "Object": {"value":"?musician"}, "opName": "Triple"}
+]}

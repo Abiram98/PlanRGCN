@@ -1,0 +1,51 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/janHighF", "Object": {"value":"?janHighF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/janLowF", "Object": {"value":"?janLowF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/febHighF", "Object": {"value":"?febHighF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/febLowF", "Object": {"value":"?febLowF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/marHighF", "Object": {"value":"?marHighF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/marLowF", "Object": {"value":"?marLowF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/aprHighF", "Object": {"value":"?aprHighF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/aprLowF", "Object": {"value":"?aprLowF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/mayHighF", "Object": {"value":"?mayHighF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/mayLowF", "Object": {"value":"?mayLowF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/junHighF", "Object": {"value":"?junHighF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/junLowF", "Object": {"value":"?junLowF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/julHighF", "Object": {"value":"?julHighF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/julLowF", "Object": {"value":"?julLowF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/augHighF", "Object": {"value":"?augHighF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/augLowF", "Object": {"value":"?augLowF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/sepHighF", "Object": {"value":"?sepHighF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/sepLowF", "Object": {"value":"?sepLowF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/octHighF", "Object": {"value":"?octHighF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/octLowF", "Object": {"value":"?octLowF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/novHighF", "Object": {"value":"?novHighF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/novLowF", "Object": {"value":"?novLowF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/decHighF", "Object": {"value":"?decHighF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/decLowF", "Object": {"value":"?decLowF"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Longyan", "Predicate": "http://dbpedia.org/property/location", "Object": {"value":"?L"}, "opName": "Triple"}
+]}

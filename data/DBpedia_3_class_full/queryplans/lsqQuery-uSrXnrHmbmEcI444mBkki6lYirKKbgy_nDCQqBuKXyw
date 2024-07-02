@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://www.cs.helsinki.fi/group/seco/ns/2004/03/18-masa#biedermeier", "Predicate": "http://www.w3.org/TR/1999/PR-rdf-schema-19990303#label", "Object": {"value":"Kuopio","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://www.cs.helsinki.fi/group/seco/ns/2004/03/18-masa#biedermeier", "Predicate": "http://dbpedia.org/property/longd", "Object": {"value":"?long"}, "opName": "Triple"}
+]}

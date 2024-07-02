@@ -1,0 +1,49 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "filter" , "expr": " [(regex ?name \"AIR FRANCE\" \"i\"), (langMatches (lang ?name) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?Company", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Company"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?Company", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?name"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?Company", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?wikiPage"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName": "sequence", "subOp": [
+                {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?Company", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?Company", "Predicate": "http://dbpedia.org/property/industry", "Object": {"value":"?companyIndustry"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?companyIndustry", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?industry"}, "opName": "Triple"}
+                ]}
+            ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?Company", "Predicate": "http://xmlns.com/foaf/0.1/depiction", "Object": {"value":"?icon"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?Company", "Predicate": "http://dbpedia.org/property/founder", "Object": {"value":"?companyFounder"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?companyFounder", "Predicate": "http://dbpedia.org/ontology/alias", "Object": {"value":"?founder"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

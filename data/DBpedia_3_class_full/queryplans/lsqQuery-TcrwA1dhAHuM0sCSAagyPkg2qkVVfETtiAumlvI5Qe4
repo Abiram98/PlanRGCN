@@ -1,0 +1,29 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "table", "subOp": []}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "https://tw.rpi.edu/orgpedia/company/private/id/Spring_Hill_Nurseries", "Predicate": "http://xmlns.com/foaf/0.1/homepage", "Object": {"value":"?homepage"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "https://tw.rpi.edu/orgpedia/company/private/id/Spring_Hill_Nurseries", "Predicate": "http://xmlns.com/foaf/0.1/page", "Object": {"value":"?wikipage"}, "opName": "Triple"}
+          ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "https://tw.rpi.edu/orgpedia/company/private/id/Spring_Hill_Nurseries", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?uri"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "https://tw.rpi.edu/orgpedia/company/private/id/Spring_Hill_Nurseries", "Predicate": "http://dbpedia.org/ontology/keyPerson", "Object": {"value":"??0"}, "opName": "Triple"}
+      ,
+      {"Subject": "??0", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?keyperson"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?Country", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://yago-knowledge.org/resource/MemberStatesOfTheEuropeanUnion"}, "opName": "Triple"}
+    ,
+    {"Subject": "?Country", "Predicate": "http://dbpedia.org/ontology/currency", "Object": {"value":"http://dbpedia.org/resource/Euro"}, "opName": "Triple"}
+    ,
+    {"Subject": "?x", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/University"}, "opName": "Triple"}
+    ,
+    {"Subject": "?x", "Predicate": "http://dbpedia.org/property/students", "Object": {"value":"?Students"}, "opName": "Triple"}
+    ,
+    {"Subject": "?x", "Predicate": "http://dbpedia.org/property/staff", "Object": {"value":"?Teachers"}, "opName": "Triple"}
+    ,
+    {"Subject": "?x", "Predicate": "http://dbpedia.org/property/country", "Object": {"value":"?Country"}, "opName": "Triple"}
+  ]}
+]}

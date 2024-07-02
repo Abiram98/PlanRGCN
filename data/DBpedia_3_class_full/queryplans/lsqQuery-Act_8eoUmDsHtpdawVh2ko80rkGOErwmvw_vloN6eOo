@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(!= ?c1 ?c2)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?c1"}, "opName": "Triple"}
+          ,
+          {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?c2"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?c1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?t"}, "opName": "Triple"}
+        ,
+        {"Subject": "?c2", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?t"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

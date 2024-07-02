@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?result", "Predicate": "http://www.aktors.org/ontology/portal#has-affiliation", "Object": {"value":"http://dbpedia.org/resource/Merchant_Taylors%27_School,_Northwood"}, "opName": "Triple"}
+]}

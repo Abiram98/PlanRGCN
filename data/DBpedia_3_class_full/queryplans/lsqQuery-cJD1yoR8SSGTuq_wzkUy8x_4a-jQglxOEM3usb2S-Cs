@@ -1,0 +1,21 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/award", "Object": {"value":"?awards"}, "opName": "Triple"}
+    ,
+    {"Subject": "?awards", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Award"}, "opName": "Triple"}
+    ,
+    {"Subject": "?awards", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"http://dbpedia.org/resource/Category:Nobel_Prize"}, "opName": "Triple"}
+    ,
+    {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?bp"}, "opName": "Triple"}
+    ,
+    {"Subject": "?personT", "Predicate": "http://dbpedia.org/ontology/award", "Object": {"value":"http://dbpedia.org/resource/Turing_Award"}, "opName": "Triple"}
+    ,
+    {"Subject": "?personT", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?bp"}, "opName": "Triple"}
+    ,
+    {"Subject": "?bp", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/City"}, "opName": "Triple"}
+    ,
+    {"Subject": "?bp", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?countries"}, "opName": "Triple"}
+    ,
+    {"Subject": "?countries", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"http://dbpedia.org/resource/Category:Countries_in_Europe"}, "opName": "Triple"}
+  ]}
+]}

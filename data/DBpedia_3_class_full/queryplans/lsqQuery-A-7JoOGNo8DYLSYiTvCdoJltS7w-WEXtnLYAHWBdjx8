@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Tunisia", "Predicate": "http://dbpedia.org/property/gdpNominalPerCapita", "Object": {"value":"?GDP_per_Capita"}, "opName": "Triple"}
+]}

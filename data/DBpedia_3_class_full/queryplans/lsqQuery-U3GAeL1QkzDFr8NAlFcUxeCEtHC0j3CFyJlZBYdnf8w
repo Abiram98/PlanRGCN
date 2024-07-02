@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?x", "Predicate": "?predicate", "Object": {"value":"http://dbpedia.org/resource/Jesus_of_Nazareth:_Holy_Week"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

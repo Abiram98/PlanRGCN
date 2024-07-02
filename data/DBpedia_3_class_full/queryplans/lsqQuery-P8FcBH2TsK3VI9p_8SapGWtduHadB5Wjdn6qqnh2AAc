@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?object", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"http://data.visitkorea.or.kr/resource/1626449"}, "opName": "Triple"}
+]}

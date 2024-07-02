@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?en", "Predicate": "http://dbpedia.org/ontology/closingDate", "Object": {"value":"?ans"}, "opName": "Triple"}
+    ,
+    {"Subject": "?en", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Case"}, "opName": "Triple"}
+  ]}
+]}

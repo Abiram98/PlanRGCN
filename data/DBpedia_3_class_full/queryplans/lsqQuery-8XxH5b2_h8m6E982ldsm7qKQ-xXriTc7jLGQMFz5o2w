@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Elite%3A_Dangerous", "Predicate": "http://dbpedia.org/ontology/wikiPageRedirects", "Object": {"value":"?redirectUrl"}, "opName": "Triple"}
+]}

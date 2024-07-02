@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?a", "Predicate": "?x", "Object": {"value":"?b"}, "opName": "Triple"}
+    ,
+    {"Subject": "?b", "Predicate": "?y", "Object": {"value":"?c"}, "opName": "Triple"}
+  ]}
+]}

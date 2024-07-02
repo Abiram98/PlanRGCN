@@ -1,0 +1,7 @@
+Train Start DBpedia Training 0
+Train DONE DBpedia Training 3863
+Prediction DONE DBpedia Training 3882
+Train DONE DBpedia Training 0
+Prediction DONE DBpedia Training 20
+Train DONE DBpedia Training 0
+Prediction DONE DBpedia Training 138

@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(> ?o2968 3)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?s2968", "Predicate": "?p3001", "Object": {"value":"?o2968"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s2968", "Predicate": "http://dbpedia.org/property/numberOfEntrances", "Object": {"value":"?o2968"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

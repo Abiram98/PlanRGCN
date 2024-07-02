@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/The_Real_Housewives_of_Atlanta", "Predicate": "?predicate", "Object": {"value":"?object"}, "opName": "Triple"}
+  ]}
+]}

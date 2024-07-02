@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"EN\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(regex ?subject \".*noir.*\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?film", "Predicate": "http://dbpedia.org/ontology/director", "Object": {"value":"http://dbpedia.org/resource/Alfred_Hitchcock"}, "opName": "Triple"}
+            ,
+            {"Subject": "?film", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?subject"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?film", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

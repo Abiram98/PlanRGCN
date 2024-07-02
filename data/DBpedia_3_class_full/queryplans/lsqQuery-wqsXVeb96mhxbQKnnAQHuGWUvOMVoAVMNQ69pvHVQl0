@@ -1,0 +1,31 @@
+{"opName": "filter" , "expr": " [(= (lang ?residence) \"en\")]", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "filter" , "expr": " [(= (str ?imeDBP) \"Brad Pitt\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?actr", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?imeDBP"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?actr", "Predicate": "http://dbpedia.org/property/nickname", "Object": {"value":"?nickName"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?actr", "Predicate": "http://dbpedia.org/property/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?actr", "Predicate": "http://dbpedia.org/property/placeOfBirth", "Object": {"value":"?placeOfBirth"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?actr", "Predicate": "http://dbpedia.org/property/residence", "Object": {"value":"?residence"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

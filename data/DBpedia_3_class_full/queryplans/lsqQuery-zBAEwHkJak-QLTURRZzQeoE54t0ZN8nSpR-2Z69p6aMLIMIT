@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Smokin'_Joe_Kubek", "Predicate": "http://dbpedia.org/ontology/bandMember", "Object": {"value":"?bandMemberObj"}, "opName": "Triple"}
+      ,
+      {"Subject": "?bandMemberObj", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

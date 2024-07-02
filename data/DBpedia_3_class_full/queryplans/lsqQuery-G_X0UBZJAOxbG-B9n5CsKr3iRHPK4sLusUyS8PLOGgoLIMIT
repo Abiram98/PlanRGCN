@@ -1,0 +1,27 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?s_movie_producer", "Predicate": "http://dbpedia.org/ontology/director", "Object": {"value":"?o_movie_director"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s_movie_producer", "Predicate": "http://dbpedia.org/ontology/musicComposer", "Object": {"value":"?o_movie_musicComposer"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s_movie_producer", "Predicate": "http://dbpedia.org/ontology/distributor", "Object": {"value":"?o_movie_distributor"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s_movie_producer", "Predicate": "http://dbpedia.org/ontology/producer", "Object": {"value":"?o_movie_producer"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s_movie_producer", "Predicate": "http://dbpedia.org/property/title", "Object": {"value":"?o_movie_title"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s_actor_alternativeNames", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?o_actor_birthPlace"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s_actor_alternativeNames", "Predicate": "http://dbpedia.org/property/alternativeNames", "Object": {"value":"?o_actor_alternativeNames"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s_actor_alternativeNames", "Predicate": "http://dbpedia.org/property/yearsActive", "Object": {"value":"?o_actor_yearsActive"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s_actor_alternativeNames", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?o_actor_birthDate"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s_actor_alternativeNames", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?o_actor_name"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s_movie_producer", "Predicate": "http://dbpedia.org/ontology/starring", "Object": {"value":"?s_actor_alternativeNames"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

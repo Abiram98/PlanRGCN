@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "assign", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/author", "Object": {"value":"http://dbpedia.org/resource/Good_(economics)"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

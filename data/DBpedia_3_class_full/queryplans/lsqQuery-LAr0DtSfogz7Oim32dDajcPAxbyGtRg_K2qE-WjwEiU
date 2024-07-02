@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Kitt_Peak_National_Observatory", "Predicate": "http://dbpedia.org/ontology/developer", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?film_abstract) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?film_title", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Film"}, "opName": "Triple"}
+      ,
+      {"Subject": "?film_title", "Predicate": "http://dbpedia.org/ontology/genre", "Object": {"value":"?film_genre"}, "opName": "Triple"}
+      ,
+      {"Subject": "?film_title", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?film_abstract"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

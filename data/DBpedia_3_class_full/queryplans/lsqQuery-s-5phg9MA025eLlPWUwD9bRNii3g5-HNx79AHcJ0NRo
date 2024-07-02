@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?musician", "Predicate": "http://www.w3.org/2004/02/skos/core#subject", "Object": {"value":"http://dbpedia.org/resource/Category:German_musicians"}, "opName": "Triple"}
+      ,
+      {"Subject": "?musician", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?description_en) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?musician", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?description_en"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

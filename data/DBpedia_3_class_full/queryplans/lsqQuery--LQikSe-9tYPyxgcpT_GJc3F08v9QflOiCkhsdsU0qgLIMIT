@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?lighthouse", "Predicate": "?lC", "Object": {"value":"http://dbpedia.org/resource/Colombo_(crater)"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Flat_Holm", "Predicate": "http://dbpedia.org/ontology/elevation", "Object": {"value":"?high"}, "opName": "Triple"}
+  ]}
+]}

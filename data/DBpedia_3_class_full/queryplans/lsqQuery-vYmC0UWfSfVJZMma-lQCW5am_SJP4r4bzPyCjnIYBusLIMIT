@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?x", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"James Bond filmography","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"EN"}, "opName": "Triple"}
+    ,
+    {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/portrayer", "Object": {"value":"?actor"}, "opName": "Triple"}
+    ,
+    {"Subject": "?y", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?Bplace"}, "opName": "Triple"}
+  ]}
+]}

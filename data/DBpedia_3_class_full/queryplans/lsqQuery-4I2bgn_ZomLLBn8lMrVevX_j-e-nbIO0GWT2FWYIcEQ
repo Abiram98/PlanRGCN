@@ -1,0 +1,23 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(< ?endYear \"1799\"^^<http://www.w3.org/2001/XMLSchema#gYear>)]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(> ?startYear \"1700\"^^<http://www.w3.org/2001/XMLSchema#gYear>)]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?Person", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+                ,
+                {"Subject": "?Person", "Predicate": "http://dbpedia.org/ontology/activeYearsStartYear", "Object": {"value":"?startYear"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?Person", "Predicate": "http://dbpedia.org/ontology/activeYearsEndYear", "Object": {"value":"?endYear"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?Location", "Predicate": "http://dbpedia.org/ontology/locationCity", "Object": {"value":"http://dbpedia.org/resource/London"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

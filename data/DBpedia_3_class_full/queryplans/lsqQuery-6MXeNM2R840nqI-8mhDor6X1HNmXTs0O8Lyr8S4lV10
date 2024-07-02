@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex (str ?o) \"^http://wikidata.org/entity/\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Butter_Fingers", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?o"}, "opName": "Triple"}
+  ]}
+]}

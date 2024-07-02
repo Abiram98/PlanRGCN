@@ -1,0 +1,20 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "path", "Subject": "?x", "Object": {"value":"http://dbpedia.org/ontology/AnatomicalStructure"}
+    , "pathComplexity": [
+    "P_OneOrMore1"
+    ]
+
+    , "pathType": "OneOrMore"
+    ,"Predicates":[
+     "<http://www.w3.org/2000/01/rdf-schema#subClassOf>"
+    ]
+    }
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?x", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

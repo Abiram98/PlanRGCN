@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Flinders_Street_Viaduct", "Predicate": "http://dbpedia.org/ontology/license", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

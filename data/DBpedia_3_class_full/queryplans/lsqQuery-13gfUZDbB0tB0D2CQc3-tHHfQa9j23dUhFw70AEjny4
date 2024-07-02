@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(strstarts (str ?type) \"http://dbpedia.org/ontology\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?y", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"877552","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+      ,
+      {"Subject": "?y", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?type"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,7 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://www.yso.fi/kulttuuriSampo/paikat#kuusankoski", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"Kuopio","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://www.yso.fi/kulttuuriSampo/paikat#kuusankoski", "Predicate": "http://dbpedia.org/property/latd", "Object": {"value":"?lat"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://www.yso.fi/kulttuuriSampo/paikat#kuusankoski", "Predicate": "http://dbpedia.org/property/longd", "Object": {"value":"?long"}, "opName": "Triple"}
+]}

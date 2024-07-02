@@ -1,0 +1,22 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Slash_(musician)", "Predicate": "?prop", "Object": {"value":"?tmp"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "path", "Subject": "?tmp", "Object": {"value":"http://yago-knowledge.org/resource/StringedInstrument104338517"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>"
+      ]
+      }
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?tmp", "Predicate": "http://www.w3.org/2000/01/rdf-schema#subClassOf", "Object": {"value":"http://yago-knowledge.org/resource/MusicalInstrument103800933"}, "opName": "Triple"}
+  ]}
+]}

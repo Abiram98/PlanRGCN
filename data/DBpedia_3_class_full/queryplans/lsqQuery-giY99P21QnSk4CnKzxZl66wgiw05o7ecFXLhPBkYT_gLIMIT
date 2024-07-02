@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?cityname", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/City"}, "opName": "Triple"}
+      ,
+      {"Subject": "?cityname", "Predicate": "?any", "Object": {"value":"http://dbpedia.org/resource/Finland","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?cityname", "Predicate": "http://www.opengis.net/ont/geosparql#lat", "Object": {"value":"?caplat"}, "opName": "Triple"}
+      ,
+      {"Subject": "?cityname", "Predicate": "http://www.opengis.net/ont/geosparql#long", "Object": {"value":"?caplong"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

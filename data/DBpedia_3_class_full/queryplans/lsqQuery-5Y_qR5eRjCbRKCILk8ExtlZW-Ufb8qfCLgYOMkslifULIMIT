@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(!= ?artist <http://dbpedia.org/resource/David_Binney>)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?artist", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/class/yago/AmericanJazzSaxophonists"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?artist", "Predicate": "http://dbpedia.org/property/wikiPageUsesTemplate", "Object": {"value":"http://dbpedia.org/resource/Template:Infobox_musical_artist"}, "opName": "Triple"}
+        ,
+        {"Subject": "?artist", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

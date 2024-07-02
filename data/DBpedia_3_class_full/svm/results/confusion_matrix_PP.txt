@@ -1,0 +1,10 @@
+\begin{tabular}{lrrr}
+\toprule
+Predicted & 0s to 1s & 1s to 10s & $>$ 10s \\
+Actual &  &  &  \\
+\midrule
+0s to 1s & 476 & 149 & 0 \\
+1s to 10s & 1 & 8 & 0 \\
+$>$ 10s & 1 & 10 & 0 \\
+\bottomrule
+\end{tabular}

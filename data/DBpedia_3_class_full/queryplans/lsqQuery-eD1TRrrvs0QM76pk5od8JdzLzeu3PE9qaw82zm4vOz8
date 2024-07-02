@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?concept", "Predicate": "http://dbpedia.org/ontology/genre", "Object": {"value":"http://www.gsic.uva.es/ontologies/ontoolcoleModel.owl#DrawingTool"}, "opName": "Triple"}
+      ,
+      {"Subject": "?concept", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

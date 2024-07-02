@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/BAE_Systems", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?img"}, "opName": "Triple"}
+  ]}
+]}

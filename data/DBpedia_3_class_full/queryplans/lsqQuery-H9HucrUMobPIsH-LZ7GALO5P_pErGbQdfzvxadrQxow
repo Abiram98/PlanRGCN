@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Alex_North", "Predicate": "http://dbpedia.org/property/instrument", "Object": {"value":"?instr"}, "opName": "Triple"}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Gabriel-Jules_Thomas", "Predicate": "?o", "Object": {"value":"?p"}, "opName": "Triple"}
+]}

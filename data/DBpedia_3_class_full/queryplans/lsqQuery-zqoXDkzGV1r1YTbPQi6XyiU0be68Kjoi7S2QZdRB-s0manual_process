@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "??P22", "Predicate": "http://purl.org/dc/elements/1.1/subject", "Object": {"value":"http://dbpedia.org/resource/Category:Medicine"}, "opName": "Triple"}
+    ,
+    {"Subject": "?uri", "Predicate": "http://www.w3.org/2004/02/skos/core#broader", "Object": {"value":"??P22"}, "opName": "Triple"}
+  ]}
+]}

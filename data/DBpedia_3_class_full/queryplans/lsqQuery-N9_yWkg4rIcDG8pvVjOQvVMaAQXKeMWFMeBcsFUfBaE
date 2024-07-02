@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(!= ?y <http://www.w3.org/2000/01/rdf-schema#comment>), (!= ?y <http://www.w3.org/2000/01/rdf-schema#label>), (!= ?y <http://www.w3.org/2002/07/owl#sameAs>), (!= ?y <http://dbpedia.org/ontology/abstract>), (!= ?y <http://purl.org/dc/terms/subject>), (!= ?y <http://dbpedia.org/ontology/wikiPageID>), (!= ?y <http://dbpedia.org/ontology/wikiPageRevisionID>), (!= ?y <http://dbpedia.org/ontology/wikiPageExternalLink>)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?x", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Species"}, "opName": "Triple"}
+      ,
+      {"Subject": "?x", "Predicate": "?y", "Object": {"value":"?z"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

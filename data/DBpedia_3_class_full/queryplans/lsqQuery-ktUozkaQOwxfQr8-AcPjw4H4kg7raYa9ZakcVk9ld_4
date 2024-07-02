@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(regex ?country <http://dbpedia.org/resource/Russia>)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?city", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/PopulatedPlace"}, "opName": "Triple"}
+          ,
+          {"Subject": "?city", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?country"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

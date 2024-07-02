@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?university", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"University of Strasbourg","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+    ,
+    {"Subject": "?university", "Predicate": "http://dbpedia.org/ontology/numberOfUndergraduateStudents", "Object": {"value":"?numberOfUndergraduateStudents"}, "opName": "Triple"}
+  ]}
+]}

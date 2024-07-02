@@ -1,0 +1,11 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?s \"http://dbpedia.org/class/yago/Loss\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?s", "Predicate": "http://www.w3.org/2000/01/rdf-schema#subClassOf", "Object": {"value":"?c"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?x", "Predicate": "http://www.w3.org/2000/01/rdf-schema#subClassOf", "Object": {"value":"?s"}, "opName": "Triple"}
+  ]}
+]}

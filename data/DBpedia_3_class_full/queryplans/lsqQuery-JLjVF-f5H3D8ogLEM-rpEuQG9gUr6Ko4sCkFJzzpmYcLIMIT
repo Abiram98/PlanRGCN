@@ -1,0 +1,37 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lang ?occupation) \"en\")]", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(= (lang ?description) \"en\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?_person", "Predicate": "http://dbpedia.org/property/occupation", "Object": {"value":"http://dbpedia.org/resource/Actor"}, "opName": "Triple"}
+              ,
+              {"Subject": "?_person", "Predicate": "http://dbpedia.org/property/birthPlace", "Object": {"value":"http://dbpedia.org/resource/United_Arab_Emirates"}, "opName": "Triple"}
+              ,
+              {"Subject": "?_person", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+              ,
+              {"Subject": "?_person", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?description"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?_person", "Predicate": "http://dbpedia.org/property/birthPlace", "Object": {"value":"?_birthPlace"}, "opName": "Triple"}
+            ,
+            {"Subject": "?_person", "Predicate": "http://dbpedia.org/property/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+            ,
+            {"Subject": "?_person", "Predicate": "http://dbpedia.org/property/occupation", "Object": {"value":"?_occupation"}, "opName": "Triple"}
+            ,
+            {"Subject": "?_occupation", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?occupation"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?_birthPlace", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?birthPlace"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?_person", "Predicate": "http://dbpedia.org/property/alternativeNames", "Object": {"value":"?alternativeNames"}, "opName": "Triple"}
+  ]}
+]}

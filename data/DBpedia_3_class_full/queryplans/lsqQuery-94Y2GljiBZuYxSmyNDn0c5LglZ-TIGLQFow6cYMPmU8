@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(> ?numberOfSuites 30)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?hotel", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Building"}, "opName": "Triple"}
+      ,
+      {"Subject": "?hotel", "Predicate": "http://dbpedia.org/property/chain", "Object": {"value":"?chain"}, "opName": "Triple"}
+      ,
+      {"Subject": "?hotel", "Predicate": "http://dbpedia.org/property/chain", "Object": {"value":"http://dbpedia.org/resource/Fairmont_Hotels_and_Resorts"}, "opName": "Triple"}
+      ,
+      {"Subject": "?hotel", "Predicate": "http://dbpedia.org/property/numberOfRooms", "Object": {"value":"?numberOfRooms"}, "opName": "Triple"}
+      ,
+      {"Subject": "?hotel", "Predicate": "http://dbpedia.org/property/numberOfSuites", "Object": {"value":"?numberOfSuites"}, "opName": "Triple"}
+    ]}
+  ]}
+]}
