@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex (str ?var3) \"string1\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P486", "Object": {"value":"?var6"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"?var6"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var7", "Predicate": "http://wikiba.se/ontology#claim", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var7", "Predicate": "http://wikiba.se/ontology#propertyType", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var6", "Predicate": "http://wikiba.se/ontology#rank", "Object": {"value":"http://wikiba.se/ontology#DeprecatedRank"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var6", "Predicate": "?var3", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

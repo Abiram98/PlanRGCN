@@ -1,0 +1,11 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/P22", "Object": {"value":"??1"}, "opName": "Triple"}
+      ,
+      {"Subject": "??1", "Predicate": "?var2", "Object": {"value":"??2"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#qualifier", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

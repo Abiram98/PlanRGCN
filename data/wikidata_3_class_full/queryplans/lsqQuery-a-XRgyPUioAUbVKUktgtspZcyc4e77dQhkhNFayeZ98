@@ -1,0 +1,40 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P935", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "sequence", "subOp": [
+            {"opName": "path", "Subject": "??P1041", "Object": {"value":"http://www.wikidata.org/entity/Q4167410"}
+            , "pathComplexity": [
+            "P_ZeroOrMore1"
+            ]
+
+            , "pathType": "ZeroOrMore"
+            ,"Predicates":[
+             "<http://www.wikidata.org/prop/direct/P279>"
+            ]
+            }
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P1041"}, "opName": "Triple"}
+            ]}
+        ]}
+        ,
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(! (strstarts (str ?var4) \"string1\"))]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var4", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var4", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://commons.wikimedia.org/"}, "opName": "Triple"}
+              ,
+              {"Subject": "?var4", "Predicate": "http://schema.org/name", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ]}
+        ]}
+    ]}
+  ]}
+]}

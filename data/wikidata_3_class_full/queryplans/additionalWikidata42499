@@ -1,0 +1,21 @@
+{"opName": "filter" , "expr": " [(= (lang ?var4Label) \"fr\")]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (year ?var3) 2004)]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(= (year ?var2) 1947)]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?var2"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P570", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4Label"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

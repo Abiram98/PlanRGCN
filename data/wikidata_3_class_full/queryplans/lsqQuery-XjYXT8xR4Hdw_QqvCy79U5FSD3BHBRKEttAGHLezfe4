@@ -1,0 +1,23 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q10135", "Predicate": "http://www.wikidata.org/prop/direct/P154", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://www.wikidata.org/entity/Q10135", "Predicate": "http://www.wikidata.org/prop/P348", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/statement/P348", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/qualifier/P577", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?var3Label) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/qualifier/P548", "Object": {"value":"?var6"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var6", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3Label"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

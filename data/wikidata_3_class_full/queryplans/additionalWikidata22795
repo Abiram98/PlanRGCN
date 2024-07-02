@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(<http://www.opengis.net/def/function/geosparql/Within> ?var2 \"string1\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.opengis.net/ont/geosparql#hasGeometry", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

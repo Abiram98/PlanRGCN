@@ -1,0 +1,11 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "extend", "subOp": [
+      {"opName": "table", "subOp": []}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/direct/P373", "Object": {"value":"nodeID://b156828","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+      ,
+      {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/direct/P949", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ]}
+]}

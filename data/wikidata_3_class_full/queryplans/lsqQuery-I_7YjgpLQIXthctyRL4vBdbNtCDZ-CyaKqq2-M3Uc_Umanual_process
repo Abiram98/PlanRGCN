@@ -1,0 +1,20 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "??P2718", "Predicate": "http://www.wikidata.org/prop/P1435", "Object": {"value":"http://www.wikidata.org/entity/Q358"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P2717", "Predicate": "http://www.wikidata.org/prop/statement/P1435", "Object": {"value":"??P2718"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "path", "Subject": "?var1", "Object": {"value":"??P2717"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P279>"
+      ]
+      }
+  ]}
+]}

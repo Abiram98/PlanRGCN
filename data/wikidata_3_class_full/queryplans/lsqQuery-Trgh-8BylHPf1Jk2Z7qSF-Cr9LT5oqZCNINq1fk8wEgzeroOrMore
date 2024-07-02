@@ -1,0 +1,26 @@
+{"opName": "sequence", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "??P621", "Predicate": "http://wikiba.se/ontology#wikiGroup", "Object": {"value":"wiktionary","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"??P621"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://schema.org/about", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "??P622", "Object": {"value":"http://www.wikidata.org/entity/Q14204246"}
+        , "pathComplexity": [
+        "P_ZeroOrMore1"
+        ]
+
+        , "pathType": "ZeroOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P131", "Object": {"value":"??P622"}, "opName": "Triple"}
+        ]}
+    ]}
+]}

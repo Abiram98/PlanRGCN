@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "?var4", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var6", "Object": {"value":"?var7"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/direct/P279", "Object": {"value":"http://www.wikidata.org/entity/Q39631"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "?var8", "Object": {"value":"?var9"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "?var10", "Object": {"value":"?var11"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var9", "Predicate": "http://www.wikidata.org/prop/direct/P279", "Object": {"value":"http://www.wikidata.org/entity/Q81096"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

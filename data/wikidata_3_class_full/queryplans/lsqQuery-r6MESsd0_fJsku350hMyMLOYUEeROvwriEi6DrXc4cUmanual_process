@@ -1,0 +1,44 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(|| (= (str ?var7Label) \"string1\") (= (str ?var7Label) \"string1\"))]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q150093"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var7Label"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1448", "Object": {"value":"?var8"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var9"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var9", "Predicate": "http://www.wikidata.org/prop/direct/P297", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "path", "Subject": "?var1", "Object": {"value":"??P3333"}
+          , "pathComplexity": [
+          "P_OneOrMore1"
+          ]
+
+          , "pathType": "OneOrMore"
+          ,"Predicates":[
+           "<http://www.wikidata.org/prop/direct/P279>"
+          ]
+          }
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "??P3333", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"?var10"}, "opName": "Triple"}
+          ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var10", "Predicate": "http://www.wikidata.org/prop/direct/P2452", "Object": {"value":"A.ADM1","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?var10", "Predicate": "http://www.wikidata.org/prop/direct/P2452", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

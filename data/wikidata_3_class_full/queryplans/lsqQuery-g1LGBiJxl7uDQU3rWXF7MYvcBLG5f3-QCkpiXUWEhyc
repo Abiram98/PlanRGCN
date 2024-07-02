@@ -1,0 +1,13 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(|| (|| (= (lang ?var2Label) \"si\") (= (lang ?var2Label) \"nl\")) (= (lang ?var2Label) \"hr\"))]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q34770"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P220", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

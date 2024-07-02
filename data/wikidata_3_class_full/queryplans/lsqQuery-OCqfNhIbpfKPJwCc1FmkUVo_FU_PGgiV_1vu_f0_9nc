@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (year ?var3) 2018)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P4075", "Object": {"value":"??0"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P625", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P625", "Object": {"value":"??P17"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P17", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"??P16"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P16", "Predicate": "http://www.wikidata.org/prop/reference/P813", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

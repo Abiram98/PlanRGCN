@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(>= ?var2 \"1945-01-01T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>), (<= ?var2 \"1946-01-01T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://www.wikidata.org/entity/Q1", "Predicate": "?var1", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ]}
+]}

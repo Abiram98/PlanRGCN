@@ -1,0 +1,45 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "filter" , "expr": " [(= (lang ?var2) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q11424"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P345", "Object": {"value":"?var5"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P3302", "Object": {"value":"?var4"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1562", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1712", "Object": {"value":"?var6"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1237", "Object": {"value":"?var7"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P646", "Object": {"value":"?var8"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

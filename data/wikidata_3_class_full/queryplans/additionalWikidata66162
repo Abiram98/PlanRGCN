@@ -1,0 +1,39 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var2", "Predicate": "http://wikiba.se/ontology#claim", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var2", "Predicate": "http://wikiba.se/ontology#statementProperty", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/P2302", "Object": {"value":"??0"}, "opName": "Triple"}
+    ,
+    {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/statement/P2302", "Object": {"value":"http://www.wikidata.org/entity/Q21510855"}, "opName": "Triple"}
+    ,
+    {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/qualifier/P2306", "Object": {"value":"?var5"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var5", "Predicate": "http://wikiba.se/ontology#claim", "Object": {"value":"?var6"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var5", "Predicate": "http://wikiba.se/ontology#statementProperty", "Object": {"value":"?var7"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/P2302", "Object": {"value":"??1"}, "opName": "Triple"}
+    ,
+    {"Subject": "??1", "Predicate": "http://www.wikidata.org/prop/statement/P2302", "Object": {"value":"http://www.wikidata.org/entity/Q21510855"}, "opName": "Triple"}
+    ,
+    {"Subject": "??1", "Predicate": "http://www.wikidata.org/prop/qualifier/P2306", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "?var3", "Object": {"value":"??2"}, "opName": "Triple"}
+    ,
+    {"Subject": "??2", "Predicate": "?var4", "Object": {"value":"?var8"}, "opName": "Triple"}
+    ,
+    {"Subject": "??2", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"??P121"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P121", "Predicate": "http://www.wikidata.org/prop/reference/P3452", "Object": {"value":"?var8"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var8", "Predicate": "?var6", "Object": {"value":"??3"}, "opName": "Triple"}
+    ,
+    {"Subject": "??3", "Predicate": "?var7", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ,
+    {"Subject": "??3", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"??P122"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P122", "Predicate": "http://www.wikidata.org/prop/reference/P3452", "Object": {"value":"?var1"}, "opName": "Triple"}
+  ]}
+]}

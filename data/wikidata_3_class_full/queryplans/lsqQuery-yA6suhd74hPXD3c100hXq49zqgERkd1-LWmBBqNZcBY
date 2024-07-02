@@ -1,0 +1,11 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(! (isLiteral ?var3)), (langMatches (lang ?var3) \"EN\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q35120"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "?var1", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

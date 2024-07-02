@@ -1,0 +1,17 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(isLiteral ?var3)]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://www.wikidata.org/entity/Q9197118", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var4", "Predicate": "http://www.w3.org/2002/07/owl#onProperty", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var4", "Predicate": "?var1", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

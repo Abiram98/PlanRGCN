@@ -1,0 +1,9 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(contains ?var1Label \"Paramore\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

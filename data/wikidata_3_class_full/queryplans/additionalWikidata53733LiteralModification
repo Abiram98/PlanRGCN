@@ -1,0 +1,49 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q5398426"}, "opName": "Triple"}
+          ]}
+          ,
+          {"opName": "filter" , "expr": " [(= (lang ?var3) \"en\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?var3) \"ru\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(= (substr (str ?var4) 1 25) \"string1\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var4", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var4", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+    ,
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (substr (str ?var5) 1 25) \"string2\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var5", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var5", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"ru","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

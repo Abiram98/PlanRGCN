@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?var2) \"en\")]", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q1203", "Predicate": "http://schema.org/description", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#statementProperty", "Object": {"value":"http://www.wikidata.org/prop/statement/P6"}, "opName": "Triple"}
+]}

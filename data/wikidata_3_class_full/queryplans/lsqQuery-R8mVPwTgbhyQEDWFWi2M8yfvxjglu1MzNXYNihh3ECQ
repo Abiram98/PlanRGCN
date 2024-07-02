@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(< ?var3 \"1000-01-01T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P27", "Object": {"value":"http://www.wikidata.org/entity/Q142"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P19", "Object": {"value":"??P50"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P50", "Predicate": "http://www.wikidata.org/prop/direct/P625", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

@@ -1,0 +1,30 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "path", "Subject": "??P2477", "Object": {"value":"http://www.wikidata.org/entity/Q14204246"}
+            , "pathComplexity": [
+            "P_ZeroOrMore1"
+            ]
+
+            , "pathType": "ZeroOrMore"
+            ,"Predicates":[
+             "<http://www.wikidata.org/prop/direct/P279>"
+            ]
+            }
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P2477"}, "opName": "Triple"}
+            ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P2478", "Predicate": "http://wikiba.se/ontology#wikiGroup", "Object": {"value":"wiktionary","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"??P2478"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

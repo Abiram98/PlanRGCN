@@ -1,0 +1,53 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "disjunction", "subOp": [
+      {"opName": "assign", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "sequence", "subOp": [
+                {"opName": "path", "Subject": "??P570", "Object": {"value":"http://www.wikidata.org/entity/Q515"}
+                , "pathComplexity": [
+                "P_ZeroOrMore1"
+                ]
+
+                , "pathType": "ZeroOrMore"
+                ,"Predicates":[
+                 "<http://www.wikidata.org/prop/direct/P279>"
+                ]
+                }
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P570"}, "opName": "Triple"}
+                ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P131", "Object": {"value":"http://www.wikidata.org/entity/Q985"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "path", "Subject": "??P570", "Object": {"value":"http://www.wikidata.org/entity/Q515"}
+          , "pathComplexity": [
+          "P_ZeroOrMore1"
+          ]
+
+          , "pathType": "ZeroOrMore"
+          ,"Predicates":[
+           "<http://www.wikidata.org/prop/direct/P279>"
+          ]
+          }
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P570"}, "opName": "Triple"}
+          ]}
+          ,
+          {"opName": "filter" , "expr": " [(|| (= ?var2 (/ <http://www.wikidata.org/prop/direct/P131> <http://www.wikidata.org/prop/direct/P131>)) (= ?var2 (/ <http://www.wikidata.org/prop/direct/P131> <http://www.wikidata.org/prop/direct/P131>)))]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.wikidata.org/entity/Q985"}, "opName": "Triple"}
+            ]}
+          ]}
+      ]}
+    ]}
+  ]}
+]}

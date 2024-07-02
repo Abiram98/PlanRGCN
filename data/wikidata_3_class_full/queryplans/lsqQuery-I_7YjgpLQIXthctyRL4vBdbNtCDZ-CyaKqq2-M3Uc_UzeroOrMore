@@ -1,0 +1,20 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "??P623", "Object": {"value":"http://www.wikidata.org/entity/Q358"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P279>"
+      ]
+      }
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1435", "Object": {"value":"??P624"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P624", "Predicate": "http://www.wikidata.org/prop/statement/P1435", "Object": {"value":"??P623"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

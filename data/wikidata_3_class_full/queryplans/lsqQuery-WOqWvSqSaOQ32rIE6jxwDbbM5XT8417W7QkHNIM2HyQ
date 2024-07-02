@@ -1,0 +1,7 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?var2Label) \"ES\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://www.wikidata.org/prop/direct/P31", "Predicate": "?var1", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

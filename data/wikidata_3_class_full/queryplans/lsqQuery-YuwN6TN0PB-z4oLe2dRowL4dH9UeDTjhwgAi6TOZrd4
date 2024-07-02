@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://www.wikidata.org/entity/Q37447", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+]}

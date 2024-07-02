@@ -1,0 +1,23 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P108", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P108", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/statement/108", "Object": {"value":"http://www.wikidata.org/entity/Q317070"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/qualifier/P582", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/qualifier/P580", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/statement/108", "Object": {"value":"http://www.wikidata.org/entity/Q156737"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/qualifier/P580", "Object": {"value":"?var6"}, "opName": "Triple"}
+    ]}
+]}

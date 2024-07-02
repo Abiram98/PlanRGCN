@@ -1,0 +1,7 @@
+{"opName": "filter" , "expr": " [(> (strlen ?var3) 100)]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "??0", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+  ]}
+]}

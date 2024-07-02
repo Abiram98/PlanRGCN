@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(strstarts (str ?var4) \"string1\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var2", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/reference/P854", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

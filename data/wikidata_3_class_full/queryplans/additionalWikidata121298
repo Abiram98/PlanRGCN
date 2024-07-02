@@ -1,0 +1,28 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "?var3", "Object": {"value":"?var1"}
+        , "pathComplexity": [
+        "P_ZeroOrOne"
+        ]
+
+        , "pathType": "zeroOrOne"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+        ,
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(contains ?var4 \"string1\"@en)]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+            ]}
+        ]}
+    ]}
+  ]}
+]}

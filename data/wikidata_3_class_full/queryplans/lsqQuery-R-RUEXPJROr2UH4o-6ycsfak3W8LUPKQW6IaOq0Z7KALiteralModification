@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#wikiGroup", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+  ]}
+]}

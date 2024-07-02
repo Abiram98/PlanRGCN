@@ -1,0 +1,15 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(> ?var3 5)]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P463", "Object": {"value":"http://www.wikidata.org/entity/Q1043527"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q515"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P1082", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

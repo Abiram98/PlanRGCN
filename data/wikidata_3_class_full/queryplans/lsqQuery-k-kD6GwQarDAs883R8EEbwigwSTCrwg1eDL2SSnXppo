@@ -1,0 +1,13 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "extend", "subOp": [
+      {"opName": "table", "subOp": []}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?var3) (lang ?var1Label)), (!= ?var1Label ?var3)]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q25290", "Predicate": "http://schema.org/description", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://www.wikidata.org/entity/Q577", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+      ]}
+    ]}
+]}

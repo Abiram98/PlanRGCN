@@ -1,0 +1,28 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "??P142", "Predicate": "http://www.wikidata.org/prop/direct/P106", "Object": {"value":"http://www.wikidata.org/entity/Q26270618"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "path", "Subject": "?var1", "Object": {"value":"??P142"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P279>"
+      ]
+      }
+      ,
+      {"opName": "filter" , "expr": " [(regex ?var2 \"[????????]\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P27", "Object": {"value":"http://www.wikidata.org/entity/Q218"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://schema.org/name", "Object": {"value":"??P143"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://schema.org/about", "Object": {"value":"??P143"}, "opName": "Triple"}
+        ]}
+      ]}
+  ]}
+]}

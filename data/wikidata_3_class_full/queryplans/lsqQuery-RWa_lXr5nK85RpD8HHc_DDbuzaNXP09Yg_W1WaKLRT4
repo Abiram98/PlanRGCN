@@ -1,0 +1,25 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(! (bound ?var3))]", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P906", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ]}
+          ,
+          {"opName": "filter" , "expr": " [(= (lang ?var1Label) \"sv\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var3", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"sv","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

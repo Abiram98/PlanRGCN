@@ -1,0 +1,24 @@
+{"opName": "sequence", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "??P878", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q18614948"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "path", "Subject": "?var1", "Object": {"value":"??P878"}
+    , "pathComplexity": [
+    "P_OneOrMore1"
+    ]
+
+    , "pathType": "OneOrMore"
+    ,"Predicates":[
+     "<http://www.wikidata.org/prop/direct/P279>"
+    ]
+    }
+    ,
+    {"opName": "filter" , "expr": " [(!= ?var3 <http://www.wikidata.org/prop/direct/P496>)]", "subOp": [
+      {"opName": "assign", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+]}

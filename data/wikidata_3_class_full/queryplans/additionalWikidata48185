@@ -1,0 +1,13 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#reference", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#qualifier", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ,
+      {"Subject": "??0", "Predicate": "?var2", "Object": {"value":"??1"}, "opName": "Triple"}
+      ,
+      {"Subject": "??2", "Predicate": "?var3", "Object": {"value":"??3"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

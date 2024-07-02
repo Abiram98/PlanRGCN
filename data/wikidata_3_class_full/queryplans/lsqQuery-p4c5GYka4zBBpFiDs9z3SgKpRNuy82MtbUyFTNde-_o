@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?var1", "Predicate": "https://www.wikidata.org/wiki/Property:P214", "Object": {"value":"https://viaf.org/viaf/51856224"}, "opName": "Triple"}
+]}

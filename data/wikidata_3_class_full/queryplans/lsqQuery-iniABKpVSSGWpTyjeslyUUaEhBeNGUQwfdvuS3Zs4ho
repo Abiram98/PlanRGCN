@@ -1,0 +1,24 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lcase (str ?var2)) \"string1\"), (= (lang ?var2) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "??P2931", "Object": {"value":"http://www.wikidata.org/entity/Q33999"}
+        , "pathComplexity": [
+        "P_ZeroOrMore1"
+        ]
+
+        , "pathType": "ZeroOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P106", "Object": {"value":"??P2931"}, "opName": "Triple"}
+        ]}
+    ]}
+]}

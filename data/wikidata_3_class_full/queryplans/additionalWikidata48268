@@ -1,0 +1,27 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(! (bound ?var4)), (! (bound ?var5))]", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "table", "subOp": []}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var3"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"?var4"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P279", "Object": {"value":"?var5"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

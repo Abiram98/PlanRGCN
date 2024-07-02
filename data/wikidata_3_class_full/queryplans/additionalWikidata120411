@@ -1,0 +1,7 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "filter" , "expr": " [(= (str ?var3) \"London\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

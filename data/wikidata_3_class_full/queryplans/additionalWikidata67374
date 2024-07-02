@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(|| (langMatches (lang ?var1Label) \"de\") (langMatches (lang ?var1Label) \"en\")), (contains (str ?var1Label) \"string1\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var4", "Predicate": "?var5", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var2", "Predicate": "?var6", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://wikiba.se/ontology#propertyType", "Object": {"value":"http://wikiba.se/ontology#ExternalId"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var4", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

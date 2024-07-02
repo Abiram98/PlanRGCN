@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "wdt:P212", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"?var1"}, "opName": "Triple"}
+]}

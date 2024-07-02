@@ -1,0 +1,30 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1440", "Object": {"value":"??0"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1532", "Object": {"value":"??1"}, "opName": "Triple"}
+        ,
+        {"Subject": "??1", "Predicate": "http://www.wikidata.org/prop/statement/P1532", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "??1", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "path", "Subject": "??P1147", "Object": {"value":"http://www.wikidata.org/entity/Q10876391"}
+          , "pathComplexity": [
+          "P_ZeroOrMore1"
+          ]
+
+          , "pathType": "ZeroOrMore"
+          ,"Predicates":[
+           "<http://www.wikidata.org/prop/direct/P279>"
+          ]
+          }
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/reference/P143", "Object": {"value":"??P1147"}, "opName": "Triple"}
+          ]}
+      ]}
+  ]}
+]}

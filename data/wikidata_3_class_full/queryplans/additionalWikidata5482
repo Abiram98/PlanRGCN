@@ -1,0 +1,11 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "extend", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "?var3", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1Label", "Predicate": "http://www.bigdata.com/rdf/search#search", "Object": {"value":"olympics","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

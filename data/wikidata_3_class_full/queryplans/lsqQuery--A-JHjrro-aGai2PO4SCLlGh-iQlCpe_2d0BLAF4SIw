@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q1744", "Predicate": "http://www.wikidata.org/prop/direct/P26", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "http://www.w3.org/2004/02/skos/core#altLabel", "Object": {"value":"?var3Label"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

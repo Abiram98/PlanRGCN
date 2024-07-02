@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "table", "subOp": []}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q2813", "Predicate": "?var1", "Object": {"value":"1886","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://www.wikidata.org/entity/Q23444", "Predicate": "?var1", "Object": {"value":"http://www.wikidata.org/entity/Q8495"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

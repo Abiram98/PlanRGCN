@@ -1,0 +1,35 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P463", "Object": {"value":"http://www.wikidata.org/entity/Q202479"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q5"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P463", "Object": {"value":"??0"}, "opName": "Triple"}
+        ,
+        {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/statement/P463", "Object": {"value":"http://www.wikidata.org/entity/Q202479"}, "opName": "Triple"}
+        ,
+        {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/qualifier/P580", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P463", "Object": {"value":"??1"}, "opName": "Triple"}
+        ,
+        {"Subject": "??1", "Predicate": "http://www.wikidata.org/prop/P580", "Object": {"value":"??P228"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P228", "Predicate": "http://www.wikidata.org/prop/statement/value/P580", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var5", "Predicate": "http://wikiba.se/ontology#timePrecision", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P463", "Object": {"value":"??2"}, "opName": "Triple"}
+      ,
+      {"Subject": "??2", "Predicate": "http://www.wikidata.org/prop/statement/P463", "Object": {"value":"http://www.wikidata.org/entity/Q202479"}, "opName": "Triple"}
+      ,
+      {"Subject": "??2", "Predicate": "http://www.wikidata.org/prop/qualifier/P582", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

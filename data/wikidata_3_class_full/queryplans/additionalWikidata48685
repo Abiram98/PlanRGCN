@@ -1,0 +1,9 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(strstarts (str ?var1) \"http://base22.com/ont/bc#\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

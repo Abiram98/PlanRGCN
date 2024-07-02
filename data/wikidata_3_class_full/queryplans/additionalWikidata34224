@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "??0", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://ceb.wikipedia.org/"}, "opName": "Triple"}
+        ,
+        {"Subject": "??0", "Predicate": "http://schema.org/about", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://wikiba.se/ontology#sitelinks", "Object": {"value":"1","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://wikiba.se/ontology#identifiers", "Object": {"value":"0","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(! (bound ?var3))]", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#statements", "Object": {"value":"0","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var4", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

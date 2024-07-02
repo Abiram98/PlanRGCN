@@ -1,0 +1,40 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (str ?var3Label) \"string1\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "??P1070", "Object": {"value":"http://www.wikidata.org/entity/Q515"}
+        , "pathComplexity": [
+        "P_ZeroOrMore1"
+        ]
+
+        , "pathType": "ZeroOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P1070"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(> ?var2 10000)]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1082", "Object": {"value":"?var2"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var3"}, "opName": "Triple"}
+              ,
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P625", "Object": {"value":"?var4"}, "opName": "Triple"}
+            ]}
+        ]}
+        ,
+        {"opName": "service", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://www.bigdata.com/rdf#serviceParam", "Predicate": "http://wikiba.se/ontology#language", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+          ]}
+        ]}
+    ]}
+  ]}
+]}

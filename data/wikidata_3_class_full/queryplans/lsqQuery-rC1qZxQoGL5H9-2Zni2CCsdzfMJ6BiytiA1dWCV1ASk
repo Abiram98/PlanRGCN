@@ -1,0 +1,92 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "extend", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "sequence", "subOp": [
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/direct/P361", "Object": {"value":"http://www.wikidata.org/entity/Q362"}, "opName": "Triple"}
+                  ]}
+                  ,
+                  {"opName": "sequence", "subOp": [
+                      {"opName": "path", "Subject": "??P1476", "Object": {"value":"http://www.wikidata.org/entity/Q198"}
+                      , "pathComplexity": [
+                      "P_ZeroOrMore1"
+                      ]
+
+                      , "pathType": "ZeroOrMore"
+                      ,"Predicates":[
+                       "<http://www.wikidata.org/prop/direct/P279>"
+                      ]
+                      }
+                      ,
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P1476"}, "opName": "Triple"}
+                      ]}
+                  ]}
+                  ,
+                  {"opName": "sequence", "subOp": [
+                      {"opName": "path", "Subject": "?var6", "Object": {"value":"??P1477"}
+                      , "pathComplexity": [
+                      "P_ZeroOrMore1"
+                      ]
+
+                      , "pathType": "ZeroOrMore"
+                      ,"Predicates":[
+                       "<http://www.wikidata.org/prop/direct/P361>"
+                      ]
+                      }
+                      ,
+                      {"opName": "path", "Subject": "??P1477", "Object": {"value":"?var5"}
+                      , "pathComplexity": [
+                      "P_ZeroOrMore1"
+                      ]
+
+                      , "pathType": "ZeroOrMore"
+                      ,"Predicates":[
+                       "<http://www.wikidata.org/prop/direct/P279>"
+                      ]
+                      }
+                  ]}
+                  ,
+                  {"opName": "sequence", "subOp": [
+                      {"opName": "filter" , "expr": " [(= (lang ?var1Label) \"en\")]", "subOp": [
+                        {"opName":"BGP", "subOp": [
+                          {"Subject": "?var6", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+                        ]}
+                      ]}
+                      ,
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "?var7", "Predicate": "http://www.wikidata.org/prop/P625", "Object": {"value":"?var8"}, "opName": "Triple"}
+                        ,
+                        {"Subject": "?var8", "Predicate": "http://www.wikidata.org/prop/statement/value/P625", "Object": {"value":"?var9"}, "opName": "Triple"}
+                        ,
+                        {"Subject": "?var9", "Predicate": "http://wikiba.se/ontology#geoLatitude", "Object": {"value":"?var2"}, "opName": "Triple"}
+                        ,
+                        {"Subject": "?var9", "Predicate": "http://wikiba.se/ontology#geoLongitude", "Object": {"value":"?var3"}, "opName": "Triple"}
+                      ]}
+                  ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var7", "Predicate": "http://www.wikidata.org/prop/direct/P580", "Object": {"value":"?var10"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var7", "Predicate": "http://www.wikidata.org/prop/direct/P585", "Object": {"value":"?var11"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var7", "Predicate": "http://www.wikidata.org/prop/direct/P582", "Object": {"value":"?var12"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var7", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

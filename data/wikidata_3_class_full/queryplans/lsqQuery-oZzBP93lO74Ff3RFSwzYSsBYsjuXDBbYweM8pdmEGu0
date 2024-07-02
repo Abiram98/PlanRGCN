@@ -1,0 +1,9 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lang ?var1) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "https://www.wikidata.org/wiki/Q5119", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

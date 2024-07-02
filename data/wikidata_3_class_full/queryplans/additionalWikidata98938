@@ -1,0 +1,17 @@
+{"opName": "filter" , "expr": " [(<http://linkedgeodata.org/bifst_intersects> ?var2 ?var5 0.1)]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"http://dbpedia.org/page/Osasco"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://geovocab.org/geometry#geometry", "Object": {"value":"??0"}, "opName": "Triple"}
+    ,
+    {"Subject": "??0", "Predicate": "http://www.opengis.net/ont/geosparql#asWKT", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://linkedgeodata.org/ontology/Amenity"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://geovocab.org/geometry#geometry", "Object": {"value":"??1"}, "opName": "Triple"}
+    ,
+    {"Subject": "??1", "Predicate": "http://www.opengis.net/ont/geosparql#asWKT", "Object": {"value":"?var5"}, "opName": "Triple"}
+  ]}
+]}

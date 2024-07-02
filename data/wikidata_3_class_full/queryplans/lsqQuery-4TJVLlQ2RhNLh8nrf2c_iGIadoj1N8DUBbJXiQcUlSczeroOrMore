@@ -1,0 +1,24 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P742", "Object": {"value":"string1","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "path", "Subject": "??P956", "Object": {"value":"http://www.wikidata.org/entity/Q33999"}
+          , "pathComplexity": [
+          "P_ZeroOrMore1"
+          ]
+
+          , "pathType": "ZeroOrMore"
+          ,"Predicates":[
+           "<http://www.wikidata.org/prop/direct/P279>"
+          ]
+          }
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P106", "Object": {"value":"??P956"}, "opName": "Triple"}
+          ]}
+      ]}
+  ]}
+]}

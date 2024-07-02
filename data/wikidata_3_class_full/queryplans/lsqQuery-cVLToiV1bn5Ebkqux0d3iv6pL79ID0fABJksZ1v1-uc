@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(regex ?var3 \"tt\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P345", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

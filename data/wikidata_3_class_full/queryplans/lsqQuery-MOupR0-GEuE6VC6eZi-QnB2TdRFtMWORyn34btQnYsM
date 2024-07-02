@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var4", "Predicate": "http://rdf.ebi.ac.uk/terms/expressionatlas/refersTo", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var4", "Predicate": "http://rdf.ebi.ac.uk/terms/expressionatlas/isOutputOf", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var4", "Predicate": "http://rdf.ebi.ac.uk/terms/expressionatlas/pValue", "Object": {"value":"?var1"}, "opName": "Triple"}
+  ]}
+]}

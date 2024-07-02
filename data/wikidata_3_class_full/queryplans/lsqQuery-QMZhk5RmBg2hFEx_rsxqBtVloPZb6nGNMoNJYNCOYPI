@@ -1,0 +1,9 @@
+{"opName": "conditional", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P236", "Object": {"value":"0006-5196","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P2006", "Object": {"value":"?var3"}, "opName": "Triple"}
+  ]}
+]}

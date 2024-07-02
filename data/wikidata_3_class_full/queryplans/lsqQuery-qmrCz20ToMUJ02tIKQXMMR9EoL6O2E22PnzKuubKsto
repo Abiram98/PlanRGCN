@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(langMatches (lang ?var2) \"fr\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://www.wikidata.org/entity/P31", "Predicate": "?var1", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ]}
+]}

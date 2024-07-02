@@ -1,0 +1,18 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1435", "Object": {"value":"nodeID://b10641","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "path", "Subject": "?var1", "Object": {"value":"http://www.wikidata.org/entity/Q1209"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P131>"
+      ]
+      }
+  ]}
+]}

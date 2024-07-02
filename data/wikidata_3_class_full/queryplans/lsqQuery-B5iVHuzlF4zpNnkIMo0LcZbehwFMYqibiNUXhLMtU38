@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?var1", "Predicate": "http://data.cityofchicago.org/api/views/4ijn-s7e5/#city", "Object": {"value":"CHICAGO","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+]}

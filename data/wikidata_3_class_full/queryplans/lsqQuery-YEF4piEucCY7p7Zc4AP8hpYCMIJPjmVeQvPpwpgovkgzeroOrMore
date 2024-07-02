@@ -1,0 +1,22 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "path", "Subject": "?var1", "Object": {"value":"http://www.wikidata.org/entity/Q5082128"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P279>"
+      ]
+      }
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?var2) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

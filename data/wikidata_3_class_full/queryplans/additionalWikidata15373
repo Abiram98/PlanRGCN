@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= ?var2 <http://wikiba.se/ontology#rank>), (= ?var2 <http://www.w3.org/ns/prov#wasDerivedFrom>)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

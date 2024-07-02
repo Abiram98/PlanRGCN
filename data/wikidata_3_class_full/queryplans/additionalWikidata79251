@@ -1,0 +1,40 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(bound ?var2), (= (datatype ?var2) <http://www.w3.org/2001/XMLSchema#dateTime>), (>= ?var2 \"1875-00-00T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>), (<= ?var2 \"1916-00-00T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)]", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "path", "Subject": "??P508", "Object": {"value":"http://www.wikidata.org/entity/Q1190554"}
+              , "pathComplexity": [
+              "P_ZeroOrMore1"
+              ]
+
+              , "pathType": "ZeroOrMore"
+              ,"Predicates":[
+               "<http://www.wikidata.org/prop/direct/P279>"
+              ]
+              }
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P508"}, "opName": "Triple"}
+              ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P585", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P580", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?var1Label) \"de,en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

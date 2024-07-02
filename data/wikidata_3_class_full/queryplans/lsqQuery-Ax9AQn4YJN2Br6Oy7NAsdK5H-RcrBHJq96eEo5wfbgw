@@ -1,0 +1,27 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"http://www.wikidata.org/entity/Q213"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q811534"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P46", "Predicate": "http://www.wikidata.org/prop/direct/P131", "Object": {"value":"http://www.wikidata.org/entity/Q579648"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P131", "Object": {"value":"??P46"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P527", "Object": {"value":"??P47"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P47", "Predicate": "http://www.wikidata.org/prop/qualifier/P1114", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"cs","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+    ]}
+  ]}
+]}

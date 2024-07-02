@@ -1,0 +1,23 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(! (bound ?var2Label)), (bound ?var3Label)]", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P910", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?var2Label) \"zh\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?var3Label) \"zh\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3Label"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

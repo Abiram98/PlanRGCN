@@ -1,0 +1,18 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "http://www.wikidata.org/entity/Q16994", "Object": {"value":"?var2"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P131>"
+      ]
+      }
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

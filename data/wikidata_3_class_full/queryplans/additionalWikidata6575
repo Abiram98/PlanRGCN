@@ -1,0 +1,25 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lang ?var4) (lang ?var2Label)), (!= ?var4 ?var2Label)]", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(! (regex (str ?var2Label) \":\"))]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q20010800"}, "opName": "Triple"}
+              ,
+              {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var3", "Predicate": "http://schema.org/name", "Object": {"value":"?var4"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "??P32", "Predicate": "http://wikiba.se/ontology#wikiGroup", "Object": {"value":"wikipedia","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"??P32"}, "opName": "Triple"}
+    ]}
+]}

@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?var1Label) \"es\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://www.wikidata.org/entity/Q138307", "Predicate": "http://www.w3.org/2004/02/skos/core#altLabel", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q138307", "Predicate": "http://www.wikidata.org/prop/direct/P225", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://www.wikidata.org/entity/Q138307", "Predicate": "http://www.wikidata.org/prop/direct/P830", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

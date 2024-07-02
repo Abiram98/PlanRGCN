@@ -1,0 +1,13 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "extend", "subOp": [
+      {"opName": "table", "subOp": []}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1057", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://www.wikidata.org/entity/Q14874257", "Predicate": "http://www.wikidata.org/prop/P1057", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/qualifier/P659", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ]}
+]}

@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= ?var2 \"string1\"@es)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

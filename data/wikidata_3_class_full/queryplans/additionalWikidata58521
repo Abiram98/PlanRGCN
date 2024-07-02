@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(! (bound ?var2))]", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P166", "Object": {"value":"??0"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(!= ?var3 <http://www.wikidata.org/prop/reference/P143>), (!= ?var3 <http://www.wikidata.org/prop/reference/P3452>)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"??1"}, "opName": "Triple"}
+          ,
+          {"Subject": "??1", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"??2"}, "opName": "Triple"}
+          ,
+          {"Subject": "??2", "Predicate": "?var3", "Object": {"value":"??3"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

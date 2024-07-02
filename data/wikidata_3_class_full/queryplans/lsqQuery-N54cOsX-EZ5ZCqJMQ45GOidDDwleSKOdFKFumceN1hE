@@ -1,0 +1,31 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "extend", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "extend", "subOp": [
+              {"opName": "table", "subOp": []}
+            ]}
+            ,
+            {"opName": "filter" , "expr": " [(|| (|| (! (isLiteral ?var7)) (= (lang ?var7) \"\")) (langMatches (lang ?var7) \"EN\"))]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://www.wikidata.org/entity/Q1571816", "Predicate": "?var1", "Object": {"value":"?var7"}, "opName": "Triple"}
+              ]}
+            ]}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?var4Label) \"en\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://www.wikidata.org/entity/Q1571816", "Predicate": "?var3", "Object": {"value":"?var5"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var8", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var8", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://wikiba.se/ontology#Property"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var8", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4Label"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

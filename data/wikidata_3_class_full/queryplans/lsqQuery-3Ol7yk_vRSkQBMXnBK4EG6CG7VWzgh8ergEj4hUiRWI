@@ -1,0 +1,21 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(regex (str ?var3) \"string1\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q17633526"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var2", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var2", "Predicate": "http://schema.org/name", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "??P141", "Predicate": "http://wikiba.se/ontology#wikiGroup", "Object": {"value":"wikinews","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"??P141"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

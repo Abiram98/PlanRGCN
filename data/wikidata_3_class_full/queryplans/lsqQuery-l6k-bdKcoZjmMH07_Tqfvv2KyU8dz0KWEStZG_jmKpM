@@ -1,0 +1,47 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?var2) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(= (lang ?var1) \"en\")]", "subOp": [
+                {"opName": "sequence", "subOp": [
+                    {"opName": "filter" , "expr": " [(>= ?var7 \"1970-01-01T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)]", "subOp": [
+                      {"opName": "sequence", "subOp": [
+                          {"opName": "filter" , "expr": " [(> ?var3 2)]", "subOp": [
+                            {"opName":"BGP", "subOp": [
+                              {"Subject": "?var8", "Predicate": "http://www.wikidata.org/prop/direct/P1971", "Object": {"value":"?var3"}, "opName": "Triple"}
+                            ]}
+                          ]}
+                          ,
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "?var8", "Predicate": "http://www.wikidata.org/prop/direct/P39", "Object": {"value":"?var6"}, "opName": "Triple"}
+                            ,
+                            {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/direct/P580", "Object": {"value":"?var7"}, "opName": "Triple"}
+                          ]}
+                      ]}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?var8", "Predicate": "http://www.wikidata.org/prop/direct/P39", "Object": {"value":"http://www.wikidata.org/entity/Q11696"}, "opName": "Triple"}
+                      ,
+                      {"Subject": "?var8", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+                    ]}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var9", "Predicate": "http://www.wikidata.org/prop/direct/P26", "Object": {"value":"?var8"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var9", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var8", "Predicate": "http://www.wikidata.org/prop/direct/P18", "Object": {"value":"?var4"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var9", "Predicate": "http://www.wikidata.org/prop/direct/P18", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,16 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "path", "Subject": "??P1981", "Object": {"value":"http://www.wikidata.org/entity/Q11173"}
+    , "pathComplexity": [
+    "P_ZeroOrMore1"
+    ]
+
+    , "pathType": "ZeroOrMore"
+    ,"Predicates":[
+     "<http://www.wikidata.org/prop/direct/P279>"
+    ]
+    }
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P279", "Object": {"value":"??P1981"}, "opName": "Triple"}
+    ]}
+]}

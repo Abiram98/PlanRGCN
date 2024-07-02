@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/The_Matrix_Revolutons", "Predicate": "?var2", "Object": {"value":"?var1"}, "opName": "Triple"}
+  ]}
+]}

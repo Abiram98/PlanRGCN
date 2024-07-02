@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"https://viaf.org/viaf/51856224"}, "opName": "Triple"}
+]}

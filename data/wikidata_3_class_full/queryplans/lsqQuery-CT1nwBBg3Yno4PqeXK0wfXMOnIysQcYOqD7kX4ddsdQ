@@ -1,0 +1,25 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?var5) \"it\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?var3) \"it\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "https://it.wikipedia.org/wiki/Antonio_Conte_(schermidore)", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?var2"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P19", "Object": {"value":"?var6"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P570", "Object": {"value":"?var4"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P20", "Object": {"value":"?var7"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var6", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var7", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

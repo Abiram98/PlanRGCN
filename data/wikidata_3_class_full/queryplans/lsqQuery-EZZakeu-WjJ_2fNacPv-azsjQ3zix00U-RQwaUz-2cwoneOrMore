@@ -1,0 +1,27 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= ?var7 11)]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(> ?var2 \"+1875-01-01T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P569", "Object": {"value":"??P17"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "??P17", "Predicate": "http://www.wikidata.org/prop/statement/value/P569", "Object": {"value":"?var6"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var6", "Predicate": "http://wikiba.se/ontology#timeValue", "Object": {"value":"?var2"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var6", "Predicate": "http://wikiba.se/ontology#timePrecision", "Object": {"value":"?var7"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var6", "Predicate": "http://wikiba.se/ontology#timeCalendarModel", "Object": {"value":"http://www.wikidata.org/entity/Q1985727"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

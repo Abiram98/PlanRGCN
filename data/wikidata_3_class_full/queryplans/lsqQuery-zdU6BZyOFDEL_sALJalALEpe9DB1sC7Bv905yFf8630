@@ -1,0 +1,13 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(!= ?var2 \"de\"), (!= ?var2 \"de-at\"), (!= ?var2 \"de-ch\")]", "subOp": [
+      {"opName": "extend", "subOp": [
+        {"opName": "table", "subOp": []}
+      ]}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(!= (str ?var1Label) (lcase (str ?var1Label)))]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q577", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+      ]}
+    ]}
+]}

@@ -1,0 +1,151 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "conditional", "subOp": [
+                    {"opName": "conditional", "subOp": [
+                      {"opName": "conditional", "subOp": [
+                        {"opName": "conditional", "subOp": [
+                          {"opName": "conditional", "subOp": [
+                            {"opName": "conditional", "subOp": [
+                              {"opName": "conditional", "subOp": [
+                                {"opName": "conditional", "subOp": [
+                                  {"opName": "conditional", "subOp": [
+                                    {"opName": "conditional", "subOp": [
+                                      {"opName": "conditional", "subOp": [
+                                        {"opName": "conditional", "subOp": [
+                                          {"opName": "sequence", "subOp": [
+                                              {"opName": "filter" , "expr": " [(= (lang ?var8) \"en\")]", "subOp": [
+                                                {"opName": "sequence", "subOp": [
+                                                    {"opName": "filter" , "expr": " [(= (lang ?var5) \"en\")]", "subOp": [
+                                                      {"opName": "sequence", "subOp": [
+                                                          {"opName": "filter" , "expr": " [(= (lang ?var4Label) \"en\")]", "subOp": [
+                                                            {"opName":"BGP", "subOp": [
+                                                              {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P106", "Object": {"value":"http://www.wikidata.org/entity/Q6625963"}, "opName": "Triple"}
+                                                              ,
+                                                              {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P1559", "Object": {"value":"?var1"}, "opName": "Triple"}
+                                                              ,
+                                                              {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4Label"}, "opName": "Triple"}
+                                                            ]}
+                                                          ]}
+                                                          ,
+                                                          {"opName":"BGP", "subOp": [
+                                                            {"Subject": "?var3", "Predicate": "http://schema.org/description", "Object": {"value":"?var5"}, "opName": "Triple"}
+                                                          ]}
+                                                      ]}
+                                                    ]}
+                                                    ,
+                                                    {"opName":"BGP", "subOp": [
+                                                      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P18", "Object": {"value":"?var6"}, "opName": "Triple"}
+                                                      ,
+                                                      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P856", "Object": {"value":"?var7"}, "opName": "Triple"}
+                                                      ,
+                                                      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P800", "Object": {"value":"??0"}, "opName": "Triple"}
+                                                      ,
+                                                      {"Subject": "??0", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var8"}, "opName": "Triple"}
+                                                    ]}
+                                                ]}
+                                              ]}
+                                              ,
+                                              {"opName":"BGP", "subOp": [
+                                                {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q571"}, "opName": "Triple"}
+                                              ]}
+                                          ]}
+                                          ,
+                                          {"opName":"BGP", "subOp": [
+                                            {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P2013", "Object": {"value":"?var9"}, "opName": "Triple"}
+                                          ]}
+                                        ]}
+                                        ,
+                                        {"opName":"BGP", "subOp": [
+                                          {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P2963", "Object": {"value":"?var10"}, "opName": "Triple"}
+                                        ]}
+                                      ]}
+                                      ,
+                                      {"opName":"BGP", "subOp": [
+                                        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P2002", "Object": {"value":"?var11"}, "opName": "Triple"}
+                                      ]}
+                                    ]}
+                                    ,
+                                    {"opName":"BGP", "subOp": [
+                                      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P109", "Object": {"value":"?var12"}, "opName": "Triple"}
+                                    ]}
+                                  ]}
+                                  ,
+                                  {"opName":"BGP", "subOp": [
+                                    {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P2963", "Object": {"value":"?var10"}, "opName": "Triple"}
+                                  ]}
+                                ]}
+                                ,
+                                {"opName":"BGP", "subOp": [
+                                  {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P2984", "Object": {"value":"?var13"}, "opName": "Triple"}
+                                ]}
+                              ]}
+                              ,
+                              {"opName":"BGP", "subOp": [
+                                {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P2003", "Object": {"value":"?var14"}, "opName": "Triple"}
+                              ]}
+                            ]}
+                            ,
+                            {"opName":"BGP", "subOp": [
+                              {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P2397", "Object": {"value":"?var15"}, "opName": "Triple"}
+                            ]}
+                          ]}
+                          ,
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P1902", "Object": {"value":"?var16"}, "opName": "Triple"}
+                          ]}
+                        ]}
+                        ,
+                        {"opName":"BGP", "subOp": [
+                          {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P4265", "Object": {"value":"?var17"}, "opName": "Triple"}
+                        ]}
+                      ]}
+                      ,
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P3579", "Object": {"value":"?var18"}, "opName": "Triple"}
+                      ]}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P3943", "Object": {"value":"?var19"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P3185", "Object": {"value":"?var20"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P3258", "Object": {"value":"?var21"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P2850", "Object": {"value":"?var22"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P3040", "Object": {"value":"?var23"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P2035", "Object": {"value":"?var24"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P3276", "Object": {"value":"?var25"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(contains (str ?var2) \"string1\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var2", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"en","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+    ]}
+  ]}
+]}

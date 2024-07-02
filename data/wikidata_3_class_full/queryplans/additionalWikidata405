@@ -1,0 +1,9 @@
+{"opName": "filter" , "expr": " [(= (lang ?var4) \"als\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#propertyType", "Object": {"value":"http://wikiba.se/ontology#Monolingualtext"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#statementProperty", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "?var2", "Object": {"value":"?var4"}, "opName": "Triple"}
+  ]}
+]}

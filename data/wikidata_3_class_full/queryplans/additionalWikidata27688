@@ -1,0 +1,15 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(regex ?var5Label \"string1\" \"i\"), (= (lang ?var5Label) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q5"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var6", "Predicate": "http://schema.org/about", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var6", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://en.wikipedia.org/"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var5", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var5Label"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

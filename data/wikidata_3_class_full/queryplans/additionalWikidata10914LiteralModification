@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var3", "Predicate": "http://www.bigdata.com/rdf/search#search", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://www.bigdata.com/rdf/search#matchAllTerms", "Object": {"value":"?literalVar2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://www.bigdata.com/rdf/search#minRelevance", "Object": {"value":"?literalVar3"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://www.bigdata.com/rdf/search#relevance", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://www.bigdata.com/rdf/search#maxRank", "Object": {"value":"1000","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://www.bigdata.com/rdf/search#rank", "Object": {"value":"?var5"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+  ]}
+]}

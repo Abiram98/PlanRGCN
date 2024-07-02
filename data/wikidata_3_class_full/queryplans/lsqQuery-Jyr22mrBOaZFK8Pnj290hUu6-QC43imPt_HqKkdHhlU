@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P279", "Object": {"value":"http://www.wikidata.org/entity/Q56061"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?var4) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

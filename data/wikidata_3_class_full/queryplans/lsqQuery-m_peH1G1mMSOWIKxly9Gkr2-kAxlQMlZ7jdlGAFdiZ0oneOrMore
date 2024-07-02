@@ -1,0 +1,18 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "?var1", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "path", "Subject": "?var3", "Object": {"value":"http://www.wikidata.org/entity/Q901"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P279>"
+      ]
+      }
+  ]}
+]}

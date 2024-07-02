@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?var3 \"^taverna\" \"i\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://rdf.myexperiment.org/ontologies/contributions/Workflow"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://rdf.myexperiment.org/ontologies/base/has-content-type", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var2", "Predicate": "http://purl.org/dc/terms/title", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,45 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q46970"}, "opName": "Triple"}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P229", "Object": {"value":"?var2"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P230", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(= (lang ?var4) \"zh-hans\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var5"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var6"}, "opName": "Triple"}
+              ]}
+          ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?var5) \"zh-hant\")]", "subOp": [
+        {"opName": "table", "subOp": []}
+      ]}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?var6) \"yue\")]", "subOp": [
+      {"opName": "table", "subOp": []}
+    ]}
+  ]}
+]}

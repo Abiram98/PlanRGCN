@@ -1,0 +1,59 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?var2Label) \"en\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P106", "Object": {"value":"http://www.wikidata.org/entity/Q19350898"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var5", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var5", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://en.wikipedia.org/"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "?var6", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "sequence", "subOp": [
+            {"opName": "path", "Subject": "??P726", "Object": {"value":"http://www.wikidata.org/entity/P580"}
+            , "pathComplexity": [
+            "P_ZeroOrMore1"
+            ]
+
+            , "pathType": "ZeroOrMore"
+            ,"Predicates":[
+             "<http://www.wikidata.org/prop/direct/P1647>"
+            ]
+            }
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "??P726", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"?var6"}, "opName": "Triple"}
+            ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "?var7", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "sequence", "subOp": [
+            {"opName": "path", "Subject": "??P727", "Object": {"value":"http://www.wikidata.org/entity/P582"}
+            , "pathComplexity": [
+            "P_ZeroOrMore1"
+            ]
+
+            , "pathType": "ZeroOrMore"
+            ,"Predicates":[
+             "<http://www.wikidata.org/prop/direct/P1647>"
+            ]
+            }
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "??P727", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"?var7"}, "opName": "Triple"}
+            ]}
+        ]}
+    ]}
+  ]}
+]}

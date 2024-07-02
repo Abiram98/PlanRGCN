@@ -1,0 +1,32 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "??P1721", "Predicate": "http://www.wikidata.org/prop/P31", "Object": {"value":"http://www.wikidata.org/entity/Q2188189"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P1720", "Predicate": "http://www.wikidata.org/prop/statement/P31", "Object": {"value":"??P1721"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "path", "Subject": "?var1", "Object": {"value":"??P1720"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P279>"
+      ]
+      }
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(>= ?var2 7)]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#identifiers", "Object": {"value":"?var2"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P435", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+      ]}
+  ]}
+]}

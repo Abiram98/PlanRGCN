@@ -1,0 +1,29 @@
+{"opName": "join", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P171", "Object": {"value":"http://www.wikidata.org/entity/Q127960"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P225", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(|| (= (lang ?var1Label) \"\") (langMatches (lang ?var1Label) \"hu\"))]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+  ,
+  {"opName": "conditional", "subOp": [
+    {"opName": "table", "subOp": []}
+    ,
+    {"opName": "filter" , "expr": " [(|| (= (lang ?var3Label) \"\") (langMatches (lang ?var3Label) \"hu\"))]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P171", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P225", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3Label"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

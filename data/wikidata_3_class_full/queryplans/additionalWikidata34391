@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "??P63", "Predicate": "http://www.wikidata.org/prop/statement/P698", "Object": {"value":"23023843","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+  ,
+  {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P698", "Object": {"value":"??P63"}, "opName": "Triple"}
+]}

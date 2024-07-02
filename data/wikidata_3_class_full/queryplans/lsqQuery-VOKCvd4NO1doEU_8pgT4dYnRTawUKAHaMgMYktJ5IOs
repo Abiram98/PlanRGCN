@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(|| (= \"en\" (lang ?var1)) (= \"\" (lang ?var1))), (! (regex (str ?var2) \"string1\"))]", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q15106029", "Predicate": "?var2", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,46 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "??P699", "Object": {"value":"http://www.wikidata.org/entity/Q839954"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P279>"
+      ]
+      }
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P699"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(> ?var6 -5.17), (< ?var6 -3.96)]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(> ?var5 53.845), (< ?var5 54.554)]", "subOp": [
+              {"opName": "sequence", "subOp": [
+                  {"opName": "filter" , "expr": " [(= (lang ?var1Label) \"en\")]", "subOp": [
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P625", "Object": {"value":"?var2"}, "opName": "Triple"}
+                      ,
+                      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/P625", "Object": {"value":"??P700"}, "opName": "Triple"}
+                      ,
+                      {"Subject": "??P700", "Predicate": "http://www.wikidata.org/prop/statement/value/P625", "Object": {"value":"?var4"}, "opName": "Triple"}
+                      ,
+                      {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?var4", "Predicate": "http://wikiba.se/ontology#geoLatitude", "Object": {"value":"?var5"}, "opName": "Triple"}
+                  ]}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var4", "Predicate": "http://wikiba.se/ontology#geoLongitude", "Object": {"value":"?var6"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+  ]}
+]}

@@ -1,0 +1,30 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "??P889", "Object": {"value":"http://www.wikidata.org/entity/Q4830453"}
+        , "pathComplexity": [
+        "P_ZeroOrMore1"
+        ]
+
+        , "pathType": "ZeroOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P889"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(contains ?var3 \"Bata\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://schema.org/about", "Object": {"value":"?var2"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://de.wikipedia.org/"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://schema.org/name", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+        ]}
+    ]}
+  ]}
+]}

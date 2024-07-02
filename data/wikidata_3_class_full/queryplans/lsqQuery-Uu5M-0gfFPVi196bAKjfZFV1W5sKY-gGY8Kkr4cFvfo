@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(!= ?var1 <http://www.wikidata.org/entity/Q317070>)]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://www.wikidata.org/entity/Q95410", "Predicate": "http://www.wikidata.org/prop/direct/P108", "Object": {"value":"?var1"}, "opName": "Triple"}
+  ]}
+]}

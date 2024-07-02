@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(= (lang ?var1Label) \"mo\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+  ]}
+]}

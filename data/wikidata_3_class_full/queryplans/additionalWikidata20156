@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "filter" , "expr": " [(|| (strstarts (str ?var3) \"??esk??\") (strstarts (str ?var3) \"??esk??\")), (= (lang ?var3) \"cs\"), (strstarts (str ?var3) \"??esk\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

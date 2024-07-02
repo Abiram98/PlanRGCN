@@ -1,0 +1,21 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "extend", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "table", "subOp": []}
+        ,
+        {"opName": "filter" , "expr": " [(|| (|| (contains (lcase ?var2Label) \"string1\") (contains (lcase ?var4) \"string1\")) (contains (lcase ?var5) \"string1\"))]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://wikiba.se/ontology#Property"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"?var4"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://www.w3.org/2004/02/skos/core#altLabel", "Object": {"value":"?var5"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

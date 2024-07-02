@@ -1,0 +1,19 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(= ?var4 ?var5)]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1098", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1098", "Object": {"value":"??P39"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P39", "Predicate": "http://www.wikidata.org/prop/statement/value/P1098", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://wikiba.se/ontology#quantityAmount", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://wikiba.se/ontology#quantityUpperBound", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var3", "Predicate": "http://wikiba.se/ontology#quantityLowerBound", "Object": {"value":"?var6"}, "opName": "Triple"}
+    ]}
+]}

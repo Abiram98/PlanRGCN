@@ -1,0 +1,13 @@
+{"opName": "conditional", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1103", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ]}
+  ,
+  {"opName": "filter" , "expr": " [(= (lang ?var3Label) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"??P49"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P49", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var3Label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

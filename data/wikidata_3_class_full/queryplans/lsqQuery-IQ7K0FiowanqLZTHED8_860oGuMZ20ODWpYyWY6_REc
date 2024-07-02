@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://www.wikidata.org/entity/Q36810", "Predicate": "?var1", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#label", "Object": {"value":"?var3Label"}, "opName": "Triple"}
+]}

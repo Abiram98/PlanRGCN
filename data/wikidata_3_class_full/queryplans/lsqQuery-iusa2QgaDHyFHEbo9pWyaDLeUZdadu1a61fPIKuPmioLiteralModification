@@ -1,0 +1,29 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P279", "Object": {"value":"http://www.wikidata.org/entity/Q8054"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P703", "Object": {"value":"http://www.wikidata.org/entity/Q5"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?var3Label) \"en\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3Label"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(= (substr (str ?var4) 1 25) \"string1\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var4", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var4", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+          ]}
+      ]}
+  ]}
+]}

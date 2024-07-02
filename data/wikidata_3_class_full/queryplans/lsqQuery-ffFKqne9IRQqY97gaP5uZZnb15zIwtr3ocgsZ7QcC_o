@@ -1,0 +1,19 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lang ?var2Label) \"ca\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P21", "Object": {"value":"http://www.wikidata.org/entity/Q6581072"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P166", "Object": {"value":"http://www.wikidata.org/entity/Q47170"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://schema.org/Article"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"ca","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

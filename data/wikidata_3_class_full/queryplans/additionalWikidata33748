@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (year ?var2) 1992), (= (month ?var2) 8), (= (day ?var2) 25)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P577", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

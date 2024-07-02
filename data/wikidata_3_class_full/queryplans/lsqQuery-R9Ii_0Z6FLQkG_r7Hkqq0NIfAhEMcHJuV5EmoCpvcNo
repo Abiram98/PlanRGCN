@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var3", "Predicate": "?var4", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"??P222"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P222", "Predicate": "http://www.wikidata.org/prop/reference/P248", "Object": {"value":"??P221"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P221", "Predicate": "http://www.wikidata.org/prop/direct/P356", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

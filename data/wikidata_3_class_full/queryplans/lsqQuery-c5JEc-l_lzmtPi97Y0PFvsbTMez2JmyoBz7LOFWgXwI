@@ -1,0 +1,17 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q5"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P39", "Object": {"value":"http://www.wikidata.org/entity/Q796897"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P735", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var4", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P734", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var5", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

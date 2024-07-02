@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lang ?var1) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q3052772", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q5"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://www.wikidata.org/entity/Q3052772", "Predicate": "http://schema.org/description", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

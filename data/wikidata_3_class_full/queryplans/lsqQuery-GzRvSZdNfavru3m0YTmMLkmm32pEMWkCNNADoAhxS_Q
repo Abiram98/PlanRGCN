@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?var1) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Honda_Legend", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

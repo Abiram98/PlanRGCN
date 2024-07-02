@@ -1,0 +1,57 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/P21", "Object": {"value":"??P328"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P328", "Predicate": "http://www.wikidata.org/prop/statement/P21", "Object": {"value":"?var11"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/P569", "Object": {"value":"??P329"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P329", "Predicate": "http://www.wikidata.org/prop/statement/value/P569", "Object": {"value":"??0"}, "opName": "Triple"}
+      ,
+      {"Subject": "??0", "Predicate": "http://wikiba.se/ontology#timeValue", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ,
+      {"Subject": "??0", "Predicate": "http://wikiba.se/ontology#timePrecision", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ,
+      {"Subject": "??0", "Predicate": "http://wikiba.se/ontology#timeTimezone", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ,
+      {"Subject": "??0", "Predicate": "http://wikiba.se/ontology#timeCalendarModel", "Object": {"value":"?var6"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/P570", "Object": {"value":"??P330"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P330", "Predicate": "http://www.wikidata.org/prop/statement/value/P570", "Object": {"value":"??1"}, "opName": "Triple"}
+      ,
+      {"Subject": "??1", "Predicate": "http://wikiba.se/ontology#timeValue", "Object": {"value":"?var7"}, "opName": "Triple"}
+      ,
+      {"Subject": "??1", "Predicate": "http://wikiba.se/ontology#timePrecision", "Object": {"value":"?var8"}, "opName": "Triple"}
+      ,
+      {"Subject": "??1", "Predicate": "http://wikiba.se/ontology#timeTimezone", "Object": {"value":"?var9"}, "opName": "Triple"}
+      ,
+      {"Subject": "??1", "Predicate": "http://wikiba.se/ontology#timeCalendarModel", "Object": {"value":"?var10"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var11", "Predicate": "http://www.wikidata.org/prop/P569", "Object": {"value":"??P331"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P331", "Predicate": "http://www.wikidata.org/prop/statement/value/P569", "Object": {"value":"??2"}, "opName": "Triple"}
+      ,
+      {"Subject": "??2", "Predicate": "http://wikiba.se/ontology#timeValue", "Object": {"value":"?var12"}, "opName": "Triple"}
+      ,
+      {"Subject": "??2", "Predicate": "http://wikiba.se/ontology#timePrecision", "Object": {"value":"?var13"}, "opName": "Triple"}
+      ,
+      {"Subject": "??2", "Predicate": "http://wikiba.se/ontology#timeTimezone", "Object": {"value":"?var14"}, "opName": "Triple"}
+      ,
+      {"Subject": "??2", "Predicate": "http://wikiba.se/ontology#timeCalendarModel", "Object": {"value":"?var15"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var11", "Predicate": "http://www.wikidata.org/prop/P569", "Object": {"value":"??P332"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P332", "Predicate": "http://www.wikidata.org/prop/statement/value/P569", "Object": {"value":"??3"}, "opName": "Triple"}
+      ,
+      {"Subject": "??3", "Predicate": "http://wikiba.se/ontology#timeValue", "Object": {"value":"?var16"}, "opName": "Triple"}
+      ,
+      {"Subject": "??3", "Predicate": "http://wikiba.se/ontology#timePrecision", "Object": {"value":"?var17"}, "opName": "Triple"}
+      ,
+      {"Subject": "??3", "Predicate": "http://wikiba.se/ontology#timeTimezone", "Object": {"value":"?var18"}, "opName": "Triple"}
+      ,
+      {"Subject": "??3", "Predicate": "http://wikiba.se/ontology#timeCalendarModel", "Object": {"value":"?var19"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

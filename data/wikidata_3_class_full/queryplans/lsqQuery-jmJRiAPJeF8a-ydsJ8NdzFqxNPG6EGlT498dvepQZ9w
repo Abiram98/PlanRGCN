@@ -1,0 +1,13 @@
+{"opName": "distinct", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P527", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P527", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P2410", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P1117", "Object": {"value":"?var5"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P1117", "Object": {"value":"?var6"}, "opName": "Triple"}
+  ]}
+]}

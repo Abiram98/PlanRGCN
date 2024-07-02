@@ -1,0 +1,11 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(langMatches (lang ?var2Label) \"EN\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q192724", "Predicate": "http://www.wikidata.org/prop/direct/P136", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

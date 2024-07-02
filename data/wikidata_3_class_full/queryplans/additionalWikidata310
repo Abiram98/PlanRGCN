@@ -1,0 +1,43 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "extend", "subOp": [
+      {"opName": "filter" , "expr": " [(! (bound ?var6)), (! (bound ?var9)), (! (bound ?var12))]", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "filter" , "expr": " [(= ?var5 1)]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#sitelinks", "Object": {"value":"0","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var4"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#statements", "Object": {"value":"?var5"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var6", "Predicate": "?var7", "Object": {"value":"?var1"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "?var8", "Object": {"value":"?var9"}, "opName": "Triple"}
+              ,
+              {"Subject": "?var10", "Predicate": "http://wikiba.se/ontology#propertyType", "Object": {"value":"http://wikiba.se/ontology#ExternalId"}, "opName": "Triple"}
+              ,
+              {"Subject": "?var10", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"?var8"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "?var11", "Object": {"value":"??0"}, "opName": "Triple"}
+            ,
+            {"Subject": "??0", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"?var12"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var12", "Predicate": "?var13", "Object": {"value":"??1"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

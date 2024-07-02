@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "table", "subOp": []}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://www.wikidata.org/entity/Q1485", "Predicate": "http://www.wikidata.org/prop/direct/P1603", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

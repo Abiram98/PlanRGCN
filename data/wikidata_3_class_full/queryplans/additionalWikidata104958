@@ -1,0 +1,17 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.wikidata.org/entity/P1741"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var3", "Predicate": "?var4", "Object": {"value":"?var5"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var3", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"?var6"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var6", "Predicate": "?var7", "Object": {"value":"?var8"}, "opName": "Triple"}
+  ]}
+]}

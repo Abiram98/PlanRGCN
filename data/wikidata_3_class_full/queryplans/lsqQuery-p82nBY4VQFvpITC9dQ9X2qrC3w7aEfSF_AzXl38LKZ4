@@ -1,0 +1,17 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?var3) \"it\")]", "subOp": [
+          {"opName": "assign", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "http://www.wikidata.org/entity/Q34718", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "?var4", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

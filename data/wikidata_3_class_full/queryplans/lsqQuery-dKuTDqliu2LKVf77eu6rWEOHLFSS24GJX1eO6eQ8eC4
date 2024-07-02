@@ -1,0 +1,37 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(= (lang ?var1) \"en\")]", "subOp": [
+              {"opName": "sequence", "subOp": [
+                  {"opName": "filter" , "expr": " [(= (str ?var6Label) \"Flanders\")]", "subOp": [
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P297", "Object": {"value":"BE","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+                      ,
+                      {"Subject": "?var5", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var6Label"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?var5", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+                  ]}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var4"}, "opName": "Triple"}
+            ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/direct/P300", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/direct/P1448", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

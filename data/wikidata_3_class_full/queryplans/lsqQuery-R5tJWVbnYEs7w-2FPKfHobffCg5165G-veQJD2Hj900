@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "https://en.wikipedia.org/wiki/Joseph_Phillips_(jurist)", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+]}

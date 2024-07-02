@@ -1,0 +1,35 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= ?var2Label ?var3)]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "extend", "subOp": [
+          {"opName": "table", "subOp": []}
+        ]}
+        ,
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(regex ?var2Label \"^1er\"), (= (lang ?var2Label) \"fr\")]", "subOp": [
+              {"opName": "sequence", "subOp": [
+                  {"opName": "filter" , "expr": " [(= (lang ?var1Label) \"fr\"), (regex ?var1Label \"string1\")]", "subOp": [
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q18340514"}, "opName": "Triple"}
+                      ,
+                      {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q14795564"}, "opName": "Triple"}
+                    ,
+                    {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+                  ]}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "??P36", "Predicate": "http://www.wikidata.org/prop/direct/P279", "Object": {"value":"http://www.wikidata.org/entity/Q18602249"}, "opName": "Triple"}
+              ,
+              {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P361", "Object": {"value":"??P36"}, "opName": "Triple"}
+            ]}
+        ]}
+    ]}
+  ]}
+]}

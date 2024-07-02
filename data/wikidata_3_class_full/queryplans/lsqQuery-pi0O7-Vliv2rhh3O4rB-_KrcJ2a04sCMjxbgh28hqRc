@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(|| (= (substr (str ?var1) 1 25) \"string1\") (= (substr (str ?var1) 1 25) \"string2\"))]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://schema.org/about", "Object": {"value":"http://www.wikidata.org/entity/Q16"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

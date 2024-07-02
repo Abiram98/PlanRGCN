@@ -1,0 +1,60 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "extend", "subOp": [
+          {"opName": "table", "subOp": []}
+        ]}
+        ,
+        {"opName": "sequence", "subOp": [
+            {"opName": "sequence", "subOp": [
+                {"opName": "path", "Subject": "??P1262", "Object": {"value":"http://www.wikidata.org/entity/Q515"}
+                , "pathComplexity": [
+                "P_ZeroOrMore1"
+                ]
+
+                , "pathType": "ZeroOrMore"
+                ,"Predicates":[
+                 "<http://www.wikidata.org/prop/direct/P279>"
+                ]
+                }
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P1262"}, "opName": "Triple"}
+                ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ]}
+            ,
+            {"opName": "sequence", "subOp": [
+                {"opName": "path", "Subject": "??P1263", "Object": {"value":"http://www.wikidata.org/entity/Q10864048"}
+                , "pathComplexity": [
+                "P_ZeroOrMore1"
+                ]
+
+                , "pathType": "ZeroOrMore"
+                ,"Predicates":[
+                 "<http://www.wikidata.org/prop/direct/P279>"
+                ]
+                }
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P1263"}, "opName": "Triple"}
+                ]}
+            ]}
+            ,
+            {"opName": "path", "Subject": "?var3", "Object": {"value":"?var2"}
+            , "pathComplexity": [
+            "P_ZeroOrMore1"
+            ]
+
+            , "pathType": "ZeroOrMore"
+            ,"Predicates":[
+             "<http://www.wikidata.org/prop/direct/P131>"
+            ]
+            }
+        ]}
+    ]}
+  ]}
+]}

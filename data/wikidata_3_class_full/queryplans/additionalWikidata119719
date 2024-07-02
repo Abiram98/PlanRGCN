@@ -1,0 +1,17 @@
+{"opName": "filter" , "expr": " [(= (lang ?var6) \"it\"), (regex (str ?var6) \"nascita\")]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?var2) \"it\"), (regex (str ?var2) \"Totti\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "?var3", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var5", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var5", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var6"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

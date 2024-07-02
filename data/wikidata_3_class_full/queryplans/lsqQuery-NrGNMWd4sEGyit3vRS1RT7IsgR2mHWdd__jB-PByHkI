@@ -1,0 +1,9 @@
+{"opName": "distinct", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"??0"}, "opName": "Triple"}
+    ,
+    {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/P854", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/statement/value/P1082", "Object": {"value":"?var4"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,17 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(>= ?var3 \"1953-11-01T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>), (<= ?var3 \"1963-11-31T23:59:59Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)]", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(>= ?var2 \"1943-11-01T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>), (<= ?var2 \"1953-11-31T23:59:59Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P580", "Object": {"value":"?var2"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P582", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+  ]}
+]}

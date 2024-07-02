@@ -1,0 +1,13 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(|| (|| (= (lang ?var3) \"cs\") (= (lang ?var3) \"en\")) (= (lang ?var3) \"de\"))]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "?var2Label", "Object": {"value":"Canada","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1448", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P297", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ]}
+]}

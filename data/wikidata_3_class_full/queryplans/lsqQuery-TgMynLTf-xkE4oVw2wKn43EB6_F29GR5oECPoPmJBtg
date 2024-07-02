@@ -1,0 +1,7 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?var1Label) \"en\"), (langMatches (lang ?var1Label) \"es\"), (langMatches (lang ?var1Label) \"fr\"), (langMatches (lang ?var1Label) \"de\"), (langMatches (lang ?var1Label) \"it\"), (langMatches (lang ?var1Label) \"pt\"), (langMatches (lang ?var1Label) \"sv\"), (langMatches (lang ?var1Label) \"zh\"), (langMatches (lang ?var1Label) \"ja\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://www.wikidata.org/entity/Q181900", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

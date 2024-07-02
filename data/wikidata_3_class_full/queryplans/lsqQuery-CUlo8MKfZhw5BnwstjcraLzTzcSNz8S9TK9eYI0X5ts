@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(regex (str ?var2) \"string1\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var3", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://roa-rup.wikipedia.org/"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var3", "Predicate": "http://schema.org/name", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

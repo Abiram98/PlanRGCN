@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?var1) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P2309", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "?var4", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://wikiba.se/ontology#Property"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

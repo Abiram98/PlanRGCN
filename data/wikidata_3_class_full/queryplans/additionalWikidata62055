@@ -1,0 +1,27 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(! (bound ?var5))]", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(!= ?var3 ?var4)]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P577", "Object": {"value":"?var3"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/statement/P577", "Object": {"value":"?var2"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P577", "Object": {"value":"?var4"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/statement/P577", "Object": {"value":"?var2"}, "opName": "Triple"}
+            ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var3", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

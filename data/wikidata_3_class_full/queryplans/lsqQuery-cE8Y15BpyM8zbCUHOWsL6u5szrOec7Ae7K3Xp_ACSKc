@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex (replace (str ?var2) \"%20\" \" \") \"string1\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P683", "Object": {"value":"??P23"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P23", "Predicate": "http://www.wikidata.org/prop/statement/P683", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

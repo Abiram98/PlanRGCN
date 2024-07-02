@@ -1,0 +1,24 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "??P2465", "Object": {"value":"http://www.wikidata.org/entity/Q1668024"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P279>"
+      ]
+      }
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P2465"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(|| (strends (str ?var2) \".io\") (strends (str ?var2) \".io/\"))]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P856", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+      ]}
+  ]}
+]}

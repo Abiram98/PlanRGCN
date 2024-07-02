@@ -1,0 +1,15 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"??????","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"zh"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.w3.org/2004/02/skos/core#altLabel", "Object": {"value":"?var3"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,55 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "conditional", "subOp": [
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Company"}, "opName": "Triple"}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?var1", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?var2"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?var1", "Predicate": "http://dbpedia.org/ontology/industry", "Object": {"value":"?var3"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var1", "Predicate": "http://xmlns.com/foaf/0.1/homepage", "Object": {"value":"?var4"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://dbpedia.org/ontology/numberOfEmployees", "Object": {"value":"?var5"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://dbpedia.org/ontology/revenue", "Object": {"value":"?var6"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://dbpedia.org/ontology/netIncome", "Object": {"value":"?var7"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://dbpedia.org/property/locationCountry", "Object": {"value":"?var8"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://dbpedia.org/property/headquarters", "Object": {"value":"?var9"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

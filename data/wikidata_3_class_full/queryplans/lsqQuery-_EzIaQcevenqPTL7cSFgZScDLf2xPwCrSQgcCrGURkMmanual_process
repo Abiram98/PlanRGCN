@@ -1,0 +1,58 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"http://www.wikidata.org/entity/Q213"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "sequence", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "??P933", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q355304"}, "opName": "Triple"}
+            ]}
+            ,
+            {"opName": "path", "Subject": "?var1", "Object": {"value":"??P933"}
+            , "pathComplexity": [
+            "P_OneOrMore1"
+            ]
+
+            , "pathType": "OneOrMore"
+            ,"Predicates":[
+             "<http://www.wikidata.org/prop/direct/P279>"
+            ]
+            }
+        ]}
+    ]}
+    ,
+    {"opName": "sequence", "subOp": [
+        {"opName": "extend", "subOp": [
+          {"opName": "table", "subOp": []}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "??0", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ,
+          {"Subject": "??0", "Predicate": "http://schema.org/name", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ,
+          {"Subject": "??0", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://cs.wikipedia.org/"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P625", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+  ,
+  {"opName": "filter" , "expr": " [(! (bound ?var3))]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(regex ?var5 \"string1\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "??1", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ,
+            {"Subject": "??1", "Predicate": "http://schema.org/name", "Object": {"value":"?var5"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "??1", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://ceb.wikipedia.org/"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

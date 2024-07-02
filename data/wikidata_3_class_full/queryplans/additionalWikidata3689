@@ -1,0 +1,13 @@
+{"opName": "filter" , "expr": " [(>= ?var5 (<http://www.w3.org/2001/XMLSchema#date> \"1820-01-01\")), (<= ?var5 (<http://www.w3.org/2001/XMLSchema#date> \"1830-01-01\"))]", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q5"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?var5"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

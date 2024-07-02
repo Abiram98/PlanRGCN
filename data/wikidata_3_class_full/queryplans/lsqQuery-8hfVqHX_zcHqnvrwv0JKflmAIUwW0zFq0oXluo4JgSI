@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://www.wikidata.org/entity/Q18844323", "Predicate": "http://www.wikidata.org/prop/P2114", "Object": {"value":"??P207"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P207", "Predicate": "http://www.wikidata.org/prop/statement/value-normalized/P2114", "Object": {"value":"??P206"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P206", "Predicate": "http://wikiba.se/ontology#quantityValue", "Object": {"value":"?var1"}, "opName": "Triple"}
+  ]}
+]}

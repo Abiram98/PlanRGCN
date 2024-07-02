@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "assign", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://www.wikidata.org/entity/Q1369941", "Predicate": "?var2", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var5", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

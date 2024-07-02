@@ -1,0 +1,24 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "path", "Subject": "?var1", "Object": {"value":"http://www.wikidata.org/entity/Q2095"}
+    , "pathComplexity": [
+    "P_OneOrMore1"
+    ]
+
+    , "pathType": "OneOrMore"
+    ,"Predicates":[
+     "<http://www.wikidata.org/prop/direct/P279>"
+    ]
+    }
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P495", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P279", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"?var6"}, "opName": "Triple"}
+    ]}
+]}

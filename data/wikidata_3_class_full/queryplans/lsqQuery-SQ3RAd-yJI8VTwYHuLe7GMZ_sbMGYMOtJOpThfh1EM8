@@ -1,0 +1,59 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "join", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var9", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://swepub.kb.se/mods/model#Record"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var10", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://swepub.kb.se/mods/model#Mods"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var10", "Predicate": "http://swepub.kb.se/mods/model#identifierValue", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var10", "Predicate": "http://swepub.kb.se/mods/model#recordContentSourceValue", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (<http://www.w3.org/2001/XMLSchema#string> ?var2) \"gu\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var10", "Predicate": "http://swepub.kb.se/mods/model#hasTitleInfo", "Object": {"value":"?var11"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var11", "Predicate": "http://swepub.kb.se/mods/model#hasTitle", "Object": {"value":"?var12"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var12", "Predicate": "http://swepub.kb.se/mods/model#titleValue", "Object": {"value":"?var5"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var9", "Predicate": "http://swepub.kb.se/SwePubAnalysis/model#uriRepository", "Object": {"value":"?var7"}, "opName": "Triple"}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var10", "Predicate": "http://swepub.kb.se/mods/model#hasIdentifier", "Object": {"value":"?var13"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var13", "Predicate": "http://swepub.kb.se/mods/model#doiValue", "Object": {"value":"?var8"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var10", "Predicate": "http://swepub.kb.se/SwePubAnalysis/model#issnRelatedItem", "Object": {"value":"?var6"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName": "sequence", "subOp": [
+                {"opName": "filter" , "expr": " [(= (<http://www.w3.org/2001/XMLSchema#string> ?var4) \"und\")]", "subOp": [
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?var9", "Predicate": "http://swepub.kb.se/mods/model#hasLanguage", "Object": {"value":"?var14"}, "opName": "Triple"}
+                    ,
+                    {"Subject": "?var14", "Predicate": "http://swepub.kb.se/mods/model#hasLanguageTerm", "Object": {"value":"?var15"}, "opName": "Triple"}
+                    ,
+                    {"Subject": "?var15", "Predicate": "http://swepub.kb.se/mods/model#languageTermValue", "Object": {"value":"?var4"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var9", "Predicate": "http://swepub.kb.se/SwePubAnalysis/model#publicationYear", "Object": {"value":"?var3"}, "opName": "Triple"}
+                ]}
+            ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

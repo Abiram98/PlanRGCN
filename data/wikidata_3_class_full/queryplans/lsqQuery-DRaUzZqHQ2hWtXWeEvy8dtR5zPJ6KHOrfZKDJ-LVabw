@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(>= ?var2 \"2013-01-01T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P39", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/statement/P39", "Object": {"value":"http://www.wikidata.org/entity/Q18229570"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/qualifier/P580", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

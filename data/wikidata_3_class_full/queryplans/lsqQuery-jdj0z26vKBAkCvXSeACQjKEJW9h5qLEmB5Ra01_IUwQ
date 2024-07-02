@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?var1", "Predicate": "http://dbpedia.org/ontology/series", "Object": {"value":"http://dbpedia.org/resource/The_Sopranos"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var1", "Predicate": "http://dbpedia.org/ontology/seasonNumber", "Object": {"value":"?var2"}, "opName": "Triple"}
+]}

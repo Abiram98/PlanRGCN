@@ -1,0 +1,11 @@
+{"opName": "conditional", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://www.wikidata.org/entity/Q1299", "Predicate": "http://www.wikidata.org/prop/P434", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var3", "Predicate": "?var4", "Object": {"value":"?var5"}, "opName": "Triple"}
+  ]}
+]}

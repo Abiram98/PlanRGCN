@@ -1,0 +1,39 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(! (bound ?var6))]", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?var5) \"en\"), (= (str ?var4) (str ?var5))]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(= (lang ?var2) \"he\")]", "subOp": [
+                {"opName": "sequence", "subOp": [
+                    {"opName": "filter" , "expr": " [(= (lang ?var4) \"en\")]", "subOp": [
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q747074"}, "opName": "Triple"}
+                        ,
+                        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P36", "Object": {"value":"?var1"}, "opName": "Triple"}
+                        ,
+                        {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4"}, "opName": "Triple"}
+                      ]}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+                    ]}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var5"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?var6) \"he\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var6"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

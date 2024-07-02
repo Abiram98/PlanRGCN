@@ -1,0 +1,27 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(! (bound ?var1Label))]", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?var4Label) \"he\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var4"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var3", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://he.wikipedia.org/"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var3", "Predicate": "http://schema.org/name", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P1792", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var4", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4Label"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?var1Label) \"he\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

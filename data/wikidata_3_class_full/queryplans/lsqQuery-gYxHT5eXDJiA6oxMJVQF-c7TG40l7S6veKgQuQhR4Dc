@@ -1,0 +1,15 @@
+{"opName": "filter" , "expr": " [(|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (|| (= ?var2 \"06431\") (= ?var2 \"07311\")) (= ?var2 \"07313\")) (= ?var2 \"07314\")) (= ?var2 \"07316\")) (= ?var2 \"07318\")) (= ?var2 \"07319\")) (= ?var2 \"07332\")) (= ?var2 \"07334\")) (= ?var2 \"07337\")) (= ?var2 \"07338\")) (= ?var2 \"08221\")) (= ?var2 \"08222\")) (= ?var2 \"08225\")) (= ?var2 \"08226\"))]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "table", "subOp": []}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P440", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P131", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

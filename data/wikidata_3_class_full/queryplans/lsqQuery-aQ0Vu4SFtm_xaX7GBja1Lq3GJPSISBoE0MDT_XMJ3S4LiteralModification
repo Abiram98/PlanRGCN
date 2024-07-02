@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.w3.org/2006/03/wn/wn20/schema/containsWordSense", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var2", "Predicate": "http://www.w3.org/2006/03/wn/wn20/schema/word", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://www.w3.org/2006/03/wn/wn20/schema/lexicalForm", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+  ]}
+]}

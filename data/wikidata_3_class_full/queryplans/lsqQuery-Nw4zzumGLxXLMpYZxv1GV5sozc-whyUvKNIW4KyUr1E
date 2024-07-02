@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?var2Label) \"ES\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/entity/Q259818", "Object": {"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

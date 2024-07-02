@@ -1,0 +1,7 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1433", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P123", "Object": {"value":"?var3"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/1662", "Object": {"value":"10.1109","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+]}

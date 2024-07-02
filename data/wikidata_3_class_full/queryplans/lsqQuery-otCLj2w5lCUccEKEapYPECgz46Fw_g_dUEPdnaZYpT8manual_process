@@ -1,0 +1,18 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "path", "Subject": "?var1", "Object": {"value":"http://www.wikidata.org/entity/Q6256"}
+    , "pathComplexity": [
+    "P_OneOrMore1"
+    ]
+
+    , "pathType": "OneOrMore"
+    ,"Predicates":[
+     "<http://www.wikidata.org/prop/direct/P37>"
+    ]
+    }
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1448", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

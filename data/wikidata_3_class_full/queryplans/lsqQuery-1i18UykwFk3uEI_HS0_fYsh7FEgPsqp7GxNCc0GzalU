@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?var4Label) \"ar\"), (!= ?var3Label ?var4Label)]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= false (contains ?var3Label \")\")), (= true (contains ?var3Label \"????????:\"))]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var2", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var2", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://ar.wikipedia.org/"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var2", "Predicate": "http://schema.org/name", "Object": {"value":"?var3Label"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4Label"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,17 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P115", "Object": {"value":"??P86"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P86", "Predicate": "http://www.wikidata.org/prop/direct/P1083", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P115", "Object": {"value":"??P87"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P87", "Predicate": "http://www.wikidata.org/prop/direct/P137", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P115", "Object": {"value":"??P88"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P88", "Predicate": "http://www.wikidata.org/prop/direct/P625", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

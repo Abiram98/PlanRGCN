@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?var1", "Predicate": "http://18.218.102.193/prop/direct/P8", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+]}

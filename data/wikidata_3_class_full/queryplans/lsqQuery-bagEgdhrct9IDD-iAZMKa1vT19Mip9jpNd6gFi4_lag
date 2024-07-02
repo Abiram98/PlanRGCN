@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(!= <http://www.wikidata.org/entity/Q188> ?var2)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P364", "Object": {"value":"http://www.wikidata.org/entity/Q188"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P407", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P629", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P407", "Object": {"value":"http://www.wikidata.org/entity/Q188"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

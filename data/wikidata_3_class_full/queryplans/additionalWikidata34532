@@ -1,0 +1,15 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P345", "Object": {"value":"tt5016504","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"de","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://de.wikipedia.org/"}, "opName": "Triple"}
+    ]}
+]}

@@ -1,0 +1,7 @@
+{"opName": "filter" , "expr": " [(strstarts ?var2 \"string1\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://fr.wikiversity.org/"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://schema.org/pagename", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ]}
+]}

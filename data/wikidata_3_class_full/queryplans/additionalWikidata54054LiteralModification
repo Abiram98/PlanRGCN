@@ -1,0 +1,51 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var4", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var4", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"de","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?var5", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var5", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"fr","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?var6", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var6", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"?literalVar2"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var7", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var7", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"es","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?var8", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var8", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"ru","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?var9", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var9", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"?literalVar3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var10", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var10", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"it","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?var11", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var11", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"pt","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?var12", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var12", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"pl","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?var13", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var13", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"nl","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

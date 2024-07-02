@@ -1,0 +1,27 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(> ?var4 ?var6)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P26", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P569", "Object": {"value":"??P189"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P189", "Predicate": "http://www.wikidata.org/prop/statement/value/P569", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var3", "Predicate": "http://wikiba.se/ontology#timeValue", "Object": {"value":"?var4"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var3", "Predicate": "http://wikiba.se/ontology#timePrecision", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/P570", "Object": {"value":"??P190"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P190", "Predicate": "http://www.wikidata.org/prop/statement/value/P570", "Object": {"value":"?var5"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var5", "Predicate": "http://wikiba.se/ontology#timeValue", "Object": {"value":"?var6"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var5", "Predicate": "http://wikiba.se/ontology#timePrecision", "Object": {"value":"?literalVar2"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

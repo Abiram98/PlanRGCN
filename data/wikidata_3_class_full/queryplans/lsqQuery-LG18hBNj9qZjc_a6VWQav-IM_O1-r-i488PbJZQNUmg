@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (year ?var2) 1973)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"http://www.wikidata.org/entity/Q229"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1082", "Object": {"value":"??0"}, "opName": "Triple"}
+      ,
+      {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/qualifier/P585", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,25 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(> ?var4 100000)]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(> ?var3 100)]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(= (lang ?var1Label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q1840161"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P2044", "Object": {"value":"?var3"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P1082", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

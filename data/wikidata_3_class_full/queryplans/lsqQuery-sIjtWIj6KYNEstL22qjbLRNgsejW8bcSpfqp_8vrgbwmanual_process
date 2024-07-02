@@ -1,0 +1,20 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex (str ?var1) \"string1\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "??P2698", "Predicate": "http://www.wikidata.org/prop/direct/P106", "Object": {"value":"http://www.wikidata.org/entity/Q901"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "path", "Subject": "?var1", "Object": {"value":"??P2698"}
+        , "pathComplexity": [
+        "P_OneOrMore1"
+        ]
+
+        , "pathType": "OneOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+    ]}
+  ]}
+]}

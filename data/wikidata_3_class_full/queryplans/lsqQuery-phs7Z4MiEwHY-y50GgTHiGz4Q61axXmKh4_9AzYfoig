@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.wikidata.org/entity/statement/Q24768618-FF450D90-D19F-46DF-AFF1-BEA61E3DC8DD"}, "opName": "Triple"}
+  ]}
+]}

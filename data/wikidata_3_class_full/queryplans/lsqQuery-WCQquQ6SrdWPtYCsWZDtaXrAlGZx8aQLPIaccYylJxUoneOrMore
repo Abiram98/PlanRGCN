@@ -1,0 +1,20 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?var3) \"fr\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "path", "Subject": "?var2", "Object": {"value":"object","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}
+        , "pathComplexity": [
+        "P_OneOrMore1"
+        ]
+
+        , "pathType": "OneOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+    ]}
+  ]}
+]}

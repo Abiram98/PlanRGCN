@@ -1,0 +1,34 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(> ?var5 100)]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1566", "Object": {"value":"?var4"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1082", "Object": {"value":"?var5"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+    ]}
+    ,
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "?var1", "Object": {"value":"?var3"}
+        , "pathComplexity": [
+        "P_ZeroOrMore1"
+        ]
+
+        , "pathType": "ZeroOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P131>"
+        ]
+        }
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P131", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

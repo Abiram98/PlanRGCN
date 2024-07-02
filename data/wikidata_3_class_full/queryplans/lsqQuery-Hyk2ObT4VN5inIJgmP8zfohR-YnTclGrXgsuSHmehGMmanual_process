@@ -1,0 +1,29 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "extend", "subOp": [
+      {"opName": "table", "subOp": []}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?var7) \"en\")]", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(= (lang ?var4) \"en\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P699", "Object": {"value":"DOID:399","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+              ,
+              {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/statement/P424", "Object": {"value":"?var2"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/qualifier/P794", "Object": {"value":"http://www.wikidata.org/entity/Q22283033"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/P424", "Object": {"value":"?var5"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var6", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var7"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+]}

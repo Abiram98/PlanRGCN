@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(< ?var2 \"1500-01-01\"^^<http://www.w3.org/2001/XMLSchema#date>)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://dublincore.org/documents/2012/06/14/dcmiterms/?v=termssubject", "Object": {"value":"http://dbpedia.org/page/Category16th-century_scientists"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

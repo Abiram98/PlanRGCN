@@ -1,0 +1,7 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "??P338", "Predicate": "http://wikiba.se/ontology#wikiGroup", "Object": {"value":"wiktionary","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+  ,
+  {"Subject": "?var1", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"??P338"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var1", "Predicate": "http://schema.org/about", "Object": {"value":"?var2"}, "opName": "Triple"}
+]}

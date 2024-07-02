@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?var2) \"de\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://www.wikidata.org/entity/statement/q158852-CEB02F32-587D-45ED-AB1B-C8B9520DB479", "Predicate": "http://www.wikidata.org/prop/statement/P279", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,7 @@
+{"opName": "filter" , "expr": " [(regex ?var5Label \"tassigny\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var4", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var5Label"}, "opName": "Triple"}
+  ]}
+]}

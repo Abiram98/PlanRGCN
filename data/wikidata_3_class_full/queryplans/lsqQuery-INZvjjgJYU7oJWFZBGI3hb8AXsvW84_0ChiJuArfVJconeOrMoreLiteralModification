@@ -1,0 +1,29 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?var7) \"en\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(> ?var11 \"1900-01-01T00:00:13+05:30\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://www.bigdata.com/queryHints#Query", "Predicate": "http://www.bigdata.com/queryHints#optimizer", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P106", "Object": {"value":"http://www.wikidata.org/entity/Q628099"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?var11"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var7"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?var8) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.w3.org/2004/02/skos/core#altLabel", "Object": {"value":"?var8"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

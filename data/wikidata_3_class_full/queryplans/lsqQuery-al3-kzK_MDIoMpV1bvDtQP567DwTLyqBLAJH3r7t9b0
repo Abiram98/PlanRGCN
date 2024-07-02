@@ -1,0 +1,51 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "table", "subOp": []}
+            ,
+            {"opName": "filter" , "expr": " [(= (lang ?var1) \"en\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://www.wikidata.org/entity/Q239328", "Predicate": "http://www.wikidata.org/prop/direct/P21", "Object": {"value":"??P56"}, "opName": "Triple"}
+                ,
+                {"Subject": "??P56", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+              ]}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://www.wikidata.org/entity/Q239328", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?var3) \"en\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://www.wikidata.org/entity/Q239328", "Predicate": "http://www.wikidata.org/prop/direct/P19", "Object": {"value":"??P58"}, "opName": "Triple"}
+            ,
+            {"Subject": "??P58", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"??P57"}, "opName": "Triple"}
+            ,
+            {"Subject": "??P57", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q239328", "Predicate": "http://www.wikidata.org/prop/direct/P570", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?var5) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q239328", "Predicate": "http://www.wikidata.org/prop/direct/P27", "Object": {"value":"??P59"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P59", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://www.wikidata.org/entity/Q239328", "Predicate": "http://www.wikidata.org/prop/direct/P27", "Object": {"value":"?var5"}, "opName": "Triple"}
+  ]}
+]}

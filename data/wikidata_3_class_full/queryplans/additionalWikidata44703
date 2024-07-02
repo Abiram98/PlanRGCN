@@ -1,0 +1,71 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "filter" , "expr": " [(= (lang ?var2Label) \"en\")]", "subOp": [
+              {"opName": "sequence", "subOp": [
+                  {"opName": "filter" , "expr": " [(= (lang ?var1) \"en\")]", "subOp": [
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "http://www.wikidata.org/entity/Q35525", "Predicate": "http://schema.org/description", "Object": {"value":"?var1"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "http://www.wikidata.org/entity/Q35525", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+                  ]}
+              ]}
+            ]}
+            ,
+            {"opName": "table", "subOp": []}
+          ]}
+          ,
+          {"opName": "conditional", "subOp": [
+            {"opName": "table", "subOp": []}
+            ,
+            {"opName": "filter" , "expr": " [(= (lang ?var4) \"en\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4"}, "opName": "Triple"}
+              ]}
+            ]}
+          ]}
+        ]}
+        ,
+        {"opName": "conditional", "subOp": [
+          {"opName": "table", "subOp": []}
+          ,
+          {"opName": "filter" , "expr": " [(= (lang ?var6) \"en\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var5", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var6"}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName": "conditional", "subOp": [
+        {"opName": "table", "subOp": []}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?var8) \"en\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var7", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var8"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "conditional", "subOp": [
+      {"opName": "table", "subOp": []}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?var10) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var9", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var10"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P2046", "Object": {"value":"?var11"}, "opName": "Triple"}
+  ]}
+]}

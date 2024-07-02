@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(!= ?var4 ?var2)]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "??P19", "Predicate": "http://www.wikidata.org/prop/direct/P762", "Object": {"value":"?var4"}, "opName": "Triple"}
+            ,
+            {"Subject": "??P19", "Predicate": "http://www.wikidata.org/prop/direct/P762", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "??P20", "Predicate": "http://www.wikidata.org/prop/direct/P625", "Object": {"value":"?var4"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P20", "Predicate": "http://www.wikidata.org/prop/direct/P625", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

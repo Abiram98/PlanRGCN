@@ -1,0 +1,7 @@
+{"opName": "filter" , "expr": " [(strends ?var3 \", World\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1667", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"?var3"}, "opName": "Triple"}
+  ]}
+]}

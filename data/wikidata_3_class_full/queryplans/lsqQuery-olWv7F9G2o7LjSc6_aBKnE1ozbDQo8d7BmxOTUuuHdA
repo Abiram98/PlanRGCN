@@ -1,0 +1,15 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "extend", "subOp": [
+          {"opName": "table", "subOp": []}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://www.wikidata.org/entity/Q937", "Predicate": "http://www.wikidata.org/prop/direct/P26", "Object": {"value":"??P212"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P212", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

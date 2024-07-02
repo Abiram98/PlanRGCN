@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var2", "Predicate": "http://wikiba.se/ontology#claim", "Object": {"value":"?var5"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var2", "Predicate": "http://wikiba.se/ontology#statementValue", "Object": {"value":"?var6"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "?var5", "Object": {"value":"??0"}, "opName": "Triple"}
+    ,
+    {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/qualifier/P1352", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ,
+    {"Subject": "??0", "Predicate": "?var6", "Object": {"value":"?var3"}, "opName": "Triple"}
+  ]}
+]}

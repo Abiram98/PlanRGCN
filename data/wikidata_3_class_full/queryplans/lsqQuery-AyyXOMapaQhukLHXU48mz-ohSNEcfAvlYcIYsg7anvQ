@@ -1,0 +1,28 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "??P3583", "Object": {"value":"http://www.wikidata.org/entity/Q49084"}
+        , "pathComplexity": [
+        "P_ZeroOrMore1"
+        ]
+
+        , "pathType": "ZeroOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P31", "Object": {"value":"??P3584"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P3584", "Predicate": "http://www.wikidata.org/prop/statement/P31", "Object": {"value":"??P3583"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(>= ?var2 6)]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#identifiers", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ]}
+        ]}
+    ]}
+  ]}
+]}

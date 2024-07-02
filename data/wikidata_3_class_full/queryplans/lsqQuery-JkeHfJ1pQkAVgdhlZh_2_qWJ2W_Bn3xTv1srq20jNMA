@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "extend", "subOp": [
+        {"opName": "table", "subOp": []}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P36", "Object": {"value":"http://www.wikidata.org/entity/Q7038"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P625", "Object": {"value":"??P78"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P78", "Predicate": "http://www.wikidata.org/prop/statement/value/P625", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var5", "Predicate": "http://wikiba.se/ontology#geoLatitude", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var5", "Predicate": "http://wikiba.se/ontology#geoLongitude", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

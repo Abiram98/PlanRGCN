@@ -1,0 +1,21 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?var7) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://www.bigdata.com/queryHints#Query", "Predicate": "http://www.bigdata.com/queryHints#optimizer", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q15991303"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var7"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?var8) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.w3.org/2004/02/skos/core#altLabel", "Object": {"value":"?var8"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

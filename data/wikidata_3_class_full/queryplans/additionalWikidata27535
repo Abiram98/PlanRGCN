@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(>= ?var3 \"30061900Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>), (< ?var3 \"31061900Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(!= ?var2 <http://www.wikidata.org/prop/qualifier/P580>), (!= ?var2 <http://www.wikidata.org/prop/qualifier/P582>), (!= ?var2 <http://www.wikidata.org/prop/qualifier/P31>), (!= ?var2 <http://www.wikidata.org/prop/qualifier/P1480>)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P21", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var5", "Predicate": "?var6", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var5", "Predicate": "http://wikiba.se/ontology#rank", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var2", "Predicate": "http://wikiba.se/ontology#qualifier", "Object": {"value":"?var6"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

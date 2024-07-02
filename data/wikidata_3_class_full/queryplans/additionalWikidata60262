@@ -1,0 +1,15 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lcase (str ?var1)) (lcase (str ?var3))), (!= (str ?var1) (str ?var3))]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://schema.org/about", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://it.wikipedia.org/"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var3", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://it.wikipedia.org/"}, "opName": "Triple"}
+    ]}
+]}

@@ -1,0 +1,34 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "??P3293", "Predicate": "http://www.wikidata.org/prop/P31", "Object": {"value":"http://www.wikidata.org/entity/Q7397"}, "opName": "Triple"}
+              ,
+              {"Subject": "??P3292", "Predicate": "http://www.wikidata.org/prop/statement/P31", "Object": {"value":"??P3293"}, "opName": "Triple"}
+            ]}
+            ,
+            {"opName": "path", "Subject": "?var2", "Object": {"value":"??P3292"}
+            , "pathComplexity": [
+            "P_OneOrMore1"
+            ]
+
+            , "pathType": "OneOrMore"
+            ,"Predicates":[
+             "<http://www.wikidata.org/prop/direct/P279>"
+            ]
+            }
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/P121", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ]}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?var1Label) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

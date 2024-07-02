@@ -1,0 +1,58 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "http://www.wikidata.org/entity/Q6556803", "Object": {"value":"?var1"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P131>"
+      ]
+      }
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+  ]}
+  ,
+  {"opName": "sequence", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://www.wikidata.org/entity/Q6556803", "Predicate": "http://www.wikidata.org/prop/P131", "Object": {"value":"??P3208"}, "opName": "Triple"}
+          ]}
+          ,
+          {"opName": "path", "Subject": "??P3208", "Object": {"value":"??0"}
+          , "pathComplexity": [
+          "P_OneOrMore1"
+          ]
+
+          , "pathType": "OneOrMore"
+          ,"Predicates":[
+           "<http://www.wikidata.org/prop/direct/P131>"
+          ]
+          }
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/qualifier/P582", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "path", "Subject": "??0", "Object": {"value":"??P3209"}
+          , "pathComplexity": [
+          "P_OneOrMore1"
+          ]
+
+          , "pathType": "OneOrMore"
+          ,"Predicates":[
+           "<http://www.wikidata.org/prop/direct/P131>"
+          ]
+          }
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "??P3209", "Predicate": "http://www.wikidata.org/prop/statement/P131", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ]}
+      ]}
+  ]}
+]}

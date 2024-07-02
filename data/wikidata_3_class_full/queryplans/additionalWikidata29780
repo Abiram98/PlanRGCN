@@ -1,0 +1,21 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "extend", "subOp": [
+      {"opName": "filter" , "expr": " [(! (bound ?var4))]", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "filter" , "expr": " [(= (lang ?var3) \"en\"), (regex ?var3 \"string1\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName": "filter" , "expr": " [(= (lang ?var4) \"ar\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"?var4"}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

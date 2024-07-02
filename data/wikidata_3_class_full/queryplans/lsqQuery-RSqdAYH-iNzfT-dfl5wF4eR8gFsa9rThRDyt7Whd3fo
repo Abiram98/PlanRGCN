@@ -1,0 +1,32 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "path", "Subject": "?var4", "Object": {"value":"http://www.wikidata.org/entity/Q14660"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P279>"
+      ]
+      }
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/P2043", "Predicate": "http://wikiba.se/ontology#claim", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://www.wikidata.org/entity/P2043", "Predicate": "http://wikiba.se/ontology#statementValue", "Object": {"value":"?var6"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var5", "Object": {"value":"??0"}, "opName": "Triple"}
+        ,
+        {"Subject": "??0", "Predicate": "?var6", "Object": {"value":"??1"}, "opName": "Triple"}
+        ,
+        {"Subject": "??1", "Predicate": "http://wikiba.se/ontology#quantityAmount", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "??1", "Predicate": "http://wikiba.se/ontology#quantityUnit", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(!= ?var1 <https://cdo.wikipedia.org/>), (!= ?var1 <https://frr.wikipedia.org/>), (!= ?var1 <https://gom.wikipedia.org/>), (!= ?var1 <https://hak.wikipedia.org/>), (!= ?var1 <https://hy.wikipedia.org/>), (!= ?var1 <https://lad.wikipedia.org/>)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P2959", "Object": {"value":"?var4"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var3", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var5", "Predicate": "http://schema.org/about", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var5", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

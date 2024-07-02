@@ -1,0 +1,11 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(!= ?var3 <http://www.wikidata.org/prop/P1343>), (!= ?var3 <http://www.wikidata.org/prop/P747>), (!= ?var3 <http://www.wikidata.org/prop/P485>)]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/qualifier/P248", "Object": {"value":"??0"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var3", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

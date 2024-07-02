@@ -1,0 +1,18 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "path", "Subject": "?var1", "Object": {"value":"http://www.wikidata.org/entity/Q3918"}
+    , "pathComplexity": [
+    "P_ZeroOrMore1"
+    ]
+
+    , "pathType": "ZeroOrMore"
+    ,"Predicates":[
+     "<http://www.wikidata.org/prop/direct/P31>"
+    ]
+    }
+    ,
+    {"opName": "filter" , "expr": " [(langMatches (lang ?var2Label) \"English\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+      ]}
+    ]}
+]}

@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(= (lang ?var1) \"ko\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://www.wikidata.org/entity/Q144", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+  ]}
+]}

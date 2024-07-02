@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "assign", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P279", "Object": {"value":"http://www.wikidata.org/entity/Q7700500"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P96", "Predicate": "http://wikiba.se/ontology#propertyType", "Object": {"value":"http://wikiba.se/ontology#WikibaseItem"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P96", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"http://www.wikidata.org/prop/direct/P31"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "??0", "Predicate": "?var2", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

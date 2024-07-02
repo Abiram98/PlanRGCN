@@ -1,0 +1,7 @@
+{"opName": "filter" , "expr": " [(regex (str ?var5) \"Sadroc\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "?var4", "Object": {"value":"?var5"}, "opName": "Triple"}
+  ]}
+]}

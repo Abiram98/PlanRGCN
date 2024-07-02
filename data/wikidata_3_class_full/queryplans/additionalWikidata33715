@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?var1Label) \"en\"), (= (lang ?var1Label) ?var3)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://www.bigdata.com/queryHints#Query", "Predicate": "http://www.bigdata.com/queryHints#optimizer", "Object": {"value":"None","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P225", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q16521"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

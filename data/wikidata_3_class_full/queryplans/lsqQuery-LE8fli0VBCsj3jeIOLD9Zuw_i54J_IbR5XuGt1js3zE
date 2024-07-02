@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(! (bound ?var2))]", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P27", "Object": {"value":"http://www.wikidata.org/entity/Q851"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (substr (str ?var2) 1 24) \"string1\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

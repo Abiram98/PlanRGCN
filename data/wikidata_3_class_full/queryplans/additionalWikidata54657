@@ -1,0 +1,32 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q5"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "sequence", "subOp": [
+            {"opName": "path", "Subject": "??P695", "Object": {"value":"http://www.wikidata.org/entity/Q715301"}
+            , "pathComplexity": [
+            "P_ZeroOrMore1"
+            ]
+
+            , "pathType": "ZeroOrMore"
+            ,"Predicates":[
+             "<http://www.wikidata.org/prop/direct/P279>"
+            ]
+            }
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P106", "Object": {"value":"??P695"}, "opName": "Triple"}
+            ]}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(>= ?var3 \"2017-01-01T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>), (<= ?var3 \"2018-01-01T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P570", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+        ]}
+    ]}
+  ]}
+]}

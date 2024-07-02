@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "extend", "subOp": [
+        {"opName": "table", "subOp": []}
+      ]}
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(regex (str ?var1) \"string1\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://schema.org/about", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://www.wikidata.org/entity/Q2323760", "Predicate": "http://www.wikidata.org/prop/direct/P373", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ]}
+      ]}
+  ]}
+]}

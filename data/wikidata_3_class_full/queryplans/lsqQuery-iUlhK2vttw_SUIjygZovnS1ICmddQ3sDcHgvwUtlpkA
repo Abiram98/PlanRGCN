@@ -1,0 +1,35 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(!= (year ?var2) (year ?var5))]", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "filter" , "expr": " [(< (str ?var1) (str ?var4))]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1447", "Object": {"value":"?var7"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P1447", "Object": {"value":"?var7"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?var2"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P570", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P570", "Object": {"value":"?var6"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,95 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "disjunction", "subOp": [
+      {"opName": "assign", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1082", "Object": {"value":"??P83"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P83", "Predicate": "http://www.wikidata.org/prop/statement/value/P1082", "Object": {"value":"??P82"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P82", "Predicate": "http://wikiba.se/ontology#quantityUnit", "Object": {"value":"http://www.wikidata.org/entity/Q2472587"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "assign", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1082", "Object": {"value":"??P83"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P83", "Predicate": "http://www.wikidata.org/prop/statement/value/P1082", "Object": {"value":"??P82"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P82", "Predicate": "http://wikiba.se/ontology#quantityUnit", "Object": {"value":"http://www.wikidata.org/entity/Q22947"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "assign", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1082", "Object": {"value":"??P83"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P83", "Predicate": "http://www.wikidata.org/prop/statement/value/P1082", "Object": {"value":"??P82"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P82", "Predicate": "http://wikiba.se/ontology#quantityUnit", "Object": {"value":"http://www.wikidata.org/entity/Q5"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "assign", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1082", "Object": {"value":"??P83"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P83", "Predicate": "http://www.wikidata.org/prop/statement/value/P1082", "Object": {"value":"??P82"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P82", "Predicate": "http://wikiba.se/ontology#quantityUnit", "Object": {"value":"http://www.wikidata.org/entity/Q3125361"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "assign", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1082", "Object": {"value":"??P83"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P83", "Predicate": "http://www.wikidata.org/prop/statement/value/P1082", "Object": {"value":"??P82"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P82", "Predicate": "http://wikiba.se/ontology#quantityUnit", "Object": {"value":"http://www.wikidata.org/entity/Q215627"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "assign", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1082", "Object": {"value":"??P83"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P83", "Predicate": "http://www.wikidata.org/prop/statement/value/P1082", "Object": {"value":"??P82"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P82", "Predicate": "http://wikiba.se/ontology#quantityUnit", "Object": {"value":"http://www.wikidata.org/entity/Q2625603"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "assign", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1082", "Object": {"value":"??P83"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P83", "Predicate": "http://www.wikidata.org/prop/statement/value/P1082", "Object": {"value":"??P82"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P82", "Predicate": "http://wikiba.se/ontology#quantityUnit", "Object": {"value":"http://www.wikidata.org/entity/Q33829"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "assign", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1082", "Object": {"value":"??P83"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P83", "Predicate": "http://www.wikidata.org/prop/statement/value/P1082", "Object": {"value":"??P82"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P82", "Predicate": "http://wikiba.se/ontology#quantityUnit", "Object": {"value":"http://www.wikidata.org/entity/Q924827"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "assign", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1082", "Object": {"value":"??P83"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P83", "Predicate": "http://www.wikidata.org/prop/statement/value/P1082", "Object": {"value":"??P82"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P82", "Predicate": "http://wikiba.se/ontology#quantityUnit", "Object": {"value":"http://www.wikidata.org/entity/Q3298567"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

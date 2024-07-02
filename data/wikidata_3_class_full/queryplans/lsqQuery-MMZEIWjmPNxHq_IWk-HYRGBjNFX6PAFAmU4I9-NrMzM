@@ -1,0 +1,37 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "table", "subOp": []}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P18", "Object": {"value":"?var2"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P170", "Object": {"value":"?var3"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName": "table", "subOp": []}
+            ]}
+            ,
+            {"opName": "table", "subOp": []}
+          ]}
+          ,
+          {"opName": "table", "subOp": []}
+        ]}
+        ,
+        {"opName": "table", "subOp": []}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P18", "Object": {"value":"http://www.wikidata.org/entity/Q21503252"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

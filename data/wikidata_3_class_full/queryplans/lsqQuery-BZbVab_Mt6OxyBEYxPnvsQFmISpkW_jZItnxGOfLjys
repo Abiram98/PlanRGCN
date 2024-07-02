@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P646", "Object": {"value":"/m/01vs_v8","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#Property", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ]}
+]}

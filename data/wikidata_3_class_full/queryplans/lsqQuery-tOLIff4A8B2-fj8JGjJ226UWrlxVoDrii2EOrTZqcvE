@@ -1,0 +1,31 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "??P187", "Predicate": "http://www.wikidata.org/prop/statement/P703", "Object": {"value":"http://www.wikidata.org/entity/Q27510868"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P703", "Object": {"value":"??P187"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P352", "Object": {"value":"??P188"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P188", "Predicate": "http://www.wikidata.org/prop/statement/P352", "Object": {"value":"?var8"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P352", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/statement/P352", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(strstarts (str ?var3) \"string1\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var4", "Predicate": "?var3", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var4", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"?var6"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/reference/P813", "Object": {"value":"?var7"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

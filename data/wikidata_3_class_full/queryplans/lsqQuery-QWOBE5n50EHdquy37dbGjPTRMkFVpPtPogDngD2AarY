@@ -1,0 +1,23 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1352", "Object": {"value":"??0"}, "opName": "Triple"}
+      ,
+      {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/statement/value/P1352", "Object": {"value":"?var6"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var6", "Predicate": "http://wikiba.se/ontology#quantityAmount", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "sequence", "subOp": [
+        {"opName": "extend", "subOp": [
+          {"opName": "table", "subOp": []}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var6", "Predicate": "http://wikiba.se/ontology#quantityUpperBound", "Object": {"value":"?var4"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var6", "Predicate": "http://wikiba.se/ontology#quantityLowerBound", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

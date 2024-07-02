@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://identifiers.org/wikipathways/WP2729_r87886", "Predicate": "http://www.wikidata.org/prop/direct/P2410", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://identifiers.org/wikipathways/WP2729_r87886", "Predicate": "http://www.wikidata.org/prop/direct/P703", "Object": {"value":"http://www.wikidata.org/entity/Q15978631"}, "opName": "Triple"}
+  ]}
+]}

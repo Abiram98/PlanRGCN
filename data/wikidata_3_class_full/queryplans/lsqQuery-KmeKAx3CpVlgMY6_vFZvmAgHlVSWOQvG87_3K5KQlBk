@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q4167410"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"string1","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"bar"}, "opName": "Triple"}
+]}

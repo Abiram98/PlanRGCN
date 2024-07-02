@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(> ?var3 (now))]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P570", "Object": {"value":"??P74"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P74", "Predicate": "http://www.wikidata.org/prop/statement/value/P570", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://wikiba.se/ontology#timeValue", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q5"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

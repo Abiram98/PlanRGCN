@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"Gruissan","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"es"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P192", "Predicate": "http://www.wikidata.org/prop/direct/P131", "Object": {"value":"Aude","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"es"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"??P192"}, "opName": "Triple"}
+  ]}
+]}

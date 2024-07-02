@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?var1) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://www.wikidata.org/entity/Q95", "Predicate": "http://www.wikidata.org/prop/direct/P159", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q95", "Predicate": "http://www.wikidata.org/entity/P281", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

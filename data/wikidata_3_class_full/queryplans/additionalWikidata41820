@@ -1,0 +1,43 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "?var1", "Object": {"value":"string1","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"fr"}
+      , "pathComplexity": [
+      "P_Alt"
+      ]
+
+      , "pathType": "alternative"
+      ,"Predicates":[
+      "Not Implemented for now"]
+      }
+      ,
+      {"opName": "path", "Subject": "?var2", "Object": {"value":"film","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"fr"}
+      , "pathComplexity": [
+      "P_Alt"
+      ]
+
+      , "pathType": "alternative"
+      ,"Predicates":[
+      "Not Implemented for now"]
+      }
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?var7) \"fr\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var3", "Predicate": "?var4", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "?var5", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"?var6"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var6", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var7"}, "opName": "Triple"}
+        ]}
+      ]}
+  ]}
+  ,
+  {"opName": "filter" , "expr": " [(= (lang ?var8) \"fr\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P106", "Object": {"value":"??P3490"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P3490", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var8"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

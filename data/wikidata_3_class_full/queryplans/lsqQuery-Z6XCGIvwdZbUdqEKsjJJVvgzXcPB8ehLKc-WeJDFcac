@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?var1", "Predicate": "?var2Label", "Object": {"value":"Company","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var1", "Predicate": "?var3", "Object": {"value":"?var4"}, "opName": "Triple"}
+]}

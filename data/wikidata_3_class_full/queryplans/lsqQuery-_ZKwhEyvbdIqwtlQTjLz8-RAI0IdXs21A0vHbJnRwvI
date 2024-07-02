@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://wikiba.se/ontology#Dump", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"??P211"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://wikiba.se/ontology#Dump", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"??P211"}, "opName": "Triple"}
+  ]}
+]}

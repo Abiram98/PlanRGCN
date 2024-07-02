@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P684", "Object": {"value":"http://www.wikidata.org/entity/Q18036639"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

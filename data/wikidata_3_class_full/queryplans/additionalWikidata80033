@@ -1,0 +1,27 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "table", "subOp": []}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var5", "Predicate": "http://dbpedia.org/ontology/keyPerson", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var5", "Predicate": "http://dbpedia.org/ontology/numberOfEmployees", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?var4) \"en\")]", "subOp": [
+          {"opName": "assign", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var5", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"string1","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+    ]}
+  ]}
+]}

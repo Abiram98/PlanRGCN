@@ -1,0 +1,11 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(< ?var2 0.001)]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#quantityAmount", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var3", "Predicate": "?var4", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ]}
+]}

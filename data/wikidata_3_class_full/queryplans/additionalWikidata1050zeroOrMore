@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var2Label", "Predicate": "http://www.bigdata.com/rdf/search#search", "Object": {"value":"mi*","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+    ,
+    {"Subject": "?var2Label", "Predicate": "http://www.bigdata.com/rdf/search#relevance", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "?var4", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+  ]}
+]}

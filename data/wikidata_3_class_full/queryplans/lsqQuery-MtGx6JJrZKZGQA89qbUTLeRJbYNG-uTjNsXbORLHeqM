@@ -1,0 +1,5 @@
+{"opName": "distinct", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#wikiGroup", "Object": {"value":"wiktionary","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+  ]}
+]}

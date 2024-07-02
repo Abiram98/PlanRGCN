@@ -1,0 +1,42 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "extend", "subOp": [
+        {"opName": "table", "subOp": []}
+      ]}
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "??P3199", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q101352"}, "opName": "Triple"}
+              ]}
+              ,
+              {"opName": "path", "Subject": "?var1", "Object": {"value":"??P3199"}
+              , "pathComplexity": [
+              "P_OneOrMore1"
+              ]
+
+              , "pathType": "OneOrMore"
+              ,"Predicates":[
+               "<http://www.wikidata.org/prop/direct/P279>"
+              ]
+              }
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1889", "Object": {"value":"??0"}, "opName": "Triple"}
+            ,
+            {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/statement/P1889", "Object": {"value":"?var2"}, "opName": "Triple"}
+            ,
+            {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/qualifier/P1013", "Object": {"value":"http://www.wikidata.org/entity/Q27924673"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var4", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var4", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var5", "Predicate": "http://schema.org/about", "Object": {"value":"?var6"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var5", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+      ]}
+  ]}
+]}

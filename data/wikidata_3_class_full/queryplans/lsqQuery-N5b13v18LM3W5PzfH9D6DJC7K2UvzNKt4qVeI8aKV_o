@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var2", "Predicate": "http://schema.org/version", "Object": {"value":"?var1"}, "opName": "Triple"}
+  ]}
+]}

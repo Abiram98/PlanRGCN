@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(> (year ?var2) 1975)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P106", "Object": {"value":"http://www.wikidata.org/entity/Q82955"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P569", "Object": {"value":"??P202"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P202", "Predicate": "http://www.wikidata.org/prop/statement/value/P569", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/P569", "Object": {"value":"??P203"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "??P203", "Predicate": "http://www.wikidata.org/prop/statement/value/P569", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

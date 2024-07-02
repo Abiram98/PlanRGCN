@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "wdt:P57", "Object": {"value":"wd:Q315484"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

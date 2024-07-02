@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P279", "Object": {"value":"http://www.wikidata.org/entity/Q139677"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P527", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var2", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"??P101"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P101", "Predicate": "http://www.wikidata.org/prop/reference/P248", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var2", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"??P102"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P102", "Predicate": "http://www.wikidata.org/prop/reference/P698", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,47 @@
+{"opName": "sequence", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "??P2812", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q56061"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "path", "Subject": "?var1", "Object": {"value":"??P2812"}
+    , "pathComplexity": [
+    "P_OneOrMore1"
+    ]
+
+    , "pathType": "OneOrMore"
+    ,"Predicates":[
+     "<http://www.wikidata.org/prop/direct/P279>"
+    ]
+    }
+    ,
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "?var1", "Object": {"value":"??P2813"}
+        , "pathComplexity": [
+        "P_OneOrMore1"
+        ]
+
+        , "pathType": "OneOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "??P2813", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?var5) \"pl\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P2452", "Object": {"value":"A.ADM2","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P2452", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P297", "Object": {"value":"PL","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ]}
+    ]}
+]}

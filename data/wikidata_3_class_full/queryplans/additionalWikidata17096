@@ -1,0 +1,27 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?var7) \"en\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?var3) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(= (lang ?var2) \"it\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var4", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"?var5"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "http://www.wikidata.org/entity/Q157612", "Predicate": "?var5", "Object": {"value":"?var6"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var6", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var6", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var4", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var7"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

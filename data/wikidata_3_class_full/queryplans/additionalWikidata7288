@@ -1,0 +1,11 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "extend", "subOp": [
+      {"opName": "filter" , "expr": " [(isLiteral ?var1)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "??0", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

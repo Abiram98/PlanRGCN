@@ -1,0 +1,19 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q5"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P69", "Object": {"value":"http://www.wikidata.org/entity/Q523926"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var2", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var2", "Predicate": "http://wikiba.se/ontology#badge", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var2", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q10876391"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/direct/P856", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

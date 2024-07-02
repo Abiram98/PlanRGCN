@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "extend", "subOp": [
+        {"opName": "table", "subOp": []}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/P6", "Object": {"value":"??P278"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P278", "Predicate": "http://www.wikidata.org/prop/statement/P6", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P26", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

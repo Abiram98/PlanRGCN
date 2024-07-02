@@ -1,0 +1,7 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?var2 \"animal/\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1417", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,9 @@
+{"opName": "filter" , "expr": " [(!= ?var4 <http://www.wikidata.org/prop/statement/P1014>), (!= ?var4 <http://www.wikidata.org/prop/statement/value-normalized/P1014>), (!= ?var4 <http://www.wikidata.org/prop/qualifier/P361>), (!= ?var4 <http://wikiba.se/ontology#rank>), (!= ?var4 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>), (!= ?var4 <http://www.wikidata.org/prop/qualifier/P1810>), (!= ?var4 <http://www.wikidata.org/prop/qualifier/P1480>)]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P1014", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/qualifier/P361", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var2", "Predicate": "?var4", "Object": {"value":"?var5"}, "opName": "Triple"}
+  ]}
+]}

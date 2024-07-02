@@ -1,0 +1,7 @@
+{"opName": "filter" , "expr": " [(< ?var2 0.001)]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/statement/value/P1082", "Object": {"value":"??P25"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P25", "Predicate": "http://wikiba.se/ontology#quantityAmount", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ]}
+]}

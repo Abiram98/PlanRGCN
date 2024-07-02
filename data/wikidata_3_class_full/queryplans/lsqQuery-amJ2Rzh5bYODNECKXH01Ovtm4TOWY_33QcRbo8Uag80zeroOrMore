@@ -1,0 +1,18 @@
+{"opName": "assign", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q156041", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"??P2685"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "path", "Subject": "??P2685", "Object": {"value":"http://www.wikidata.org/entity/Q76096"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P40>"
+      ]
+      }
+  ]}
+]}

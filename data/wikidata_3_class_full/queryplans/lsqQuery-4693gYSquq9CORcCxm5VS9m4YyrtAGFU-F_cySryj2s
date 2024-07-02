@@ -1,0 +1,32 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "?var1", "Object": {"value":"http://www.wikidata.org/entity/Q764"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P171>"
+      ]
+      }
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(contains (str ?var2) \"%20\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var2", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var2", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://en.wikipedia.org/"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P105", "Object": {"value":"http://www.wikidata.org/entity/Q7432"}, "opName": "Triple"}
+          ]}
+      ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P685", "Object": {"value":"?var3"}, "opName": "Triple"}
+  ]}
+]}

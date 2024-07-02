@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "http://wikiba.se/ontology#sitelinks", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+        ,
+        {"Subject": "??0", "Predicate": "http://schema.org/about", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "??0", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://ceb.wikipedia.org/"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

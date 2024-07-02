@@ -1,0 +1,25 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(>= ?var5 11)]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(|| (&& (= (month ?var4) 2) (<= (day ?var4) 20)) (&& (= (month ?var4) 1) (>= (day ?var4) 21)))]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P569", "Object": {"value":"?var3"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var3", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://wikiba.se/ontology#BestRank"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/statement/P569", "Object": {"value":"?var4"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/statement/value/P569", "Object": {"value":"??P38"}, "opName": "Triple"}
+              ,
+              {"Subject": "??P38", "Predicate": "http://wikiba.se/ontology#timePrecision", "Object": {"value":"?var5"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

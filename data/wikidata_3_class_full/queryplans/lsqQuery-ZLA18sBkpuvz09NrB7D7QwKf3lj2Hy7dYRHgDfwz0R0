@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P2393", "Object": {"value":"CT_115","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P684", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P2393", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P703", "Object": {"value":"?var5"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/direct/P685", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ]}
+]}

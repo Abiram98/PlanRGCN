@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?var1", "Predicate": "http://example.org/lol", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+]}

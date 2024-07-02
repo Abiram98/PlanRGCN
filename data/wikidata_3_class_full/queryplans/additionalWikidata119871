@@ -1,0 +1,35 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?var5) \"it\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(= (lang ?var3) \"it\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://www.wikidata.org/entity/Q287186", "Predicate": "?var1", "Object": {"value":"?var2"}, "opName": "Triple"}
+                ,
+                {"Subject": "http://www.wikidata.org/entity/Q287186", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var4", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"?var1"}, "opName": "Triple"}
+              ,
+              {"Subject": "?var4", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var5"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?var7) \"it\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var6", "Predicate": "http://www.w3.org/2004/02/skos/core#altLabel", "Object": {"value":"?var7"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?var8) \"it\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var6", "Predicate": "http://www.w3.org/2004/02/skos/core#altLabel", "Object": {"value":"?var8"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

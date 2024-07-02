@@ -1,0 +1,27 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "extend", "subOp": [
+        {"opName": "table", "subOp": []}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?var3) \"en\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(= (lang ?var2Label) \"en\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var5", "Predicate": "?var6", "Object": {"value":"?var4"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var5", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://wikiba.se/ontology#Property"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/direct/P1659", "Object": {"value":"?var1"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+  ]}
+]}

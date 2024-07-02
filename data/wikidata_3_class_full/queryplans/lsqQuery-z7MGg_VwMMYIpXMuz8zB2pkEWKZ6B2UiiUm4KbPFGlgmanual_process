@@ -1,0 +1,26 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(!= ?var2 \"de\"), (!= ?var2 \"bar\"), (!= ?var2 \"de-ch\"), (!= ?var2 \"de-at\"), (!= ?var2 \"gsw\"), (!= ?var2 \"lb\"), (!= ?var2 \"nds\")]", "subOp": [
+      {"opName": "extend", "subOp": [
+        {"opName": "table", "subOp": []}
+      ]}
+    ]}
+    ,
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "?var3", "Object": {"value":"http://www.wikidata.org/entity/Q271669"}
+        , "pathComplexity": [
+        "P_OneOrMore1"
+        ]
+
+        , "pathType": "OneOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+        ,
+        {"opName": "filter" , "expr": " [(!= (lcase (str ?var1)) (str ?var1))]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ]}
+        ]}
+    ]}
+]}

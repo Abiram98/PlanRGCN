@@ -1,0 +1,7 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P699", "Object": {"value":"?var4"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var3", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?var5"}, "opName": "Triple"}
+]}

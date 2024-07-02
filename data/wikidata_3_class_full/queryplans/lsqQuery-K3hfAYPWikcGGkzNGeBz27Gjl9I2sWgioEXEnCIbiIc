@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P971", "Object": {"value":"http://www.wikidata.org/entity/Q31192219"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(!= ?var2 <http://www.wikidata.org/entity/Q31192219>)]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P971", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

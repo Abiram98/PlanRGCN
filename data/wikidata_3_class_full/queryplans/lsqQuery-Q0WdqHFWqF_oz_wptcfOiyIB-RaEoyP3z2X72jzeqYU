@@ -1,0 +1,53 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "??P2383", "Object": {"value":"http://www.wikidata.org/entity/Q3917681"}
+        , "pathComplexity": [
+        "P_ZeroOrMore1"
+        ]
+
+        , "pathType": "ZeroOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P31", "Object": {"value":"??P2384"}, "opName": "Triple"}
+          ,
+          {"Subject": "??P2384", "Predicate": "http://www.wikidata.org/prop/statement/P31", "Object": {"value":"??P2383"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?var3) \"en\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName": "sequence", "subOp": [
+            {"opName": "path", "Subject": "??P2385", "Object": {"value":"http://www.wikidata.org/entity/Q3917681"}
+            , "pathComplexity": [
+            "P_ZeroOrMore1"
+            ]
+
+            , "pathType": "ZeroOrMore"
+            ,"Predicates":[
+             "<http://www.wikidata.org/prop/direct/P279>"
+            ]
+            }
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/P31", "Object": {"value":"??P2386"}, "opName": "Triple"}
+              ,
+              {"Subject": "??P2386", "Predicate": "http://www.wikidata.org/prop/statement/P31", "Object": {"value":"??P2385"}, "opName": "Triple"}
+            ]}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?var4) \"en\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4"}, "opName": "Triple"}
+          ]}
+        ]}
+    ]}
+  ]}
+]}

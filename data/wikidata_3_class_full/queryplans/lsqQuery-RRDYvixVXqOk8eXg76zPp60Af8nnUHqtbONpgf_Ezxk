@@ -1,0 +1,50 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "??P3481", "Object": {"value":"http://www.wikidata.org/entity/Q2385804"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.wikidata.org/prop/direct/P279>"
+      ]
+      }
+      ,
+      {"opName": "assign", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://www.wikidata.org/entity/Q1202241", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P3481"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(= (lang ?var3Label) \"en\")]", "subOp": [
+            {"opName": "sequence", "subOp": [
+                {"opName": "filter" , "expr": " [(= (lang ?var5Label) \"en\")]", "subOp": [
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P856", "Object": {"value":"?var2"}, "opName": "Triple"}
+                    ,
+                    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var3"}, "opName": "Triple"}
+                    ,
+                    {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var5Label"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P37", "Object": {"value":"?var6"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3Label"}, "opName": "Triple"}
+                ]}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/direct/P424", "Object": {"value":"?var7"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var6", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var6Label"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"http://www.wikidata.org/entity/Q148"}, "opName": "Triple"}
+          ]}
+      ]}
+  ]}
+]}

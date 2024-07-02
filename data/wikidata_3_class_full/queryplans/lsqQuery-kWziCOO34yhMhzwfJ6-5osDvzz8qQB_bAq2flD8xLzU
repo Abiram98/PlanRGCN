@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [true]", "subOp": [
+        {"opName": "table", "subOp": []}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P352", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P129", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P2888", "Object": {"value":"http://purl.uniprot.org/uniprot/Q07973"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P703", "Object": {"value":"http://www.wikidata.org/entity/Q15978631"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

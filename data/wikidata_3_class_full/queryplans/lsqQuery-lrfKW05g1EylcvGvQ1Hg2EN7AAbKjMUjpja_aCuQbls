@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var7", "Predicate": "http://rdf.ebi.ac.uk/terms/expressionatlas/refersTo", "Object": {"value":"?var6"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var7", "Predicate": "http://rdf.ebi.ac.uk/terms/expressionatlas/isOutputOf", "Object": {"value":"?var5"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var7", "Predicate": "http://rdf.ebi.ac.uk/terms/expressionatlas/pValue", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var7", "Predicate": "http://rdf.ebi.ac.uk/terms/expressionatlas/tStatistic", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var5", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var5", "Predicate": "http://rdf.ebi.ac.uk/terms/expressionatlas/hasReferenceAssay", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://rdf.ebi.ac.uk/terms/expressionatlas/hasInputSampleCharacteristic", "Object": {"value":"?var8"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var8", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://purl.obolibrary.org/obo/UBERON_0002048"}, "opName": "Triple"}
+  ]}
+]}

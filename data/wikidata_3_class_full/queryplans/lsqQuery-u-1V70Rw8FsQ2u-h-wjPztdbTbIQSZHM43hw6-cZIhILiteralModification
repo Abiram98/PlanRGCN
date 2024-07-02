@@ -1,0 +1,7 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#wikiGroup", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P856", "Object": {"value":"?var1"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P424", "Object": {"value":"?var3"}, "opName": "Triple"}
+]}

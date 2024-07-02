@@ -1,0 +1,19 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P26", "Object": {"value":"??P159"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P159", "Predicate": "http://www.wikidata.org/prop/direct/P19", "Object": {"value":"??P158"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P158", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P26", "Object": {"value":"??P160"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P160", "Predicate": "http://www.wikidata.org/prop/direct/P2048", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P19", "Object": {"value":"??P161"}, "opName": "Triple"}
+      ,
+      {"Subject": "??P161", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

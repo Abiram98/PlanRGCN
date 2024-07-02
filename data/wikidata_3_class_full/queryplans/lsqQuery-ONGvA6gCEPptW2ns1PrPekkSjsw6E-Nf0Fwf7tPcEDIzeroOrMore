@@ -1,0 +1,24 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "path", "Subject": "http://www.wikidata.org/entity/Q3044", "Object": {"value":"?var1"}
+          , "pathComplexity": [
+          "P_ZeroOrMore1"
+          ]
+
+          , "pathType": "ZeroOrMore"
+          ,"Predicates":[
+           "<http://www.wikidata.org/prop/direct/P40>"
+          ]
+          }
+          ,
+          {"opName": "filter" , "expr": " [(> (year ?var3) 1000)]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/entity/Q2389905", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ]}
+          ]}
+      ]}
+    ]}
+  ]}
+]}

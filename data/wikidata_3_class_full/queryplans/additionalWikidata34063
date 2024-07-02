@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(! (bound ?var2))]", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "table", "subOp": []}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?var2) \"ro\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

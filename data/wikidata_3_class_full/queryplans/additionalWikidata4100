@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(|| (isBlank ?var1) (isBlank ?var4))]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "?var3", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

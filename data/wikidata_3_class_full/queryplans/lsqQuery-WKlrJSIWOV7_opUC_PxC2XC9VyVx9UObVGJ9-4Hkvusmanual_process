@@ -1,0 +1,29 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "??P884", "Object": {"value":"http://www.wikidata.org/entity/Q1065449"}
+        , "pathComplexity": [
+        "P_OneOrMore1"
+        ]
+
+        , "pathType": "OneOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P31>"
+        ]
+        }
+        ,
+        {"opName": "path", "Subject": "?var1", "Object": {"value":"??P884"}
+        , "pathComplexity": [
+        "P_OneOrMore1"
+        ]
+
+        , "pathType": "OneOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P625", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+]}

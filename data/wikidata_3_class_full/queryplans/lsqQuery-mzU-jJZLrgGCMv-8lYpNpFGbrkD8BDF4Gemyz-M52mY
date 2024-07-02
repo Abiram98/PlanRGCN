@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "join", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var2", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://schema.org/Dataset"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "extend", "subOp": [
+      {"opName": "table", "subOp": []}
+    ]}
+  ]}
+]}

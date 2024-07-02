@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "extend", "subOp": [
+        {"opName": "table", "subOp": []}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q490", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://www.wikidata.org/entity/Q490", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://www.wikidata.org/entity/Q490", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3Label"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/direct/P424", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var6", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

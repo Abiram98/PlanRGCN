@@ -1,0 +1,28 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P279", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ]}
+          ,
+          {"opName": "sequence", "subOp": [
+              {"opName": "path", "Subject": "?var3", "Object": {"value":"??P182"}
+              , "pathComplexity": [
+              "P_ZeroOrMore1"
+              ]
+
+              , "pathType": "ZeroOrMore"
+              ,"Predicates":[
+               "<http://www.wikidata.org/prop/direct/P279>"
+              ]
+              }
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "??P182", "Predicate": "http://www.wikidata.org/prop/direct/P1709", "Object": {"value":"?var4"}, "opName": "Triple"}
+              ]}
+          ]}
+      ]}
+    ]}
+  ]}
+]}

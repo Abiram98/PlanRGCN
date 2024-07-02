@@ -1,0 +1,39 @@
+{"opName": "project", "subOp": [
+  {"opName": "disjunction", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName": "filter" , "expr": " [(|| (= ?var4 <http://www.wikidata.org/entity/Q134556>) (= ?var4 <http://www.wikidata.org/entity/Q7366>))]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q482994"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P361", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "filter" , "expr": " [(|| (= ?var4 <http://www.wikidata.org/entity/Q134556>) (= ?var4 <http://www.wikidata.org/entity/Q7366>))]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q2031291"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P361", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "filter" , "expr": " [(|| (= ?var4 <http://www.wikidata.org/entity/Q134556>) (= ?var4 <http://www.wikidata.org/entity/Q7366>))]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q2188189"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P361", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

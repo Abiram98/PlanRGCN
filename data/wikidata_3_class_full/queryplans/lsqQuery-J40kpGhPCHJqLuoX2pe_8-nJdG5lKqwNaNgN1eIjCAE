@@ -1,0 +1,45 @@
+{"opName": "project", "subOp": [
+  {"opName": "disjunction", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q2677", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"http://www.wikidata.org/entity/Q105946"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://www.wikidata.org/entity/Q105946", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q2677", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"http://www.wikidata.org/entity/Q105946"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(|| (|| (= ?var6 <http://www.wikidata.org/entity/Q105946>) (= ?var7 <http://www.wikidata.org/entity/Q105946>)) (= ?var8 <http://www.wikidata.org/entity/Q105946>))]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q2677", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P40", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,23 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lang ?var5) \"cs\"), (contains (str ?var5) \"rozcestn??k\")]", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(= (lang ?var4Label) \"cs\"), (regex (str ?var4Label) \"string1\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q4167410"}, "opName": "Triple"}
+              ,
+              {"Subject": "??P64", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://cs.wikipedia.org/"}, "opName": "Triple"}
+              ,
+              {"Subject": "??P64", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+              ,
+              {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var4Label"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"?var5"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+  ]}
+]}

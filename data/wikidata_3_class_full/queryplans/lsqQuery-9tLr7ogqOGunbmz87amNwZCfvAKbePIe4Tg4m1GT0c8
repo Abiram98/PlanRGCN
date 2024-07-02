@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(< ?var2 \"9.52139282227\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://193.146.75.175/Especial:URIResolver/Property-3AHas_pt", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ]}
+]}

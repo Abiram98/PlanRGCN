@@ -1,0 +1,20 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "??P1838", "Object": {"value":"http://www.wikidata.org/entity/Q878985"}
+        , "pathComplexity": [
+        "P_ZeroOrMore1"
+        ]
+
+        , "pathType": "ZeroOrMore"
+        ,"Predicates":[
+         "<http://www.w3.org/2004/02/skos/core#broader>"
+        ]
+        }
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"??P1838"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

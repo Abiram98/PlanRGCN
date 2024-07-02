@@ -1,0 +1,9 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?var3) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"Sarawak","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

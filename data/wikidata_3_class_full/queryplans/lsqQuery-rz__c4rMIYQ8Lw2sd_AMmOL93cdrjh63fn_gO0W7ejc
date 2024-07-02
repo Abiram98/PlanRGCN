@@ -1,0 +1,11 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "extend", "subOp": [
+      {"opName": "table", "subOp": []}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(strstarts ?var1 \"DE/\"), (regex ?var1 \"string1\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P1183", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ]}
+    ]}
+]}

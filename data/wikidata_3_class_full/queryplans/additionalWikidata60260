@@ -1,0 +1,19 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lcase (str ?var1)) (lcase (str ?var2))), (!= (str ?var1) (str ?var2))]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://schema.org/about", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://it.wikipedia.org/"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var2", "Predicate": "http://schema.org/about", "Object": {"value":"?var4"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://it.wikipedia.org/"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

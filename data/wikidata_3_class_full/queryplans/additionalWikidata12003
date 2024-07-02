@@ -1,0 +1,33 @@
+{"opName": "disjunction", "subOp": [
+  {"opName": "assign", "subOp": [
+    {"opName": "filter" , "expr": " [(regex (str ?var3) \"schema.org\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1709", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+  ,
+  {"opName": "assign", "subOp": [
+    {"opName": "filter" , "expr": " [(regex (str ?var3) \"schema.org\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1628", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+  ,
+  {"opName": "assign", "subOp": [
+    {"opName": "filter" , "expr": " [(regex (str ?var3) \"schema.org\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P2235", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+  ,
+  {"opName": "assign", "subOp": [
+    {"opName": "filter" , "expr": " [(regex (str ?var3) \"schema.org\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P2888", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

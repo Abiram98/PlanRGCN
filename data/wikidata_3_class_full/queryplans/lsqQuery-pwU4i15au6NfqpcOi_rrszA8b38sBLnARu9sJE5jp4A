@@ -1,0 +1,11 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "extend", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "?var4", "Object": {"value":"http://www.wikidata.org/entity/Q4830453"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Tokyo_Mew_Mew", "Predicate": "http://dbpedia.org/property/illustrator", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var2", "Predicate": "http://dbpedia.org/property/author", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var2", "Predicate": "http://dbpedia.org/property/genre", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

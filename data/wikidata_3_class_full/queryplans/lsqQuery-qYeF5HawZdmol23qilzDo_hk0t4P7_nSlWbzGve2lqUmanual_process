@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "??P77", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"wiktionary","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://wikiba.se/ontology#wikiGroup", "Object": {"value":"??P77"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://schema.org/name", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"?var4"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+  ]}
+]}

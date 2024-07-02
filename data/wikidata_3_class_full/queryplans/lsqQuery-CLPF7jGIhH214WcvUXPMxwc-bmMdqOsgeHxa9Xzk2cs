@@ -1,0 +1,7 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "filter" , "expr": " [(|| (= (lang ?var1Label) \"en\") (&& (&& (&& (= (lang ?var1Label) \"fr\") (= (lang ?var1Label) \"de\")) (= (lang ?var1Label) \"it\")) (= (lang ?var1Label) \"pt\")))]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://www.wikidata.org/entity/Q181900", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

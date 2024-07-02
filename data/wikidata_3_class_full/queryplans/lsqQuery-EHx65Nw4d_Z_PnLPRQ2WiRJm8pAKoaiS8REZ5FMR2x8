@@ -1,0 +1,7 @@
+{"opName": "filter" , "expr": " [(langMatches (lang ?var3Label) \"EN\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://www.wikidata.org/entity/Q308292", "Predicate": "http://www.wikidata.org/prop/direct/P493", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://www.wikidata.org/entity/P493", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,9 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(>= ?var2 \"1937-06-01T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>), (<= ?var2 \"1937-06-31T23:59:59Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?var2"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

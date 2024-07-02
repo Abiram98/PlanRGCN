@@ -1,0 +1,46 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "??P333", "Object": {"value":"http://www.wikidata.org/entity/Q4830453"}
+        , "pathComplexity": [
+        "P_ZeroOrMore1"
+        ]
+
+        , "pathType": "ZeroOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P333"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?var2Label) \"en\"), (= (lcase (str ?var2Label)) \"string1\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(= (lang ?var1Label) \"en\")]", "subOp": [
+                {"opName": "sequence", "subOp": [
+                    {"opName": "filter" , "expr": " [(= (lcase (str ?var4)) \"aapl\")]", "subOp": [
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P414", "Object": {"value":"?var3"}, "opName": "Triple"}
+                        ,
+                        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/statement/P414", "Object": {"value":"?var2"}, "opName": "Triple"}
+                        ,
+                        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/qualifier/P249", "Object": {"value":"?var4"}, "opName": "Triple"}
+                      ]}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+                    ]}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+    ]}
+  ]}
+]}

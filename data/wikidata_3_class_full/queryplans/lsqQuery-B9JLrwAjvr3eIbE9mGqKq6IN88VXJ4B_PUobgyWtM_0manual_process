@@ -1,0 +1,22 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= ?var1Label \"\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "?var1", "Object": {"value":"http://www.wikidata.org/entity/Q144"}
+        , "pathComplexity": [
+        "P_OneOrMore1"
+        ]
+
+        , "pathType": "OneOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P279>"
+        ]
+        }
+        ,
+        {"opName": "service", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://www.bigdata.com/rdf#serviceParam", "Predicate": "http://wikiba.se/ontology#language", "Object": {"value":"ru","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+          ]}
+        ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,63 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(|| (! (bound ?var8)) (> ?var8 (now)))]", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P39", "Object": {"value":"?var9"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var9", "Predicate": "http://www.wikidata.org/prop/statement/P39", "Object": {"value":"http://www.wikidata.org/entity/Q33512801"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var9", "Predicate": "http://www.wikidata.org/prop/qualifier/P2937", "Object": {"value":"http://www.wikidata.org/entity/Q29068722"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var9", "Predicate": "http://www.wikidata.org/prop/qualifier/P580", "Object": {"value":"?var7"}, "opName": "Triple"}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var9", "Predicate": "http://www.wikidata.org/prop/qualifier/P582", "Object": {"value":"?var8"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var9", "Predicate": "http://www.wikidata.org/prop/qualifier/P768", "Object": {"value":"?var3"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var9", "Predicate": "http://www.wikidata.org/prop/qualifier/P4100", "Object": {"value":"?var4"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName": "conditional", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var9", "Predicate": "http://www.wikidata.org/prop/qualifier/P2937", "Object": {"value":"?var10"}, "opName": "Triple"}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var10", "Predicate": "http://www.wikidata.org/prop/P31", "Object": {"value":"??P15"}, "opName": "Triple"}
+              ,
+              {"Subject": "??P15", "Predicate": "http://www.wikidata.org/prop/qualifier/P1545", "Object": {"value":"?var6"}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+        ,
+        {"opName": "conditional", "subOp": [
+          {"opName": "filter" , "expr": " [(contains (lcase (str ?var5)) \"string1\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P973", "Object": {"value":"?var11"}, "opName": "Triple"}
+              ,
+              {"Subject": "?var11", "Predicate": "http://www.wikidata.org/prop/statement/P973", "Object": {"value":"?var5"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var11", "Predicate": "http://www.wikidata.org/prop/qualifier/P1810", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

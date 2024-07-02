@@ -1,0 +1,13 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "filter" , "expr": " [(!= ?var3 <http://www.wikidata.org/entity/Q3119417>)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://schema.org/about", "Object": {"value":"http://www.wikidata.org/entity/Q3119417"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var3", "Predicate": "?var4", "Object": {"value":"?var5"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?var2) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "?var4", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "??P377", "Predicate": "http://www.wikidata.org/prop/direct/P356", "Object": {"value":"string1","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ,
+        {"Subject": "?var3", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"??P378"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P378", "Predicate": "http://www.wikidata.org/prop/reference/P248", "Object": {"value":"??P377"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

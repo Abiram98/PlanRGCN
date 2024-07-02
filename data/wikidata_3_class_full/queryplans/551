@@ -1,0 +1,19 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?x1", "Predicate": "http://www.wikidata.org/prop/direct/P1533", "Object": {"value":"?x2"}, "opName": "Triple"}
+  ,
+  {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P1533", "Object": {"value":"?x4"}, "opName": "Triple"}
+  ,
+  {"Subject": "?x5", "Predicate": "http://www.wikidata.org/prop/direct/P1533", "Object": {"value":"?x6"}, "opName": "Triple"}
+  ,
+  {"Subject": "?x7", "Predicate": "http://www.wikidata.org/prop/direct/P734", "Object": {"value":"?x2"}, "opName": "Triple"}
+  ,
+  {"Subject": "?x8", "Predicate": "http://www.wikidata.org/prop/direct/P734", "Object": {"value":"?x4"}, "opName": "Triple"}
+  ,
+  {"Subject": "?x9", "Predicate": "http://www.wikidata.org/prop/direct/P734", "Object": {"value":"?x6"}, "opName": "Triple"}
+  ,
+  {"Subject": "?x8", "Predicate": "http://www.wikidata.org/prop/direct/P735", "Object": {"value":"?x1"}, "opName": "Triple"}
+  ,
+  {"Subject": "?x9", "Predicate": "http://www.wikidata.org/prop/direct/P735", "Object": {"value":"?x3"}, "opName": "Triple"}
+  ,
+  {"Subject": "?x9", "Predicate": "http://www.wikidata.org/prop/direct/P735", "Object": {"value":"?x5"}, "opName": "Triple"}
+]}

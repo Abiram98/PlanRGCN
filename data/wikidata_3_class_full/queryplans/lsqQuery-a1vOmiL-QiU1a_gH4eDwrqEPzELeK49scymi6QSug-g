@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(>= ?var2 40)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#sitelinks", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.bigdata.com/queryHints#Prior", "Predicate": "http://www.bigdata.com/queryHints#rangeSafe", "Object": {"value":"true","datatype":"http://www.w3.org/2001/XMLSchema#boolean","langTag":""}, "opName": "Triple"}
+      ]}
+  ]}
+]}

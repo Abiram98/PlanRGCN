@@ -1,0 +1,39 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(!= ?var3 ?var4)]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(= (lang ?var2Label) \"en\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/P2094", "Object": {"value":"??0"}, "opName": "Triple"}
+                ,
+                {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/statement/P2094", "Object": {"value":"http://www.wikidata.org/entity/Q2735683"}, "opName": "Triple"}
+                ,
+                {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/qualifier/P1013", "Object": {"value":"http://www.wikidata.org/entity/Q185836"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P641", "Object": {"value":"http://www.wikidata.org/entity/Q847"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P2094", "Object": {"value":"?var2"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P361", "Object": {"value":"?var1"}, "opName": "Triple"}
+              ,
+              {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q46190676"}, "opName": "Triple"}
+              ,
+              {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P361", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P2094", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q46190676"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q47345468"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

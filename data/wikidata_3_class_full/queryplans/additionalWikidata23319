@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "http://schema.org/about", "Object": {"value":"?var3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

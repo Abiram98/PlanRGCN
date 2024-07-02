@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/P698", "Predicate": "http://wikiba.se/ontology#claim", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "??0", "Predicate": "?var1", "Object": {"value":"??1"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

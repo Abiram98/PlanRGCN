@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://www.wikidata.org/entity/Q5284", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P210"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P210", "Predicate": "http://www.wikidata.org/prop/direct/P279", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+  ]}
+]}

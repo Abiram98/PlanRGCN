@@ -1,0 +1,15 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(> (- (now) ?var4) 7)]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "?var3", "Object": {"value":"?var1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var2", "Predicate": "http://wikiba.se/ontology#rank", "Object": {"value":"??0"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"??1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://schema.org/dateModified", "Object": {"value":"?var4"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

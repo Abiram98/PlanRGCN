@@ -1,0 +1,82 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "extend", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "sequence", "subOp": [
+                      {"opName": "sequence", "subOp": [
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "??P2672", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q838948"}, "opName": "Triple"}
+                          ]}
+                          ,
+                          {"opName": "path", "Subject": "?var1", "Object": {"value":"??P2672"}
+                          , "pathComplexity": [
+                          "P_OneOrMore1"
+                          ]
+
+                          , "pathType": "OneOrMore"
+                          ,"Predicates":[
+                           "<http://www.wikidata.org/prop/direct/P279>"
+                          ]
+                          }
+                      ]}
+                      ,
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P608", "Object": {"value":"http://www.wikidata.org/entity/Q20980830"}, "opName": "Triple"}
+                        ,
+                        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P170", "Object": {"value":"?var2"}, "opName": "Triple"}
+                        ,
+                        {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P19", "Object": {"value":"?var3"}, "opName": "Triple"}
+                        ,
+                        {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P625", "Object": {"value":"?var4"}, "opName": "Triple"}
+                      ]}
+                  ]}
+                  ,
+                  {"opName": "filter" , "expr": " [(= (lang ?var5) \"en\")]", "subOp": [
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var5"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                ]}
+                ,
+                {"opName": "filter" , "expr": " [(= (lang ?var6) \"es\")]", "subOp": [
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var6"}, "opName": "Triple"}
+                  ]}
+                ]}
+              ]}
+              ,
+              {"opName": "filter" , "expr": " [(= (lang ?var7) \"fr\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var7"}, "opName": "Triple"}
+                ]}
+              ]}
+            ]}
+          ]}
+          ,
+          {"opName": "filter" , "expr": " [(= (lang ?var8) \"en\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var8"}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(= (lang ?var9) \"es\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var9"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?var10) \"fr\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var10"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

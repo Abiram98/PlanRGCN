@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ,
+    {"Subject": "https://nl.wikipedia.org/wiki/Het%20zwanenmeer", "Predicate": "http://schema.org/about", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ]}
+]}

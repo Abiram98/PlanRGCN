@@ -1,0 +1,7 @@
+{"opName": "filter" , "expr": " [(> ?var1 ?var2)]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Amazon_River", "Predicate": "http://dbpedia.org/property/length", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Nile", "Predicate": "http://dbpedia.org/property/length", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ]}
+]}

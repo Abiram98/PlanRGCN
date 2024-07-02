@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"http://www.wikidata.org/reference/fa278ebfc458360e5aed63d5058cca83c46134f1"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

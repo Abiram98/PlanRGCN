@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(! (contains (str ?var2) \"label\"))]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://www.wikidata.org/entity/Q30", "Predicate": "?var2", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

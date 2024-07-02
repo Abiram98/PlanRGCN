@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "https://query.wikidata.org/bigdata/namespace/wdq/sparqla", "Predicate": "https://query.wikidata.org/bigdata/namespace/wdq/sparqlb", "Object": {"value":"??P276"}, "opName": "Triple"}
+  ,
+  {"Subject": "??P276", "Predicate": "https://query.wikidata.org/bigdata/namespace/wdq/sparqlc", "Object": {"value":"https://query.wikidata.org/bigdata/namespace/wdq/sparqld"}, "opName": "Triple"}
+]}

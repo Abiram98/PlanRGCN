@@ -1,0 +1,47 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P236", "Object": {"value":"0363-6445","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+                ,
+                {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1476", "Object": {"value":"?var2"}, "opName": "Triple"}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var1", "Predicate": "http://schema.org/description", "Object": {"value":"?var3"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1019", "Object": {"value":"?var6"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P2008", "Object": {"value":"?var4"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P1230", "Object": {"value":"?var7"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P2007", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P2699", "Object": {"value":"?var8"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var8", "Predicate": "http://www.wikidata.org/prop/statement/P2699", "Object": {"value":"?var9"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var8", "Predicate": "http://www.wikidata.org/prop/qualifier/P2700", "Object": {"value":"http://www.wikidata.org/entity/Q54871"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

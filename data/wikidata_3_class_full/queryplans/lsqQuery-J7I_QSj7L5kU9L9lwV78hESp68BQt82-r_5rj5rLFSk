@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= ?var1Label \"Pixel\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q146"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "service", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://www.bigdata.com/rdf#serviceParam", "Predicate": "http://wikiba.se/ontology#language", "Object": {"value":"en","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+          ]}
+        ]}
+    ]}
+  ]}
+]}

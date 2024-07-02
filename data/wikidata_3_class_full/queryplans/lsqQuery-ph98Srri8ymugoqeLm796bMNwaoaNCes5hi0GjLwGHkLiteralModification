@@ -1,0 +1,21 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P641", "Object": {"value":"http://www.wikidata.org/entity/Q847"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#statements", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#sitelinks", "Object": {"value":"?literalVar2"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+      ,
+      {"Subject": "?var3", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://hi.wikipedia.org/"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?var2Label) \"hi\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

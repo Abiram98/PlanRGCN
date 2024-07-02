@@ -1,0 +1,139 @@
+{"opName": "project", "subOp": [
+  {"opName": "disjunction", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#Class"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#Class"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#DatatypeProperty"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#DatatypeProperty"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#AnnotationProperty"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#AnnotationProperty"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#ObjectProperty"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#ObjectProperty"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#DataRange"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#DataRange"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#Ontology"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#Ontology"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#DataRange"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#DataRange"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#DeprecatedClass"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#DeprecatedClass"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#DeprecatedProperty"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#DeprecatedProperty"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#OntologyProperty"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#OntologyProperty"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2000/01/rdf-schema#Class"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2000/01/rdf-schema#Class"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#Restriction"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#Restriction"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#InverseFunctionalProperty"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#InverseFunctionalProperty"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#FunctionalProperty"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#FunctionalProperty"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#AllDisjointClasses"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2002/07/owl#AllDisjointClasses"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2000/01/rdf-schema#Datatype"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "?var2", "Object": {"value":"http://www.w3.org/2000/01/rdf-schema#Datatype"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

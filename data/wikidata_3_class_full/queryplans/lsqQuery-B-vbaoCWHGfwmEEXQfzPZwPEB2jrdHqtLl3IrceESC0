@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://en.wikipedia.org/wiki/Gustav_Koerner", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+]}

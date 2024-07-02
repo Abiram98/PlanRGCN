@@ -1,0 +1,89 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "conditional", "subOp": [
+                    {"opName": "conditional", "subOp": [
+                      {"opName": "conditional", "subOp": [
+                        {"opName": "conditional", "subOp": [
+                          {"opName": "conditional", "subOp": [
+                            {"opName":"BGP", "subOp": [
+                              {"Subject": "?x1", "Predicate": "http://www.wikidata.org/prop/direct/P39", "Object": {"value":"?x2"}, "opName": "Triple"}
+                              ,
+                              {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P39", "Object": {"value":"http://www.wikidata.org/entity/Q3290543"}, "opName": "Triple"}
+                            ]}
+                            ,
+                            {"opName":"BGP", "subOp": [
+                              {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P21", "Object": {"value":"?x4"}, "opName": "Triple"}
+                            ]}
+                          ]}
+                          ,
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?x5"}, "opName": "Triple"}
+                          ]}
+                        ]}
+                        ,
+                        {"opName":"BGP", "subOp": [
+                          {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P18", "Object": {"value":"?x6"}, "opName": "Triple"}
+                        ]}
+                      ]}
+                      ,
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P19", "Object": {"value":"?x7"}, "opName": "Triple"}
+                      ]}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P570", "Object": {"value":"?x8"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P20", "Object": {"value":"?x9"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P1196", "Object": {"value":"?x10"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P26", "Object": {"value":"?x11"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P106", "Object": {"value":"?x12"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P39", "Object": {"value":"?x1"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?x1", "Predicate": "http://www.wikidata.org/prop/direct/P39", "Object": {"value":"?x1"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P166", "Object": {"value":"?x13"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P69", "Object": {"value":"?x14"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?x3", "Predicate": "http://www.wikidata.org/prop/direct/P102", "Object": {"value":"?x15"}, "opName": "Triple"}
+  ]}
+]}

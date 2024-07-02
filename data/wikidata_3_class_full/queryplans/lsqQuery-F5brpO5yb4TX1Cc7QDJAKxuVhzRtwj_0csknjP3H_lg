@@ -1,0 +1,26 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "path", "Subject": "??P1233", "Object": {"value":"http://www.wikidata.org/entity/638"}
+          , "pathComplexity": [
+          "P_ZeroOrMore1"
+          ]
+
+          , "pathType": "ZeroOrMore"
+          ,"Predicates":[
+           "<http://www.wikidata.org/prop/direct/P279>"
+          ]
+          }
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/P31", "Object": {"value":"??P1234"}, "opName": "Triple"}
+            ,
+            {"Subject": "??P1234", "Predicate": "http://www.wikidata.org/prop/statement/P31", "Object": {"value":"??P1233"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var3", "Predicate": "http://wikiba.se/ontology#identifiers", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+  ]}
+]}

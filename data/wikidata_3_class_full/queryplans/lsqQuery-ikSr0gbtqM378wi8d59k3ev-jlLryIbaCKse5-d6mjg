@@ -1,0 +1,33 @@
+{"opName": "filter" , "expr": " [(! (bound ?var6Label))]", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(!= ?var4 \"en-simple\"), (!= ?var4 \"fr-x-nrm\"), (!= ?var4 \"jv-x-bms\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(> (year ?var2) 2000)]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q577"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P585", "Object": {"value":"?var2"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+                ,
+                {"Subject": "?var3", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"?var4"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var3", "Predicate": "http://schema.org/name", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ]}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?var6Label) (lcase ?var4))]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var6Label"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

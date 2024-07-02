@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var3", "Predicate": "http://schema.org/about", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://schema.org/isPartOf", "Object": {"value":"https://he.wikisource.org/"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://schema.org/name", "Object": {"value":"?var2Label"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q7553"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P655", "Object": {"value":"http://www.wikidata.org/entity/Q6796659"}, "opName": "Triple"}
+  ]}
+]}

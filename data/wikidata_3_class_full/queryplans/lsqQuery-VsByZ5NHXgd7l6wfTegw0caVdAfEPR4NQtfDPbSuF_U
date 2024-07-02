@@ -1,0 +1,37 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "extend", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(regex ?var3Label \"string1\" \"i\")]", "subOp": [
+            {"opName": "sequence", "subOp": [
+                {"opName": "filter" , "expr": " [(= (lang ?var2) \"es\")]", "subOp": [
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/direct/P166", "Object": {"value":"http://www.wikidata.org/entity/Q44585"}, "opName": "Triple"}
+                    ,
+                    {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q5"}, "opName": "Triple"}
+                    ,
+                    {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/direct/P1559", "Object": {"value":"?var1"}, "opName": "Triple"}
+                    ,
+                    {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/direct/P27", "Object": {"value":"?var7"}, "opName": "Triple"}
+                    ,
+                    {"Subject": "?var7", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/P166", "Object": {"value":"?var8"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var8", "Predicate": "http://www.wikidata.org/prop/statement/P166", "Object": {"value":"?var3"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var3Label"}, "opName": "Triple"}
+                ]}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var8", "Predicate": "http://www.wikidata.org/prop/qualifier/P585", "Object": {"value":"?var4"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,21 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q18524218"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P150", "Object": {"value":"?var5"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/statement/P150", "Object": {"value":"http://www.wikidata.org/entity/Q1047719"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q194203"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P150", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q6465"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P150", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/P150", "Object": {"value":"?var7"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var7", "Predicate": "http://www.wikidata.org/prop/statement/p150", "Object": {"value":"?var4"}, "opName": "Triple"}
+  ]}
+]}

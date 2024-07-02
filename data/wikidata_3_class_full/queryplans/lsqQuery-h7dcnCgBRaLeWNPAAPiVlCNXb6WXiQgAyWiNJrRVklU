@@ -1,0 +1,7 @@
+{"opName": "filter" , "expr": " [(< ?var3 \"2015-02-28T00:00:00Z\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P902", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://schema.org/dateModified", "Object": {"value":"?var3"}, "opName": "Triple"}
+  ]}
+]}

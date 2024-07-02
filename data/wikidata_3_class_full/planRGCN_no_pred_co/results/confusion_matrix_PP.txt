@@ -1,10 +1,10 @@
 \begin{tabular}{lrrr}
 \toprule
-Predicted & 0s to 1s & 1s to 10s & $>$ 10s \\
+Predicted & (0; 1] & (1; 10] & (10; $\infty$ \\
 Actual &  &  &  \\
 \midrule
-0s to 1s & 597 & 426 & 53 \\
-1s to 10s & 6 & 69 & 10 \\
-$>$ 10s & 6 & 46 & 10 \\
+(0; 1] & 597 & 426 & 53 \\
+(1; 10] & 6 & 69 & 10 \\
+(10; $\infty$ & 6 & 46 & 10 \\
 \bottomrule
 \end{tabular}

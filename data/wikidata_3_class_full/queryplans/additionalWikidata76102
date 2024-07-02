@@ -1,0 +1,9 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(regex ?var5 \"Antwerp\" \"i\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var4", "Predicate": "http://schema.org/description", "Object": {"value":"?var5"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

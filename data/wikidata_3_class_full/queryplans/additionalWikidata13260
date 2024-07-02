@@ -1,0 +1,29 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(! (bound ?var2)), (! (bound ?var5))]", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#sitelinks", "Object": {"value":"0","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+            ,
+            {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#identifiers", "Object": {"value":"0","datatype":"http://www.w3.org/2001/XMLSchema#integer","langTag":""}, "opName": "Triple"}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var2", "Predicate": "?var3", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(!= ?var6 <http://www.wikidata.org/prop/reference/P143>)]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "?var4", "Object": {"value":"??0"}, "opName": "Triple"}
+            ,
+            {"Subject": "??0", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"?var5"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var5", "Predicate": "?var6", "Object": {"value":"??1"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,31 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "table", "subOp": []}
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(= (substr (str ?var1) 1 25) \"string1\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://schema.org/about", "Object": {"value":"http://www.wikidata.org/entity/Q2053"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"?literalVar1"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+    ,
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (substr (str ?var2) 1 25) \"string2\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var2", "Predicate": "http://schema.org/about", "Object": {"value":"http://www.wikidata.org/entity/Q2053"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"?literalVar2"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

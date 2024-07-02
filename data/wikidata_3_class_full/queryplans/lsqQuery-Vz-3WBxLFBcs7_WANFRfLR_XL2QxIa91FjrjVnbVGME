@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://www.wikidata.org/entity/Q312579", "Predicate": "http://www.w3.org/2004/02/skos/core#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://www.wikidata.org/entity/Q312579", "Predicate": "http://www.w3.org/2004/02/skos/core#altLabel", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://www.wikidata.org/entity/Q312579", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ]}
+]}

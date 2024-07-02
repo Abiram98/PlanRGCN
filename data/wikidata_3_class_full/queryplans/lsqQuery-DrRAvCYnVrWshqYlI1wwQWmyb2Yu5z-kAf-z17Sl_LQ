@@ -1,0 +1,13 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "table", "subOp": []}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://www.wikidata.org/entity/Q9188", "Predicate": "http://www.wikidata.org/prop/direct/P2048", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://www.wikidata.org/entity/Q9188", "Predicate": "http://www.wikidata.org/prop/direct/P2044", "Object": {"value":"?var1"}, "opName": "Triple"}
+  ]}
+]}

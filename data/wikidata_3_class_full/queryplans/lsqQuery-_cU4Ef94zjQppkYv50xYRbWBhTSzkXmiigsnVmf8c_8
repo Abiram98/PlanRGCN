@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(strstarts (lcase ?var1) \"langue\"), (= (lang ?var1) \"fr\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://www.wikidata.org/entity/Q31", "Predicate": "http://schema.org/description", "Object": {"value":"?var1"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

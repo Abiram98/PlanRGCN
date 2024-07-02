@@ -1,0 +1,37 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://www.bigdata.com/queryHints#Query", "Predicate": "http://www.bigdata.com/queryHints#optimizer", "Object": {"value":"None","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "sequence", "subOp": [
+            {"opName": "path", "Subject": "??P3015", "Object": {"value":"http://www.wikidata.org/entity/Q18559091"}
+            , "pathComplexity": [
+            "P_ZeroOrMore1"
+            ]
+
+            , "pathType": "ZeroOrMore"
+            ,"Predicates":[
+             "<http://www.wikidata.org/prop/direct/P279>"
+            ]
+            }
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P3015"}, "opName": "Triple"}
+            ]}
+        ]}
+        ,
+        {"opName": "path", "Subject": "?var1", "Object": {"value":"http://www.wikidata.org/entity/Q698162"}
+        , "pathComplexity": [
+        "P_ZeroOrMore1"
+        ]
+
+        , "pathType": "ZeroOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P131>"
+        ]
+        }
+    ]}
+  ]}
+]}

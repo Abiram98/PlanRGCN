@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P2048", "Object": {"value":"??P66"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P66", "Predicate": "http://www.wikidata.org/prop/statement/value/P2048", "Object": {"value":"??0"}, "opName": "Triple"}
+    ,
+    {"Subject": "??0", "Predicate": "http://wikiba.se/ontology#quantityAmount", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "??0", "Predicate": "http://wikiba.se/ontology#quantityUnit", "Object": {"value":"??1"}, "opName": "Triple"}
+    ,
+    {"Subject": "??1", "Predicate": "http://www.wikidata.org/prop/P2370", "Object": {"value":"??P67"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P67", "Predicate": "http://www.wikidata.org/prop/statement/value/P2370", "Object": {"value":"??2"}, "opName": "Triple"}
+    ,
+    {"Subject": "??2", "Predicate": "http://wikiba.se/ontology#quantityAmount", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ,
+    {"Subject": "??2", "Predicate": "http://wikiba.se/ontology#quantityUnit", "Object": {"value":"http://www.wikidata.org/entity/Q11574"}, "opName": "Triple"}
+  ]}
+]}

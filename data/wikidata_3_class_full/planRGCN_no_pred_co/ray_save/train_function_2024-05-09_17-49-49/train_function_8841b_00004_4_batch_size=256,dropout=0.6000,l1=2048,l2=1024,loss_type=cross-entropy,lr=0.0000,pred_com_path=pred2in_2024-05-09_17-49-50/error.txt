@@ -1,0 +1,13 @@
+Failure # 1 (occurred at 2024-05-09_17-50-30)
+[36mray::ImplicitFunc.train()[39m (pid=678262, ip=172.17.0.4, actor_id=e381af06721ff17f278fa39b01000000, repr=func)
+  File "/usr/local/lib/python3.10/dist-packages/ray/tune/trainable/trainable.py", line 342, in train
+    raise skipped from exception_cause(skipped)
+  File "/usr/local/lib/python3.10/dist-packages/ray/air/_internal/util.py", line 88, in run
+    self._ret = self._target(*self._args, **self._kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/ray/tune/trainable/function_trainable.py", line 115, in <lambda>
+    training_func=lambda: self._trainable_func(self.config),
+  File "/usr/local/lib/python3.10/dist-packages/ray/tune/trainable/function_trainable.py", line 332, in _trainable_func
+    output = fn()
+  File "/PlanRGCN/PlanRGCN/trainer/trainer/train_ray.py", line 193, in train_function
+    raise Exception("prepper not provided")
+Exception: prepper not provided

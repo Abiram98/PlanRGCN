@@ -1,0 +1,21 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(> ?var3 50000)]", "subOp": [
+      {"opName": "extend", "subOp": [
+        {"opName": "table", "subOp": []}
+      ]}
+    ]}
+    ,
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(> (year ?var1) 1900)]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P3373", "Object": {"value":"?var5"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var5", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+    ]}
+]}

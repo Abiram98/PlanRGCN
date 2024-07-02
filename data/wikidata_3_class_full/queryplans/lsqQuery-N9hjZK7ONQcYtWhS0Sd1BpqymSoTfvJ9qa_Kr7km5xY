@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(!= ?var1 ?var2)]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(> (<http://www.w3.org/2001/XMLSchema#integer> (strafter (str ?var1) \"http://www.wikidata.org/entity/Q\")) 30000000)]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P762", "Object": {"value":"??P66"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/direct/P762", "Object": {"value":"??P66"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

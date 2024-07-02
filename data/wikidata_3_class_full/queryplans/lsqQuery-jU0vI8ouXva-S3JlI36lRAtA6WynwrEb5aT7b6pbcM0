@@ -1,0 +1,27 @@
+{"opName": "filter" , "expr": " [(! (= ?var6 <http://www.wikidata.org/entity/Q317070>))]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(<= ?var3 ?var5)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P108", "Object": {"value":"http://www.wikidata.org/entity/Q317070"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P108", "Object": {"value":"http://www.wikidata.org/entity/Q156737"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P108", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/statement/P108", "Object": {"value":"http://www.wikidata.org/entity/Q317070"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://www.wikidata.org/prop/qualifier/P582", "Object": {"value":"?var3"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/P108", "Object": {"value":"?var4"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/statement/P108", "Object": {"value":"http://www.wikidata.org/entity/Q156737"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var4", "Predicate": "http://www.wikidata.org/prop/qualifier/P580", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P108", "Object": {"value":"?var6"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

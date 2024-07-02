@@ -1,0 +1,78 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "sequence", "subOp": [
+                  {"opName": "path", "Subject": "??P2149", "Object": {"value":"http://www.wikidata.org/entity/Q916475"}
+                  , "pathComplexity": [
+                  "P_ZeroOrMore1"
+                  ]
+
+                  , "pathType": "ZeroOrMore"
+                  ,"Predicates":[
+                   "<http://www.wikidata.org/prop/direct/P279>"
+                  ]
+                  }
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P1435", "Object": {"value":"??P2149"}, "opName": "Triple"}
+                  ]}
+                  ,
+                  {"opName": "sequence", "subOp": [
+                      {"opName": "filter" , "expr": " [(langMatches (lang ?var1) \"fr\")]", "subOp": [
+                        {"opName":"BGP", "subOp": [
+                          {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/P1435", "Object": {"value":"?var10"}, "opName": "Triple"}
+                          ,
+                          {"Subject": "?var3", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1"}, "opName": "Triple"}
+                        ]}
+                      ]}
+                      ,
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "?var2", "Predicate": "http://schema.org/about", "Object": {"value":"?var3"}, "opName": "Triple"}
+                        ,
+                        {"Subject": "?var2", "Predicate": "http://schema.org/inLanguage", "Object": {"value":"fr","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+                      ]}
+                  ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P625", "Object": {"value":"?var4"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P18", "Object": {"value":"?var5"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName": "filter" , "expr": " [(langMatches (lang ?var7) \"fr\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P84", "Object": {"value":"?var11"}, "opName": "Triple"}
+              ,
+              {"Subject": "?var11", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var7"}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(langMatches (lang ?var9) \"fr\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P149", "Object": {"value":"?var12"}, "opName": "Triple"}
+            ,
+            {"Subject": "?var12", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var9"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(langMatches (lang ?var8) \"fr\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"?var13"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var13", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var8"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

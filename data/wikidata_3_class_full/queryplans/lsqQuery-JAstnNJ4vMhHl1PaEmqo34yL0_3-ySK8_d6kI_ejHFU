@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= \"en\" (lang ?var1Label))]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(|| (= \"en\" (lang ?var3)) (= \"\" (lang ?var3)))]", "subOp": [
+          {"opName": "assign", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "http://www.wikidata.org/entity/Q29414159", "Predicate": "?var1", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var2", "Predicate": "http://wikiba.se/ontology#directClaim", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ,
+          {"Subject": "?var2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var1Label"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

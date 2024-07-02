@@ -1,0 +1,60 @@
+{"opName": "filter" , "expr": " [(! (bound ?var4))]", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "path", "Subject": "http://www.wikidata.org/entity/Q25270", "Object": {"value":"?var1"}
+        , "pathComplexity": [
+        "P_OneOrMore1"
+        ]
+
+        , "pathType": "OneOrMore"
+        ,"Predicates":[
+         "<http://www.wikidata.org/prop/direct/P131>"
+        ]
+        }
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P17", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+    ]}
+    ,
+    {"opName": "sequence", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "http://www.wikidata.org/entity/Q25270", "Predicate": "http://www.wikidata.org/prop/P131", "Object": {"value":"??P2618"}, "opName": "Triple"}
+            ]}
+            ,
+            {"opName": "path", "Subject": "??P2618", "Object": {"value":"?var3"}
+            , "pathComplexity": [
+            "P_OneOrMore1"
+            ]
+
+            , "pathType": "OneOrMore"
+            ,"Predicates":[
+             "<http://www.wikidata.org/prop/direct/P131>"
+            ]
+            }
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/qualifier/P582", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "sequence", "subOp": [
+            {"opName": "path", "Subject": "?var3", "Object": {"value":"??P2619"}
+            , "pathComplexity": [
+            "P_OneOrMore1"
+            ]
+
+            , "pathType": "OneOrMore"
+            ,"Predicates":[
+             "<http://www.wikidata.org/prop/direct/P131>"
+            ]
+            }
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "??P2619", "Predicate": "http://www.wikidata.org/prop/statement/P131", "Object": {"value":"?var1"}, "opName": "Triple"}
+            ]}
+        ]}
+    ]}
+  ]}
+]}

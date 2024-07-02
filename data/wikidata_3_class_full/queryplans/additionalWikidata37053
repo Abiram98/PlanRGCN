@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var1", "Predicate": "?var3", "Object": {"value":"??0"}, "opName": "Triple"}
+        ,
+        {"Subject": "??0", "Predicate": "http://www.w3.org/ns/prov#wasDerivedFrom", "Object": {"value":"??P27"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P27", "Predicate": "http://www.wikidata.org/prop/reference/P143", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "??0", "Predicate": "?var5", "Object": {"value":"?var4"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P28", "Predicate": "http://wikiba.se/ontology#statementProperty", "Object": {"value":"?var5"}, "opName": "Triple"}
+        ,
+        {"Subject": "??P28", "Predicate": "http://wikiba.se/ontology#claim", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

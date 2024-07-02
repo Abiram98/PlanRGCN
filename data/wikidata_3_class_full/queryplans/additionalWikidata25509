@@ -1,0 +1,15 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#claim", "Object": {"value":"?var2"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#statementProperty", "Object": {"value":"?var3"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#qualifier", "Object": {"value":"?var4"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://wikiba.se/ontology#Property"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var5", "Predicate": "?var2", "Object": {"value":"?var6"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var6", "Predicate": "?var3", "Object": {"value":"?var7"}, "opName": "Triple"}
+  ,
+  {"Subject": "?var6", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"http://www.wikidata.org/entity/Q759421"}, "opName": "Triple"}
+]}

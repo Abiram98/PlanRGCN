@@ -1,0 +1,11 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "filter" , "expr": " [(!= ?var1 <http://www.wikidata.org/entity/P31>)]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?var2", "Predicate": "?var3", "Object": {"value":"http://www.wikidata.org/entity/Q839954"}, "opName": "Triple"}
+        ,
+        {"Subject": "?var1", "Predicate": "http://wikiba.se/ontology#statementProperty", "Object": {"value":"?var3"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

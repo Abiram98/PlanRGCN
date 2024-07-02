@@ -1,0 +1,47 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "path", "Subject": "??P768", "Object": {"value":"http://www.wikidata.org/entity/Q1004"}
+          , "pathComplexity": [
+          "P_ZeroOrMore1"
+          ]
+
+          , "pathType": "ZeroOrMore"
+          ,"Predicates":[
+           "<http://www.wikidata.org/prop/direct/P279>"
+          ]
+          }
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/P31", "Object": {"value":"??P769"}, "opName": "Triple"}
+            ,
+            {"Subject": "??P769", "Predicate": "http://www.wikidata.org/prop/statement/P31", "Object": {"value":"??P768"}, "opName": "Triple"}
+          ]}
+          ,
+          {"opName": "sequence", "subOp": [
+              {"opName": "sequence", "subOp": [
+                  {"opName": "path", "Subject": "??P770", "Object": {"value":"http://www.wikidata.org/entity/Q10901350"}
+                  , "pathComplexity": [
+                  "P_ZeroOrMore1"
+                  ]
+
+                  , "pathType": "ZeroOrMore"
+                  ,"Predicates":[
+                   "<http://www.wikidata.org/prop/direct/P279>"
+                  ]
+                  }
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/direct/P31", "Object": {"value":"??P770"}, "opName": "Triple"}
+                  ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?var3", "Predicate": "http://wikiba.se/ontology#identifiers", "Object": {"value":"?var1"}, "opName": "Triple"}
+              ]}
+          ]}
+      ]}
+    ]}
+  ]}
+]}

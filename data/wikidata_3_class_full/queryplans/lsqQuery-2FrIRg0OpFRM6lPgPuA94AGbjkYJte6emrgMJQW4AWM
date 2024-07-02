@@ -1,0 +1,17 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "extend", "subOp": [
+          {"opName": "table", "subOp": []}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?var3", "Predicate": "http://www.wikidata.org/prop/P348", "Object": {"value":"??0"}, "opName": "Triple"}
+          ,
+          {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/statement/P348", "Object": {"value":"?var1"}, "opName": "Triple"}
+          ,
+          {"Subject": "??0", "Predicate": "http://www.wikidata.org/prop/qualifier/P577", "Object": {"value":"?var2"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

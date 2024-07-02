@@ -1,0 +1,47 @@
+{"opName": "distinct", "subOp": [
+  {"opName": "project", "subOp": [
+    {"opName": "disjunction", "subOp": [
+      {"opName": "assign", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"string1","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+          ]}
+          ,
+          {"opName": "filter" , "expr": " [(|| (= (lang ?var3) \"de\") (= (lang ?var3) \"en\"))]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.w3.org/2004/02/skos/core#altLabel", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName": "assign", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"string2","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+          ]}
+          ,
+          {"opName": "filter" , "expr": " [(|| (= (lang ?var3) \"de\") (= (lang ?var3) \"en\"))]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.w3.org/2004/02/skos/core#altLabel", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(|| (= ?var3 \"string1\") (= ?var3 \"string2\"))]", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?var1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?var2"}, "opName": "Triple"}
+          ]}
+          ,
+          {"opName": "filter" , "expr": " [(|| (= (lang ?var3) \"de\") (= (lang ?var3) \"en\"))]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?var1", "Predicate": "http://www.w3.org/2004/02/skos/core#altLabel", "Object": {"value":"?var3"}, "opName": "Triple"}
+            ]}
+          ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

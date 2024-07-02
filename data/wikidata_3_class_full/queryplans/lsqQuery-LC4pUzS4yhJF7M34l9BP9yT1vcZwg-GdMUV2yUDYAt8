@@ -1,0 +1,9 @@
+{"opName": "filter" , "expr": " [(= (lang ?var5) \"de\"), (regex ?var5 \"Node.js\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?var1", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var1", "Predicate": "http://dbpedia.org/ontology/genre", "Object": {"value":"?var3"}, "opName": "Triple"}
+    ,
+    {"Subject": "?var4", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?var5"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lcase (str ?var2)) \"11111111\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P698", "Object": {"value":"?var2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

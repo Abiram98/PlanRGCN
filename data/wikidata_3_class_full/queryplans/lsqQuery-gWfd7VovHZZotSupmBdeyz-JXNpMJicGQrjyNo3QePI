@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?var2) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?var1", "Predicate": "http://www.wikidata.org/prop/direct/P276", "Object": {"value":"http://www.wikidata.org/entity/Q5880"}, "opName": "Triple"}
+    ]}
+  ]}
+]}
