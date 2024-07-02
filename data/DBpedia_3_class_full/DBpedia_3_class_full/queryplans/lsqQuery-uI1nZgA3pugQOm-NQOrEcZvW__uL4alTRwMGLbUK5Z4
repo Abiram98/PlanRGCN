@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Conf%C3%A9d%C3%A9ration_Mondiale_des_Activit%C3%A9s_Subaquatiques", "Predicate": "http://dbpedia.org/ontology/wikiPageDisambiguates", "Object": {"value":"?URI"}, "opName": "Triple"}
+]}

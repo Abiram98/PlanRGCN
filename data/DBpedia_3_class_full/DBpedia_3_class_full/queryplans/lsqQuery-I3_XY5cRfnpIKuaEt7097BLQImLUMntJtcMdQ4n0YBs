@@ -1,0 +1,7 @@
+{"opName": "filter" , "expr": " [(= (datatype ?o) <http://www.w3.org/2001/XMLSchema#date>)]", "subOp": [
+  {"opName": "assign", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Treaty_of_Shimonoseki", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

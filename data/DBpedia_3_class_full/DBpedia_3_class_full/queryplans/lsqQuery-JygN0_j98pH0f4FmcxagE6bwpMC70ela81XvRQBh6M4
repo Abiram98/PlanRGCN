@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?s", "Predicate": "?sometype", "Object": {"value":"http://dbpedia.org/resource/Berlin"}, "opName": "Triple"}
+    ,
+    {"Subject": "?s", "Predicate": "http://purl.org/voc/vrank#hasRank", "Object": {"value":"??P70"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P70", "Predicate": "http://purl.org/voc/vrank#rankValue", "Object": {"value":"?v"}, "opName": "Triple"}
+  ]}
+]}

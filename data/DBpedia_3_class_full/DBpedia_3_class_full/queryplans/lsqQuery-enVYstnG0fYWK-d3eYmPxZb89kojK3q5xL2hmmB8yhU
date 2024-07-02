@@ -1,0 +1,219 @@
+{"opName": "project", "subOp": [
+  {"opName": "disjunction", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q52345", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://en.wikipedia.org/wiki/Oliver_James_(actor)?oldid=679049827", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://en.wikipedia.org/wiki/Oliver_James_(actor)", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Olivier_Sarkozy__1", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Guillaume_Sarkozy", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Jean_Sarkozy", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Nicolas_Sarkozy", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://commons.wikimedia.org/wiki/Special:FilePath/Olivier_Sarkozy,_2011.jpg?width=300", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:Businesspeople_from_Paris", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:Carlyle_Group_people", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:French_businesspeople", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:French_people_of_Hungarian_descent", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:UBS_people", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/class/yago/FrenchPeopleOfHungarianDescent", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/class/yago/UBSPeople", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://fr.dbpedia.org/resource/Olivier_Sarkozy", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://rdf.freebase.com/ns/m.0415czp", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://wikidata.dbpedia.org/resource/Q3351364", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q3351364", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://yago-knowledge.org/resource/Olivier_Sarkozy", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://en.wikipedia.org/wiki/Olivier_Sarkozy?oldid=679838219", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://commons.wikimedia.org/wiki/Special:FilePath/Olivier_Sarkozy,_2011.jpg", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://en.wikipedia.org/wiki/Olivier_Sarkozy", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Central_Luzon", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Legislative_districts_of_Zambales", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Rodel_Cerezo", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Rolen_Paulino", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://commons.wikimedia.org/wiki/Special:FilePath/OlongapoCityjf9265_13.JPG?width=300", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://olongapo-city-philippines.blogspot.com", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.aura.edu.ph/", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.clcst.edu.ph/", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.comteq.edu.ph", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.sangunian.com", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.subicupdater.com", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Dinalupihan,_Bataan", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Morong,_Bataan", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

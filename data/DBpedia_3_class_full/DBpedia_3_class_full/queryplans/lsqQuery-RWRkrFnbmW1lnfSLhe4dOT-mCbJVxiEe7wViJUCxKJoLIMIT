@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?z \"Amo\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?x", "Predicate": "?y", "Object": {"value":"?z"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

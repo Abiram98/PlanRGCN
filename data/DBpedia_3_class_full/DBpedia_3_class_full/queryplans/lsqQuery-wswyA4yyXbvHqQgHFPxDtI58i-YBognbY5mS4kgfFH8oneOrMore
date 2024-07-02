@@ -1,0 +1,219 @@
+{"opName": "project", "subOp": [
+  {"opName": "disjunction", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://en.wikipedia.org/wiki/Richard_Matheson?oldid=683720969", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://commons.wikimedia.org/wiki/Special:FilePath/Richard_Matheson.jpg", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://en.wikipedia.org/wiki/Richard_Matheson", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.filmcolony.com)", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://de.dbpedia.org/resource/Richard_N._Gladstein", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://fr.dbpedia.org/resource/Richard_N._Gladstein", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://rdf.freebase.com/ns/m.091cbk", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://wikidata.dbpedia.org/resource/Q2150272", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q2150272", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://yago-knowledge.org/resource/Richard_N._Gladstein", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://en.wikipedia.org/wiki/Richard_N._Gladstein?oldid=679634579", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://en.wikipedia.org/wiki/Richard_N._Gladstein", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Phineas_and_Ferb", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/The_Crystal_Maze", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/The_Rocky_Horror_Show", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.riffraffstatue.org", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.robcrusade.com/index.html", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.rockyhorror.com", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.rockymusic.org/tags/Richard+O%27Brien.php", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wirelesstheatrecompany.co.uk/index.php/component/jotloader?Itemid=15&cid=14&id=84", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wirelesstheatrecompany.co.uk/index.php/component/jotloader?Itemid=15&cid=22&id=171", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:English_emigrants_to_New_Zealand", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:Genderqueer_people", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:Male-to-female_cross-dressers", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:Male_actors_from_Gloucestershire", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:Musicians_from_Gloucestershire", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:Naturalised_citizens_of_New_Zealand", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:People_from_Cheltenham", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:Transgender_and_transsexual_male_actors", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:Transgender_and_transsexual_musicians", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Category:Transgender_and_transsexual_writers", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/class/yago/ActorsFromGloucestershire", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/class/yago/Cross-dressers", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/class/yago/EnglishComedyMusicians", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/class/yago/PeopleFromCheltenham", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://de.dbpedia.org/resource/Richard_O???Brien", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

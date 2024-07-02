@@ -1,0 +1,11 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "filter" , "expr": " [(= (str ?imeDBP) \"Arnold Schwarzenegger\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?actr", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?imeDBP"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?actr", "Predicate": "http://dbpedia.org/property/nickname", "Object": {"value":"?nickName"}, "opName": "Triple"}
+  ]}
+]}

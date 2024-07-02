@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/I_Was_a_Teenage_Werewolf", "Predicate": "http://dbpedia.org/ontology/budget", "Object": {"value":"?budget"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://dbpedia.org/resource/I_Was_a_Teenage_Werewolf", "Predicate": "http://dbpedia.org/ontology/gross", "Object": {"value":"?gross"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

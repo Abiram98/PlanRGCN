@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?cmm) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?s", "Predicate": "http://dbpedia.org/property/data", "Object": {"value":"http://dbpedia.org/resource/Finance"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?cmm"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

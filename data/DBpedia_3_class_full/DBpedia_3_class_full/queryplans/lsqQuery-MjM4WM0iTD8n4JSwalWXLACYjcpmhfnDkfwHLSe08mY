@@ -1,0 +1,19 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?definition) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Firm_service", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?definition"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Firm_service", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?url"}, "opName": "Triple"}
+      ]}
+  ]}
+  ,
+  {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Firm_service", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

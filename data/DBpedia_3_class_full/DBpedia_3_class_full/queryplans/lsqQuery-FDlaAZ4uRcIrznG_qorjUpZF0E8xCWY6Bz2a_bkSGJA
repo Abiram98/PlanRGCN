@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/File_Retrieval_and_Editing_System", "Predicate": "http://dbpedia.org/ontology/foundingYear", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?subject", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/CareerStation"}, "opName": "Triple"}
+              ,
+              {"Subject": "?subject", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?subject", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+  ]}
+]}

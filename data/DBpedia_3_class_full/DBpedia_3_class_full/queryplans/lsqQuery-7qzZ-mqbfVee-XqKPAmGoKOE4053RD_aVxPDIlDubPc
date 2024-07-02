@@ -1,0 +1,37 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(regex ?l1 \"^2$\" \"i\"), (langMatches (lang ?l1) \"en\")]", "subOp": [
+            {"opName": "sequence", "subOp": [
+                {"opName": "filter" , "expr": " [(regex ?l \"^Tamil Nadu$\" \"i\"), (langMatches (lang ?l) \"en\")]", "subOp": [
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?s", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?l"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?l", "Predicate": "bif:contains", "Object": {"value":"'Tamil Nadu'","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?o", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?l1"}, "opName": "Triple"}
+                ]}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?l1", "Predicate": "bif:contains", "Object": {"value":"'2'","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+            ,
+            {"Subject": "?s", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+          ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?p", "Predicate": "http://www.w3.org/2000/01/rdf-schema#domain", "Object": {"value":"?d"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?p", "Predicate": "http://www.w3.org/2000/01/rdf-schema#range", "Object": {"value":"?r"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

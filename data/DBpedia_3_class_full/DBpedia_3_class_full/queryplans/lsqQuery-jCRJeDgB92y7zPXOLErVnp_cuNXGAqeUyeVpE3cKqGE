@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(|| (|| (|| (= (lang ?object) \"en\") (= (lang ?object) \"de\")) (! (isLiteral ?object))) (= (! (datatype ?object)) <http://www.w3.org/2001/XMLSchema#string>))]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/ontology/Sport", "Predicate": "?predicate", "Object": {"value":"?object"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

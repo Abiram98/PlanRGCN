@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?comment) \"en\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?abs) \"en\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?s", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"B","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+            ,
+            {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/wikiPageDisambiguates", "Object": {"value":"?dis"}, "opName": "Triple"}
+            ,
+            {"Subject": "?dis", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abs"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?dis", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?comment"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

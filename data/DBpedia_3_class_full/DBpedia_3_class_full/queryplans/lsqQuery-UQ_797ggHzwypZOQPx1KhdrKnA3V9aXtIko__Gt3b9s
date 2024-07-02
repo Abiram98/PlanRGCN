@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Jessica_(novel)", "Predicate": "http://dbpedia.org/ontology/foundationPlace", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

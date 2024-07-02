@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Bronze_Star_Medal", "Predicate": "http://dbpedia.org/ontology/knownFor", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

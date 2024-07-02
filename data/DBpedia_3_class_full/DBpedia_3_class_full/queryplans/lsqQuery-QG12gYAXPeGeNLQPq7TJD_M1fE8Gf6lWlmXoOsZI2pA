@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Patrick_Hume,_1st_Earl_of_Marchmont", "Predicate": "http://dbpedia.org/ontology/associatedBand", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

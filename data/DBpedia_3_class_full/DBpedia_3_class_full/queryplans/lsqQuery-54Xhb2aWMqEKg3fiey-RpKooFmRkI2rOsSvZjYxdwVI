@@ -1,0 +1,219 @@
+{"opName": "project", "subOp": [
+  {"opName": "disjunction", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S76E8255B-CE4F-4CAD-A369-83245853A782", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023SEC60A577-08A7-4D9B-B175-F1D0B89095CA", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S9EC51AD0-03DC-4A19-9A8C-37D49B79FFB6", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023SE82AA017-6FEE-4917-891A-F36310ABF55F", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q456894", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q941232", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S019C065E-63E9-4DA1-B6E7-821A62C5AC0E", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S4FC184CA-216E-4223-B707-5446BF8F5B9A", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S84C35292-CFA7-4F64-94CF-58B4FAC88EB5", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S99C95271-23AD-4D1E-8A9C-73FC0B108B31", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S9E4B9B60-5AC8-406E-A42E-A27FB1731857", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023SC6ADA904-6FD5-4389-9E1B-8E646E21BD9B", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023SCA43EB91-5356-4EC8-AB8D-324CB71ADEF3", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023SD93E708F-1B07-4940-BEF3-BBAFC906562D", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023SFC5C977C-144F-4547-A892-587EEF58E16D", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023SEF3986E6-C625-48DF-B49B-008DED69C07D", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S5a32a2be-4fa7-829d-525d-f5e55d0e13aa", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023SDD89D1CB-4B7C-4F75-8107-8B80A24AF6EE", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q17386194", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S0895A00C-0E34-4C0D-9D26-EE370C241AD2", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S157F6FDA-2387-4118-B24A-B4FF7DAD1359", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S638DF091-3748-42E0-8F95-2A03BD71BD14", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S85DE7A88-2471-4A93-A77A-86F7FA95FC60", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S3D0D3EBE-901D-4FA7-A086-8981508FFDD8", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S3B19F9EC-C413-4E39-B3CC-06AFAB2E9369", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S1A598244-BC81-4368-A7FE-6DC8A20E3684", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S350F272F-F39D-4B5A-AF5E-12C2AE9DA915", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S378323D1-794D-43A7-AF64-71ED346F08A6", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S2FC673A9-0FD5-4E69-AAE8-599459601E29", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S8BF450F6-F4DF-4BA6-BA3F-EC3CE5F53F64", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023SB30EC1E8-D896-4F96-AF56-25DB95BD1187", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S4C6A0413-F931-4AF5-9119-F125D6F19F38", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://rdf.freebase.com/ns/m.040fjs", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023SB5B025D8-19B9-41D3-9538-5B6DADDABF12", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S23C5E515-BF51-4502-9C0D-17AAE34EC189", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://www.wikidata.org/entity/Q316023S9C241B13-F097-4B0E-BBBE-64DA6A4E71ED", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

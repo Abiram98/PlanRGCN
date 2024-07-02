@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/American_Camp_Association", "Predicate": "http://dbpedia.org/ontology/composer", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Tom_Greenhalgh", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?types"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

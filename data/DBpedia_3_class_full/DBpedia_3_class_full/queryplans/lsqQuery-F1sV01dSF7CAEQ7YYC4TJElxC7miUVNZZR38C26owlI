@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Yorkship_Village,_New_Jersey", "Predicate": "http://dbpedia.org/ontology/editor", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Noah's_Ark_(1999_film)", "Predicate": "?p", "Object": {"value":"http://dbpedia.org/resource/24:_Redemption"}, "opName": "Triple"}
+]}

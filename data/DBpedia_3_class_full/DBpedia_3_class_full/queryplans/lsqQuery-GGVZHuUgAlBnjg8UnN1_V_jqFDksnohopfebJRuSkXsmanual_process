@@ -1,0 +1,20 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "?x", "Object": {"value":"http://de.dbpedia.org/resource/Pink"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/2002/07/owl#sameAs>"
+      ]
+      }
+      ,
+      {"opName": "filter" , "expr": " [(langMatches (lang ?translation) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?x", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?translation"}, "opName": "Triple"}
+        ]}
+      ]}
+  ]}
+]}

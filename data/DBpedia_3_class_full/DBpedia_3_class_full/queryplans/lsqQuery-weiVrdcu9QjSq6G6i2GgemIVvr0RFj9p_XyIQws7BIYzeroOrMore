@@ -1,0 +1,11 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(regex ?label \"pornographic.*actress\" \"i\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?x", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?date"}, "opName": "Triple"}
+    ]}
+]}

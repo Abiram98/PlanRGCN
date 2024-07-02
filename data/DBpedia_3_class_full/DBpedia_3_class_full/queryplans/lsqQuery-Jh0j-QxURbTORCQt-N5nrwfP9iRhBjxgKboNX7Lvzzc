@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/The_Wrestler_(2008_film)", "Predicate": "http://dbpedia.org/ontology/foundedBy", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

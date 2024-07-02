@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Extended_Kalman_filter", "Predicate": "http://dbpedia.org/ontology/leaderName", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

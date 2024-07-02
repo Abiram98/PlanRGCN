@@ -1,0 +1,31 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "filter" , "expr": " [(langMatches (lang ?ctryName) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Casoli", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?ctry"}, "opName": "Triple"}
+          ,
+          {"Subject": "?ctry", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/class/yago/Country108544813"}, "opName": "Triple"}
+          ,
+          {"Subject": "?ctry", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://umbel.org/umbel/rc/Country"}, "opName": "Triple"}
+          ,
+          {"Subject": "?ctry", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?ctryName"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Casoli", "Predicate": "http://dbpedia.org/ontology/state", "Object": {"value":"?state"}, "opName": "Triple"}
+        ,
+        {"Subject": "?state", "Predicate": "http://dbpedia.org/property/postalabbreviation", "Object": {"value":"?stateCode"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?st", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/class/yago/StatesOfTheUnitedStates"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Casoli", "Predicate": "http://dbpedia.org/ontology/isPartOf", "Object": {"value":"?st"}, "opName": "Triple"}
+      ,
+      {"Subject": "?st", "Predicate": "http://dbpedia.org/property/postalabbreviation", "Object": {"value":"?stateCode"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

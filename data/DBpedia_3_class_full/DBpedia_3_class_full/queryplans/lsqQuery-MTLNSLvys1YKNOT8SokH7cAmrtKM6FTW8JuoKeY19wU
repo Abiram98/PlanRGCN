@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/The_Lord_of_the_Rings_(1978_film)", "Predicate": "http://dbpedia.org/ontology/location", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/St._Pius_X_High_School_(Houston,_Texas)", "Predicate": "http://dbpedia.org/ontology/location", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

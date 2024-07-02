@@ -1,0 +1,33 @@
+{"opName": "filter" , "expr": " [(= (lang ?about) \"#{locale}\")]", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "filter" , "expr": " [(= (str ?linkName) \"Addie McPhail\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?link", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Agent"}, "opName": "Triple"}
+              ,
+              {"Subject": "?link", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?linkName"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?link", "Predicate": "http://dbpedia.org/property/dateOfBirth", "Object": {"value":"?dateOfBirth"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?link", "Predicate": "http://dbpedia.org/property/dateOfDeath", "Object": {"value":"?dateOfDeath"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?link", "Predicate": "http://dbpedia.org/ontology/placeOfBirth", "Object": {"value":"?birthPlace"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?link", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?about"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

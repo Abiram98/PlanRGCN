@@ -1,0 +1,23 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/The_Little_Prince", "Predicate": "http://dbpedia.org/ontology/author", "Object": {"value":"??P8"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P8", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?dateBorn"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/The_Little_Prince", "Predicate": "http://dbpedia.org/ontology/author", "Object": {"value":"??P9"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P9", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?placeBorn"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/The_Little_Prince", "Predicate": "http://dbpedia.org/ontology/author", "Object": {"value":"??P10"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P10", "Predicate": "http://dbpedia.org/ontology/deathDate", "Object": {"value":"?dateDeath"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/The_Little_Prince", "Predicate": "http://dbpedia.org/ontology/author", "Object": {"value":"??P11"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P11", "Predicate": "http://dbpedia.org/ontology/deathPlace", "Object": {"value":"?placeDeath"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/The_Little_Prince", "Predicate": "http://dbpedia.org/ontology/author", "Object": {"value":"??P12"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P12", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?name"}, "opName": "Triple"}
+  ]}
+]}

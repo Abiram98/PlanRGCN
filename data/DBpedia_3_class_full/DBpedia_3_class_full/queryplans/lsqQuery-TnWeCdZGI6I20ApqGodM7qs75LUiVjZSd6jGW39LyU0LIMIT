@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?object", "Predicate": "?property", "Object": {"value":"http://dbpedia.org/class/yago/Abstraction100002137"}, "opName": "Triple"}
+]}

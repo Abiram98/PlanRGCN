@@ -1,0 +1,13 @@
+{"opName": "conditional", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?s", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"Stan Flashman","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+    ,
+    {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birth"}, "opName": "Triple"}
+    ,
+    {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/deathDate", "Object": {"value":"?death"}, "opName": "Triple"}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumb"}, "opName": "Triple"}
+  ]}
+]}

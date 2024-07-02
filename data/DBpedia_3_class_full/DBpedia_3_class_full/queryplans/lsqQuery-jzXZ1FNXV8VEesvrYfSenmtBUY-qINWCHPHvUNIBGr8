@@ -1,0 +1,26 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "?category", "Object": {"value":"http://dbpedia.org/resource/Category:Visitor_attractions_in_German"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/2004/02/skos/core#broader>"
+      ]
+      }
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?attraction", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?wikiPageID"}, "opName": "Triple"}
+        ,
+        {"Subject": "?attraction", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?category"}, "opName": "Triple"}
+        ,
+        {"Subject": "?attraction", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "Object": {"value":"?latitude"}, "opName": "Triple"}
+        ,
+        {"Subject": "?attraction", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#long", "Object": {"value":"?longitude"}, "opName": "Triple"}
+        ,
+        {"Subject": "?attraction", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?wikiPage"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

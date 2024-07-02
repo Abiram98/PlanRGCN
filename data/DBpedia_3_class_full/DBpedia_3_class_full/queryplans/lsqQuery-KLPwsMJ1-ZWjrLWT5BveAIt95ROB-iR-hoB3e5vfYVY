@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Star_of_India_(gem)", "Predicate": "http://dbpedia.org/ontology/producer", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

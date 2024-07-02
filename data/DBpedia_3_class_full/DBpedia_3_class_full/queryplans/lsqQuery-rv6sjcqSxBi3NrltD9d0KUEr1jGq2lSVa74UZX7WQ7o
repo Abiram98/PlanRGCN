@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"fr\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Azerbaijan", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

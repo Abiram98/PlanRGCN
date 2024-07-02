@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Hull_classification_symbol", "Predicate": "http://dbpedia.org/ontology/keyPerson", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

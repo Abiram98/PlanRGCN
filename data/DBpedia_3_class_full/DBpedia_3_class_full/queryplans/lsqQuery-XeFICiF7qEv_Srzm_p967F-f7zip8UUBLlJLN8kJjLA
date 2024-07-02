@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Society_for_Promoting_Christian_Knowledge", "Predicate": "http://dbpedia.org/ontology/associatedMusicalArtist", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

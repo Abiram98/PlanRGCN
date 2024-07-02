@@ -1,0 +1,18 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "??P28", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Fruit"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "path", "Subject": "?subClass", "Object": {"value":"??P28"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/2000/01/rdf-schema#subClassOf>"
+      ]
+      }
+  ]}
+]}

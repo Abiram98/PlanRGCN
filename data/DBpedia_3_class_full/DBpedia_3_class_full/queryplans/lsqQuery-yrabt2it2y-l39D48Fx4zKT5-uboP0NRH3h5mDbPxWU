@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?x2", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Film"}, "opName": "Triple"}
+    ,
+    {"Subject": "?x2", "Predicate": "?r1", "Object": {"value":"http://dbpedia.org/resource/Casablanca"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Casablanca_(film)", "Predicate": "?r37", "Object": {"value":"http://dbpedia.org/resource/Actor"}, "opName": "Triple"}
+  ]}
+]}

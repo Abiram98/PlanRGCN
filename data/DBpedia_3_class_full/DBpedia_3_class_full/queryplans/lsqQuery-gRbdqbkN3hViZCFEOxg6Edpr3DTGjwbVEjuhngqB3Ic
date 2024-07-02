@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(! (sameTerm ?p2_3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>)), (! (sameTerm ?p2_3 <http://www.w3.org/2000/01/rdf-schema#subClassOf>)), (! (sameTerm ?p2_3 <http://www.w3.org/2002/07/owl#sameAs>))]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Barack_Obama", "Predicate": "?p2_3", "Object": {"value":"http://dbpedia.org/resource/Texas"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Little_Sioux_Scout_Ranch", "Predicate": "http://dbpedia.org/ontology/producer", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

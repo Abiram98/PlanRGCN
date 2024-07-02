@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Johnny_Cash", "Predicate": "http://dbpedia.org/ontology/deathPlace", "Object": {"value":"?CS"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://dbpedia.org/resource/Judy_Martin_(singer)", "Predicate": "http://dbpedia.org/ontology/deathPlace", "Object": {"value":"?CS"}, "opName": "Triple"}
+        ,
+        {"Subject": "?CS", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#Thing"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

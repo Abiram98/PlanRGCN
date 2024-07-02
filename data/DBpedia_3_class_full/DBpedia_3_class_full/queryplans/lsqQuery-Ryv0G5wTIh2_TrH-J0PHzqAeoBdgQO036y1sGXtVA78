@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/El_Cazador_(comics)", "Predicate": "http://dbpedia.org/ontology/series", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

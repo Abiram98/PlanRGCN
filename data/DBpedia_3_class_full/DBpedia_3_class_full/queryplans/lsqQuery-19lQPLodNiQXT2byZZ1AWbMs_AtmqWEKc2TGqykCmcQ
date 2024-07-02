@@ -1,0 +1,223 @@
+{"opName": "project", "subOp": [
+  {"opName": "disjunction", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Papain", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Papain", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Papain", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Bone_cement", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Bone_cement", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Bone_cement", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Shear_strength_(soil)", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Shear_strength_(soil)", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Shear_strength_(soil)", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Wafer_bonding", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Wafer_bonding", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Wafer_bonding", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Bonding_in_solids", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Bonding_in_solids", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Bonding_in_solids", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Adhesive", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Adhesive", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Adhesive", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Fracture", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Fracture", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Fracture", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Titanium", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Titanium", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Titanium", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Adhesive_bonding", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Adhesive_bonding", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Adhesive_bonding", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Fracture_(geology)", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Fracture_(geology)", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Fracture_(geology)", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

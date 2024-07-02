@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?city", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"Vantaa","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+    ,
+    {"Subject": "?city", "Predicate": "http://dbpedia.org/property/latd", "Object": {"value":"?latd"}, "opName": "Triple"}
+    ,
+    {"Subject": "?city", "Predicate": "http://dbpedia.org/property/latm", "Object": {"value":"?latm"}, "opName": "Triple"}
+    ,
+    {"Subject": "?city", "Predicate": "http://dbpedia.org/property/lats", "Object": {"value":"?lats"}, "opName": "Triple"}
+    ,
+    {"Subject": "?city", "Predicate": "http://dbpedia.org/property/longd", "Object": {"value":"?longd"}, "opName": "Triple"}
+    ,
+    {"Subject": "?city", "Predicate": "http://dbpedia.org/property/longm", "Object": {"value":"?longm"}, "opName": "Triple"}
+    ,
+    {"Subject": "?city", "Predicate": "http://dbpedia.org/property/longs", "Object": {"value":"?longs"}, "opName": "Triple"}
+  ]}
+]}

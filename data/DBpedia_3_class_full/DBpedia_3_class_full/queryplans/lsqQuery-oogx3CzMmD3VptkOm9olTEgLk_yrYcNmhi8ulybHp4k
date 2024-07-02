@@ -1,0 +1,27 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(!= ?o1 ?o3), (!= ?o2 ?o3)]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(!= ?o1 ?o2)]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Keanu_Reeves", "Predicate": "?p1", "Object": {"value":"?o1"}, "opName": "Triple"}
+                ,
+                {"Subject": "?o2", "Predicate": "?p2", "Object": {"value":"?o1"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?o2", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://xmlns.com/foaf/0.1/Person"}, "opName": "Triple"}
+              ,
+              {"Subject": "?o3", "Predicate": "?p3", "Object": {"value":"?o2"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?o3", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://xmlns.com/foaf/0.1/Person"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://dbpedia.org/resource/Laurence_Fishburne", "Predicate": "?p4", "Object": {"value":"?o3"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

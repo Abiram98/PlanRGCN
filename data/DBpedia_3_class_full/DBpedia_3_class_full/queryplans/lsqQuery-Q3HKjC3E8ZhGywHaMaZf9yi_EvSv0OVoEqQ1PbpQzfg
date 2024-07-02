@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?subject", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"Fenerbahce Ulker_ONE_s Andrew Goudelock","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?subject", "Predicate": "http://dbpedia.org/ontology/wikiPageRedirects", "Object": {"value":"?redirectUrl"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?subject", "Predicate": "http://dbpedia.org/ontology/wikiPageDisambiguates", "Object": {"value":"?disambiguousUrl"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

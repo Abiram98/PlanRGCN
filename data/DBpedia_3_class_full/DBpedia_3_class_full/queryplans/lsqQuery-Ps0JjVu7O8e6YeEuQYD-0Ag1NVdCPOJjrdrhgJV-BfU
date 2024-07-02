@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "??P1", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"(Ranked 10th)","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+    ,
+    {"Subject": "?mountain", "Predicate": "http://dbpedia.org/property/elevationRef", "Object": {"value":"??P1"}, "opName": "Triple"}
+  ]}
+]}

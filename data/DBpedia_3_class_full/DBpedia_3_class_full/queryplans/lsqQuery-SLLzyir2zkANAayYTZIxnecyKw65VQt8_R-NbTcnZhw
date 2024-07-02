@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Eldoret", "Predicate": "http://www.opengis.net/ont/geosparql#lat", "Object": {"value":"?Lat"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Eldoret", "Predicate": "http://www.opengis.net/ont/geosparql#long", "Object": {"value":"?Long"}, "opName": "Triple"}
+]}

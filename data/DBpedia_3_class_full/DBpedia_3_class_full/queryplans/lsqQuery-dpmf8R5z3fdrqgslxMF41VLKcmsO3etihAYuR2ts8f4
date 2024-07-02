@@ -1,0 +1,18 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "??P132", "Object": {"value":"http://dbpedia.org/ontology/Poet"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/2000/01/rdf-schema#subClassOf>"
+      ]
+      }
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?entity", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"??P132"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

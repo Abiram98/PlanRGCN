@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?Concept \"^http://dbpedia.org\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?Concept", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"http://it.dbpedia.org/resource/Scuola"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,25 @@
+{"opName": "filter" , "expr": " [(regex ?birthPlace \"Jaipur\" \"i\")]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?description) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?oPerson", "Predicate": "http://dbpedia.org/property/occupation", "Object": {"value":"http://dbpedia.org/resource/Actor"}, "opName": "Triple"}
+          ,
+          {"Subject": "?oPerson", "Predicate": "http://dbpedia.org/property/birthPlace", "Object": {"value":"http://dbpedia.org/resource/India"}, "opName": "Triple"}
+          ,
+          {"Subject": "?oPerson", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+          ,
+          {"Subject": "?oPerson", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?description"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?oPerson", "Predicate": "http://dbpedia.org/property/birthPlace", "Object": {"value":"?oBirthPlace"}, "opName": "Triple"}
+        ,
+        {"Subject": "?oPerson", "Predicate": "http://dbpedia.org/property/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+        ,
+        {"Subject": "?oPerson", "Predicate": "http://dbpedia.org/property/occupation", "Object": {"value":"?occupation"}, "opName": "Triple"}
+        ,
+        {"Subject": "?oBirthPlace", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?birthPlace"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

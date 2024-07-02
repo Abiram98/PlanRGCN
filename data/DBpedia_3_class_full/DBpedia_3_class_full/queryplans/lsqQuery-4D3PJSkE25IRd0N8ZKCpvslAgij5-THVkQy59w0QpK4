@@ -1,0 +1,20 @@
+{"opName": "sequence", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?p", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Person"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "path", "Subject": "?p", "Object": {"value":"influenced by","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}
+    , "pathComplexity": [
+    "P_ZeroOrOne"
+    ]
+
+    , "pathType": "zeroOrOne"
+    ,"Predicates":[
+     "<http://dbpedia.org/ontology/influenced>"
+    ]
+    }
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?influenced", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Person"}, "opName": "Triple"}
+    ]}
+]}

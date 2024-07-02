@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Sutton,_West_Virginia", "Predicate": "http://dbpedia.org/ontology/type", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

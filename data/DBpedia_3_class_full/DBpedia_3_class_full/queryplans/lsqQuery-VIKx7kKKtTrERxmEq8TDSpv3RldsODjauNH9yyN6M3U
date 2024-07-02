@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Maccabi_Tel_Aviv_F.C.", "Predicate": "?predicate", "Object": {"value":"?object"}, "opName": "Triple"}
+  ]}
+]}

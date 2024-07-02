@@ -1,0 +1,41 @@
+{"opName": "filter" , "expr": " [(= (lang ?nationality) \"en\")]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?birthPlace) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(regex (str ?dbname) \"Lorraine Nicholson\" \"i\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?dbpedia", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Person"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?dbpedia", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?dbname"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?dbpedia", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+                ,
+                {"Subject": "?dbpedia", "Predicate": "http://dbpedia.org/property/birthPlace", "Object": {"value":"?birthPlace"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?dbpedia", "Predicate": "http://dbpedia.org/property/nationality", "Object": {"value":"?nationality"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?comment) \"en\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(= (lang ?occupation) \"en\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?dbpedia", "Predicate": "http://dbpedia.org/property/occupation", "Object": {"value":"?occupation"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?dbpedia", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?comment"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+  ]}
+]}

@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex (lcase (str ?s)) \"toys\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?item", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?s"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

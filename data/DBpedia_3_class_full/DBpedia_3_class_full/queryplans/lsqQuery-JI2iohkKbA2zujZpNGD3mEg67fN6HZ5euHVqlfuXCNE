@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "??P68", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"Kigali","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+    ,
+    {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/capital", "Object": {"value":"??P68"}, "opName": "Triple"}
+  ]}
+]}

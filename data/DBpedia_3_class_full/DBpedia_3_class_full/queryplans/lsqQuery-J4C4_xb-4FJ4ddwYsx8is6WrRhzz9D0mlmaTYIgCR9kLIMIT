@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?POF \"Prote\" \"i\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?sub", "Predicate": "?pred", "Object": {"value":"?obj"}, "opName": "Triple"}
+      ,
+      {"Subject": "?sub", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://schema.org/Movie"}, "opName": "Triple"}
+      ,
+      {"Subject": "?sub", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?POF"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

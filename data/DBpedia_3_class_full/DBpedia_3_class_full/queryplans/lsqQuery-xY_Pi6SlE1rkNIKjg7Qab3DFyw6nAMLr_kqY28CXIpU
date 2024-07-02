@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/2009_US_Open_(tennis)", "Predicate": "?predicate", "Object": {"value":"?object"}, "opName": "Triple"}
+  ]}
+]}

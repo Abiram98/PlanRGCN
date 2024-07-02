@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?film", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"http://wikidata.dbpedia.org/resource/Q8561227"}, "opName": "Triple"}
+    ,
+    {"Subject": "?film", "Predicate": "http://xmlns.com/foaf/0.1/depiction", "Object": {"value":"?img"}, "opName": "Triple"}
+  ]}
+]}

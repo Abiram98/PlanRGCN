@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?s", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?object"}, "opName": "Triple"}
+    ,
+    {"Subject": "?object", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://umbel.org/umbel/rc/Troop_MilitaryUnit"}, "opName": "Triple"}
+  ]}
+]}

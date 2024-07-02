@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Balloch,_West_Dunbartonshire", "Predicate": "http://dbpedia.org/ontology/leaderName", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

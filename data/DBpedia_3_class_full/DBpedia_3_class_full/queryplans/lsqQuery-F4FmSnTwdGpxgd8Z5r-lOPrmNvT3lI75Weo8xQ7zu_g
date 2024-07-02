@@ -1,0 +1,29 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(<= (- (<http://www.w3.org/2001/XMLSchema#double> ?lat) (<http://www.w3.org/2001/XMLSchema#double> ?input_lat)) ?input_radius_lat), (<= (- (<http://www.w3.org/2001/XMLSchema#double> ?input_lat) (<http://www.w3.org/2001/XMLSchema#double> ?lat)) ?input_radius_lat), (<= (- (<http://www.w3.org/2001/XMLSchema#double> ?lon) (<http://www.w3.org/2001/XMLSchema#double> ?input_lon)) ?input_radius_lon), (<= (- (<http://www.w3.org/2001/XMLSchema#double> ?input_lon) (<http://www.w3.org/2001/XMLSchema#double> ?lon)) ?input_radius_lon), (= (lang ?desc) \"en\")]", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "extend", "subOp": [
+            {"opName": "table", "subOp": []}
+          ]}
+          ,
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(= (lang ?title) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?poi", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?title"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?poi", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "Object": {"value":"?lat"}, "opName": "Triple"}
+                ,
+                {"Subject": "?poi", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#long", "Object": {"value":"?lon"}, "opName": "Triple"}
+              ]}
+          ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?poi", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?desc"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

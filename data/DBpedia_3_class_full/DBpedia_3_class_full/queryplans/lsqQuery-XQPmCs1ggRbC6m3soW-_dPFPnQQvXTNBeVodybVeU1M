@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Govan_Old_Parish_Church", "Predicate": "http://dbpedia.org/ontology/editor", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

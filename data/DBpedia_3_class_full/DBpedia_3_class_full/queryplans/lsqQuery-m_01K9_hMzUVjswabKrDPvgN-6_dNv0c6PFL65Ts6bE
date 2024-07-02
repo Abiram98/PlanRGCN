@@ -1,0 +1,18 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "?cat", "Object": {"value":"http://dbpedia.org/resource/Category:Dutch_politicians_by_party"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/2004/02/skos/core#broader>"
+      ]
+      }
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://purl.org/dc/elements/1.1/subject", "Object": {"value":"?cat"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Josh_Earnest", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?primaryTopic"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/Josh_Earnest", "Predicate": "http://purl.org/dc/elements/1.1/description", "Object": {"value":"?description"}, "opName": "Triple"}
+  ]}
+]}

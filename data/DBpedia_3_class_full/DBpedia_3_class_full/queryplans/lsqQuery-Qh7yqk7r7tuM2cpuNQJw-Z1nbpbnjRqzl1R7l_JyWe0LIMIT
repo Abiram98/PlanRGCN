@@ -1,0 +1,23 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "filter" , "expr": " [(regex ?name \"^michael Jackson$\" \"i\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?person", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?name"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?person", "Predicate": "http://dbpedia.org/property/residence", "Object": {"value":"?residence"}, "opName": "Triple"}
+      ,
+      {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+      ,
+      {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?birthPlace"}, "opName": "Triple"}
+      ,
+      {"Subject": "?person", "Predicate": "http://dbpedia.org/property/shortDescription", "Object": {"value":"?influence"}, "opName": "Triple"}
+      ,
+      {"Subject": "?person", "Predicate": "http://dbpedia.org/property/children", "Object": {"value":"?children"}, "opName": "Triple"}
+      ,
+      {"Subject": "?person", "Predicate": "http://dbpedia.org/property/spouse", "Object": {"value":"?spouse"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

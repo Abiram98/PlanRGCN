@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/8-Eyed_Spy", "Predicate": "http://dbpedia.org/ontology/leaderName", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/2nd_Battalion_4th_Marines", "Predicate": "http://dbpedia.org/ontology/editor", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

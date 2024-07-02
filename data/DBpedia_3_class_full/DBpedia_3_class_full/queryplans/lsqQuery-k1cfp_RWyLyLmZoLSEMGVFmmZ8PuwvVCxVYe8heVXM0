@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex ?s \"DB01050\" \"i\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?s", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+  ]}
+]}

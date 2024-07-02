@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?n \"^http://wikidata.org\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Zion_National_Park", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?n"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Brutus_of_Troy", "Predicate": "http://dbpedia.org/ontology/foundedBy", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

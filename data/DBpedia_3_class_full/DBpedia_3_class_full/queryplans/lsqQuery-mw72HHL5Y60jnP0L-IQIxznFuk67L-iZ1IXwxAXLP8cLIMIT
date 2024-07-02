@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?s) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Battle_of_the_Bismarck_Sea", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?s"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

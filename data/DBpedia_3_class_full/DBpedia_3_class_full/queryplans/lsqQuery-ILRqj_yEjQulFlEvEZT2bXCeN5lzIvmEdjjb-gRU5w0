@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/The_New_Avengers_(comics)", "Predicate": "http://dbpedia.org/ontology/composer", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

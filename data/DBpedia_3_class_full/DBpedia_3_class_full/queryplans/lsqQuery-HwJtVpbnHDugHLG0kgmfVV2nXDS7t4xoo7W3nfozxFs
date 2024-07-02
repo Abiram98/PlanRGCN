@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Toronto_Dance_Theatre", "Predicate": "http://dbpedia.org/ontology/location", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

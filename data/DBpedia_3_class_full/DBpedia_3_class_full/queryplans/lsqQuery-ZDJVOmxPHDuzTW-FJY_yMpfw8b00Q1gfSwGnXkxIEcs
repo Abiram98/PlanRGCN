@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "assign", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "assign", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?s2983", "Predicate": "?p3032", "Object": {"value":"http://dbpedia.org/resource/California"}, "opName": "Triple"}
+            ,
+            {"Subject": "?o2983", "Predicate": "http://dbpedia.org/property/founded", "Object": {"value":"http://dbpedia.org/resource/California"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?s2983", "Predicate": "http://dbpedia.org/property/developer", "Object": {"value":"?o2983"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Capital_North_East", "Predicate": "http://dbpedia.org/ontology/foundedBy", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

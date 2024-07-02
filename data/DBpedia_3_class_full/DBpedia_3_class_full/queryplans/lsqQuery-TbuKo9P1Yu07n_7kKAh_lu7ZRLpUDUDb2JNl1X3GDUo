@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "filter" , "expr": " [(langMatches (lang ?desc) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Are_jardines_colgantes", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?desc"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

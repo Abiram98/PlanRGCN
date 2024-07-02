@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (datatype ?date) <http://www.w3.org/2001/XMLSchema#dateTime>), (= (month ?date) 11), (= (day ?date) 24)]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?entityS", "Predicate": "http://www.wikidata.org/prop/direct/P569", "Object": {"value":"?date"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?entityS", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?entity"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

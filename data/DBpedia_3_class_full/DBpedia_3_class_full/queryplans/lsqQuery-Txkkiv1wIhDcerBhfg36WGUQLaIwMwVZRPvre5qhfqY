@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Joseph_(son_of_Jacob)", "Predicate": "http://dbpedia.org/ontology/keyPerson", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

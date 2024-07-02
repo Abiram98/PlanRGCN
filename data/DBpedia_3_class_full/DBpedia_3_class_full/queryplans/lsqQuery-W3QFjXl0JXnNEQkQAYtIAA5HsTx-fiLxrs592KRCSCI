@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/George_Washington_Bridge_Bus_Station", "Predicate": "http://dbpedia.org/ontology/keyPerson", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

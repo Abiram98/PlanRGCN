@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex ?values \"http://dbpedia.org/resource/Category:Food.*\" \"i\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?resource", "Predicate": "?property", "Object": {"value":"?values"}, "opName": "Triple"}
+  ]}
+]}

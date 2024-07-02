@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?player", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/SoccerPlayer"}, "opName": "Triple"}
+    ,
+    {"Subject": "?player", "Predicate": "http://dbpedia.org/property/currentclub", "Object": {"value":"http://dbpedia.org/resource/FC_Bayern_Munich"}, "opName": "Triple"}
+    ,
+    {"Subject": "?player", "Predicate": "http://dbpedia.org/property/nationalteam", "Object": {"value":"http://dbpedia.org/resource/Germany_national_football_team"}, "opName": "Triple"}
+    ,
+    {"Subject": "?player", "Predicate": "http://dbpedia.org/property/position", "Object": {"value":"http://dbpedia.org/resource/Forward_(association_football)"}, "opName": "Triple"}
+  ]}
+]}

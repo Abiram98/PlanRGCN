@@ -1,0 +1,45 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "table", "subOp": []}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://fr.dbpedia.org/resource/Hengst", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?Name"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "http://fr.dbpedia.org/resource/Hengst", "Predicate": "http://dbpedia.org/property/grapes", "Object": {"value":"?Grape"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://fr.dbpedia.org/resource/Hengst", "Predicate": "http://dbpedia.org/property/subRegions", "Object": {"value":"?SubRegion"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://fr.dbpedia.org/resource/Hengst", "Predicate": "http://dbpedia.org/property/country", "Object": {"value":"?Country"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://fr.dbpedia.org/resource/Hengst", "Predicate": "http://dbpedia.org/property/wineProduced", "Object": {"value":"?Wines"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://fr.dbpedia.org/resource/Hengst", "Predicate": "http://dbpedia.org/property/partOf", "Object": {"value":"?Region"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://fr.dbpedia.org/resource/Hengst", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?Abstract"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

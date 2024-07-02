@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?descr \"pizza\" \"i\"), (regex ?descr \"margherita|diavola|pugliese|capricciosa|calzone|carbonara|romana\" \"i\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(regex ?object \"category:pizza_varieties\" \"i\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?subject", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?object"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?subject", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?descr"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

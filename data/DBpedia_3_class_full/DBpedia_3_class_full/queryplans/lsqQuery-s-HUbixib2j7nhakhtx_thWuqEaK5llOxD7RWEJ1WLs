@@ -1,0 +1,13 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(langMatches (lang ?instrName) \"EN\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Sheila_E.", "Predicate": "http://dbpedia.org/ontology/instrument", "Object": {"value":"?instr"}, "opName": "Triple"}
+        ,
+        {"Subject": "?instr", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?instrName"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?instr", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbURL"}, "opName": "Triple"}
+    ]}
+]}

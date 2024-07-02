@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Los_Angeles_Film_Festival", "Predicate": "http://dbpedia.org/ontology/portrayer", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

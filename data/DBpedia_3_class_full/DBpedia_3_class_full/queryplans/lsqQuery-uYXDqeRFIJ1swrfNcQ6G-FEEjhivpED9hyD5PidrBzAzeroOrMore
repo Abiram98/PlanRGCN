@@ -1,0 +1,22 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "?syn", "Object": {"value":"http://dbpedia.org/resource/Lyon"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://dbpedia.org/ontology/wikiPageDisambiguates>"
+      ]
+      }
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?syn", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?page"}, "opName": "Triple"}
+        ,
+        {"Subject": "?syn", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?o"}, "opName": "Triple"}
+        ,
+        {"Subject": "?o", "Predicate": "bif:contains", "Object": {"value":"http//fr","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+      ]}
+  ]}
+]}

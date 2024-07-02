@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/page/Dermal_Fillers", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?Concept"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/page/Dermal_Fillers", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?subject"}, "opName": "Triple"}
+]}

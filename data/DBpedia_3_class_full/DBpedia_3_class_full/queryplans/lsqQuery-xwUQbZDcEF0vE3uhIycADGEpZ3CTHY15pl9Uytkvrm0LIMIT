@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?S", "Predicate": "?P", "Object": {"value":"?O"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

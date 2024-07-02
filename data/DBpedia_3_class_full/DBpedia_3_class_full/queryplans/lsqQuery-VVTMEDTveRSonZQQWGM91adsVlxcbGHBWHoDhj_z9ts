@@ -1,0 +1,39 @@
+{"opName": "filter" , "expr": " [(= (lang ?bio) \"fr\")]", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "filter" , "expr": " [(= (str ?linkName) \"Leonardo DiCaprio\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?url", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Agent"}, "opName": "Triple"}
+                ,
+                {"Subject": "?url", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?linkName"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?url", "Predicate": "http://dbpedia.org/property/dateOfBirth", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?url", "Predicate": "http://dbpedia.org/property/birthPlace", "Object": {"value":"?birthPlace"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?url", "Predicate": "http://dbpedia.org/property/shortDescription", "Object": {"value":"?descr"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?url", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?bio"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?url", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumb"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

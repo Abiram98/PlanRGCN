@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?uri", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?txt"}, "opName": "Triple"}
+    ,
+    {"Subject": "?txt", "Predicate": "bif:contains", "Object": {"value":"Senova-Systems","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+    ,
+    {"Subject": "?uri", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Company"}, "opName": "Triple"}
+    ,
+    {"Subject": "?uri", "Predicate": "http://dbpedia.org/ontology/parentCompany", "Object": {"value":"?parent"}, "opName": "Triple"}
+    ,
+    {"Subject": "?parent", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?txt2"}, "opName": "Triple"}
+    ,
+    {"Subject": "?txt2", "Predicate": "bif:contains", "Object": {"value":"Senova","datatype":"http://www.w3.org/2001/XMLSchema#string","langTag":""}, "opName": "Triple"}
+  ]}
+]}

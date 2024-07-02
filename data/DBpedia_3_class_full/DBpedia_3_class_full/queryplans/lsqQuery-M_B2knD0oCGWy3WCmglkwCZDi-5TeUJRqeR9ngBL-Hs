@@ -1,0 +1,23 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "filter" , "expr": " [(regex ?occupation \"director\" \"i\")]", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(regex ?artistName \"clint eastwood$\" \"i\"), (= (lang ?artistName) \"en\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?artist", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Artist"}, "opName": "Triple"}
+              ,
+              {"Subject": "?artist", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?artistName"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?artist", "Predicate": "http://dbpedia.org/property/occupation", "Object": {"value":"?occupation"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?artist", "Predicate": "http://dbpedia.org/ontology/occupation", "Object": {"value":"?occupation2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

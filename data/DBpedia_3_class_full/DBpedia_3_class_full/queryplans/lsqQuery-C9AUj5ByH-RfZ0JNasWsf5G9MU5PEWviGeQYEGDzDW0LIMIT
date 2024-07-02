@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?country", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?wouldbeFinland"}, "opName": "Triple"}
+    ,
+    {"Subject": "?wouldbeFinland", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"Finland","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+    ,
+    {"Subject": "?city", "Predicate": "?x", "Object": {"value":"?wouldbeFinland"}, "opName": "Triple"}
+  ]}
+]}

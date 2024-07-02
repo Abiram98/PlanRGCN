@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/The_War_of_the_Gargantuas", "Predicate": "http://dbpedia.org/ontology/series", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

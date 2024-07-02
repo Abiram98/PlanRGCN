@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Mill_Valley,_California", "Predicate": "http://dbpedia.org/ontology/associatedMusicalArtist", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?featureName) \"EN\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?Feature", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing"}, "opName": "Triple"}
+      ,
+      {"Subject": "?Feature", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?featureName"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

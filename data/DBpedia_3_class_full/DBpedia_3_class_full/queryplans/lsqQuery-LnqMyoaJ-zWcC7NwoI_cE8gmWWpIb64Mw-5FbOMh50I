@@ -1,0 +1,35 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?abstract) \"de\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?occupation) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(regex (str ?dbname) \"Scarlett Johansson\" \"i\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?dbpedia", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Person"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?dbpedia", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?dbname"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?dbpedia", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+                ,
+                {"Subject": "?dbpedia", "Predicate": "http://dbpedia.org/ontology/activeYearsStartYear", "Object": {"value":"?startYear"}, "opName": "Triple"}
+                ,
+                {"Subject": "?dbpedia", "Predicate": "http://dbpedia.org/property/occupation", "Object": {"value":"?occupation"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?dbpedia", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+  ,
+  {"opName": "filter" , "expr": " [(= (lang ?nationality) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?dbpedia", "Predicate": "http://dbpedia.org/property/nationality", "Object": {"value":"?nationality"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

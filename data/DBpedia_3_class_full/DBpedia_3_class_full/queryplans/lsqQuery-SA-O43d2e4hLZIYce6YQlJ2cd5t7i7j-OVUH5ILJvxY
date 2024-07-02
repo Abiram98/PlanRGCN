@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(< ?c1 ?c2)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?c1"}, "opName": "Triple"}
+      ,
+      {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?c2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

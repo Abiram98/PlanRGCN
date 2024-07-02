@@ -1,0 +1,43 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?r1", "Predicate": "?p1", "Object": {"value":"?r2"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r2", "Predicate": "?p2", "Object": {"value":"?r3"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r3", "Predicate": "?p3", "Object": {"value":"?r4"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r4", "Predicate": "?p4", "Object": {"value":"?r5"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r5", "Predicate": "?p5", "Object": {"value":"?r6"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r6", "Predicate": "?p6", "Object": {"value":"?r7"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r7", "Predicate": "?p7", "Object": {"value":"?r8"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r1", "Predicate": "?p1", "Object": {"value":"?r2w"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r2w", "Predicate": "?p2", "Object": {"value":"?r3w"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r3w", "Predicate": "?p3", "Object": {"value":"?r4w"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r4w", "Predicate": "?p4", "Object": {"value":"?r5w"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r5w", "Predicate": "?p5", "Object": {"value":"?r6w"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r6w", "Predicate": "?p6", "Object": {"value":"?r7w"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r7w", "Predicate": "?p7", "Object": {"value":"?r8"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r1", "Predicate": "?p1", "Object": {"value":"?r2ww"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r2ww", "Predicate": "?p2", "Object": {"value":"?r3ww"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r3ww", "Predicate": "?p3", "Object": {"value":"?r4ww"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r4ww", "Predicate": "?p4", "Object": {"value":"?r5ww"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r5ww", "Predicate": "?p5", "Object": {"value":"?r6ww"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r6ww", "Predicate": "?p6", "Object": {"value":"?r7ww"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r7ww", "Predicate": "?p7", "Object": {"value":"?r8"}, "opName": "Triple"}
+]}

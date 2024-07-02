@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://mpii.de/yago/resource/Amiri_Baraka", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Agent"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://mpii.de/yago/resource/Amiri_Baraka", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+]}

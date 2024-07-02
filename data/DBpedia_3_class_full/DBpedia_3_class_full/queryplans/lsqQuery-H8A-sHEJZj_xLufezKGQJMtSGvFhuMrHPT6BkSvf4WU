@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Shenandoah_Apple_Blossom_Festival", "Predicate": "http://dbpedia.org/ontology/location", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?x) \"en\")]", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?sub2", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Film"}, "opName": "Triple"}
+        ,
+        {"Subject": "?sub2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"Harry Potter 3","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?sub2", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?x"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/An_American_Carol", "Predicate": "?p", "Object": {"value":"http://dbpedia.org/resource/The_Rainbow_Warrior_(film)"}, "opName": "Triple"}
+]}

@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?x", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Olympics"}, "opName": "Triple"}
+  ,
+  {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/champion", "Object": {"value":"?y"}, "opName": "Triple"}
+]}

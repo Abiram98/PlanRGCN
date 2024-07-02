@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/The_Secret_Policeman's_Ball_2008", "Predicate": "http://dbpedia.org/ontology/genre", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

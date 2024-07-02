@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Totally_Spies!_The_Movie", "Predicate": "?predicate", "Object": {"value":"?y"}, "opName": "Triple"}
+  ]}
+]}

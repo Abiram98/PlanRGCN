@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(regex ?p \"onassis\" \"i\"), (isIRI ?p)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?s", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

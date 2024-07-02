@@ -1,0 +1,27 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?pname) \"en\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(regex (str ?type) \"music\" \"i\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(!= ?puri <http://dbpedia.org/resource/United_States>)]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Scars_on_Broadway", "Predicate": "http://dbpedia.org/ontology/hometown", "Object": {"value":"?puri"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?auri", "Predicate": "http://dbpedia.org/ontology/hometown", "Object": {"value":"?puri"}, "opName": "Triple"}
+                ,
+                {"Subject": "?auri", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?type"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?auri", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?aname"}, "opName": "Triple"}
+          ,
+          {"Subject": "?puri", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?pname"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

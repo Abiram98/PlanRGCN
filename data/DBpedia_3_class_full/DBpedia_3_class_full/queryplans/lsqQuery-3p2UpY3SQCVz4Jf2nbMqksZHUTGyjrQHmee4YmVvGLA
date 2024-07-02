@@ -1,0 +1,20 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "?type", "Object": {"value":"http://yago-knowledge.org/resource/Fire107302836"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/2000/01/rdf-schema#subClassOf>"
+      ]
+      }
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?type"}, "opName": "Triple"}
+        ,
+        {"Subject": "?s", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

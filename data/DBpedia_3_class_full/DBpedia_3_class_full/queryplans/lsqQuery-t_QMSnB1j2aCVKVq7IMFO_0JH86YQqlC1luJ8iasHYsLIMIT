@@ -1,0 +1,335 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "conditional", "subOp": [
+                    {"opName": "conditional", "subOp": [
+                      {"opName": "conditional", "subOp": [
+                        {"opName": "conditional", "subOp": [
+                          {"opName": "conditional", "subOp": [
+                            {"opName": "conditional", "subOp": [
+                              {"opName": "conditional", "subOp": [
+                                {"opName": "conditional", "subOp": [
+                                  {"opName": "conditional", "subOp": [
+                                    {"opName": "conditional", "subOp": [
+                                      {"opName": "conditional", "subOp": [
+                                        {"opName": "conditional", "subOp": [
+                                          {"opName": "conditional", "subOp": [
+                                            {"opName": "conditional", "subOp": [
+                                              {"opName": "conditional", "subOp": [
+                                                {"opName": "conditional", "subOp": [
+                                                  {"opName": "conditional", "subOp": [
+                                                    {"opName": "conditional", "subOp": [
+                                                      {"opName": "conditional", "subOp": [
+                                                        {"opName": "conditional", "subOp": [
+                                                          {"opName": "conditional", "subOp": [
+                                                            {"opName": "conditional", "subOp": [
+                                                              {"opName": "conditional", "subOp": [
+                                                                {"opName": "conditional", "subOp": [
+                                                                  {"opName": "conditional", "subOp": [
+                                                                    {"opName": "conditional", "subOp": [
+                                                                      {"opName": "conditional", "subOp": [
+                                                                        {"opName": "conditional", "subOp": [
+                                                                          {"opName": "conditional", "subOp": [
+                                                                            {"opName": "conditional", "subOp": [
+                                                                              {"opName": "conditional", "subOp": [
+                                                                                {"opName": "conditional", "subOp": [
+                                                                                  {"opName": "conditional", "subOp": [
+                                                                                    {"opName": "conditional", "subOp": [
+                                                                                      {"opName": "conditional", "subOp": [
+                                                                                        {"opName": "conditional", "subOp": [
+                                                                                          {"opName": "conditional", "subOp": [
+                                                                                            {"opName": "conditional", "subOp": [
+                                                                                              {"opName": "conditional", "subOp": [
+                                                                                                {"opName": "conditional", "subOp": [
+                                                                                                  {"opName": "conditional", "subOp": [
+                                                                                                    {"opName": "conditional", "subOp": [
+                                                                                                      {"opName": "conditional", "subOp": [
+                                                                                                        {"opName": "conditional", "subOp": [
+                                                                                                          {"opName": "conditional", "subOp": [
+                                                                                                            {"opName": "conditional", "subOp": [
+                                                                                                              {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+                                                                                                                {"opName":"BGP", "subOp": [
+                                                                                                                  {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+                                                                                                                ]}
+                                                                                                              ]}
+                                                                                                              ,
+                                                                                                              {"opName":"BGP", "subOp": [
+                                                                                                                {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+                                                                                                              ]}
+                                                                                                            ]}
+                                                                                                            ,
+                                                                                                            {"opName":"BGP", "subOp": [
+                                                                                                              {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/officialName", "Object": {"value":"?officialName"}, "opName": "Triple"}
+                                                                                                            ]}
+                                                                                                          ]}
+                                                                                                          ,
+                                                                                                          {"opName":"BGP", "subOp": [
+                                                                                                            {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/website", "Object": {"value":"?website"}, "opName": "Triple"}
+                                                                                                          ]}
+                                                                                                        ]}
+                                                                                                        ,
+                                                                                                        {"opName":"BGP", "subOp": [
+                                                                                                          {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/subdivisionName", "Object": {"value":"?county"}, "opName": "Triple"}
+                                                                                                        ]}
+                                                                                                      ]}
+                                                                                                      ,
+                                                                                                      {"opName":"BGP", "subOp": [
+                                                                                                        {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+                                                                                                      ]}
+                                                                                                    ]}
+                                                                                                    ,
+                                                                                                    {"opName":"BGP", "subOp": [
+                                                                                                      {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/subdivisionName", "Object": {"value":"?county"}, "opName": "Triple"}
+                                                                                                    ]}
+                                                                                                  ]}
+                                                                                                  ,
+                                                                                                  {"opName":"BGP", "subOp": [
+                                                                                                    {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/ontology/foundingDate", "Object": {"value":"?foundingDate"}, "opName": "Triple"}
+                                                                                                  ]}
+                                                                                                ]}
+                                                                                                ,
+                                                                                                {"opName":"BGP", "subOp": [
+                                                                                                  {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/establishedDate", "Object": {"value":"?establishedDate"}, "opName": "Triple"}
+                                                                                                ]}
+                                                                                              ]}
+                                                                                              ,
+                                                                                              {"opName":"BGP", "subOp": [
+                                                                                                {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/ontology/isPartOf", "Object": {"value":"?isPartOf"}, "opName": "Triple"}
+                                                                                              ]}
+                                                                                            ]}
+                                                                                            ,
+                                                                                            {"opName":"BGP", "subOp": [
+                                                                                              {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/ontology/populationTotal", "Object": {"value":"?populationTotal"}, "opName": "Triple"}
+                                                                                            ]}
+                                                                                          ]}
+                                                                                          ,
+                                                                                          {"opName":"BGP", "subOp": [
+                                                                                            {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/ontology/populationTotalRanking", "Object": {"value":"?populationTotalRanking"}, "opName": "Triple"}
+                                                                                          ]}
+                                                                                        ]}
+                                                                                        ,
+                                                                                        {"opName":"BGP", "subOp": [
+                                                                                          {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+                                                                                        ]}
+                                                                                      ]}
+                                                                                      ,
+                                                                                      {"opName":"BGP", "subOp": [
+                                                                                        {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/imageCaption", "Object": {"value":"?imageCaption"}, "opName": "Triple"}
+                                                                                      ]}
+                                                                                    ]}
+                                                                                    ,
+                                                                                    {"opName":"BGP", "subOp": [
+                                                                                      {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/imageFlag", "Object": {"value":"?imageFlag"}, "opName": "Triple"}
+                                                                                    ]}
+                                                                                  ]}
+                                                                                  ,
+                                                                                  {"opName":"BGP", "subOp": [
+                                                                                    {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/imageMap", "Object": {"value":"?imageMap"}, "opName": "Triple"}
+                                                                                  ]}
+                                                                                ]}
+                                                                                ,
+                                                                                {"opName":"BGP", "subOp": [
+                                                                                  {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/mapCaption", "Object": {"value":"?mapCaption"}, "opName": "Triple"}
+                                                                                ]}
+                                                                              ]}
+                                                                              ,
+                                                                              {"opName":"BGP", "subOp": [
+                                                                                {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/imageSeal", "Object": {"value":"?imageSeal"}, "opName": "Triple"}
+                                                                              ]}
+                                                                            ]}
+                                                                            ,
+                                                                            {"opName":"BGP", "subOp": [
+                                                                              {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/imageSkyline", "Object": {"value":"?imageSkyline"}, "opName": "Triple"}
+                                                                            ]}
+                                                                          ]}
+                                                                          ,
+                                                                          {"opName":"BGP", "subOp": [
+                                                                            {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/ontology/wikiPageExternalLink", "Object": {"value":"?wikiPageExternalLink"}, "opName": "Triple"}
+                                                                          ]}
+                                                                        ]}
+                                                                        ,
+                                                                        {"opName":"BGP", "subOp": [
+                                                                          {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/janHighC", "Object": {"value":"?janHighC"}, "opName": "Triple"}
+                                                                        ]}
+                                                                      ]}
+                                                                      ,
+                                                                      {"opName":"BGP", "subOp": [
+                                                                        {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/janLowC", "Object": {"value":"?janLowC"}, "opName": "Triple"}
+                                                                      ]}
+                                                                    ]}
+                                                                    ,
+                                                                    {"opName":"BGP", "subOp": [
+                                                                      {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/febHighC", "Object": {"value":"?febHighC"}, "opName": "Triple"}
+                                                                    ]}
+                                                                  ]}
+                                                                  ,
+                                                                  {"opName":"BGP", "subOp": [
+                                                                    {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/febLowC", "Object": {"value":"?febLowC"}, "opName": "Triple"}
+                                                                  ]}
+                                                                ]}
+                                                                ,
+                                                                {"opName":"BGP", "subOp": [
+                                                                  {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/marHighC", "Object": {"value":"?marHighC"}, "opName": "Triple"}
+                                                                ]}
+                                                              ]}
+                                                              ,
+                                                              {"opName":"BGP", "subOp": [
+                                                                {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/marLowC", "Object": {"value":"?marLowC"}, "opName": "Triple"}
+                                                              ]}
+                                                            ]}
+                                                            ,
+                                                            {"opName":"BGP", "subOp": [
+                                                              {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/aprHighC", "Object": {"value":"?aprHighC"}, "opName": "Triple"}
+                                                            ]}
+                                                          ]}
+                                                          ,
+                                                          {"opName":"BGP", "subOp": [
+                                                            {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/aprLowC", "Object": {"value":"?aprLowC"}, "opName": "Triple"}
+                                                          ]}
+                                                        ]}
+                                                        ,
+                                                        {"opName":"BGP", "subOp": [
+                                                          {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/mayHighC", "Object": {"value":"?mayHighC"}, "opName": "Triple"}
+                                                        ]}
+                                                      ]}
+                                                      ,
+                                                      {"opName":"BGP", "subOp": [
+                                                        {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/mayLowC", "Object": {"value":"?mayLowC"}, "opName": "Triple"}
+                                                      ]}
+                                                    ]}
+                                                    ,
+                                                    {"opName":"BGP", "subOp": [
+                                                      {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/junHighC", "Object": {"value":"?junHighC"}, "opName": "Triple"}
+                                                    ]}
+                                                  ]}
+                                                  ,
+                                                  {"opName":"BGP", "subOp": [
+                                                    {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/junLowC", "Object": {"value":"?junLowC"}, "opName": "Triple"}
+                                                  ]}
+                                                ]}
+                                                ,
+                                                {"opName":"BGP", "subOp": [
+                                                  {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/julHighC", "Object": {"value":"?julHighC"}, "opName": "Triple"}
+                                                ]}
+                                              ]}
+                                              ,
+                                              {"opName":"BGP", "subOp": [
+                                                {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/julLowC", "Object": {"value":"?julLowC"}, "opName": "Triple"}
+                                              ]}
+                                            ]}
+                                            ,
+                                            {"opName":"BGP", "subOp": [
+                                              {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/augHighC", "Object": {"value":"?augHighC"}, "opName": "Triple"}
+                                            ]}
+                                          ]}
+                                          ,
+                                          {"opName":"BGP", "subOp": [
+                                            {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/augLowC", "Object": {"value":"?augLowC"}, "opName": "Triple"}
+                                          ]}
+                                        ]}
+                                        ,
+                                        {"opName":"BGP", "subOp": [
+                                          {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/sepHighC", "Object": {"value":"?sepHighC"}, "opName": "Triple"}
+                                        ]}
+                                      ]}
+                                      ,
+                                      {"opName":"BGP", "subOp": [
+                                        {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/sepLowC", "Object": {"value":"?sepLowC"}, "opName": "Triple"}
+                                      ]}
+                                    ]}
+                                    ,
+                                    {"opName":"BGP", "subOp": [
+                                      {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/octHighC", "Object": {"value":"?octHighC"}, "opName": "Triple"}
+                                    ]}
+                                  ]}
+                                  ,
+                                  {"opName":"BGP", "subOp": [
+                                    {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/octLowC", "Object": {"value":"?octLowC"}, "opName": "Triple"}
+                                  ]}
+                                ]}
+                                ,
+                                {"opName":"BGP", "subOp": [
+                                  {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/novHighC", "Object": {"value":"?novHighC"}, "opName": "Triple"}
+                                ]}
+                              ]}
+                              ,
+                              {"opName":"BGP", "subOp": [
+                                {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/novLowC", "Object": {"value":"?novLowC"}, "opName": "Triple"}
+                              ]}
+                            ]}
+                            ,
+                            {"opName":"BGP", "subOp": [
+                              {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/decHighC", "Object": {"value":"?decHighC"}, "opName": "Triple"}
+                            ]}
+                          ]}
+                          ,
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/decLowC", "Object": {"value":"?decLowC"}, "opName": "Triple"}
+                          ]}
+                        ]}
+                        ,
+                        {"opName":"BGP", "subOp": [
+                          {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/janPrecipitationInch", "Object": {"value":"?janPrecipitationInch"}, "opName": "Triple"}
+                        ]}
+                      ]}
+                      ,
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/febPrecipitationInch", "Object": {"value":"?febPrecipitationInch"}, "opName": "Triple"}
+                      ]}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/marPrecipitationInch", "Object": {"value":"?marPrecipitationInch"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/aprPrecipitationInch", "Object": {"value":"?aprPrecipitationInch"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/mayPrecipitationInch", "Object": {"value":"?mayPrecipitationInch"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/junPrecipitationInch", "Object": {"value":"?junPrecipitationInch"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/julPrecipitationInch", "Object": {"value":"?julPrecipitationInch"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/augPrecipitationInch", "Object": {"value":"?augPrecipitationInch"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/sepPrecipitationInch", "Object": {"value":"?sepPrecipitationInch"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/octPrecipitationInch", "Object": {"value":"?octPrecipitationInch"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/novPrecipitationInch", "Object": {"value":"?novPrecipitationInch"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Vista,_California", "Predicate": "http://dbpedia.org/property/decPrecipitationInch", "Object": {"value":"?decPrecipitationInch"}, "opName": "Triple"}
+  ]}
+]}

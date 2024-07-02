@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?suj \"/berlin?\" \"i\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?suj", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#Thing"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

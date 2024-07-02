@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/New_York_Studio_School_of_Drawing,_Painting_and_Sculpture", "Predicate": "http://dbpedia.org/ontology/almaMater", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

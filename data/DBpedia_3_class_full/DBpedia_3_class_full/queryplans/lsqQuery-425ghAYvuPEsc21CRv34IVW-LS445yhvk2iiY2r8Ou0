@@ -1,0 +1,13 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Brazil", "Predicate": "?p1", "Object": {"value":"?r2"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r2", "Predicate": "?p2", "Object": {"value":"?r3"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r3", "Predicate": "?p3", "Object": {"value":"?r4"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Brazil", "Predicate": "?p1", "Object": {"value":"?r6"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r6", "Predicate": "?p2", "Object": {"value":"?r7"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r7", "Predicate": "?p3", "Object": {"value":"?r8"}, "opName": "Triple"}
+]}

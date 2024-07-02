@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Western_Pennsylvania_Interscholastic_Athletic_League", "Predicate": "http://dbpedia.org/ontology/genre", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

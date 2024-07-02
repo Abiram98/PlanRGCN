@@ -1,0 +1,13 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lang ?abstract) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/United_States_Environmental_Protection_Agency", "Predicate": "http://xmlns.com/foaf/0.1/depiction", "Object": {"value":"?pic"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://dbpedia.org/resource/United_States_Environmental_Protection_Agency", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/United_States_Environmental_Protection_Agency", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?link"}, "opName": "Triple"}
+    ]}
+]}

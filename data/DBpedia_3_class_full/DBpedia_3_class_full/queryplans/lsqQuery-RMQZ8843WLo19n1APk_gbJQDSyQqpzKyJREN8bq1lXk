@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Lost_Boys:_The_Tribe", "Predicate": "http://dbpedia.org/ontology/occupation", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

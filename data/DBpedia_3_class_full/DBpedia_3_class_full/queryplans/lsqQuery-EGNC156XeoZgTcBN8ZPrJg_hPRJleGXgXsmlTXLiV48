@@ -1,0 +1,30 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://example.org/Robert", "Predicate": "http://example.org/favoriteTeam", "Object": {"value":"?list"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "sequence", "subOp": [
+          {"opName": "path", "Subject": "?list", "Object": {"value":"??P100"}
+          , "pathComplexity": [
+          "P_ZeroOrMore1"
+          ]
+
+          , "pathType": "ZeroOrMore"
+          ,"Predicates":[
+           "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>"
+          ]
+          }
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "??P100", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#first", "Object": {"value":"?team"}, "opName": "Triple"}
+          ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(< ?year 1900)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?team", "Predicate": "http://example.org/foundingYear", "Object": {"value":"?year"}, "opName": "Triple"}
+        ]}
+      ]}
+  ]}
+]}

@@ -1,0 +1,34 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "path", "Subject": "?battle", "Object": {"value":"http://dbpedia.org/resource/Napoleonic_Wars"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://dbpedia.org/ontology/isPartOfMilitaryConflict>"
+      ]
+      }
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?Description) \"en\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(= (lang ?Title) \"en\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?battle", "Predicate": "http://dbpedia.org/ontology/date", "Object": {"value":"?Start"}, "opName": "Triple"}
+                ,
+                {"Subject": "?battle", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?Title"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?battle", "Predicate": "http://www.opengis.net/ont/geosparql#lat", "Object": {"value":"?lat"}, "opName": "Triple"}
+              ,
+              {"Subject": "?battle", "Predicate": "http://www.opengis.net/ont/geosparql#long", "Object": {"value":"?long"}, "opName": "Triple"}
+              ,
+              {"Subject": "?battle", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?Description"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+  ]}
+]}

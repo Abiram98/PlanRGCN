@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/ontology/foundingPerson", "Predicate": "http://www.w3.org/2000/01/rdf-schema#range", "Object": {"value":"?rng"}, "opName": "Triple"}
+  ]}
+]}

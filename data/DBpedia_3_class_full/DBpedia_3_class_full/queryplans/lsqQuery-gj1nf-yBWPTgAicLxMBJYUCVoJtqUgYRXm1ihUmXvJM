@@ -1,0 +1,21 @@
+{"opName": "filter" , "expr": " [(! (sameTerm ?p3_2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>)), (! (sameTerm ?p3_2 <http://www.w3.org/2000/01/rdf-schema#subClassOf>)), (! (sameTerm ?p3_2 <http://www.w3.org/2002/07/owl#sameAs>))]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(! (sameTerm ?p1_2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>)), (! (sameTerm ?p1_2 <http://www.w3.org/2000/01/rdf-schema#subClassOf>)), (! (sameTerm ?p1_2 <http://www.w3.org/2002/07/owl#sameAs>)), (isIRI ?v2), (isIRI ?v2)]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(! (sameTerm ?p1_0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>)), (! (sameTerm ?p1_0 <http://www.w3.org/2000/01/rdf-schema#subClassOf>)), (! (sameTerm ?p1_0 <http://www.w3.org/2002/07/owl#sameAs>))]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?v1", "Predicate": "?p1_0", "Object": {"value":"http://dbpedia.org/resource/Alaska"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?v1", "Predicate": "?p1_2", "Object": {"value":"?v2"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Michigan", "Predicate": "?p3_2", "Object": {"value":"?v2"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

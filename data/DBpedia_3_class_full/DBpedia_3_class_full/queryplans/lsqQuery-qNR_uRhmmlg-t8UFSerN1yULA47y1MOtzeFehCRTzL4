@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?produce", "Predicate": "http://dbpedia.org/property/producer", "Object": {"value":"http://dbpedia.org/resource/Walt_Disney"}, "opName": "Triple"}
+    ,
+    {"Subject": "?produce", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/televisionShow"}, "opName": "Triple"}
+  ]}
+]}

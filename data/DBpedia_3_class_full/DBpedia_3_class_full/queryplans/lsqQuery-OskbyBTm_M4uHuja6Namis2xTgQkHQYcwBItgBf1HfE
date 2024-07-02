@@ -1,0 +1,51 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "filter" , "expr": " [(= ?label \"unconditional surrender\"@en)]", "subOp": [
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?person", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://xmlns.com/foaf/0.1/Person"}, "opName": "Triple"}
+                    ,
+                    {"Subject": "?person", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/deathDate", "Object": {"value":"?deathDate"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/activeYearsEndDate", "Object": {"value":"?activeYearsEndDate"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/activeYearsStartDate", "Object": {"value":"?activeYearsStartDate"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/activeYearsEndYear", "Object": {"value":"?activeYearsEndYear"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/activeYearsStartYear", "Object": {"value":"?activeYearsStartYear"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?person", "Predicate": "http://dbpedia.org/property/reign", "Object": {"value":"?reign"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,93 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "conditional", "subOp": [
+                    {"opName": "conditional", "subOp": [
+                      {"opName": "conditional", "subOp": [
+                        {"opName": "conditional", "subOp": [
+                          {"opName": "sequence", "subOp": [
+                              {"opName": "conditional", "subOp": [
+                                {"opName":"BGP", "subOp": [
+                                  {"Subject": "?x", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"Store","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+                                  ,
+                                  {"Subject": "?x", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Company"}, "opName": "Triple"}
+                                ]}
+                                ,
+                                {"opName":"BGP", "subOp": [
+                                  {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?photo"}, "opName": "Triple"}
+                                ]}
+                              ]}
+                              ,
+                              {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"EN\")]", "subOp": [
+                                {"opName":"BGP", "subOp": [
+                                  {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+                                ]}
+                              ]}
+                          ]}
+                          ,
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/foundingYear", "Object": {"value":"?foundedYear"}, "opName": "Triple"}
+                          ]}
+                        ]}
+                        ,
+                        {"opName":"BGP", "subOp": [
+                          {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/foundingDate", "Object": {"value":"?founded"}, "opName": "Triple"}
+                        ]}
+                      ]}
+                      ,
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "?x", "Predicate": "http://dbpedia.org/property/industry", "Object": {"value":"?industry"}, "opName": "Triple"}
+                      ]}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?x", "Predicate": "http://dbpedia.org/property/founder", "Object": {"value":"?founder"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/foundedBy", "Object": {"value":"?founder2"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/keyPerson", "Object": {"value":"?important"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?x", "Predicate": "http://dbpedia.org/property/keyPeople", "Object": {"value":"?important2"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?x", "Predicate": "http://dbpedia.org/property/locationCity", "Object": {"value":"?city"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?x", "Predicate": "http://dbpedia.org/property/locationCountry", "Object": {"value":"?country"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?x", "Predicate": "http://dbpedia.org/property/parent", "Object": {"value":"?connected"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?x", "Predicate": "http://dbpedia.org/property/parentOrganization", "Object": {"value":"?connectedCompanies2"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/subsidiary", "Object": {"value":"?parentOrg"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

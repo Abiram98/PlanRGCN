@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?cityName) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?city", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Place"}, "opName": "Triple"}
+          ,
+          {"Subject": "?city", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?cityName"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?city", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?country"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

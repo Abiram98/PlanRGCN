@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(strstarts (str ?entity2) \"http://yago-knowledge.org/resource/\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?entity1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Person"}, "opName": "Triple"}
+      ,
+      {"Subject": "?entity1", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?entity2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

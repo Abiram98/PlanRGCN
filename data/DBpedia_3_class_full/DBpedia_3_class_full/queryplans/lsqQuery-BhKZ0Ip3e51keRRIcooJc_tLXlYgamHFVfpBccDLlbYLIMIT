@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Colosseum", "Predicate": "?p1", "Object": {"value":"?c"}, "opName": "Triple"}
+    ,
+    {"Subject": "?c", "Predicate": "?p2", "Object": {"value":"?cy"}, "opName": "Triple"}
+    ,
+    {"Subject": "?cy", "Predicate": "?p3", "Object": {"value":"http://dbpedia.org/resource/Fiumicino"}, "opName": "Triple"}
+    ,
+    {"Subject": "?c", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Place"}, "opName": "Triple"}
+  ]}
+]}

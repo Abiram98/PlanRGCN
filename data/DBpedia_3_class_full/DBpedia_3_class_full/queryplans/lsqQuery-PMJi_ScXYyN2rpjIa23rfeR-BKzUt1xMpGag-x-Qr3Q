@@ -1,0 +1,51 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/award", "Object": {"value":"http://dbpedia.org/resource/Nobel_Memorial_Prize_in_Economic_Sciences"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?person", "Predicate": "http://xmlns.com/foaf/0.1/givenName", "Object": {"value":"?gname"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?person", "Predicate": "http://xmlns.com/foaf/0.1/surname", "Object": {"value":"?sname"}, "opName": "Triple"}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?person", "Predicate": "http://dbpedia.org/property/dateOfBirth", "Object": {"value":"?dob"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?person", "Predicate": "http://dbpedia.org/property/dateOfDeath", "Object": {"value":"?dod"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?person", "Predicate": "http://dbpedia.org/property/thumbnail", "Object": {"value":"?img"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?person", "Predicate": "http://dbpedia.org/property/nationality", "Object": {"value":"?nat"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?nat", "Predicate": "http://dbpedia.org/property/commonName", "Object": {"value":"?natname"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?person", "Predicate": "http://dbpedia.org/property/almaMater", "Object": {"value":"?am"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?am", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?amname"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

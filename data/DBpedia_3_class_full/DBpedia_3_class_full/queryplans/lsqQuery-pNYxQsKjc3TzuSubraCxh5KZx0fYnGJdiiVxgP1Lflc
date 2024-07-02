@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Mayerling_(ballet)", "Predicate": "?rel", "Object": {"value":"?value"}, "opName": "Triple"}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Victoria's_Secret", "Predicate": "http://dbpedia.org/ontology/leaderName", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

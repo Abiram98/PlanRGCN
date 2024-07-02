@@ -1,0 +1,13 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(regex (str ?label) \"Vantaa\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?dbcity", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?label"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?dbcity", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "Object": {"value":"?lat"}, "opName": "Triple"}
+      ,
+      {"Subject": "?dbcity", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#long", "Object": {"value":"?lng"}, "opName": "Triple"}
+    ]}
+]}

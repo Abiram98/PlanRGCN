@@ -1,0 +1,53 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(langMatches (lang ?title) \"en\"), (langMatches (lang ?comment) \"en\")]", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "conditional", "subOp": [
+                    {"opName": "conditional", "subOp": [
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "?movie", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Film"}, "opName": "Triple"}
+                      ]}
+                      ,
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "?movie", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?title"}, "opName": "Triple"}
+                      ]}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?movie", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?comment"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?movie", "Predicate": "http://dbpedia.org/ontology/Work/runtime", "Object": {"value":"?runtime"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?movie", "Predicate": "http://dbpedia.org/ontology/budget", "Object": {"value":"?budget"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?movie", "Predicate": "http://dbpedia.org/ontology/director", "Object": {"value":"?director"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?movie", "Predicate": "http://dbpedia.org/ontology/gross", "Object": {"value":"?gross"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?movie", "Predicate": "http://dbpedia.org/ontology/musicComposer", "Object": {"value":"?musicComposer"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

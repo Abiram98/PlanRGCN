@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?entity", "Predicate": "http://dbpedia.org/property/aprMeanC", "Object": {"value":"?value"}, "opName": "Triple"}
+        ,
+        {"Subject": "?entity", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Settlement"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,17 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lang ?filmAbstract) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://mpii.de/yago/resource/Charlie_Wilson%27s_War", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Film"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://mpii.de/yago/resource/Charlie_Wilson%27s_War", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?wikiPage"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://mpii.de/yago/resource/Charlie_Wilson%27s_War", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?filmAbstract"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://mpii.de/yago/resource/Charlie_Wilson%27s_War", "Predicate": "http://dbpedia.org/ontology/runtime", "Object": {"value":"?runtime"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://mpii.de/yago/resource/Charlie_Wilson%27s_War", "Predicate": "http://xmlns.com/foaf/0.1/depiction", "Object": {"value":"?picURL"}, "opName": "Triple"}
+    ]}
+]}

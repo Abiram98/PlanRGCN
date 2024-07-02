@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/ontology/nearestCity", "Predicate": "http://www.w3.org/2000/01/rdf-schema#range", "Object": {"value":"?r"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/ontology/nearestCity", "Predicate": "http://www.w3.org/2000/01/rdf-schema#domain", "Object": {"value":"?d"}, "opName": "Triple"}
+  ]}
+]}

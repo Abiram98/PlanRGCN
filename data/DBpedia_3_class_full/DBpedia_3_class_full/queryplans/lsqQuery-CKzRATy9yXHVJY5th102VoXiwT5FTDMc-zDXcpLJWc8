@@ -1,0 +1,13 @@
+{"opName": "disjunction", "subOp": [
+  {"opName": "assign", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Larry_Page", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?o"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName": "assign", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Sergey_Brin", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?o"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

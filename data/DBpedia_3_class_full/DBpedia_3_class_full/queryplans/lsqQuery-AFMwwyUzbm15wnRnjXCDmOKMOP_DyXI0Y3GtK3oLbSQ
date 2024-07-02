@@ -1,0 +1,13 @@
+{"opName": "filter" , "expr": " [(regex (str ?pred2) \"ontology\"), (! (regex (str ?pred2) \"wiki\"))]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(!= ?ogg1 <http://dbpedia.org/resource/Islamic_State_of_Iraq_and_the_Levant>), (!= ?ogg1 <http://dbpedia.org/resource/Conglomerate_(company)>), (regex (str ?pred1) \"ontology\"), (! (regex (str ?pred1) \"wiki\")), (regex (str ?ogg1) \"resource\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?ogg1", "Predicate": "?pred1", "Object": {"value":"http://dbpedia.org/resource/Islamic_State_of_Iraq_and_the_Levant"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?ogg1", "Predicate": "?pred2", "Object": {"value":"http://dbpedia.org/resource/Conglomerate_(company)"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

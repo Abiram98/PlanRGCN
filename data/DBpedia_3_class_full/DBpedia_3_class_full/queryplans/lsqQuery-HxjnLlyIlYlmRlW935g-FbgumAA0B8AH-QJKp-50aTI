@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Telecommunications_device_for_the_deaf", "Predicate": "http://dbpedia.org/ontology/computingPlatform", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

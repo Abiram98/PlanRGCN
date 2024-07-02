@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Texas_State_Highway_Loop_20", "Predicate": "http://dbpedia.org/ontology/composer", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

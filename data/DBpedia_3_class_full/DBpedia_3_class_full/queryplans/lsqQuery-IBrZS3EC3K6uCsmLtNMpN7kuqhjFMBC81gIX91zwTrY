@@ -1,0 +1,13 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(langMatches (lang ?opisaniye) \"RU\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?kniga", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Book"}, "opName": "Triple"}
+        ,
+        {"Subject": "?kniga", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?opisaniye"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?kniga", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?imya"}, "opName": "Triple"}
+    ]}
+]}

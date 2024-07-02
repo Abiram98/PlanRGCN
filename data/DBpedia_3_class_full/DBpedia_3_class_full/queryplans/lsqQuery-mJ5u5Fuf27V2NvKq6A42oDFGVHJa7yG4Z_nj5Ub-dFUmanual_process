@@ -1,0 +1,42 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(>= ?date \"1950\"^^<http://www.w3.org/2001/XMLSchema#date>), (<= ?date \"2016\"^^<http://www.w3.org/2001/XMLSchema#date>)]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"EN\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?sub", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/ArchitecturalStructure"}, "opName": "Triple"}
+                ,
+                {"Subject": "?sub", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?sub", "Predicate": "?pred_place", "Object": {"value":"?place"}, "opName": "Triple"}
+              ,
+              {"Subject": "?sub", "Predicate": "http://dbpedia.org/ontology/lastLaunchDate", "Object": {"value":"?date"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?sub", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?place"}, "opName": "Triple"}
+        ,
+        {"Subject": "?place", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?class"}, "opName": "Triple"}
+        ,
+        {"Subject": "?place", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "Object": {"value":"?lat"}, "opName": "Triple"}
+        ,
+        {"Subject": "?place", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#long", "Object": {"value":"?lon"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "path", "Subject": "?class", "Object": {"value":"http://dbpedia.org/ontology/PopulatedPlace"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/2000/01/rdf-schema#subClassOf>"
+      ]
+      }
+  ]}
+]}

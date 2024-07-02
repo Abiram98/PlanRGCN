@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?subject", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.wikidata.org/entity/Q11446"}, "opName": "Triple"}
+    ,
+    {"Subject": "?subject", "Predicate": "http://dbpedia.org/property/before", "Object": {"value":"?o"}, "opName": "Triple"}
+  ]}
+]}

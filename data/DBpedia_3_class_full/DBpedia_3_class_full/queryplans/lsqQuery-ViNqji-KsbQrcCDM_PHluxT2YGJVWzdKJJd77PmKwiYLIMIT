@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?suj \"name\" \"i\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(regex ?prop \"name\" \"i\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?prop", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?suj", "Predicate": "?prop", "Object": {"value":"?img"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

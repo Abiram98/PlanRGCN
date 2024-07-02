@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?content) \"en\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?id", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Country"}, "opName": "Triple"}
+            ,
+            {"Subject": "?id", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?content"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?id", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

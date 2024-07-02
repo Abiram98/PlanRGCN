@@ -1,0 +1,19 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?dbpedia_conc", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"Bio toxins","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?description_en) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://vocabs.lter-europe.net/EnvThes/AF_c2_2609", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?def_en"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+  ,
+  {"opName": "filter" , "expr": " [(= (lang ?description_de) \"de\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://vocabs.lter-europe.net/EnvThes/AF_c2_2609", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?def_de"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

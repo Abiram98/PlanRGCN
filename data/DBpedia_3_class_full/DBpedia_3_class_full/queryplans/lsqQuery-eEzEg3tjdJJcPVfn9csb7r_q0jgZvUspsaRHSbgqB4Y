@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"AR\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?propName", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?????????? ???????????? ?????????????? ??????????????","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"ar"}, "opName": "Triple"}
+      ,
+      {"Subject": "?propName", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

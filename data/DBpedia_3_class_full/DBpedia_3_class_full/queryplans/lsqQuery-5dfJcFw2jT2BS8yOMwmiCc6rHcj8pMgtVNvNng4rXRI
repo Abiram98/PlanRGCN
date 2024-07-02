@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Himalayan_Homestays", "Predicate": "http://dbpedia.org/ontology/wikiPageDisambiguates", "Object": {"value":"?URI"}, "opName": "Triple"}
+]}

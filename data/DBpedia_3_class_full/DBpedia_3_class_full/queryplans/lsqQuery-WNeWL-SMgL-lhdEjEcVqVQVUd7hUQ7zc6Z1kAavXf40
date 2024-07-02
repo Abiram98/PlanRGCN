@@ -1,0 +1,9 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://www.pchmelar.cz/resources/economic-freedom/132", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Place"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://www.pchmelar.cz/resources/economic-freedom/132", "Predicate": "http://dbpedia.org/ontology/capital", "Object": {"value":"?capital"}, "opName": "Triple"}
+  ,
+  {"Subject": "?capital", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/PopulatedPlace"}, "opName": "Triple"}
+  ,
+  {"Subject": "?capital", "Predicate": "http://www.georss.org/georss/point", "Object": {"value":"?coord"}, "opName": "Triple"}
+]}

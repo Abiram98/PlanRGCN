@@ -1,0 +1,45 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "filter" , "expr": " [(= ?label \"pressed\"@en)]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?place", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Place"}, "opName": "Triple"}
+                  ,
+                  {"Subject": "?place", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?place", "Predicate": "http://dbpedia.org/ontology/openingDate", "Object": {"value":"?openingDate"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?place", "Predicate": "http://dbpedia.org/property/openingDate", "Object": {"value":"?opened"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?place", "Predicate": "http://dbpedia.org/property/created", "Object": {"value":"?created"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?place", "Predicate": "http://dbpedia.org/ontology/opening", "Object": {"value":"?opening"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?place", "Predicate": "http://dbpedia.org/property/startDate", "Object": {"value":"?startDate"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?place", "Predicate": "http://dbpedia.org/property/completionDate", "Object": {"value":"?completionDate"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

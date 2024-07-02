@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(regex (str ?town) <http://dbpedia.org/resource/Zierbena>)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?town", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "Object": {"value":"?lat"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?town", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#long", "Object": {"value":"?long"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

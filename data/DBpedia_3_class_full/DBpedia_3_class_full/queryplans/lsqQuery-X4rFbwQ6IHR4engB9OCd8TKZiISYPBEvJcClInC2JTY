@@ -1,0 +1,221 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?abstract1) \"en\")]", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "conditional", "subOp": [
+                    {"opName": "conditional", "subOp": [
+                      {"opName": "conditional", "subOp": [
+                        {"opName": "conditional", "subOp": [
+                          {"opName": "conditional", "subOp": [
+                            {"opName": "conditional", "subOp": [
+                              {"opName": "conditional", "subOp": [
+                                {"opName": "conditional", "subOp": [
+                                  {"opName": "conditional", "subOp": [
+                                    {"opName": "conditional", "subOp": [
+                                      {"opName": "conditional", "subOp": [
+                                        {"opName": "conditional", "subOp": [
+                                          {"opName": "conditional", "subOp": [
+                                            {"opName": "conditional", "subOp": [
+                                              {"opName": "conditional", "subOp": [
+                                                {"opName": "conditional", "subOp": [
+                                                  {"opName": "conditional", "subOp": [
+                                                    {"opName": "conditional", "subOp": [
+                                                      {"opName": "conditional", "subOp": [
+                                                        {"opName": "conditional", "subOp": [
+                                                          {"opName": "conditional", "subOp": [
+                                                            {"opName": "conditional", "subOp": [
+                                                              {"opName": "conditional", "subOp": [
+                                                                {"opName": "conditional", "subOp": [
+                                                                  {"opName": "conditional", "subOp": [
+                                                                    {"opName": "conditional", "subOp": [
+                                                                      {"opName": "conditional", "subOp": [
+                                                                        {"opName": "conditional", "subOp": [
+                                                                          {"opName": "conditional", "subOp": [
+                                                                            {"opName": "table", "subOp": []}
+                                                                            ,
+                                                                            {"opName":"BGP", "subOp": [
+                                                                              {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+                                                                            ]}
+                                                                          ]}
+                                                                          ,
+                                                                          {"opName":"BGP", "subOp": [
+                                                                            {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/alias", "Object": {"value":"?alias"}, "opName": "Triple"}
+                                                                          ]}
+                                                                        ]}
+                                                                        ,
+                                                                        {"opName":"BGP", "subOp": [
+                                                                          {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/birthName", "Object": {"value":"?birthName"}, "opName": "Triple"}
+                                                                        ]}
+                                                                      ]}
+                                                                      ,
+                                                                      {"opName":"BGP", "subOp": [
+                                                                        {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?birthPlace"}, "opName": "Triple"}
+                                                                      ]}
+                                                                    ]}
+                                                                    ,
+                                                                    {"opName":"BGP", "subOp": [
+                                                                      {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+                                                                    ]}
+                                                                  ]}
+                                                                  ,
+                                                                  {"opName":"BGP", "subOp": [
+                                                                    {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/placeOfBirth", "Object": {"value":"?placeOfBirth"}, "opName": "Triple"}
+                                                                  ]}
+                                                                ]}
+                                                                ,
+                                                                {"opName":"BGP", "subOp": [
+                                                                  {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/religion", "Object": {"value":"?religion"}, "opName": "Triple"}
+                                                                ]}
+                                                              ]}
+                                                              ,
+                                                              {"opName":"BGP", "subOp": [
+                                                                {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/residence", "Object": {"value":"?residence"}, "opName": "Triple"}
+                                                              ]}
+                                                            ]}
+                                                            ,
+                                                            {"opName":"BGP", "subOp": [
+                                                              {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/children", "Object": {"value":"?children"}, "opName": "Triple"}
+                                                            ]}
+                                                          ]}
+                                                          ,
+                                                          {"opName":"BGP", "subOp": [
+                                                            {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?name"}, "opName": "Triple"}
+                                                          ]}
+                                                        ]}
+                                                        ,
+                                                        {"opName":"BGP", "subOp": [
+                                                          {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/spouse", "Object": {"value":"?spouse"}, "opName": "Triple"}
+                                                        ]}
+                                                      ]}
+                                                      ,
+                                                      {"opName":"BGP", "subOp": [
+                                                        {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract1"}, "opName": "Triple"}
+                                                      ]}
+                                                    ]}
+                                                    ,
+                                                    {"opName":"BGP", "subOp": [
+                                                      {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/education", "Object": {"value":"?education"}, "opName": "Triple"}
+                                                    ]}
+                                                  ]}
+                                                  ,
+                                                  {"opName":"BGP", "subOp": [
+                                                    {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/signature", "Object": {"value":"?signature"}, "opName": "Triple"}
+                                                  ]}
+                                                ]}
+                                                ,
+                                                {"opName":"BGP", "subOp": [
+                                                  {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/child", "Object": {"value":"?child"}, "opName": "Triple"}
+                                                ]}
+                                              ]}
+                                              ,
+                                              {"opName":"BGP", "subOp": [
+                                                {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/relation", "Object": {"value":"?relation"}, "opName": "Triple"}
+                                              ]}
+                                            ]}
+                                            ,
+                                            {"opName":"BGP", "subOp": [
+                                              {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/relative", "Object": {"value":"?relative"}, "opName": "Triple"}
+                                            ]}
+                                          ]}
+                                          ,
+                                          {"opName":"BGP", "subOp": [
+                                            {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/nationality", "Object": {"value":"?nationality"}, "opName": "Triple"}
+                                          ]}
+                                        ]}
+                                        ,
+                                        {"opName":"BGP", "subOp": [
+                                          {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/wikiPageExternalLink", "Object": {"value":"?wikiPageExternalLink"}, "opName": "Triple"}
+                                        ]}
+                                      ]}
+                                      ,
+                                      {"opName":"BGP", "subOp": [
+                                        {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/almaMater", "Object": {"value":"?almaMater"}, "opName": "Triple"}
+                                      ]}
+                                    ]}
+                                    ,
+                                    {"opName":"BGP", "subOp": [
+                                      {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/hasPhotoCollection", "Object": {"value":"?hasPhotoCollection"}, "opName": "Triple"}
+                                    ]}
+                                  ]}
+                                  ,
+                                  {"opName":"BGP", "subOp": [
+                                    {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/party", "Object": {"value":"?party"}, "opName": "Triple"}
+                                  ]}
+                                ]}
+                                ,
+                                {"opName":"BGP", "subOp": [
+                                  {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/shortDescription", "Object": {"value":"?shortDescription"}, "opName": "Triple"}
+                                ]}
+                              ]}
+                              ,
+                              {"opName":"BGP", "subOp": [
+                                {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/state", "Object": {"value":"?state"}, "opName": "Triple"}
+                              ]}
+                            ]}
+                            ,
+                            {"opName":"BGP", "subOp": [
+                              {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/stateSenate", "Object": {"value":"?stateSenate"}, "opName": "Triple"}
+                            ]}
+                          ]}
+                          ,
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/successor", "Object": {"value":"?successor"}, "opName": "Triple"}
+                          ]}
+                        ]}
+                        ,
+                        {"opName":"BGP", "subOp": [
+                          {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/termEnd", "Object": {"value":"?termEnd"}, "opName": "Triple"}
+                        ]}
+                      ]}
+                      ,
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/termStart", "Object": {"value":"?termStart"}, "opName": "Triple"}
+                      ]}
+                    ]}
+                    ,
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/title", "Object": {"value":"?title"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?comment"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/leader", "Object": {"value":"?leader"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/person", "Object": {"value":"?person"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/opponent", "Object": {"value":"?opponent"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/leaderName", "Object": {"value":"?leaderName"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/property/members", "Object": {"value":"?members"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Donald_Trump", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract1"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

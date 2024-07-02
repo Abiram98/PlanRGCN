@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(= (str ?imeDBP) \"Don Rickles\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?actordb", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?imeDBP"}, "opName": "Triple"}
+  ]}
+]}

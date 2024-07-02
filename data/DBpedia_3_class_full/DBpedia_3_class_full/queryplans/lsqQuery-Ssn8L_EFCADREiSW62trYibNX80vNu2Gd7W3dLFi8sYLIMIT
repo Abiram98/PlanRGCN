@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?nome \"hawaii\" \"i\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?entita", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/PopulatedPlace"}, "opName": "Triple"}
+      ,
+      {"Subject": "?entita", "Predicate": "?v", "Object": {"value":"?nome"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

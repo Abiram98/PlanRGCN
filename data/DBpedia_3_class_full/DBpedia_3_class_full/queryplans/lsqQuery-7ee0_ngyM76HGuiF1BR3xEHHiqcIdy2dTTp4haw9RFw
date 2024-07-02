@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?cat", "Predicate": "http://www.w3.org/2004/02/skos/core#broader", "Object": {"value":"?s"}, "opName": "Triple"}
+        ,
+        {"Subject": "?s", "Predicate": "http://www.w3.org/2004/02/skos/core#broader", "Object": {"value":"?s1"}, "opName": "Triple"}
+        ,
+        {"Subject": "?cat", "Predicate": "http://www.w3.org/2004/02/skos/core#broader", "Object": {"value":"?s1"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

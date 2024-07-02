@@ -1,0 +1,21 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(langMatches (lang ?company_field_abstract) \"EN\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(regex ?var182599498 \"3d printing\")]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?company", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?var182599498"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?company", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?company_field_name"}, "opName": "Triple"}
+              ,
+              {"Subject": "?company", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?company_field_abstract"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

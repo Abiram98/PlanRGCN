@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?name) \"de\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?plant", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/class/yago/Cultivar113084834"}, "opName": "Triple"}
+      ,
+      {"Subject": "?plant", "Predicate": "http://dbpedia.org/property/color", "Object": {"value":"?color"}, "opName": "Triple"}
+      ,
+      {"Subject": "?plant", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?name"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

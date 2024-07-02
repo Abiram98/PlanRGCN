@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Emerson_Electric", "Predicate": "http://dbpedia.org/ontology/wikiPageRedirects", "Object": {"value":"?redirectUrl"}, "opName": "Triple"}
+]}

@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/An_Empty_Bliss_Beyond_This_World", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?types"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

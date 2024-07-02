@@ -1,0 +1,21 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "filter" , "expr": " [(= (ucase (str ?dbplab)) \"VERTICALLY STRATIFIED WATER COLUMN WITH FULL SALINITY\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?dbpedia_conc", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?dbplab"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?def_en) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?dbpedia_conc", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?def_en"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+  ,
+  {"opName": "filter" , "expr": " [(= (lang ?def_de) \"de\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?dbpedia_conc", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?def_de"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

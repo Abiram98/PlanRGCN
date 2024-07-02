@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(! (strstarts (str ?concept) \"http://dbpedia.org/class/yago/\"))]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?x", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?concept"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

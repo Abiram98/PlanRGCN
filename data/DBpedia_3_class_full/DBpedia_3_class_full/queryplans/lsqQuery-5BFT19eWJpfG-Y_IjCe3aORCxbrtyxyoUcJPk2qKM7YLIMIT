@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(= (str ?ol) \"Berlin\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?ss", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?ol"}, "opName": "Triple"}
+  ]}
+]}

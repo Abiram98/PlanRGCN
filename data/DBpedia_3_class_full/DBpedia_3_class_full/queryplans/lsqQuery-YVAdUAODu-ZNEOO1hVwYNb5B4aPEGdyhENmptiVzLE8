@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "assign", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Federal_government_of_Mexico", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

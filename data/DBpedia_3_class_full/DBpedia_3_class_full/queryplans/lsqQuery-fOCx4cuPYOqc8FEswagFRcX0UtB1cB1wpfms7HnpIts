@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(regex (str ?wikidataObj) \"wikidata.org\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?obj", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?wikidataObj"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

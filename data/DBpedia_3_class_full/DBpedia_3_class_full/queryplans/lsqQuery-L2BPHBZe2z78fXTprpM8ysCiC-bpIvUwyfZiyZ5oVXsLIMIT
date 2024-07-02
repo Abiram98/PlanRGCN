@@ -1,0 +1,21 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(regex ?p \"author\" \"i\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?b", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?p"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(regex ?abss \"naturalist\" \"i\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?hint", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abss"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(regex ?abs \"anarchism\" \"i\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?hint", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abs"}, "opName": "Triple"}
+        ]}
+      ]}
+  ]}
+]}

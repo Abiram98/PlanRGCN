@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?name) \"en\")]", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?person", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/MusicalArtist"}, "opName": "Triple"}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?person", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?name"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(|| (|| (regex ?p <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>) (regex ?p <http://www.w3.org/2000/01/rdf-schema#seeAlso>)) (regex ?p <http://purl.org/dc/terms/subject>))]", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Academy", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

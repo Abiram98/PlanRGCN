@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?o \"German basketball player\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?s", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

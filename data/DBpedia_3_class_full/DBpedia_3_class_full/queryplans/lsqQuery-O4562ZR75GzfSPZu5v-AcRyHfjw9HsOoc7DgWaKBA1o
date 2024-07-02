@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/New_Wrestling_Entertainment", "Predicate": "http://dbpedia.org/ontology/editor", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

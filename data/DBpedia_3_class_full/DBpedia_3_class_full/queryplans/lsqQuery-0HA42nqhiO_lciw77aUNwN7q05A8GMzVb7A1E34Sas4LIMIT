@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex (str ?name) \"^Josh \"), (regex (str ?name) \" Earnest$\"), (= (lang ?name) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?x", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?name"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

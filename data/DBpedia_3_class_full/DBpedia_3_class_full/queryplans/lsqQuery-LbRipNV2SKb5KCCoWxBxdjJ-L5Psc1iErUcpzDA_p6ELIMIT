@@ -1,0 +1,27 @@
+{"opName": "filter" , "expr": " [(! (sameTerm ?predTo2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>)), (! (sameTerm ?predTo2 <http://www.w3.org/2000/01/rdf-schema#subClassOf>)), (! (regex (str ?predTo2) \"^http://www.w3.org/2002/07/owl#sameAs\"))]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(! (sameTerm ?predFr1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>)), (! (sameTerm ?predFr1 <http://www.w3.org/2000/01/rdf-schema#subClassOf>)), (! (regex (str ?predFr1) \"^http://www.w3.org/2002/07/owl#sameAs\")), (! (isLiteral ?obj1)), (! (regex (str ?obj1) \"^http://dbpedia.org/resource/List\")), (! (regex (str ?obj1) \"^http://dbpedia.org/resource/Category:\")), (! (regex (str ?obj1) \"^http://dbpedia.org/resource/Template:\")), (! (regex (str ?obj1) \"^http://sw.opencyc.org/\")), (!= \"http://dbpedia.org/resource/Lotus_Esprit\" (str ?obj1))]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(! (sameTerm ?predFr0 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>)), (! (sameTerm ?predFr0 <http://www.w3.org/2000/01/rdf-schema#subClassOf>)), (! (regex (str ?predFr0) \"^http://www.w3.org/2002/07/owl#sameAs\")), (! (isLiteral ?obj0)), (! (regex (str ?obj0) \"^http://dbpedia.org/resource/List\")), (! (regex (str ?obj0) \"^http://dbpedia.org/resource/Category:\")), (! (regex (str ?obj0) \"^http://dbpedia.org/resource/Template:\")), (! (regex (str ?obj0) \"^http://sw.opencyc.org/\")), (!= (str ?obj0) \"http://dbpedia.org/resource/Norfolk\")]", "subOp": [
+              {"opName": "sequence", "subOp": [
+                  {"opName": "filter" , "expr": " [true]", "subOp": [
+                    {"opName": "table", "subOp": []}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?obj0", "Predicate": "?predFr0", "Object": {"value":"http://dbpedia.org/resource/Lotus_Esprit"}, "opName": "Triple"}
+                  ]}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?obj1", "Predicate": "?predFr1", "Object": {"value":"?obj0"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?obj1", "Predicate": "?predTo2", "Object": {"value":"http://dbpedia.org/resource/Norfolk"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

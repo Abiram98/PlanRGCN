@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(regex ?class \"natural\" \"i\"), (regex ?class \"anarch\" \"i\"), (regex ?class \"novelist\" \"i\"), (regex ?class \"XIX century\" \"i\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?entite", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#Thing"}, "opName": "Triple"}
+          ,
+          {"Subject": "?entite", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?class"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?entite", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?class"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

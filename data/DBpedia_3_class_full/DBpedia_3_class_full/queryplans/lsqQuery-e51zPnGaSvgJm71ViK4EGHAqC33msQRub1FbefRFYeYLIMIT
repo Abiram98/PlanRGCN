@@ -1,0 +1,13 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "table", "subOp": []}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/page/Bacteriology", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?Concept"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/page/Bacteriology", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?subject"}, "opName": "Triple"}
+  ]}
+]}

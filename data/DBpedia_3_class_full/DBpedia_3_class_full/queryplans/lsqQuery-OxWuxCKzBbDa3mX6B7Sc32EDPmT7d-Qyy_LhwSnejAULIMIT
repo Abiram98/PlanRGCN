@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?lab) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?ent", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"http://sws.geonames.org/2318044/"}, "opName": "Triple"}
+      ,
+      {"Subject": "?ent", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?lab"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

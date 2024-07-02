@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Belial_(Dungeons_&_Dragons)", "Predicate": "http://dbpedia.org/ontology/knownFor", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

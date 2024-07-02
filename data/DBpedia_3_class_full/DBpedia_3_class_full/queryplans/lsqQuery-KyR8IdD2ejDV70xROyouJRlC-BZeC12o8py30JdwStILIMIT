@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex ?z \"mus\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?person", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?z"}, "opName": "Triple"}
+  ]}
+]}

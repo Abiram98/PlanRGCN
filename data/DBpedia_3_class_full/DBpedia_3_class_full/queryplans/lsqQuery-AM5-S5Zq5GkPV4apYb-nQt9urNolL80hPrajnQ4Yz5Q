@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lcase (str ?Name)) \"wahoo\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?URI", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Fish"}, "opName": "Triple"}
+      ,
+      {"Subject": "?URI", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?Name"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

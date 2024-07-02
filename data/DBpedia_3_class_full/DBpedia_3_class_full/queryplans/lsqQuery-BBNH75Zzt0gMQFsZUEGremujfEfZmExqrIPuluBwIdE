@@ -1,0 +1,201 @@
+{"opName": "project", "subOp": [
+  {"opName": "disjunction", "subOp": [
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Reconfigurable_antenna", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Reconfigurable_antenna", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Reconfigurable_antenna", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/High-Speed_Downlink_Packet_Access", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/High-Speed_Downlink_Packet_Access", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/High-Speed_Downlink_Packet_Access", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/3G_MIMO", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/3G_MIMO", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/3G_MIMO", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/MIMO-OFDM", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/MIMO-OFDM", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/MIMO-OFDM", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/4G", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/4G", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/4G", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/IEEE_802.11n-2009", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/IEEE_802.11n-2009", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/IEEE_802.11n-2009", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Near_and_far_field", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Near_and_far_field", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Near_and_far_field", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Evolved_HSPA", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Evolved_HSPA", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Evolved_HSPA", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "assign", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/E-UTRA", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/E-UTRA", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/E-UTRA", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

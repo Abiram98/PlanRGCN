@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "leftjoin", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?Book", "Predicate": "http://dbpedia.org/ontology/author", "Object": {"value":"?Author"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "conditional", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?Book", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?BookName"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?Author", "Predicate": "http://dbpedia.org/property/birthName", "Object": {"value":"?AuthorName"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

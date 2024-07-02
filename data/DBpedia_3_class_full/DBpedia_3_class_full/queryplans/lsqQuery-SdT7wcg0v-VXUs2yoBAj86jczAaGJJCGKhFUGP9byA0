@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Melbourne_International_Comedy_Festival", "Predicate": "http://dbpedia.org/ontology/keyPerson", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

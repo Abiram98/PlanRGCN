@@ -1,0 +1,18 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/ontology/birthPlace", "Predicate": "http://www.w3.org/2000/01/rdf-schema#domain", "Object": {"value":"?o"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "path", "Subject": "?o", "Object": {"value":"?dom"}
+      , "pathComplexity": [
+      "P_OneOrMore1"
+      ]
+
+      , "pathType": "OneOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/2000/01/rdf-schema#subClassOf>"
+      ]
+      }
+  ]}
+]}

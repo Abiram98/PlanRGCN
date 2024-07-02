@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex (str ?object) \"//dbpedia.org\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?object", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"http://it.dbpedia.org/resource/756"}, "opName": "Triple"}
+  ]}
+]}

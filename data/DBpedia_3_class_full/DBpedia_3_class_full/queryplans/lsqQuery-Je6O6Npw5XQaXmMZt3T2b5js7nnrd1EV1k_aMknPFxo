@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Malaco_Records", "Predicate": "http://dbpedia.org/ontology/occupation", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

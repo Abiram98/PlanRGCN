@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Hempstead_High_School_(Dubuque,_Iowa)", "Predicate": "http://dbpedia.org/ontology/computingPlatform", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

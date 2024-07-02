@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?skateboarder", "Predicate": "http://dbpedia.org/ontology/occupation", "Object": {"value":"http://dbpedia.org/resource/Skateboarding"}, "opName": "Triple"}
+    ,
+    {"Subject": "?skateboarder", "Predicate": "?sS", "Object": {"value":"http://dbpedia.org/resource/Sweden"}, "opName": "Triple"}
+  ]}
+]}

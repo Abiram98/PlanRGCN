@@ -1,0 +1,23 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lang ?abstract) \"fr\")]", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(= (str ?dbName) \"Brad Pitt\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?dbactor", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?dbName"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?dbactor", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?dateOfBirth"}, "opName": "Triple"}
+            ,
+            {"Subject": "?dbactor", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?dbactor", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?wikiPage"}, "opName": "Triple"}
+      ,
+      {"Subject": "?dbactor", "Predicate": "http://dbpedia.org/property/placeOfBirth", "Object": {"value":"?placeOfBirth"}, "opName": "Triple"}
+    ]}
+]}

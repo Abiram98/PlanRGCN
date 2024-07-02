@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?abs2 \"consciousness\" \"i\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(regex ?abs \"rare\" \"i\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?plant", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Plant"}, "opName": "Triple"}
+            ,
+            {"Subject": "?plant", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abs"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?plant", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abs2"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

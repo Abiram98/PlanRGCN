@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/George_Madison_Adams", "Predicate": "http://dbpedia.org/ontology/industry", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

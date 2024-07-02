@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Category:Museums_in_Montreal", "Predicate": "http://www.w3.org/2004/02/skos/core#broader", "Object": {"value":"?categoryUri"}, "opName": "Triple"}
+  ]}
+]}

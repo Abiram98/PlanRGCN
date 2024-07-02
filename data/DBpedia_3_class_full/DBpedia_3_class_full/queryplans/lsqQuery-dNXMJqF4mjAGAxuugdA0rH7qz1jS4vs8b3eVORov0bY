@@ -1,0 +1,29 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(regex ?turingAwardName \"Turing Award\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?city", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/City"}, "opName": "Triple"}
+          ,
+          {"Subject": "?city", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?country"}, "opName": "Triple"}
+          ,
+          {"Subject": "?country", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"http://dbpedia.org/resource/Category:Countries_in_Europe"}, "opName": "Triple"}
+          ,
+          {"Subject": "?city", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?europeCity"}, "opName": "Triple"}
+          ,
+          {"Subject": "?person", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Person"}, "opName": "Triple"}
+          ,
+          {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/award", "Object": {"value":"?award"}, "opName": "Triple"}
+          ,
+          {"Subject": "?award", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?turingAwardName"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?award", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?nobelPrizeName"}, "opName": "Triple"}
+        ,
+        {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?cityName"}, "opName": "Triple"}
+        ,
+        {"Subject": "?cityName", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?europeCity"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

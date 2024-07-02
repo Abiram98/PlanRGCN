@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Roger_FedererRoger_Federer", "Predicate": "?propertyName", "Object": {"value":"?propertyValue"}, "opName": "Triple"}
+]}

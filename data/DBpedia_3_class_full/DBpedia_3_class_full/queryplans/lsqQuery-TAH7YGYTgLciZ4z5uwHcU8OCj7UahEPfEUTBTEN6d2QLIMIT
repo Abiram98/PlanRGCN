@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Sergio_Mariotti", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?o"}, "opName": "Triple"}
+  ]}
+]}

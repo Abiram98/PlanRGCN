@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?surname \"Rossi\" \"i\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(regex ?name \"Mario\" \"i\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birth"}, "opName": "Triple"}
+            ,
+            {"Subject": "?person", "Predicate": "http://dbpedia.org/ontology/deathDate", "Object": {"value":"?death"}, "opName": "Triple"}
+            ,
+            {"Subject": "?person", "Predicate": "http://xmlns.com/foaf/0.1/givenName", "Object": {"value":"?name"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?person", "Predicate": "http://xmlns.com/foaf/0.1/surname", "Object": {"value":"?surname"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

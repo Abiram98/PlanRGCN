@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?subject", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"http://dbpedia.org/resource/Category:Libraries_in_New_York"}, "opName": "Triple"}
+  ]}
+]}

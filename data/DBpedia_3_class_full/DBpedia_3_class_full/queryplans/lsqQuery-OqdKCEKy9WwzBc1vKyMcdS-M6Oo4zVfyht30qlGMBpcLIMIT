@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?g", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://yago-knowledge.org/resource/Guitar103467517"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Slash_(musician)", "Predicate": "http://dbpedia.org/ontology/instrument", "Object": {"value":"?g"}, "opName": "Triple"}
+]}

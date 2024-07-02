@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "assign", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?a", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?c"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

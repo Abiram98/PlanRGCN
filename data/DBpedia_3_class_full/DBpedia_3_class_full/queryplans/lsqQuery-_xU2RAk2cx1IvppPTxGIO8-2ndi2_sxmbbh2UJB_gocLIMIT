@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex ?name \"Barack\" \"i\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?person", "Predicate": "http://xmlns.com/foaf/0.1/givenName", "Object": {"value":"?name"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,49 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "filter" , "expr": " [(> ?value 680996774.194), (< ?value 752680645.161)]", "subOp": [
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?uri", "Predicate": "http://dbpedia.org/ontology/weight", "Object": {"value":"?value"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "?uri", "Predicate": "http://dbpedia.org/ontology/mass", "Object": {"value":"?value"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?uri", "Predicate": "http://dbpedia.org/property/mass", "Object": {"value":"?value"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?uri", "Predicate": "http://dbpedia.org/property/weight", "Object": {"value":"?value"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?uri", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+            ]}
+          ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?typeName) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?uri", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?type"}, "opName": "Triple"}
+          ,
+          {"Subject": "?type", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?typeName"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?uri", "Predicate": "http://xmlns.com/foaf/0.1/depiction", "Object": {"value":"?pic"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

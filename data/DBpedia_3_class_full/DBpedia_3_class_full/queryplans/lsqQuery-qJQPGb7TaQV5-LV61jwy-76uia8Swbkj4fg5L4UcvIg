@@ -1,0 +1,9 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Mary%2C_Queen_of_Scots_%28film%29", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Film"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Mary%2C_Queen_of_Scots_%28film%29", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?wikiPage"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Mary%2C_Queen_of_Scots_%28film%29", "Predicate": "http://dbpedia.org/ontology/runtime", "Object": {"value":"?runtime"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Mary%2C_Queen_of_Scots_%28film%29", "Predicate": "http://dbpedia.org/ontology/releaseDate", "Object": {"value":"?release"}, "opName": "Triple"}
+]}

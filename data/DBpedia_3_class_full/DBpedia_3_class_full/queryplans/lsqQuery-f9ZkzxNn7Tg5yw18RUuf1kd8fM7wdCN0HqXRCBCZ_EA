@@ -1,0 +1,11 @@
+{"opName": "filter" , "expr": " [(! (sameTerm ?c1 ?c2))]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?t", "Predicate": "http://dbpedia.org/property/type", "Object": {"value":"http://dbpedia.org/resource/River"}, "opName": "Triple"}
+    ,
+    {"Subject": "?coun", "Predicate": "http://dbpedia.org/property/country", "Object": {"value":"http://dbpedia.org/resource/France"}, "opName": "Triple"}
+    ,
+    {"Subject": "?r", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?c1"}, "opName": "Triple"}
+    ,
+    {"Subject": "?r", "Predicate": "http://dbpedia.org/ontology/country", "Object": {"value":"?c2"}, "opName": "Triple"}
+  ]}
+]}

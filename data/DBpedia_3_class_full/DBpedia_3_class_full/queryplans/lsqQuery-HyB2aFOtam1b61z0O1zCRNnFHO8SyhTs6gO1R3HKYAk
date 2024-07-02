@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Nawab_of_Banganapalle", "Predicate": "http://dbpedia.org/ontology/occupation", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

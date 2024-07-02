@@ -1,0 +1,37 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?abstract) \"es\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(= (lang ?name) \"es\")]", "subOp": [
+              {"opName": "sequence", "subOp": [
+                  {"opName": "filter" , "expr": " [(<= (- ?long -80.752973) 0.15), (<= (- -80.752973 ?long) 0.15)]", "subOp": [
+                    {"opName": "sequence", "subOp": [
+                        {"opName": "filter" , "expr": " [(<= (- ?lat -1.826847) 0.15), (<= (- -1.826847 ?lat) 0.15)]", "subOp": [
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "?subject", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "Object": {"value":"?lat"}, "opName": "Triple"}
+                          ]}
+                        ]}
+                        ,
+                        {"opName":"BGP", "subOp": [
+                          {"Subject": "?subject", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#long", "Object": {"value":"?long"}, "opName": "Triple"}
+                        ]}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?subject", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?name"}, "opName": "Triple"}
+                  ]}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?subject", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?subject", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?imagen"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

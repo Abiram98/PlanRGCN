@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?music", "Predicate": "?mH", "Object": {"value":"http://dbpedia.org/resource/Harold_Switzer"}, "opName": "Triple"}
+    ,
+    {"Subject": "?music", "Predicate": "http://dbpedia.org/ontology/musicalArtist", "Object": {"value":"?who"}, "opName": "Triple"}
+  ]}
+]}

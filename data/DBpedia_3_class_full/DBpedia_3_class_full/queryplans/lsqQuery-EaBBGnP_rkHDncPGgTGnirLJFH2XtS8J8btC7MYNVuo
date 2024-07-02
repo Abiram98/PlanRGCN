@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Cazzie_Russell", "Predicate": "http://dbpedia.org/ontology/series", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?categoryName) \"en\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (str ?property) \"http://dbpedia.org/ontology/wikiPageRevisionID\"), (= (str ?idrevision) \"645519209\"), (isLiteral ?idrevision)]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?subject", "Predicate": "?property", "Object": {"value":"?idrevision"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?subject", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?categoryUri"}, "opName": "Triple"}
+          ,
+          {"Subject": "?categoryUri", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?categoryName"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

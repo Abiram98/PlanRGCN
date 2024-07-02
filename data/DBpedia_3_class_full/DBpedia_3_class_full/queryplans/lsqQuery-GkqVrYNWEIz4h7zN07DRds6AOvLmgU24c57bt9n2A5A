@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Painters_and_Dockers", "Predicate": "http://dbpedia.org/ontology/industry", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

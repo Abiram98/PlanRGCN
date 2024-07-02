@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/The_Midnight_Express_(professional_wrestling)", "Predicate": "http://dbpedia.org/ontology/associatedMusicalArtist", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Archibald_F._Bennett", "Predicate": "http://dbpedia.org/ontology/portrayer", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

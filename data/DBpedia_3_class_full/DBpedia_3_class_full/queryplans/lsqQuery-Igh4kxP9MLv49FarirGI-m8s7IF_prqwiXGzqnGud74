@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/University_of_California,_Berkeley", "Predicate": "http://dbpedia.org/ontology/occupation", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

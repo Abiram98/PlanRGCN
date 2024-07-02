@@ -1,0 +1,21 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(|| (|| (|| (|| (|| (= ?pageid 36934) (= ?pageid 58900)) (= ?pageid 304471)) (= ?pageid 3270043)) (= ?pageid 14105333)) (= ?pageid 19541494))]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?resource", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?pageid"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?resource", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+          ]}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?resource", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?res", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?same"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

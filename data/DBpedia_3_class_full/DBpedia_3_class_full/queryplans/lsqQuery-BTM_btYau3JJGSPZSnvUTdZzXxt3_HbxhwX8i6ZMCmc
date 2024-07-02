@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Parliament-Funkadelic:_One_Nation_Under_a_Groove", "Predicate": "http://dbpedia.org/ontology/industry", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

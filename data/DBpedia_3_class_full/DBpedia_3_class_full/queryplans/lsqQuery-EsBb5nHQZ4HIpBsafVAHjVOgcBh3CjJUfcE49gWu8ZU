@@ -1,0 +1,19 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(= (lang ?Abstract1) \"en\"), (= (lang ?Abstract1) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?DBpediaInstitution1", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/University"}, "opName": "Triple"}
+        ,
+        {"Subject": "?DBpediaInstitution1", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?PageID_3"}, "opName": "Triple"}
+        ,
+        {"Subject": "?DBpediaInstitution1", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?Abstract1"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?DBpediaInstitution2", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/University"}, "opName": "Triple"}
+      ,
+      {"Subject": "?DBpediaInstitution2", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?PageID_4"}, "opName": "Triple"}
+      ,
+      {"Subject": "?DBpediaInstitution2", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?Abstract2"}, "opName": "Triple"}
+    ]}
+]}

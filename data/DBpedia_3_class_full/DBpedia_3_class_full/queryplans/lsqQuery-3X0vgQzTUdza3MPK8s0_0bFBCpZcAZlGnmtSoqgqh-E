@@ -1,0 +1,25 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?event1", "Predicate": "http://purl.org/ontology/po/track", "Object": {"value":"?track1"}, "opName": "Triple"}
+    ,
+    {"Subject": "?track1", "Predicate": "http://xmlns.com/foaf/0.1/maker", "Object": {"value":"?maker"}, "opName": "Triple"}
+    ,
+    {"Subject": "?maker", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?artistlabel"}, "opName": "Triple"}
+    ,
+    {"Subject": "?maker", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"?dbpmaker"}, "opName": "Triple"}
+    ,
+    {"Subject": "?dbpmaker", "Predicate": "http://dbpedia.org/property/origin", "Object": {"value":"http://dbpedia.org/resource/Northern_Ireland"}, "opName": "Triple"}
+    ,
+    {"Subject": "?event1", "Predicate": "http://purl.org/ontology/po/time", "Object": {"value":"?t1"}, "opName": "Triple"}
+    ,
+    {"Subject": "?t1", "Predicate": "http://purl.org/NET/c4dm/timeline.owl#timeline", "Object": {"value":"?tl"}, "opName": "Triple"}
+    ,
+    {"Subject": "?version", "Predicate": "http://purl.org/ontology/po/time", "Object": {"value":"?t"}, "opName": "Triple"}
+    ,
+    {"Subject": "?t", "Predicate": "http://purl.org/NET/c4dm/timeline.owl#timeline", "Object": {"value":"?tl"}, "opName": "Triple"}
+    ,
+    {"Subject": "?programme", "Predicate": "http://purl.org/ontology/po/version", "Object": {"value":"?version"}, "opName": "Triple"}
+    ,
+    {"Subject": "?programme", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+  ]}
+]}

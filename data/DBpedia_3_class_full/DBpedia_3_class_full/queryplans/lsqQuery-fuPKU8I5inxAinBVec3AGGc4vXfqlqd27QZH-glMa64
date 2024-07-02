@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?originInstance", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Image"}, "opName": "Triple"}
+        ,
+        {"Subject": "?targetInstance", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#Thing"}, "opName": "Triple"}
+        ,
+        {"Subject": "?originInstance", "Predicate": "?prop", "Object": {"value":"?targetInstance"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

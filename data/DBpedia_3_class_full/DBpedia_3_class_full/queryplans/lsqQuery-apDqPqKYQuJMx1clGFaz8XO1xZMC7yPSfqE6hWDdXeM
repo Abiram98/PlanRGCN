@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex (str ?name) \"Angelina Jolie\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?s", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Film"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?starred"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/starring", "Object": {"value":"?starring"}, "opName": "Triple"}
+      ,
+      {"Subject": "?starring", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

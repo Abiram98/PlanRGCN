@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "table", "subOp": []}
+    ,
+    {"opName": "filter" , "expr": " [(|| (= \"en\" (lang ?a)) (= \"fr\" (lang ?a)))]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Necrotizing_fasciitis", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?a"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

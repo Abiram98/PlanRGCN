@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(!= ?o1 <http://dbpedia.org/resource/Laurence_Fishburne>)]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Keanu_Reeves", "Predicate": "?p1", "Object": {"value":"?o1"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?o1", "Predicate": "?p2", "Object": {"value":"?o2"}, "opName": "Triple"}
+        ,
+        {"Subject": "http://dbpedia.org/resource/Laurence_Fishburne", "Predicate": "?p3", "Object": {"value":"?o2"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(!= (str ?p22) \"rdf:type\"), (!= (str ?p22) \"rdfs:Class\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(!= (str ?p21) \"rdf:type\"), (!= (str ?p21) \"rdfs:Class\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://dbpedia.org/resource/Man_(band)", "Predicate": "?v4", "Object": {"value":"?v2"}, "opName": "Triple"}
+            ,
+            {"Subject": "?v2", "Predicate": "?v14", "Object": {"value":"http://dbpedia.org/ontology/Person"}, "opName": "Triple"}
+            ,
+            {"Subject": "http://dbpedia.org/resource/Man_(band)", "Predicate": "?p21", "Object": {"value":"?x21"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Korea", "Predicate": "?p22", "Object": {"value":"?x21"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

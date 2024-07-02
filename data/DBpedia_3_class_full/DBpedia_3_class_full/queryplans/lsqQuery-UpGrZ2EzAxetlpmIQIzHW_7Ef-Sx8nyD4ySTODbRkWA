@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Better_Days_(And_the_Bottom_Drops_Out)", "Predicate": "http://dbpedia.org/ontology/locationCity", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

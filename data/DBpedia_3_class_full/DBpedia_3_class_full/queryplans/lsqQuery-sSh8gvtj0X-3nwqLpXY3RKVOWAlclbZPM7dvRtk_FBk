@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?films", "Predicate": "http://dbpedia.org/ontology/starring", "Object": {"value":"http://dbpedia.org/resource/Natalie_Portman"}, "opName": "Triple"}
+    ,
+    {"Subject": "?films", "Predicate": "http://dbpedia.org/ontology/producer", "Object": {"value":"?producer"}, "opName": "Triple"}
+  ]}
+]}

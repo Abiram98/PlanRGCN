@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "filter" , "expr": " [(= ?label \"area\"@en)]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?vacation", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/class/yago/Vacation115137890"}, "opName": "Triple"}
+        ,
+        {"Subject": "?vacation", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?vacation", "Predicate": "http://dbpedia.org/property/date", "Object": {"value":"?date"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,13 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"fr\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Marie-Rose_Lefevre", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Marie-Rose_Lefevre", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+      ,
+      {"Subject": "http://dbpedia.org/resource/Marie-Rose_Lefevre", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?thumbnail"}, "opName": "Triple"}
+    ]}
+]}

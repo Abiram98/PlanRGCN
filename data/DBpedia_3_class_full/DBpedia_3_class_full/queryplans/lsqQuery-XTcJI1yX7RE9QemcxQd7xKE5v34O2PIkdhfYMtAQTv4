@@ -1,0 +1,29 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Water", "Predicate": "?p", "Object": {"value":"http://dbpedia.org/resource/Thein_Sein"}, "opName": "Triple"}
+        ]}
+        ,
+        {"opName": "filter" , "expr": " [(langMatches (lang ?l) \"EN\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?p", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?l"}, "opName": "Triple"}
+          ]}
+        ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(langMatches (lang ?l1) \"EN\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Water", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?l1"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(langMatches (lang ?l2) \"EN\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Thein_Sein", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?l2"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

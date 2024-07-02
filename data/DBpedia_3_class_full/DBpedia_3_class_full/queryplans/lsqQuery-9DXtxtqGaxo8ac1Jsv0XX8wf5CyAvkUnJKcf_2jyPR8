@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex (str ?label) \"Vantaa\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?dbcity", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?label"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?name \"Cleveland\"), (langMatches (lang ?name) \"EN\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?subject", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?name"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?CS", "Predicate": "http://dbpedia.org/ontology/associatedBand", "Object": {"value":"http://dbpedia.org/resource/Johnny_Cash"}, "opName": "Triple"}
+        ,
+        {"Subject": "?CS", "Predicate": "http://dbpedia.org/ontology/associatedBand", "Object": {"value":"http://dbpedia.org/resource/Slipknot_(band)"}, "opName": "Triple"}
+        ,
+        {"Subject": "?CS", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#Thing"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

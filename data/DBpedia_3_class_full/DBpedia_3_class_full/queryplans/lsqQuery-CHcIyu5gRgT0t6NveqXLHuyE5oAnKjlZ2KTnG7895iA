@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Hitman_(DC_Comics)", "Predicate": "http://dbpedia.org/ontology/foundedBy", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,27 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "table", "subOp": []}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://dbpedia.org/resource/Prodromos", "Predicate": "http://dbpedia.org/ontology/populationTotal", "Object": {"value":"?population1"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Prodromos", "Predicate": "http://dbpedia.org/ontology/censusYear", "Object": {"value":"?year1"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Prodromos", "Predicate": "http://dbpedia.org/property/populationTotal", "Object": {"value":"?population2"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Prodromos", "Predicate": "http://dbpedia.org/property/populationAsOf", "Object": {"value":"?year2"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

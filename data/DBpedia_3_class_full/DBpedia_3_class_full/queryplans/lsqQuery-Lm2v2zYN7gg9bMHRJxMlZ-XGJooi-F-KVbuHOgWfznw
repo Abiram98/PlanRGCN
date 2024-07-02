@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Roseville,_Minnesota", "Predicate": "http://dbpedia.org/ontology/starring", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

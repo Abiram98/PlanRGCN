@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(regex (str ?object) \"//dbpedia.org\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?object", "Predicate": "http://www.w3.org/2002/07/owl#sameAs", "Object": {"value":"http://dati.san.beniculturali.it/SAN/dateComplarc_(1081-1723:_secc._XI_1,_XII_3,_XIII_188,_XIV_267,_XV_110,_XVI_31,_XVII_19,_XVIII_2)"}, "opName": "Triple"}
+  ]}
+]}

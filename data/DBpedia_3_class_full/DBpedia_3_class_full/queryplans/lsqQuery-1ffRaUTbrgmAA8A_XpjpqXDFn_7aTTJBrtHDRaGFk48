@@ -1,0 +1,13 @@
+{"opName": "filter" , "expr": " [(regex (str ?pred2) \"ontology\"), (! (regex (str ?pred2) \"wiki\"))]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(!= ?ogg1 <http://dbpedia.org/resource/Hillary_Clinton>), (!= ?ogg1 <http://dbpedia.org/resource/Hillary_Clinton_presidential_campaign,_2008>), (regex (str ?pred1) \"ontology\"), (! (regex (str ?pred1) \"wiki\")), (regex (str ?ogg1) \"resource\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?ogg1", "Predicate": "?pred1", "Object": {"value":"http://dbpedia.org/resource/Hillary_Clinton"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?ogg1", "Predicate": "?pred2", "Object": {"value":"http://dbpedia.org/resource/Hillary_Clinton_presidential_campaign,_2008"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

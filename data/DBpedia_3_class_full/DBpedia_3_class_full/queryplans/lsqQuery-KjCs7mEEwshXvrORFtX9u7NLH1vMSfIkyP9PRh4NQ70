@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?c) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Education", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?c"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

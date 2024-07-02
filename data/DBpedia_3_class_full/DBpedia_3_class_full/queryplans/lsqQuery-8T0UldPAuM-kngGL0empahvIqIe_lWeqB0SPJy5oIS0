@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Code_bloat", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?owl"}, "opName": "Triple"}
+  ,
+  {"Subject": "?owl", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#Class"}, "opName": "Triple"}
+]}

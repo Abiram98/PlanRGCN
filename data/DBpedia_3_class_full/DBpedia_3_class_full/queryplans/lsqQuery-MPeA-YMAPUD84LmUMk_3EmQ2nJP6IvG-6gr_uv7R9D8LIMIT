@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(regex ?label \"element group\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?Concept", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

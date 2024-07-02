@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Largest_and_second_largest_cities_in_each_country", "Predicate": "?Property", "Object": {"value":"?Value"}, "opName": "Triple"}
+]}

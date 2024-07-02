@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Eastern_Pennsylvania_Rugby_Union", "Predicate": "http://dbpedia.org/ontology/almaMater", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

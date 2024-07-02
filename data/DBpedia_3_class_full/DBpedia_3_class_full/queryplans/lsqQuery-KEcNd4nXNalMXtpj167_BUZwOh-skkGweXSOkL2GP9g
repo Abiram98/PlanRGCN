@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Comedy_Central_(UK_and_Ireland)", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

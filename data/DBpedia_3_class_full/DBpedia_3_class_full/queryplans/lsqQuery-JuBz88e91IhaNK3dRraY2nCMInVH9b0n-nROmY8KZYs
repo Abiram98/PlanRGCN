@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Master_of_the_Game_(novel)", "Predicate": "?predicate", "Object": {"value":"?y"}, "opName": "Triple"}
+  ]}
+]}

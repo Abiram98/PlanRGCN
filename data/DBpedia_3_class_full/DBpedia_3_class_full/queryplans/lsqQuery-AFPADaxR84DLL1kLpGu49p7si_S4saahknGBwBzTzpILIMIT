@@ -1,0 +1,31 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(> ?value 60308.6151685), (< ?value 66656.8904494)]", "subOp": [
+              {"opName":"BGP", "subOp": [
+                {"Subject": "?uri", "Predicate": "http://dbpedia.org/property/price", "Object": {"value":"?value"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?uri", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName": "filter" , "expr": " [(= (lang ?typeName) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?uri", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?type"}, "opName": "Triple"}
+          ,
+          {"Subject": "?type", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?typeName"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?uri", "Predicate": "http://xmlns.com/foaf/0.1/depiction", "Object": {"value":"?pic"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

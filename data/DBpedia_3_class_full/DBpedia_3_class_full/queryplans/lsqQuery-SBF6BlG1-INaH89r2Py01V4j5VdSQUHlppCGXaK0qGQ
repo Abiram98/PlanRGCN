@@ -1,0 +1,33 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "sequence", "subOp": [
+          {"opName": "filter" , "expr": " [(= (lang ?name) \"fr\")]", "subOp": [
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?city", "Predicate": "http://www.w3.org/2004/02/skos/core#subject", "Object": {"value":"http://dbpedia.org/resource/Category:World_Heritage_Sites_in_Norway"}, "opName": "Triple"}
+              ,
+              {"Subject": "http://dbpedia.org/resource/Category:World_Heritage_Sites_in_Norway", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?labelcat"}, "opName": "Triple"}
+              ,
+              {"Subject": "?city", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#long", "Object": {"value":"?long"}, "opName": "Triple"}
+              ,
+              {"Subject": "?city", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?name"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?city", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "Object": {"value":"?lat"}, "opName": "Triple"}
+          ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?city", "Predicate": "http://dbpedia.org/ontology/thumbnail", "Object": {"value":"?image"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?abstract) \"fr\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?city", "Predicate": "http://dbpedia.org/property/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,19 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?dbpedia_conc", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"Moist or wet eutrophic and mesotrophic grassland","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?description_en) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://vocabs.lter-europe.net/EnvThes/EUNIS_E3_4", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?def_en"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+  ,
+  {"opName": "filter" , "expr": " [(= (lang ?description_de) \"de\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://vocabs.lter-europe.net/EnvThes/EUNIS_E3_4", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?def_de"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

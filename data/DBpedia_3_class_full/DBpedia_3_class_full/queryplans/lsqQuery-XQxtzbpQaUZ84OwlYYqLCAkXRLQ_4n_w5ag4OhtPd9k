@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (str ?property) \"http://dbpedia.org/ontology/wikiPageRevisionID\"), (= (str ?object) \"645519209\"), (isLiteral ?object)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?subject", "Predicate": "?property", "Object": {"value":"?object"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

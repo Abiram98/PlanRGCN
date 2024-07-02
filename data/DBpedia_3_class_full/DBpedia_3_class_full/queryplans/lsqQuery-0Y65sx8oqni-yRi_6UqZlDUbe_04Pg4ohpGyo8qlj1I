@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?s", "Predicate": "?p", "Object": {"value":"http://sws.geonames.org/2988500/"}, "opName": "Triple"}
+    ,
+    {"Subject": "?s", "Predicate": "http://dbpedia.org/property/iata", "Object": {"value":"?iata"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Gold_Coast_Twin_Towers", "Predicate": "http://dbpedia.org/ontology/birthYear", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Oklahoma_State_University%E2%80%93Stillwater", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?cat"}, "opName": "Triple"}
+  ]}
+]}

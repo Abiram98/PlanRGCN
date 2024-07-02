@@ -1,0 +1,17 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Diamonds_Are_Forever_(novel)", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?val"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s", "Predicate": "?prop", "Object": {"value":"?val"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s", "Predicate": "http://dbpedia.org/property/releaseDate", "Object": {"value":"?t"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(= (lang ?tlabel) \"en\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?t", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?tlabel"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

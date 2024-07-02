@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Indonesia", "Predicate": "http://dbpedia.org/ontology/leader", "Object": {"value":"?presiden"}, "opName": "Triple"}
+    ,
+    {"Subject": "?pesiden", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?nama"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (datatype ?val) <http://dbpedia.org/datatype/perCent>)]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?instance", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Agent"}, "opName": "Triple"}
+      ,
+      {"Subject": "?instance", "Predicate": "?prop", "Object": {"value":"?val"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

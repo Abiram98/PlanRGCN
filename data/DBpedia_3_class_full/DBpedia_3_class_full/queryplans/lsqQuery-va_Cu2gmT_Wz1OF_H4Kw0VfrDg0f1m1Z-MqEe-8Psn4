@@ -1,0 +1,27 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?abstract) \"en\")]", "subOp": [
+          {"opName": "sequence", "subOp": [
+              {"opName": "filter" , "expr": " [(= (lang ?comment) \"en\")]", "subOp": [
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Articular_cartilage", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?comment"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Articular_cartilage", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+              ]}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Articular_cartilage", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?wikipedia"}, "opName": "Triple"}
+        ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Articular_cartilage", "Predicate": "http://xmlns.com/foaf/0.1/depiction", "Object": {"value":"?image"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

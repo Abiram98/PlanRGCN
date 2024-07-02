@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Bolivarian_Alliance_for_the_Americas", "Predicate": "http://dbpedia.org/ontology/location", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Scott_Russell_(motorcyclist)", "Predicate": "http://dbpedia.org/ontology/associatedMusicalArtist", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

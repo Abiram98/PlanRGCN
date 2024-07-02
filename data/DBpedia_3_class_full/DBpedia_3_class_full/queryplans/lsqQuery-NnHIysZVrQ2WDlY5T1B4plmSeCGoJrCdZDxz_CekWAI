@@ -1,0 +1,13 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?p", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Person"}, "opName": "Triple"}
+  ,
+  {"Subject": "?p", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?date"}, "opName": "Triple"}
+  ,
+  {"Subject": "?p", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?type"}, "opName": "Triple"}
+  ,
+  {"Subject": "?p", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+  ,
+  {"Subject": "?type", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+  ,
+  {"Subject": "?type", "Predicate": "http://xmlns.com/foaf/0.1/isPrimaryTopicOf", "Object": {"value":"?topic"}, "opName": "Triple"}
+]}

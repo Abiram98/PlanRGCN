@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?label) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Jarryd_James", "Predicate": "http://dbpedia.org/ontology/instrument", "Object": {"value":"?instrumentObj"}, "opName": "Triple"}
+      ,
+      {"Subject": "?instrumentObj", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

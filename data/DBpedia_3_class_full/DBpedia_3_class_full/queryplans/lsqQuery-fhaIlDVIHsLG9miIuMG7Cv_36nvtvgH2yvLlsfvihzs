@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Category:Watercraft", "Predicate": "http://www.w3.org/2004/02/skos/core#broader", "Object": {"value":"?value"}, "opName": "Triple"}
+]}

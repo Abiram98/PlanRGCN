@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?BirthPlace", "Predicate": "http://dbpedia.org/property/birthPlace", "Object": {"value":"http://dbpedia.org/resource/Belgium"}, "opName": "Triple"}
+    ,
+    {"Subject": "?BirthPlace", "Predicate": "http://dbpedia.org/property/deathPlace", "Object": {"value":"http://dbpedia.org/resource/Belgium"}, "opName": "Triple"}
+    ,
+    {"Subject": "?name", "Predicate": "http://dbpedia.org/ontology/deathPlace", "Object": {"value":"?Location"}, "opName": "Triple"}
+  ]}
+]}

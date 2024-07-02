@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?abs) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Kenya_Commercial_Bank_Group", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abs"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

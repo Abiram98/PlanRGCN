@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?s", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Film"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?name"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s", "Predicate": "http://dbpedia.org/property/director", "Object": {"value":"?director"}, "opName": "Triple"}
+      ,
+      {"Subject": "?director", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"?namedirector"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s", "Predicate": "http://dbpedia.org/property/duration", "Object": {"value":"?duration"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

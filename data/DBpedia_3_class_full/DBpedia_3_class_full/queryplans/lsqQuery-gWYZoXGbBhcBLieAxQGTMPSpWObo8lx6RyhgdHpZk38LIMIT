@@ -1,0 +1,19 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (str ?artist_name) \"Simply Red\"), (langMatches (lang ?artist_name) \"en\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(langMatches (lang ?album_name) \"en\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?ALBUM", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Album"}, "opName": "Triple"}
+            ,
+            {"Subject": "?ALBUM", "Predicate": "http://dbpedia.org/ontology/artist", "Object": {"value":"?ARTIST"}, "opName": "Triple"}
+            ,
+            {"Subject": "?ALBUM", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?album_name"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?ARTIST", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?artist_name"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

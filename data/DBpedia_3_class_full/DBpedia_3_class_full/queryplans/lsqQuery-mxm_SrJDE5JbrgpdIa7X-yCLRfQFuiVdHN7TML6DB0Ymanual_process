@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?person", "Predicate": "http://www.w3.org/2000/01/rdf-schema#subClassOf", "Object": {"value":"http://dbpedia.org/ontology/Person"}, "opName": "Triple"}
+    ,
+    {"Subject": "?actor", "Predicate": "http://dbpedia.org/ontology/Artist", "Object": {"value":"?person"}, "opName": "Triple"}
+  ]}
+]}

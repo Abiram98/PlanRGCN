@@ -1,0 +1,16 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "path", "Subject": "http://dbpedia.org/page/Threatened_Abortion", "Object": {"value":"?concept"}
+    , "pathComplexity": [
+    "P_OneOrMore1"
+    ]
+
+    , "pathType": "OneOrMore"
+    ,"Predicates":[
+     "<http://dbpedia.org/ontology/wikiPageRedirect>"
+    ]
+    }
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?concept", "Predicate": "http://dbpedia.org/ontology/wikiPageRedirects", "Object": {"value":"?redirected"}, "opName": "Triple"}
+    ]}
+]}

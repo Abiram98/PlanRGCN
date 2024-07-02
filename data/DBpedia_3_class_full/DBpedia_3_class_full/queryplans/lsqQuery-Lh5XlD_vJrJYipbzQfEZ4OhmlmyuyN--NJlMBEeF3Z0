@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(! (strstarts (str ?x) \"http\"))]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?uri", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Mountain"}, "opName": "Triple"}
+      ,
+      {"Subject": "?uri", "Predicate": "?outEdge", "Object": {"value":"?x"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?x", "Predicate": "http://dbpedia.org/ontology/deathDate", "Object": {"value":"?death"}, "opName": "Triple"}
+]}

@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Bob_Peterson_(filmmaker)", "Predicate": "http://dbpedia.org/ontology/birthName", "Object": {"value":"?name1"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Ed_Asner", "Predicate": "http://dbpedia.org/ontology/birthName", "Object": {"value":"?name2"}, "opName": "Triple"}
+]}

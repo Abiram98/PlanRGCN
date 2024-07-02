@@ -1,0 +1,7 @@
+{"opName": "filter" , "expr": " [(= (lang ?Abstract) \"en\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?Institution2", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?Institution2PageID"}, "opName": "Triple"}
+    ,
+    {"Subject": "?Institution2", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?Abstract"}, "opName": "Triple"}
+  ]}
+]}

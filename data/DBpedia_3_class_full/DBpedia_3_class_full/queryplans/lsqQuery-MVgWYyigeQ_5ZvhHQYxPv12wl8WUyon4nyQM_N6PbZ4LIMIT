@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?type", "Predicate": "http://dbpedia.org/ontology/source", "Object": {"value":"http://dbpedia.org/resource/Oregon_Ducks_men's_basketball"}, "opName": "Triple"}
+    ,
+    {"Subject": "?grape", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Grape"}, "opName": "Triple"}
+    ,
+    {"Subject": "?type", "Predicate": "?tg", "Object": {"value":"?grape"}, "opName": "Triple"}
+  ]}
+]}

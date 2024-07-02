@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Saint_Lucia_Labour_Party", "Predicate": "http://dbpedia.org/ontology/industry", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

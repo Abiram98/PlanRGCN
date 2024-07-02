@@ -1,0 +1,33 @@
+{"opName": "filter" , "expr": " [(> ?long 5.114435424804689), (< ?long 5.134435424804688)]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(> ?lat 52.266875752873226), (< ?lat 52.28687575287322)]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+              {"opName": "sequence", "subOp": [
+                  {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"en\")]", "subOp": [
+                    {"opName":"BGP", "subOp": [
+                      {"Subject": "?s", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Place"}, "opName": "Triple"}
+                      ,
+                      {"Subject": "?s", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+                  ]}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?s", "Predicate": "http://dbpedia.org/ontology/wikiPageID", "Object": {"value":"?id"}, "opName": "Triple"}
+              ,
+              {"Subject": "?s", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "Object": {"value":"?lat"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?s", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#long", "Object": {"value":"?long"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

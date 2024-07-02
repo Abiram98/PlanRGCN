@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Kolchak:_The_Night_Stalker", "Predicate": "http://dbpedia.org/ontology/computingPlatform", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

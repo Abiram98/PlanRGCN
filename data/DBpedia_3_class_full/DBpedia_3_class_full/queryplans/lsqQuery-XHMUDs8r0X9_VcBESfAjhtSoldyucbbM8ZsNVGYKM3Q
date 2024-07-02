@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Her_Majesty's_Railway_Inspectorate", "Predicate": "http://dbpedia.org/ontology/associatedMusicalArtist", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

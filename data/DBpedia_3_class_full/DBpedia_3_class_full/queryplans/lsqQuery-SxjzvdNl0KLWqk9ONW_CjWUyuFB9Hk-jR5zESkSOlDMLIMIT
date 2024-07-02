@@ -1,0 +1,21 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?artistName) \"en\")]", "subOp": [
+    {"opName": "sequence", "subOp": [
+        {"opName": "filter" , "expr": " [(= (lang ?name) \"en\")]", "subOp": [
+          {"opName":"BGP", "subOp": [
+            {"Subject": "?track", "Predicate": "http://dbpedia.org/property/album", "Object": {"value":"http://dbpedia.org/resource/The_18th_Day"}, "opName": "Triple"}
+            ,
+            {"Subject": "?track", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?name"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?track", "Predicate": "http://dbpedia.org/ontology/releaseDate", "Object": {"value":"?releaseDate"}, "opName": "Triple"}
+          ,
+          {"Subject": "?track", "Predicate": "http://dbpedia.org/ontology/artist", "Object": {"value":"?artist"}, "opName": "Triple"}
+          ,
+          {"Subject": "?artist", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?artistName"}, "opName": "Triple"}
+        ]}
+    ]}
+  ]}
+]}

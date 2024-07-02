@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Oxford_University_Cricket_Club", "Predicate": "http://dbpedia.org/ontology/university", "Object": {"value":"http://dbpedia.org/resource/University_of_Oxford"}, "opName": "Triple"}
+    ,
+    {"Subject": "http://dbpedia.org/resource/University_of_Oxford", "Predicate": "http://dbpedia.org/ontology/colourName", "Object": {"value":"?what"}, "opName": "Triple"}
+  ]}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?S", "Predicate": "http://xmlns.com/foaf/0.1/depiction", "Object": {"value":"?p"}, "opName": "Triple"}
+]}

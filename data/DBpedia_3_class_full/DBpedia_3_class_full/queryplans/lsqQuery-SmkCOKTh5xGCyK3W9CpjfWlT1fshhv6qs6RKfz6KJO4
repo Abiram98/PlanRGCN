@@ -1,0 +1,29 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?abstract) \"en\")]", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "table", "subOp": []}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "http://dbpedia.org/resource/Barack_Obama", "Predicate": "http://dbpedia.org/ontology/birthDate", "Object": {"value":"?birthDate"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://dbpedia.org/resource/Barack_Obama", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Barack_Obama", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?birthPlace"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Barack_Obama", "Predicate": "http://dbpedia.org/ontology/occupation", "Object": {"value":"?occupation"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

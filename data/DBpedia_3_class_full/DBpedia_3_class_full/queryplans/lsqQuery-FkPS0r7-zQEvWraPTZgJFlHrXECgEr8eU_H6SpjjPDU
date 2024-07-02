@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Oklahoma_State_Highway_52", "Predicate": "http://dbpedia.org/ontology/portrayer", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

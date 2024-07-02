@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/First_Interstate_BancSystem", "Predicate": "http://dbpedia.org/ontology/birthYear", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

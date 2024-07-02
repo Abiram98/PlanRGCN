@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "assign", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Jos%C3%A9_Isabel_Bland%C3%B3n_Figueroa", "Predicate": "?p", "Object": {"value":"?o"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName": "filter" , "expr": " [(strstarts (str ?p) \"http://dbpedia.org/ontology/\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/The_Weirdness", "Predicate": "?p", "Object": {"value":"?s"}, "opName": "Triple"}
+        ]}
+      ]}
+    ]}
+  ]}
+]}

@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Sweet_and_Sour_(TV_series)", "Predicate": "http://dbpedia.org/ontology/associatedBand", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

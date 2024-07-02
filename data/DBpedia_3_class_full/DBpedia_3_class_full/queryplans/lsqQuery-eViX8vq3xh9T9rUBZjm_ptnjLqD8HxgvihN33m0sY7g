@@ -1,0 +1,5 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Judd_Hirsch", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name1"}, "opName": "Triple"}
+  ,
+  {"Subject": "http://dbpedia.org/resource/Christopher_Plummer", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name2"}, "opName": "Triple"}
+]}

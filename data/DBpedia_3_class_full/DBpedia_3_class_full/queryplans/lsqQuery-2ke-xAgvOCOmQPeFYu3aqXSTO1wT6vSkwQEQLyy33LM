@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(|| (&& (= ?subject <http://dbpedia.org/resource/Italy>) (= ?object <http://dbpedia.org/resource/Barack_Obama>)) (&& (= ?subject <http://dbpedia.org/resource/Elvis_Presley>) (= ?object <http://dbpedia.org/resource/Brazil>)))]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?subject", "Predicate": "?rel", "Object": {"value":"?a"}, "opName": "Triple"}
+      ,
+      {"Subject": "?b", "Predicate": "?rel2", "Object": {"value":"?object"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

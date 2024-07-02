@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/West_Surrey_Racing", "Predicate": "http://dbpedia.org/ontology/leaderName", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

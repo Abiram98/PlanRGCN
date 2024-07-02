@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "extend", "subOp": [
+    {"opName": "group", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?x", "Predicate": "?predicate", "Object": {"value":"http://dbpedia.org/resource/God_Is_Not_Great"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

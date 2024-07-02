@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?redirect", "Predicate": "http://dbpedia.org/ontology/wikiPageRedirects", "Object": {"value":"http://bp2015n1ws02:7474/db/data/node/32152"}, "opName": "Triple"}
+  ]}
+]}

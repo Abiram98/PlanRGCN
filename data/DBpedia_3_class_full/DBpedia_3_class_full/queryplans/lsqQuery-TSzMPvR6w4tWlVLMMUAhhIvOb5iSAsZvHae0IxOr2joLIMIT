@@ -1,0 +1,19 @@
+{"opName": "filter" , "expr": " [(regex ?birthPlace \"Jaipur\" \"i\")]", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(= (lang ?description) \"en\")]", "subOp": [
+        {"opName":"BGP", "subOp": [
+          {"Subject": "?person", "Predicate": "http://dbpedia.org/property/occupation", "Object": {"value":"http://dbpedia.org/resource/Actor"}, "opName": "Triple"}
+          ,
+          {"Subject": "?person", "Predicate": "http://dbpedia.org/property/birthPlace", "Object": {"value":"http://dbpedia.org/resource/India"}, "opName": "Triple"}
+          ,
+          {"Subject": "?person", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?description"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?person", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+        ,
+        {"Subject": "?person", "Predicate": "http://dbpedia.org/property/birthPlace", "Object": {"value":"?birthPlace"}, "opName": "Triple"}
+      ]}
+  ]}
+]}

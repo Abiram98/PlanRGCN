@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?dessert", "Predicate": "http://dbpedia.org/ontology/birthPlace", "Object": {"value":"?fish"}, "opName": "Triple"}
+    ,
+    {"Subject": "?dessert", "Predicate": "?Dc", "Object": {"value":"?country"}, "opName": "Triple"}
+    ,
+    {"Subject": "?fish", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Fish"}, "opName": "Triple"}
+    ,
+    {"Subject": "?country", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/Country"}, "opName": "Triple"}
+  ]}
+]}

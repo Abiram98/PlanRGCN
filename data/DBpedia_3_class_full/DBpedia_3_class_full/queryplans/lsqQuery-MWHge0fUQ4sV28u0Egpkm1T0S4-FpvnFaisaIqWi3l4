@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Bataan_Death_March", "Predicate": "http://dbpedia.org/ontology/genre", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

@@ -1,0 +1,18 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?person", "Predicate": "http://purl.org/dc/terms/subject", "Object": {"value":"?x"}, "opName": "Triple"}
+      ]}
+      ,
+      {"opName": "path", "Subject": "?x", "Object": {"value":"http://dbpedia.org/resource/Category:Polish_singers"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/2004/02/skos/core#broader>"
+      ]
+      }
+  ]}
+]}

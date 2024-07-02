@@ -1,0 +1,52 @@
+{"opName": "project", "subOp": [
+  {"opName": "sequence", "subOp": [
+      {"opName": "filter" , "expr": " [(<= ?lon \"39.8693\"^^<http://www.w3.org/2001/XMLSchema#float>), (>= ?lon \"-31.2660\"^^<http://www.w3.org/2001/XMLSchema#float>)]", "subOp": [
+        {"opName": "sequence", "subOp": [
+            {"opName": "filter" , "expr": " [(>= ?lat \"27.6363\"^^<http://www.w3.org/2001/XMLSchema#float>), (<= ?lat \"81.0088\"^^<http://www.w3.org/2001/XMLSchema#float>)]", "subOp": [
+              {"opName": "sequence", "subOp": [
+                  {"opName": "filter" , "expr": " [(>= ?date \"1400\"^^<http://www.w3.org/2001/XMLSchema#date>), (<= ?date \"1500\"^^<http://www.w3.org/2001/XMLSchema#date>)]", "subOp": [
+                    {"opName": "sequence", "subOp": [
+                        {"opName": "filter" , "expr": " [(langMatches (lang ?label) \"EN\")]", "subOp": [
+                          {"opName":"BGP", "subOp": [
+                            {"Subject": "?sub", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://dbpedia.org/ontology/MilitaryConflict"}, "opName": "Triple"}
+                            ,
+                            {"Subject": "?sub", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+                          ]}
+                        ]}
+                        ,
+                        {"opName":"BGP", "subOp": [
+                          {"Subject": "?sub", "Predicate": "?pred_place", "Object": {"value":"?place"}, "opName": "Triple"}
+                          ,
+                          {"Subject": "?sub", "Predicate": "http://dbpedia.org/ontology/date", "Object": {"value":"?date"}, "opName": "Triple"}
+                        ]}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "?sub", "Predicate": "http://dbpedia.org/ontology/place", "Object": {"value":"?place"}, "opName": "Triple"}
+                    ,
+                    {"Subject": "?place", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"?class"}, "opName": "Triple"}
+                    ,
+                    {"Subject": "?place", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "Object": {"value":"?lat"}, "opName": "Triple"}
+                  ]}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "?place", "Predicate": "http://www.w3.org/2003/01/geo/wgs84_pos#long", "Object": {"value":"?lon"}, "opName": "Triple"}
+            ]}
+        ]}
+      ]}
+      ,
+      {"opName": "path", "Subject": "?class", "Object": {"value":"http://dbpedia.org/ontology/PopulatedPlace"}
+      , "pathComplexity": [
+      "P_ZeroOrMore1"
+      ]
+
+      , "pathType": "ZeroOrMore"
+      ,"Predicates":[
+       "<http://www.w3.org/2000/01/rdf-schema#subClassOf>"
+      ]
+      }
+  ]}
+]}

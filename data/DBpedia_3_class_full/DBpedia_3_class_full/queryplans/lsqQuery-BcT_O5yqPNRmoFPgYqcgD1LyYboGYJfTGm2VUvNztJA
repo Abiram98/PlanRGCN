@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "filter" , "expr": " [(= ?label \"Nationalists\"@en)]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?thing", "Predicate": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "Object": {"value":"http://www.w3.org/2002/07/owl#Thing"}, "opName": "Triple"}
+        ,
+        {"Subject": "?thing", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?label"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?thing", "Predicate": "http://dbpedia.org/property/date", "Object": {"value":"?date"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

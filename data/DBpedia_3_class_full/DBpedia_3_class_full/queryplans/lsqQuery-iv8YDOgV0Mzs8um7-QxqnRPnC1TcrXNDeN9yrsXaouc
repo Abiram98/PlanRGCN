@@ -1,0 +1,71 @@
+{"opName": "conditional", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName": "conditional", "subOp": [
+      {"opName": "conditional", "subOp": [
+        {"opName": "conditional", "subOp": [
+          {"opName": "conditional", "subOp": [
+            {"opName": "conditional", "subOp": [
+              {"opName": "conditional", "subOp": [
+                {"opName": "conditional", "subOp": [
+                  {"opName": "conditional", "subOp": [
+                    {"opName": "conditional", "subOp": [
+                      {"opName": "table", "subOp": []}
+                      ,
+                      {"opName": "filter" , "expr": " [(langMatches (lang ?abstract) \"en\")]", "subOp": [
+                        {"opName":"BGP", "subOp": [
+                          {"Subject": "http://dbpedia.org/resource/Aldi", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abstract"}, "opName": "Triple"}
+                        ]}
+                      ]}
+                    ]}
+                    ,
+                    {"opName": "filter" , "expr": " [(langMatches (lang ?comment) \"en\")]", "subOp": [
+                      {"opName":"BGP", "subOp": [
+                        {"Subject": "http://dbpedia.org/resource/Aldi", "Predicate": "http://www.w3.org/2000/01/rdf-schema#comment", "Object": {"value":"?comment"}, "opName": "Triple"}
+                      ]}
+                    ]}
+                  ]}
+                  ,
+                  {"opName":"BGP", "subOp": [
+                    {"Subject": "http://dbpedia.org/resource/Aldi", "Predicate": "http://dbpedia.org/ontology/industry", "Object": {"value":"?industry"}, "opName": "Triple"}
+                  ]}
+                ]}
+                ,
+                {"opName":"BGP", "subOp": [
+                  {"Subject": "http://dbpedia.org/resource/Aldi", "Predicate": "http://dbpedia.org/ontology/numberOfEmployees", "Object": {"value":"?numberOfEmployees"}, "opName": "Triple"}
+                ]}
+              ]}
+              ,
+              {"opName":"BGP", "subOp": [
+                {"Subject": "http://dbpedia.org/resource/Aldi", "Predicate": "http://dbpedia.org/ontology/foundingYear", "Object": {"value":"?foundingYear"}, "opName": "Triple"}
+              ]}
+            ]}
+            ,
+            {"opName":"BGP", "subOp": [
+              {"Subject": "http://dbpedia.org/resource/Aldi", "Predicate": "http://dbpedia.org/ontology/foundingYear", "Object": {"value":"?foundingYear"}, "opName": "Triple"}
+            ]}
+          ]}
+          ,
+          {"opName":"BGP", "subOp": [
+            {"Subject": "http://dbpedia.org/resource/Aldi", "Predicate": "http://dbpedia.org/ontology/service", "Object": {"value":"?service"}, "opName": "Triple"}
+          ]}
+        ]}
+        ,
+        {"opName":"BGP", "subOp": [
+          {"Subject": "http://dbpedia.org/resource/Aldi", "Predicate": "http://dbpedia.org/ontology/service", "Object": {"value":"?service"}, "opName": "Triple"}
+        ]}
+      ]}
+      ,
+      {"opName":"BGP", "subOp": [
+        {"Subject": "http://dbpedia.org/resource/Aldi", "Predicate": "http://dbpedia.org/property/products", "Object": {"value":"?products"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Aldi", "Predicate": "http://dbpedia.org/property/practiceAreas", "Object": {"value":"?practiceAreas"}, "opName": "Triple"}
+    ]}
+  ]}
+  ,
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Aldi", "Predicate": "http://dbpedia.org/ontology/type", "Object": {"value":"?type"}, "opName": "Triple"}
+  ]}
+]}

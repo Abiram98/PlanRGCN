@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(= (lang ?cmm) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?s", "Predicate": "?p", "Object": {"value":"http://dbpedia.org/resource/Finance"}, "opName": "Triple"}
+      ,
+      {"Subject": "?s", "Predicate": "?prop", "Object": {"value":"?cmm"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

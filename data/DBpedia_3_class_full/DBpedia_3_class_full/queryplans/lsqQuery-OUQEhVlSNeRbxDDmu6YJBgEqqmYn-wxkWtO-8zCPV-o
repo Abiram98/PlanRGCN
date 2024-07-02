@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Duarte_Freitas", "Predicate": "http://dbpedia.org/property/profession", "Object": {"value":"?field"}, "opName": "Triple"}
+  ]}
+]}

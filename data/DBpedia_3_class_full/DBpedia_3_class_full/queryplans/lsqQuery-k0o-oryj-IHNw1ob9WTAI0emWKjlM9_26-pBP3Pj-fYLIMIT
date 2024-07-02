@@ -1,0 +1,5 @@
+{"opName": "filter" , "expr": " [(contains (str ?z) \"????????????????\")]", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?x", "Predicate": "?y", "Object": {"value":"?z"}, "opName": "Triple"}
+  ]}
+]}

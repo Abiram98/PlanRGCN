@@ -1,0 +1,11 @@
+{"opName": "sequence", "subOp": [
+    {"opName": "filter" , "expr": " [(= (str ?lab) \"Arnold Schwarzenegger\")]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?dbp", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?lab"}, "opName": "Triple"}
+      ]}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?dbp", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?abs"}, "opName": "Triple"}
+    ]}
+]}

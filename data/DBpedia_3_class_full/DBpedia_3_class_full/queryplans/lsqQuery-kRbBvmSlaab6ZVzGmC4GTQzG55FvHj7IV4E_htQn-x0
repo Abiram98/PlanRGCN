@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Macedonian_parliamentary_election,_1990", "Predicate": "?property", "Object": {"value":"?value"}, "opName": "Triple"}
+]}

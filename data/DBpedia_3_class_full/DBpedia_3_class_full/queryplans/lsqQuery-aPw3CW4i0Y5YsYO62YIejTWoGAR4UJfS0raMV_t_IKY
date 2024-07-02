@@ -1,0 +1,5 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Enemies_Like_This", "Predicate": "http://dbpedia.org/property/rev2score", "Object": {"value":"?subject"}, "opName": "Triple"}
+  ]}
+]}

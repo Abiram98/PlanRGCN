@@ -1,0 +1,13 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?person", "Predicate": "http://xmlns.com/foaf/0.1/name", "Object": {"value":"?name"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName": "filter" , "expr": " [(! (bound ?surname))]", "subOp": [
+      {"opName":"BGP", "subOp": [
+        {"Subject": "?person", "Predicate": "http://xmlns.com/foaf/0.1/surname", "Object": {"value":"?surname"}, "opName": "Triple"}
+      ]}
+    ]}
+  ]}
+]}

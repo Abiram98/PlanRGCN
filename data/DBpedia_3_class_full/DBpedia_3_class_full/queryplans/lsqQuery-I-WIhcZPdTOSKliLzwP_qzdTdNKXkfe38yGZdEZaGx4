@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Kenbridge,_Virginia", "Predicate": "http://dbpedia.org/ontology/genre", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

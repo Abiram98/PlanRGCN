@@ -1,0 +1,7 @@
+{"opName": "project", "subOp": [
+  {"opName": "filter" , "expr": " [(langMatches (lang ?s) \"en\")]", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "http://dbpedia.org/resource/Campaign_for_Social_Justice", "Predicate": "http://dbpedia.org/ontology/abstract", "Object": {"value":"?s"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

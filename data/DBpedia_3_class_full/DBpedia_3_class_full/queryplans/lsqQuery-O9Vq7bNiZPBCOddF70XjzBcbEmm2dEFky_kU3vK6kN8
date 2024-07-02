@@ -1,0 +1,25 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "?r1", "Predicate": "?p1", "Object": {"value":"?r2"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r2", "Predicate": "?p2", "Object": {"value":"?r3"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r3", "Predicate": "?p7", "Object": {"value":"?r8"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r1w", "Predicate": "?p1", "Object": {"value":"?r2w"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r2w", "Predicate": "?p2", "Object": {"value":"?r3w"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r3w", "Predicate": "?p7", "Object": {"value":"?r8"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r1ww", "Predicate": "?p1", "Object": {"value":"?r2ww"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r2ww", "Predicate": "?p2", "Object": {"value":"?r3ww"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r3ww", "Predicate": "?p7", "Object": {"value":"?r8"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r1www", "Predicate": "?p1", "Object": {"value":"?r2www"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r2www", "Predicate": "?p2", "Object": {"value":"?r3www"}, "opName": "Triple"}
+  ,
+  {"Subject": "?r3www", "Predicate": "?p7", "Object": {"value":"?r8"}, "opName": "Triple"}
+]}

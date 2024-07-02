@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/1995_Anderson_Hills_tornado", "Predicate": "http://dbpedia.org/ontology/portrayer", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

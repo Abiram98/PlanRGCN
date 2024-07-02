@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Battle_of_Passchendaele", "Predicate": "http://dbpedia.org/ontology/composer", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

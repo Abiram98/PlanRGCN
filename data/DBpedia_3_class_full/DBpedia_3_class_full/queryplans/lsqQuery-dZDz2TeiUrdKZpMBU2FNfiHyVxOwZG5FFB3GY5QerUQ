@@ -1,0 +1,9 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "?book", "Predicate": "http://dbpedia.org/property/name", "Object": {"value":"Emma","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+    ,
+    {"Subject": "?book", "Predicate": "http://dbpedia.org/property/genre", "Object": {"value":"?genre"}, "opName": "Triple"}
+    ,
+    {"Subject": "?book", "Predicate": "http://dbpedia.org/property/publisher", "Object": {"value":"?pub"}, "opName": "Triple"}
+  ]}
+]}

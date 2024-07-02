@@ -1,0 +1,11 @@
+{"opName": "project", "subOp": [
+  {"opName": "conditional", "subOp": [
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?person", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"Tom Hanks","datatype":"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString","langTag":"en"}, "opName": "Triple"}
+    ]}
+    ,
+    {"opName":"BGP", "subOp": [
+      {"Subject": "?uri", "Predicate": "http://www.w3.org/2000/01/rdf-schema#label", "Object": {"value":"?string"}, "opName": "Triple"}
+    ]}
+  ]}
+]}

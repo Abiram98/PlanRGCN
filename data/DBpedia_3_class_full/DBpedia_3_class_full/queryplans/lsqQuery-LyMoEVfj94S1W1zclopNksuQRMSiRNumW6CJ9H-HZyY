@@ -1,0 +1,3 @@
+{"opName":"BGP", "subOp": [
+  {"Subject": "http://dbpedia.org/resource/Battersea_Arts_Centre", "Predicate": "http://dbpedia.org/ontology/almaMater", "Object": {"value":"?o"}, "opName": "Triple"}
+]}

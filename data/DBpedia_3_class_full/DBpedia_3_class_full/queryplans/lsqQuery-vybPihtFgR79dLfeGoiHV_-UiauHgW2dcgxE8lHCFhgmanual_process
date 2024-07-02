@@ -1,0 +1,15 @@
+{"opName": "project", "subOp": [
+  {"opName":"BGP", "subOp": [
+    {"Subject": "http://dbpedia.org/resource/Veno_Taufer", "Predicate": "http://dbpedia.org/ontology/influencedBy", "Object": {"value":"??P39"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P39", "Predicate": "http://dbpedia.org/ontology/influencedBy", "Object": {"value":"??P40"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P40", "Predicate": "http://dbpedia.org/ontology/influencedBy", "Object": {"value":"??P41"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P41", "Predicate": "http://dbpedia.org/ontology/influencedBy", "Object": {"value":"??P42"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P42", "Predicate": "http://dbpedia.org/ontology/influencedBy", "Object": {"value":"??P43"}, "opName": "Triple"}
+    ,
+    {"Subject": "??P43", "Predicate": "http://dbpedia.org/ontology/influencedBy", "Object": {"value":"?end"}, "opName": "Triple"}
+  ]}
+]}
