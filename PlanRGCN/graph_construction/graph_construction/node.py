@@ -17,6 +17,15 @@ class FilterNode:
     def __hash__(self) -> int:
         return self.data["expr"].__hash__()
 
+class FilterNode02(FilterNode):
+    def __init__(self, data) -> None:
+        self.data = data
+        self.expr_string = data["expression"]
+        self.vars = data['vars']
+        """for i in range(len(self.vars)):
+            if ")" in self.vars[i]:
+                self.vars[i] = self.vars[i].split(")")[0]"""
+
 
 class Node:
     pred_bins = 30
@@ -249,3 +258,31 @@ class TriplePattern2(TriplePattern):
         if "level" in data.keys():
             self.level = data["level"]
 
+class TriplePattern3(TriplePattern2):
+    """Class representing a triple pattern. Joins on constants are not considered separately"""
+
+    def __init__(self, data: dict, node_class=Node):
+        self.depthLevel = None
+        self.node_class = node_class
+
+        self.subject = node_class(data["subject"])
+        self.predicate = node_class(data["predicate"])
+        self.object = node_class(data["object"])
+        if data['isLiteral']:
+            self.object.datatype = data['objectDatatype']
+            try:
+                if data['objectLang'] != "":
+                    self.object.langtag = data["objectLang"]
+            except Exception:
+                pass
+
+        self.subject.nodetype = 0
+        self.predicate.nodetype = 1
+        self.object.nodetype = 2
+
+        # New variable encoding
+        self.subject.nodetype = 0 if is_variable_check(self.subject.node_label) else 1
+        self.predicate.nodetype = (
+            0 if is_variable_check(self.predicate.node_label) else 1
+        )
+        self.object.nodetype = 0 if is_variable_check(self.object.node_label) else 1

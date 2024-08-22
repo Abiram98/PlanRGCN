@@ -5,7 +5,7 @@ from graph_construction.feats.featurizer import (
     FeaturizerPredStats,
 )
 import pickle
-from graph_construction.node import FilterNode, TriplePattern
+from graph_construction.node import FilterNode, TriplePattern, TriplePattern3
 from graph_construction.qp.visitor.UtilVisitor import LiteralsFeaturizer
 from graph_construction.feats.feat_scale_util import BinnerEntPred
 import numpy as np
@@ -79,7 +79,7 @@ class FeaturizerBinning(FeaturizerPredStats):
     def featurize(self, node):
         if isinstance(node, FilterNode):
             return self.filter_features(node).astype("float32")
-        elif isinstance(node, TriplePattern):
+        elif isinstance(node, TriplePattern3):
             return np.concatenate(
                 (self.tp_features(node), self.pred_clust_features(node)), axis=0
             ).astype("float32")

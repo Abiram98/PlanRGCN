@@ -89,6 +89,7 @@ class FeaturizerPath(FeaturizerBinning):
                     self.pred_freq,
                     self.pred_ents,
                     self.pred_lits,
+                    self.lit_freq,
                     bins=bins,
                 )
             case "std":
