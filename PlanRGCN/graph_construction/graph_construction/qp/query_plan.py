@@ -208,6 +208,7 @@ class QueryPlan:
         """
         self.node_features = {}
         for n_id in self.nodes:
+            self.node2obj[n_id]
             self.node_features[n_id] = {
                 "node_features": featurizer.featurize(self.node2obj[n_id])
             }

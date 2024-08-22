@@ -4,11 +4,21 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 import com.org.Algebra.EntityLogExtractor;
 import com.org.Algebra.PredicateLogExtractor;
 import com.org.Algebra.Utils;
 import com.org.QueryReader.LSQreader;
+
+import org.apache.commons.lang3.time.StopWatch;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.sparql.algebra.Algebra;
+import org.apache.jena.sparql.algebra.Op;
+import com.org.ex_plan.QueryGraphVisitor;
+import java.io.PrintStream;
+import java.io.FileNotFoundException;
 
 public class App
 {
@@ -16,6 +26,16 @@ public class App
     {
         String task = args[0];
         switch (task){
+        case "qg": {
+            try{
+            System.setErr(new PrintStream("/dev/null"));
+            }catch (FileNotFoundException e){
+            }
+
+            printQueryGraph(args[1]);
+
+            break;
+        }
             case "test": {
                 test();
                 break;
@@ -115,4 +135,59 @@ public class App
                     """;
         System.out.println(u.time_query_plan(query));
     }
+
+    public static void printQueryGraph(String queryString){
+        System.out.println(getQueryGraph(queryString));
+    }
+
+    public static void disableWarns(){
+        
+            try{
+                System.setErr(new PrintStream("/dev/null"));
+                }catch (FileNotFoundException e){
+                }
+    }
+    
+    public static String getQueryGraph(String queryString){
+        Query q = QueryFactory.create(queryString);
+        Op o = Algebra.compile(q);
+        o = Algebra.optimize(o);
+        QueryGraphVisitor visitor = new QueryGraphVisitor();
+        o.visit(visitor);
+        visitor.finalize_edges();
+        return visitor.graph();
+    }
+
+    public static String debugGetQueryGraph(String queryString){
+        long start; 
+        long queryPars;
+        long queryOpt;
+        long queryGr;
+        
+        start = System.currentTimeMillis();
+        Query q = QueryFactory.create(queryString);
+        Op o = Algebra.compile(q);
+        queryPars = System.currentTimeMillis();
+        
+        
+        o = Algebra.optimize(o);
+        queryOpt = System.currentTimeMillis();
+        
+        
+        QueryGraphVisitor visitor = new QueryGraphVisitor();
+        
+        o.visit(visitor);
+        visitor.finalize_edges();
+        String ret = visitor.graph();
+        queryGr = System.currentTimeMillis();
+        
+        System.out.println("Time after query plan: " + (queryPars-start));
+        System.out.println("Time after query plan opt: " + (queryOpt-queryPars));
+        System.out.println("Time after query graph: " + (queryGr-queryOpt));
+        
+        
+        return ret;
+    }
+    
+
 }

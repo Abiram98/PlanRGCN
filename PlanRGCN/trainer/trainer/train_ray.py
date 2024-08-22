@@ -77,32 +77,6 @@ def get_dataloaders(
     config = None,
 ):
     
-    
-    """train_temp = GraphDataset.load_dataset(train_path, scaling, lit_path,act_save= save_path)
-    val_temp = GraphDataset.load_dataset(val_path, scaling, lit_path, act_save=save_path)
-    if val_pp_path is not None:
-        val_pp_temp = GraphDataset.load_dataset(val_pp_path, scaling, lit_path, act_save=save_path)
-    test_temp = GraphDataset.load_dataset(test_path, scaling, lit_path, act_save=save_path)
-    if (train_temp is not None) or (val_temp is not None) or (test_temp is not None):
-        train_dataloader = GraphDataLoader(
-            train_temp, batch_size=batch_size, drop_last=False, shuffle=True
-        )
-        val_dataloader = GraphDataLoader(
-            val_temp, batch_size=batch_size, drop_last=False, shuffle=True
-        )
-        test_dataloader = GraphDataLoader(
-            test_temp, batch_size=batch_size, drop_last=False, shuffle=True
-        )
-        if val_pp_path is not None:
-            val_pp_dataload = GraphDataLoader(
-            val_pp_temp, batch_size=batch_size, drop_last=False, shuffle=True
-        )
-        vec_size = train_temp.vec_size
-        if val_pp_path is not None:
-            return train_dataloader,val_dataloader,test_dataloader, vec_size, val_pp_dataload
-        return train_dataloader,val_dataloader,test_dataloader, vec_size, None
-        """
-    
     if save_prep_path!=None and (os.path.exists(save_prep_path)):
         print("loading dataset prepper to "+ save_prep_path)
         prepper = pcl.load(open(save_prep_path, 'rb') )
@@ -137,18 +111,6 @@ def get_dataloaders(
         print("Saving dataset prepper to "+ save_prep_path)
         prepper.cls_func = None
         pcl.dump(prepper, open(save_prep_path, 'wb') )
-    
-    """if val_pp_path is not None:
-        val_pp_dataload = prepper.get_pp_valloader(os.path.join(save_path,"pp_sampled"))
-        val_pp_dataload.dataset.save()
-        return train_loader, val_loader, test_loader, prepper.vec_size, val_pp_dataload"""
-    
-    """if not os.path.exists(os.path.join(save_path,"val_sampled_dgl_graph.bin")):
-        train_loader.dataset.save(os.path.join(save_path,"train_sampled"))
-        val_loader.dataset.save(os.path.join(save_path,"val_sampled"))
-        test_loader.dataset.save(os.path.join(save_path,"test_sampled"))
-        if val_pp_path is not None:
-            val_pp_dataload.dataset.save()"""
     return train_loader, val_loader, test_loader, prepper.vec_size, None
 
 def create_model(input_d = None, l1=None, l2=None, dropout=None, n_classes=3, conv_type='RGCN'):
@@ -197,40 +159,15 @@ def train_function(
     
     with open(save_prep_path, 'rb') as prepf:
         prepper = pcl.load(prepf)
+
+    #the dateaset_creator.py script must be executed prior to the training
     if prepper == None:
-        
         raise Exception("prepper not provided")
-        if pred_com_path == None:
-            con_pred_com_path = None
-        else:
-            con_pred_com_path = os.path.join(pred_com_path, config["pred_com_path"])
-        
-        train_loader, val_loader, _, input_d, val_pp_loader = get_dataloaders(
-            train_path=train_path,
-            val_path=val_path,
-            test_path=test_path,
-            val_pp_path= val_pp_path,
-            batch_size=config["batch_size"],
-            query_plan_dir=query_plan_dir,
-            pred_stat_path=pred_stat_path,
-            pred_com_path=con_pred_com_path,
-            ent_path=ent_path,
-            lit_path=lit_path,
-            time_col=time_col,
-            is_lsq=is_lsq,
-            cls_func=cls_func,
-            featurizer_class=featurizer_class,
-            scaling=scaling,
-            query_plan=query_plan,
-            save_prep_path=save_prep_path,
-            save_path= save_path,
-            config=config
-        )
-    else:
-        train_loader = prepper.get_trainloader()
-        val_loader = prepper.get_valloader()
-        val_pp_loader = None
-        input_d = prepper.vec_size
+
+    train_loader = prepper.get_trainloader()
+    val_loader = prepper.get_valloader()
+    val_pp_loader = None
+    input_d = prepper.vec_size
     #net = Classifier2RGCN(
     #    input_d, config["l1"], config["l2"], config["dropout"], n_classes
     #)
