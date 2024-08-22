@@ -30,7 +30,7 @@ echo "dist_calc " $SECONDS
 echo "DBCreation " $SECONDS
 
 python3 -m qpp_new.feature_combiner $BASELINEDIR "$BASELINEDIR"/ged.db
-
+echo "Kmediod " $SECONDS
 #algebra features:
 { time python3 -m qpp_features.feature_generator \
                 $QUERYLOG $DATASET -t alg_feat 1> "$DATASET"/baseline/alg_feat_time.log ; } 2> "$DATASET"/baseline/alg_feat_time.errlog
