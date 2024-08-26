@@ -3,7 +3,7 @@ from graph_construction.feats.feature_binner import FeaturizerBinning
 from graph_construction.feats.feat_scale_util import BinnerEntPred
 from graph_construction.feats.featurizer import EntStats, LitStats
 from graph_construction.node import TriplePattern
-from graph_construction.nodes.path_node import PathNode
+from graph_construction.nodes.path_node import PathNode, PathNode2
 from graph_construction.qp.qp_utils import pathOpTypes
 from graph_construction.qp.visitor.UtilVisitor import LiteralsFeaturizer
 import numpy as np
@@ -89,6 +89,7 @@ class FeaturizerPath(FeaturizerBinning):
                     self.pred_freq,
                     self.pred_ents,
                     self.pred_lits,
+                    self.lit_freq,
                     bins=bins,
                 )
             case "std":
@@ -142,7 +143,7 @@ class FeaturizerPath(FeaturizerBinning):
         # property path related info
         path_operation = np.zeros(pathOpTypes.get_max_operations())
         pred_min_max = np.zeros(2)
-        if isinstance(node, PathNode):
+        if isinstance(node, PathNode) or isinstance(node, PathNode2):
             pred_min_max[0] = node.p_mod_min
             pred_min_max[1] = node.p_mod_max
             for op in node.path_complexity:

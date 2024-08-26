@@ -11,7 +11,7 @@ COPY load_balance/ /PlanRGCN/load_balance/
 COPY notebooks/ /PlanRGCN/notebooks/
 #COPY qpe/ /PlanRGCN/qpe/
 COPY qpp/ /PlanRGCN/qpp/
-COPY sample_checker/ /PlanRGCN/sample_checker/
+#COPY sample_checker/ /PlanRGCN/sample_checker/
 COPY scripts/ /PlanRGCN/scripts/
 COPY utils/ /PlanRGCN/utils/
 COPY virt_feat_conf/ /PlanRGCN/virt_feat_conf/
@@ -21,6 +21,7 @@ RUN bash scripts/setup.sh
 COPY requirements2.txt /PlanRGCN/requirements2.txt
 COPY pp_only_qs.py /PlanRGCN/pp_only_qs.py
 RUN pip3 install -r requirements2.txt
+RUN pip install JPype1==1.5.0
 COPY .git/ /PlanRGCN/.git/
 COPY .gitignore /PlanRGCN/.gitignore
 RUN apt-get install git -y
@@ -28,11 +29,17 @@ RUN apt-get install git -y
 #COPY .vscode/settings.json /PlanRGCN/.vscode/settings.json
 COPY Dockerfile /PlanRGCN/Dockerfile
 COPY .dockerignore /PlanRGCN/.dockerignore
-COPY data /PlanRGCN/data
+#COPY data /PlanRGCN/data
 COPY run.sh /PlanRGCN/run.sh
 COPY README.md /PlanRGCN/README.md
 COPY test_inference_time.py /PlanRGCN/test_inference_time.py
 
 RUN apt-get install ssh -y
 RUN apt-get install rsync -y
-CMD /bin/bash
+RUN apt install openssh-server sudo -y
+RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 test
+RUN  echo 'root:test' | chpasswd
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN service ssh start
+EXPOSE 22
+CMD ["/usr/sbin/sshd","-D"]

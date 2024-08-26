@@ -1,6 +1,7 @@
-from graph_construction.node import FilterNode, TriplePattern, TriplePattern2
+import networkx as nx
+from graph_construction.node import FilterNode, TriplePattern, TriplePattern2, TriplePattern3, FilterNode02
 from graph_construction.nodes.PathComplexException import PathComplexException
-from graph_construction.nodes.path_node import PathNode
+from graph_construction.nodes.path_node import PathNode, PathNode2
 from graph_construction.qp.query_plan import QueryPlan
 from graph_construction.stack import Stack
 from functools import partialmethod
@@ -11,10 +12,10 @@ class QueryPlanPath(QueryPlan):
         QueryPlan.max_relations = 13
         QueryPlanPath.set_max_rels()
         super().__init__(data)
-    
+
     def set_max_rels(number=13):
         QueryPlan.max_relations = number
-        
+
     def process(self, data):
         self.level = 0
         self.data = data
@@ -74,7 +75,7 @@ class QueryPlanPath(QueryPlan):
     def add_tripleOrPath(self, data, add_data=None):
         if data["opName"] == "path":
             try:
-               t = PathNode(data)
+                t = PathNode(data)
             except KeyError:
                 raise PathComplexException(f"Did not work for {data}")
         elif data["opName"] == "Triple":
@@ -124,7 +125,78 @@ class QueryPlanPath(QueryPlan):
     def add_filters(self, data, add_data=None):
         return super().add_filters(data, add_data)
 
-    #add_join = partialmethod(iterate_ops, add_binaryOP, "join")
+    # add_join = partialmethod(iterate_ops, add_binaryOP, "join")
     add_leftjoin = partialmethod(iterate_ops, add_binaryOP, "leftjoin")
     add_conditional = partialmethod(iterate_ops, add_binaryOP, "conditional")
     filters_process = partialmethod(iterate_ops, add_filters, "filter")
+
+
+def rel_lookup(rel):
+    match rel:
+        case "S_S":
+            return 0
+        case "S_P":
+            return 1
+        case "S_O":
+            return 2
+        case "P_S":
+            return 3
+        case "P_P":
+            return 4
+        case "P_O":
+            return 5
+        case "O_S":
+            return 6
+        case "O_P":
+            return 7
+        case "O_O":
+            return 8
+        case "filter":
+            return 9
+        case "OPTIONAL":
+            return 10
+        case "SingleTripleOrCatesian":
+            return 11
+        case _:
+            raise Exception("undefined "+ rel)
+
+
+class QueryGraph(QueryPlanPath):
+    def __init__(self, query_graph):
+        super().__init__(query_graph)
+        QueryPlan.max_relations = 13
+        QueryPlanPath.set_max_rels()
+
+    def set_max_rels(number=13):
+        QueryPlan.max_relations = number
+
+    def process(self, data):
+        self.data = data
+        self.triples: list[TriplePattern2 | PathNode] = list()
+        self.filters: list[FilterNode] = list()
+
+        self.nodes = list()
+        self.edges = list()
+        self.node2obj = {}
+        for node in data['nodes']:
+            match node['nodeType']:
+                case "TP":
+                    n = TriplePattern3(node)
+                case "PP":
+                    n = PathNode2(node)
+                case "FILTER":
+                    n = FilterNode02(node)
+                case _:
+                    raise Exception('Unknwn node' + node['nodeType'])
+            nodeid = node['nodeId']
+            self.nodes.append(nodeid)
+            self.node2obj[nodeid] = n
+
+        self.G = self.networkx()
+
+    def networkx(self):
+        G = nx.MultiDiGraph()
+        for e in self.data['edges']:
+            G.add_edge(e[0], e[1], rel_type=rel_lookup(e[2]))
+        G.add_nodes_from(self.nodes)
+        return G
