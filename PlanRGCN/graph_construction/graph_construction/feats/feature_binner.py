@@ -5,7 +5,8 @@ from graph_construction.feats.featurizer import (
     FeaturizerPredStats,
 )
 import pickle
-from graph_construction.node import FilterNode, TriplePattern, TriplePattern3
+from graph_construction.node import FilterNode, TriplePattern, TriplePattern3, FilterNode02
+from graph_construction.nodes.path_node import PathNode2
 from graph_construction.qp.visitor.UtilVisitor import LiteralsFeaturizer
 from graph_construction.feats.feat_scale_util import BinnerEntPred
 import numpy as np
@@ -77,14 +78,14 @@ class FeaturizerBinning(FeaturizerPredStats):
             )
 
     def featurize(self, node):
-        if isinstance(node, FilterNode):
+        if isinstance(node, FilterNode02):
             return self.filter_features(node).astype("float32")
-        elif isinstance(node, TriplePattern3):
+        elif isinstance(node, TriplePattern3) or isinstance(node, PathNode2):
             return np.concatenate(
                 (self.tp_features(node), self.pred_clust_features(node)), axis=0
             ).astype("float32")
         else:
-            raise Exception("unknown node type")
+            raise Exception("unknown node type"+ str(type(node)))
 
     def pred_clust_features(self, node: TriplePattern):
         vec = np.zeros(self.max_pred)

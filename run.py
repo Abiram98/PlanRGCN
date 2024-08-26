@@ -1,4 +1,14 @@
-from graph_construction.feats.featurizer_path import FeaturizerPath
+import pandas as pd
+import numpy as np
+
+from trainer.data_splitter import *
+df = pd.read_csv('/data/wikidataV2/all.tsv', sep='\t')
+
+print(count_qs_bins(df['mean_latency'],list(equalObs(df['mean_latency'], 2))))
+
+
+
+"""from graph_construction.feats.featurizer_path import FeaturizerPath
 
 import pandas as pd
 import numpy as np
@@ -8,8 +18,9 @@ pred_stat_path='/data/planrgcn_features/extracted_features_dbpedia2016/predicate
 ent_path='/data/planrgcn_features/extracted_features_dbpedia2016/entities/ent_stat/batches_response_stats'
 lit_path='/data/planrgcn_features/extracted_features_dbpedia2016/literals/literals_stat/batches_response_stats'
 featurizer = FeaturizerPath(pred_stat_path=pred_stat_path,pred_com_path=None,ent_path =ent_path, lit_path = lit_path, scaling='binner')
-create_query_graphs_data_split(query_path='/data/DBpedia_3_class_full/test_sampled.tsv', is_lsq=False, feat=featurizer, query_plan=QueryGraph)
+dgl_graphs = create_query_graphs_data_split(query_path='/data/DBpedia_3_class_full/test_sampled.tsv', is_lsq=False, feat=featurizer, query_plan=QueryGraph)
 
+print(dgl_graphs)
 
 exit()
 
@@ -39,5 +50,5 @@ for i, query in enumerate(list(df['queryString'])):
 
 print(len(not_parse_qs), "  queries not parsed")
 print(not_parse_qs)
-
+"""
 

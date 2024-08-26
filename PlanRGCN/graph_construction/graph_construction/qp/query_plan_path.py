@@ -134,7 +134,31 @@ class QueryPlanPath(QueryPlan):
 def rel_lookup(rel):
     match rel:
         case "S_S":
-            ...
+            return 0
+        case "S_P":
+            return 1
+        case "S_O":
+            return 2
+        case "P_S":
+            return 3
+        case "P_P":
+            return 4
+        case "P_O":
+            return 5
+        case "O_S":
+            return 6
+        case "O_P":
+            return 7
+        case "O_O":
+            return 8
+        case "filter":
+            return 9
+        case "OPTIONAL":
+            return 10
+        case "SingleTripleOrCatesian":
+            return 11
+        case _:
+            raise Exception("undefined "+ rel)
 
 
 class QueryGraph(QueryPlanPath):
