@@ -1,10 +1,41 @@
-import pandas as pd
-import numpy as np
+from PlanRGCN.query_log_splitting.data_splitter import *
+from unseen_splitter import UnseenSplitter
+"""
+spl =DataSplitter(tsv_file='/data/wikidataV2/all.tsv',interval_type='percentile', percentiles=[0,50,92,100])
 
-from trainer.data_splitter import *
-df = pd.read_csv('/data/wikidataV2/all.tsv', sep='\t')
+print('starting stratification process')
+spl.make_splits_files(train_file='/data/wikidataV2/train_sampled.tsv', val_file = '/data/wikidataV2/val_sampled.tsv',
+                      test_file='/data/wikidataV2/test_sampled.tsv', splt_info_file='/data/wikidataV2/queryStat.json',
+                      sep='\t',
+                      save_obj_file='/data/wikidataV2/data_splitter.pickle',
+                      intervals_file='/data/wikidataV2/intervals.txt')
+"""
 
-print(count_qs_bins(df['mean_latency'],list(equalObs(df['mean_latency'], 2))))
+
+#u_splt = UnseenSplitter('/data/wikidataV2/train_sampled.tsv', '/data/wikidataV2/val_sampled.tsv', '/data/wikidataV2/test_sampled.tsv','/data/wikidataV2/data_splitter.pickle','/data/wikidataV2/n_train_sampled.tsv', '/data/wikidataV2/n_val_sampled.tsv','/data/wikidataV2/n_test_sampled.tsv', '/data/wikidataV2/selected_train_val_ids.txt')
+
+""" Need to be run
+print('starting stratification process')
+spl = DataSplitter(tsv_file='/data/DBpediaV2/all.tsv',interval_type='percentile', percentiles=[0,50,90,100])
+spl.make_splits_files(train_file='/data/DBpediaV2/train_sampled.tsv', val_file = '/data/DBpediaV2/val_sampled.tsv',
+                      test_file='/data/DBpediaV2/test_sampled.tsv', splt_info_file='/data/DBpediaV2/queryStat.json',
+                      sep='\t',
+                      save_obj_file='/data/DBpediaV2/data_splitter.pickle',
+                      intervals_file='/data/DBpediaV2/intervals.txt')
+"""
+u_splt = UnseenSplitter('/data/DBpediaV2/train_sampled.tsv', '/data/DBpediaV2/val_sampled.tsv', '/data/DBpediaV2/test_sampled.tsv','/data/DBpediaV2/data_splitter.pickle','/data/DBpediaV2/n_train_sampled.tsv', '/data/DBpediaV2/n_val_sampled.tsv','/data/DBpediaV2/n_test_sampled.tsv', '/data/DBpediaV2/selected_train_val_ids.txt')
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

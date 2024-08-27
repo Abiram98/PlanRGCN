@@ -16,6 +16,7 @@ import org.apache.jena.sparql.algebra.op.Op0;
 import org.apache.jena.sparql.algebra.op.Op1;
 import org.apache.jena.sparql.algebra.op.Op2;
 import org.apache.jena.sparql.algebra.op.OpBGP;
+import org.apache.jena.sparql.algebra.op.OpConditional;
 import org.apache.jena.sparql.algebra.op.OpFilter;
 import org.apache.jena.sparql.algebra.op.OpLeftJoin;
 import org.apache.jena.sparql.algebra.op.OpN;
@@ -201,7 +202,6 @@ public class QueryGraphVisitor extends OpVisitorByType {
 
     @Override
     protected void visitLeftJoin(OpLeftJoin op) {
-        //print("{\"opName\": \""+op.getName()+ "\", \"subOp\": [");
         BinaryOperator leftjoin = new BinaryOperator("Optional");
         binOps.add(leftjoin);
         op.getLeft().visit(this);
@@ -298,6 +298,15 @@ public class QueryGraphVisitor extends OpVisitorByType {
         mapper.put("nodes", nodes);
 
         return gson.toJson(mapper);
+    }
+    @Override
+    public void visit(OpConditional op) {
+        BinaryOperator leftjoin = new BinaryOperator("Optional");
+        binOps.add(leftjoin);
+        op.getLeft().visit(this);
+        leftjoin.startRight();
+        op.getRight().visit(this);
+        leftjoin.done();
     }
     
 }
