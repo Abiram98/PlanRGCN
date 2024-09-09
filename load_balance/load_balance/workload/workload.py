@@ -108,11 +108,12 @@ class Workload:
         self.queries = queries
     
     def load_queries(self, path, sep='\t'):
+        print('here2')
         df = pd.read_csv(path, sep=sep)
         count = 0
         for idx, row in df.iterrows():
             try:
-                self.add(row['id'],row['queryString'],row['mean_latency'])
+                self.add(row['id'], row['queryString'],row['mean_latency'])
                 count += 1
             except Exception as e:
                 print(f"loading of query did not work!")

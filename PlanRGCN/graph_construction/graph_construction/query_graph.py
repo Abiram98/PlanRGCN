@@ -105,7 +105,8 @@ def create_query_graphs_data_split(
 ):
     df = pd.read_csv(query_path, sep="\t")
     if is_lsq:
-        ids = set([x[20:] for x in df["queryID"]])
+        #ids = set([x[20:] for x in df["queryID"]])
+        ids = set([x for x in df["queryID"]])
     else:
         ids = set([x for x in df["queryID"]])
 
@@ -128,8 +129,8 @@ def query_graphs_with_lats( query_path="/qpp/dataset/DBpedia_2016_12k_sample/tra
     debug = False
 ):
     df = pd.read_csv(query_path, sep="\t")
-    if is_lsq:
-        df["queryID"] = df["queryID"].apply(lambda x: x[20:])
+    #if is_lsq:
+    #    df["queryID"] = df["queryID"].apply(lambda x: x[20:])
     df.set_index("queryID", inplace=True)
     # print(df.loc["lsqQuery-UBZNr7M1ITVUf21mrBIQ9W4f6cdpJr6DQbr0HkWKOnw"][time_col])
 
@@ -163,7 +164,6 @@ def query_graph_w_class_vec(
     debug = False
 ):
     samples,durationQPS = query_graphs_with_lats(
-        source_dir=source_dir,
         query_path=query_path,
         feat=feat,
         time_col=time_col,

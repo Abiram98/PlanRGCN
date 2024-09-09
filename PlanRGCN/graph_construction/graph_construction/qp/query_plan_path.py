@@ -155,6 +155,8 @@ def rel_lookup(rel):
             return 9
         case "OPTIONAL":
             return 10
+        case "Optional":
+            return 10
         case "SingleTripleOrCatesian":
             return 11
         case _:

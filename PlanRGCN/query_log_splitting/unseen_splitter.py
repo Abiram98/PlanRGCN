@@ -72,7 +72,7 @@ class UnseenSplitter:
             else:
                 completely_unseen_ids.append(test_id)
         self.missing_intervals = self.get_rt_missing(completely_unseen_ids, self.test_df)
-
+        exit() # temp code
         #Test completel unssen queries
         completety_unseen_df = self.test_df.loc[self.test_df['queryID'].isin(completely_unseen_ids)].copy()
         completety_unseen_df['interval'] = completety_unseen_df['mean_latency'].apply(lambda x: self.interval_check(x))

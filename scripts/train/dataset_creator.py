@@ -3,7 +3,7 @@
 
 from trainer.train_ray import get_dataloaders
 from graph_construction.feats.featurizer_path import FeaturizerPath
-from graph_construction.qp.query_plan_path import QueryPlanPath
+from graph_construction.qp.query_plan_path import QueryPlanPath, QueryGraph
 from ray import tune
 import os,sys
 import argparse
@@ -77,7 +77,7 @@ is_lsq = True
 #featurizer_class = FeaturizerBinning
 featurizer_class = FeaturizerPath
 scaling = "binner"
-query_plan = QueryPlanPath
+query_plan = QueryGraph
 prepper = None
 resume=False
 

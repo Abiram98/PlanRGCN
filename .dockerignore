@@ -4,3 +4,4 @@
 #**/.vscode
 **/dbpedia2016
 **/__pycache__
+**/core
