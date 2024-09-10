@@ -14,12 +14,12 @@ FROM ubuntu:22.04
 
 
 WORKDIR /PlanRGCN
-COPY requirements2.txt /PlanRGCN/requirements2.txt
+COPY requirements.txt /PlanRGCN/requirements.txt
 COPY scripts/ /PlanRGCN/scripts/
 RUN bash scripts/setup.sh
 
 
-RUN pip3 install -r requirements2.txt
+RUN pip3 install -r requirements.txt
 RUN pip install JPype1==1.5.0
 
 #No longer needed since local files are used for remote developement
@@ -51,6 +51,8 @@ COPY pp_only_qs.py /PlanRGCN/pp_only_qs.py
 COPY inductive_query/ /PlanRGCN/inductive_query/
 COPY load_balance/ /PlanRGCN/load_balance/
 COPY qpp/ /PlanRGCN/qpp/
+COPY install_local_modules.sh /PlanRGCN/install_local_modules.sh
+RUN bash /PlanRGCN/install_local_modules.sh
 
 COPY utils/ /PlanRGCN/utils/
 COPY virt_feat_conf/ /PlanRGCN/virt_feat_conf/

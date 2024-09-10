@@ -21,7 +21,6 @@ def get_workload(query_file, predicted_file, add_lsq_url,cls_field, mu = const.M
     #print(df['mean_latency'].quantile(q=0.25))
     w = Workload(true_field_name=cls_field)
     w.load_queries(query_file)
-    print('here after load')
     #print('after load', df)
     w.set_time_cls(predicted_file,add_lsq_url=add_lsq_url)
     a = ArrivalRateDecider(seed=seed)

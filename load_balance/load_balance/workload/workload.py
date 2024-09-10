@@ -108,7 +108,6 @@ class Workload:
         self.queries = queries
     
     def load_queries(self, path, sep='\t'):
-        print('here2')
         df = pd.read_csv(path, sep=sep)
         count = 0
         for idx, row in df.iterrows():

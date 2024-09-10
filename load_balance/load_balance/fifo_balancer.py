@@ -180,9 +180,13 @@ def main_admission_runner(w, url='http://172.21.233.23:8891/sparql', save_dir='l
             procs['main'].join()
         end_time = time.perf_counter()
         print(f"elapsed time: {end_time - start_time}")
+        with open(os.path.join(save_dir, 'elapsed_time.txt'), 'w') as f:
+            f.write(f"elapsed time: {end_time - start_time}")
     except KeyboardInterrupt:
         end_time = time.perf_counter()
         print(f"elapsed time: {end_time - start_time}")
+        with open(os.path.join(save_dir, 'elapsed_time.txt'), 'w') as f:
+            f.write(f"elapsed time: {end_time - start_time}")
 
 def main_balance_runner(w, url = 'http://172.21.233.23:8891/sparql', save_dir='load_balance',n_workers=8):
     #f_lb =f'/data/{sample_name}/load_balance_FIFO'

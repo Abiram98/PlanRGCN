@@ -1,6 +1,80 @@
 import os
 os.environ['QG_JAR']='/PlanRGCN/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar'
 
+
+
+
+class ADMCTRLAnalyser:
+    def __init__(self, path_to_result, method_name, test_file, norm=True, objective_file=None):
+        if not (objective_file == None or objective_file == "None"):
+            exec(open(objective_file).read(), globals())
+            self.label_map = {}
+            self.label_index =[]
+            if 'thresholds' in globals():
+                global thresholds
+                global cls_func
+                for i in range(len(thresholds)-1):
+                    self.label_map[i] = f"({thresholds[i]:.4f};{thresholds[i+1]:.4f}]"
+                    self.label_index.append(f"({thresholds[i]:.4f};{thresholds[i+1]:.4f}]")
+
+
+        from collections import Counter
+        import json
+        import pandas as pd
+        self.entries = []
+        self.path_to_res = path_to_result
+
+
+        test_df = pd.read_csv(test_file, sep='\t')
+        test_df = test_df.set_index('id')
+
+        rejc = pd.read_csv(os.path.join(self.path_to_res, 'rejected.csv'))
+        dct = dict(Counter(rejc['true_cls']))
+
+        if not norm:
+            stat = {'Good Rejects': dct[2] if 2 in dct.keys() else 0,
+                    'Incorrect 0': ((dct[0] if 0 in dct.keys() else 0)),
+                    'Incorrect 1': ((dct[1] if 1 in dct.keys() else 0)),
+                    'Incorrect all': ((dct[1] if 1 in dct.keys() else 0) + (dct[0] if 0 in dct.keys() else 0)),
+                    }
+        else:
+            stat = {'Good Rejects': (dct[2] if 2 in dct.keys() else 0)/len(rejc),
+                    'Incorrect 0': ((dct[0] if 0 in dct.keys() else 0))/len(rejc),
+                    'Incorrect 1': ((dct[1] if 1 in dct.keys() else 0)) / len(
+                        rejc),
+                    'Incorrect all': ((dct[1] if 1 in dct.keys() else 0) + (dct[0] if 0 in dct.keys() else 0)) / len(
+                        rejc),
+                    }
+
+        stat['evaluated_qs'] = 0
+        tot_lat = 0
+        worker_files = [x for x in os.listdir(self.path_to_res) if x.startswith('w_')]
+        for w in worker_files:
+            w_f = os.path.join(self.path_to_res, w)
+            data = json.load(open(w_f, 'r'))
+            for d in data:
+                if d['response'] == 'ok':
+                    stat['evaluated_qs'] += 1
+                    tot_lat += (d[''])
+            ...
+    def load_worker_data(self):
+        ...
+
+
+
+    def evaluate_dataset(self, path_to_res):
+        print(path_to_res)
+
+
+objective_file='/data/DBpedia_3_class_full/admission_control/planrgcn_44/../../objective.py'
+nn_res_adm = '/data/DBpedia_3_class_full/admission_control/planrgcn_44'
+test_sampled = '/data/DBpedia_3_class_full/test_sampled.tsv'
+ADMCTRLAnalyser(nn_res_adm, 'nn', objective_file=objective_file, test_file=test_sampled)
+
+
+
+exit()
+
 import pandas as pd
 
 from PlanRGCN.query_log_splitting.data_splitter import *
