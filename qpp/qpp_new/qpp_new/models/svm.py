@@ -336,7 +336,7 @@ class SVMTrainer:
             self.test, x_test, scaler, best_model, self.resultDir + "test_pred.csv"
         )
         
-    def predict_trained(self, C=340, nu=0.10, test= None, output_path= None):
+    def predict_trained(self, test= None, output_path= None):
         if output_path == None:
             print('Please valide output_path')
             exit()

@@ -1,4 +1,7 @@
+import numpy as np
 import pandas as pd
+from matplotlib import pyplot as plt
+
 from load_balance.workload.query import Query
 import random
 from sklearn.model_selection import train_test_split
@@ -159,3 +162,46 @@ class WorkloadV3(Workload):
             "fast3": multiprocessing.Manager().Queue(),
             "fast4": multiprocessing.Manager().Queue(),
         }"""
+
+class WorkloadAdmCtrl(Workload):
+    def __init__(self, true_field_name='planrgcn_prediction'):
+        self.true_field_name = true_field_name
+        self.queries: list[Query] = list()
+        self.arrival_times: list[float] = list()
+        self.p_idx = 0
+        self.current_idx = 0
+        self.accepted = multiprocessing.Manager().Queue()
+        self.rejected = multiprocessing.Manager().Queue()
+
+    def load_workload_file(self, file):
+        with open(file, 'rb') as f:
+            queries, arrivals = pickle.load(f)
+            self.queries = queries
+            self.arrival_times = arrivals
+
+class WorkloadAnalyzer:
+    def __init__(self, path_to_workload):
+        with open(path_to_workload, 'rb') as f:
+            self.queries, self.arrival_times = pickle.load(f)
+
+    def plot_act_query_intervals(self):
+        intval_ord = []
+        pred_ints = []
+        for q in self.queries:
+            intval_ord.append(q.true_time_cls)
+            pred_ints.append( q.time_cls)
+
+        x = []
+        for x_1 in range(len(intval_ord)):
+            x.append(x_1*2)
+        plt.figure(figsize=(10, 6))
+        plt.scatter(x, pred_ints, label='Predicted Intervals', marker='o', linestyle='-', color='b')
+        # Plot actual runtime intervals
+        #plt.scatter(x, intval_ord, label='Actual Intervals', marker='x', linestyle='--', color='r')
+        # Add labels and title
+        plt.xlabel('Time Index')
+        plt.ylabel('Runtime Interval (0: Fast, 1: Medium, 2: Slow)')
+        plt.title('Comparison of Predicted and Actual Runtime Intervals')
+        plt.legend()
+        plt.grid(True)
+        plt.show()

@@ -1,79 +1,265 @@
 import os
 os.environ['QG_JAR']='/PlanRGCN/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar'
+os.environ['QPP_JAR']='/PlanRGCN/qpp/qpp_features/sparql-query2vec/target/sparql-query2vec-0.0.1.jar'
+
+from load_balance.workload.workload import Workload, WorkloadAnalyzer
+from load_balance.result_analysis.adcanal import ADMCTRLAnalyser
+from query_log_analysis import QueryLogAnalyzer
+from trainer.new_post_predict import QPPResultProcessor
 
 
 
 
-class ADMCTRLAnalyser:
-    def __init__(self, path_to_result, method_name, test_file, norm=True, objective_file=None):
-        if not (objective_file == None or objective_file == "None"):
-            exec(open(objective_file).read(), globals())
-            self.label_map = {}
-            self.label_index =[]
-            if 'thresholds' in globals():
-                global thresholds
-                global cls_func
-                for i in range(len(thresholds)-1):
-                    self.label_map[i] = f"({thresholds[i]:.4f};{thresholds[i+1]:.4f}]"
-                    self.label_index.append(f"({thresholds[i]:.4f};{thresholds[i+1]:.4f}]")
 
 
-        from collections import Counter
-        import json
-        import pandas as pd
-        self.entries = []
-        self.path_to_res = path_to_result
+def query_log_plot(path, dataset):
+    import pandas as pd
+    train_df = pd.read_csv( os.path.join(path, 'train_sampled.tsv'), sep='\t')
+    val_df = pd.read_csv(os.path.join(path, 'val_sampled.tsv'), sep='\t')
+    test_df = pd.read_csv(os.path.join(path, 'test_sampled.tsv'), sep='\t')
+    df = pd.concat([train_df, val_df, test_df])
+
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    import numpy as np
+
+    # Assuming df is your input DataFrame with 'mean_latency' column in seconds
+    # Convert mean_latency from seconds to milliseconds
+    df['mean_latency_ms'] = df['mean_latency'] * 1000
+    # Set up the plot style for academic research
+    sns.set_style('white')  # Clean academic-style grid
+
+    plt.figure(figsize=(10, 6))
+    # Determine the max value to set an appropriate range for the histogram
+    max_latency = df['mean_latency'].max()
+    bin_edges = []
+    thres = 0.01 #ms first threshold
+    while thres < max_latency:
+        bin_edges.append((thres))
+        thres += 0.01
+    bin_no = 900/0.01
+    #print(bin_edges)
+    #plt.yscale('log')
+    #plt.xscale('log')
+    plt.hist(df['mean_latency'], bins=bin_edges, color='skyblue', edgecolor='black')
+
+    # Add threshold lines at 1 second (1000 ms) and 10 seconds (10000 ms)
+    plt.axvline(x=1, color='red', linestyle='--', linewidth=2, label='1 sec')
+    plt.axvline(x=10, color='green', linestyle='--', linewidth=2, label='10 sec')
+
+    # Add labels and title
+    plt.title(f'Query Execution Time Distribution {dataset}', fontsize=16)
+    plt.xlabel('Execution Time (s)', fontsize=14)
+    plt.ylabel('Number of Queries', fontsize=14)
+
+    # Add legend
+    plt.legend()
+
+    # Display the plot
+    plt.tight_layout()
+    plt.show()
+
+    analyse = QueryLogAnalyzer(df)
+
+query_log_plot('/data/wikidata_3_class_full', "Wikidata")
+
+def workload_check_queries(w_f):
+    import pickle
+    queries, arrival_times = pickle.load(open(w_f, 'rb'))
+    for q in queries:
+        print(q)
+from collections import Counter
+import json
+import pandas as pd
+import numpy as np
+
+#ana = WorkloadAnalyzer('/data/DBpedia_3_class_full/admission_control/planrgcn_44/workload.pck')
+#ana.plot_query_intervals()
+import pickle
+
+def evaluate_DBpedia_adm_ctrl_script(print_results=True):
+    objective_file='/data/DBpedia_3_class_full/admission_control/planrgcn_44/../../objective.py'
+
+    test_sampled = '/data/DBpedia_3_class_full/test_sampled.tsv'
+    a = ADMCTRLAnalyser(test_sampled, objective_file=objective_file)
+
+    # TODO use workload 4 - workload 2 should not contain correct data, and workload 3 baseline did not load test workload correctly.
+    base_path = '/data/DBpedia_3_class_full/admission_control/workload4_21'
+    base_path = '/data/DBpedia_3_class_full/admission_control/workload6'
+    plan_res_adm = f'{base_path}/planrgcn'
+    nn_res_adm = f'{base_path}/nn'
+    svm_res_adm = f'{base_path}/svm'
+    a.evaluate_dataset(plan_res_adm, 'PlanRGCN', dataset = 'DBpedia')
+    a.evaluate_dataset(nn_res_adm, 'NN', dataset = 'DBpedia')
+    a.evaluate_dataset(svm_res_adm, 'SVM', dataset = 'DBpedia')
+
+    if print_results:
+        a.process_results()
+    return a
+#evaluate_DBpedia_adm_ctrl_script()
+
+def evaluate_wikidata_adm_ctrl_script(print_results=True):
+    objective_file='/data/DBpedia_3_class_full/admission_control/planrgcn_44/../../objective.py'
+
+    test_sampled = '/data/DBpedia_3_class_full/test_sampled.tsv'
+    a = ADMCTRLAnalyser(test_sampled, objective_file=objective_file)
+    dataset= 'Wikidata'
+    # TODO use workload 4 - workload 2 should not contain correct data, and workload 3 baseline did not load test workload correctly.
+    plan_res_adm = '/data/wikidata_3_class_full/admission_control/workload3_21/planrgcn'
+    nn_res_adm = '/data/wikidata_3_class_full/admission_control/workload2_21/nn'
+    svm_res_adm = '/data/wikidata_3_class_full/admission_control/workload2_21/svm'
+    a.evaluate_dataset(plan_res_adm, 'PlanRGCN', dataset = dataset)
+    a.evaluate_dataset(nn_res_adm, 'NN', dataset = dataset)
+    a.evaluate_dataset(svm_res_adm, 'SVM', dataset = dataset)
+
+    if print_results:
+        a.process_results()
+    return a
+#evaluate_wikidata_adm_ctrl_script()
+evaluate_DBpedia_adm_ctrl_script()
+exit()
 
 
-        test_df = pd.read_csv(test_file, sep='\t')
-        test_df = test_df.set_index('id')
 
-        rejc = pd.read_csv(os.path.join(self.path_to_res, 'rejected.csv'))
-        dct = dict(Counter(rejc['true_cls']))
+p = QPPResultProcessor(obj_fil='/data/DBpedia_3_class_full/objective.py', dataset="DBpedia")
+dbpedia_plan_path = '/data/DBpedia_3_class_full/plan_l14096_l21025_no_pred_co/test_pred.csv'
+dbpedia_nn_path = '/data/DBpedia_3_class_full/nn/test_pred.csv'
+dbpedia_svm_path = '/data/DBpedia_3_class_full/svm/test_pred_cls.csv'
 
-        if not norm:
-            stat = {'Good Rejects': dct[2] if 2 in dct.keys() else 0,
-                    'Incorrect 0': ((dct[0] if 0 in dct.keys() else 0)),
-                    'Incorrect 1': ((dct[1] if 1 in dct.keys() else 0)),
-                    'Incorrect all': ((dct[1] if 1 in dct.keys() else 0) + (dct[0] if 0 in dct.keys() else 0)),
-                    }
-        else:
-            stat = {'Good Rejects': (dct[2] if 2 in dct.keys() else 0)/len(rejc),
-                    'Incorrect 0': ((dct[0] if 0 in dct.keys() else 0))/len(rejc),
-                    'Incorrect 1': ((dct[1] if 1 in dct.keys() else 0)) / len(
-                        rejc),
-                    'Incorrect all': ((dct[1] if 1 in dct.keys() else 0) + (dct[0] if 0 in dct.keys() else 0)) / len(
-                        rejc),
-                    }
+p.evaluate_dataset(path_to_pred=dbpedia_plan_path,
+                         sep = ',',
+                         ground_truth_col='time_cls',
+                         pred_col='planrgcn_prediction',
+                         id_col='id',
+                         approach_name="P")
+p.evaluate_dataset(path_to_pred=dbpedia_nn_path,
+                         sep = ',',
+                         ground_truth_col='time_cls',
+                         pred_col='nn_prediction',
+                         id_col='id',
+                         approach_name="NN",reg_to_cls=False )
+p.evaluate_dataset(path_to_pred=dbpedia_svm_path,
+                         sep = ',',
+                         ground_truth_col='time_cls',
+                         pred_col='svm_prediction',
+                         id_col='id',
+                         approach_name="SVM")
+res = p.process_results()
+res
 
-        stat['evaluated_qs'] = 0
-        tot_lat = 0
-        worker_files = [x for x in os.listdir(self.path_to_res) if x.startswith('w_')]
-        for w in worker_files:
-            w_f = os.path.join(self.path_to_res, w)
-            data = json.load(open(w_f, 'r'))
-            for d in data:
-                if d['response'] == 'ok':
-                    stat['evaluated_qs'] += 1
-                    tot_lat += (d[''])
-            ...
-    def load_worker_data(self):
-        ...
+def workload_tester(workload_file):
+    import pickle
+    import sklearn
+    #code that checks different aspect of the workload
+    queries, arrival_times = pickle.load(open(workload_file, 'rb'))
 
 
+    #Check whether the assigned predictions are correct
+    predictions = []
+    true_cls = []
+    for q in queries:
+        predictions.append(q.time_cls)
+        true_cls.append(q.true_time_cls)
+    confs = sklearn.metrics.confusion_matrix(true_cls, predictions, labels=[0,1,2])
 
-    def evaluate_dataset(self, path_to_res):
-        print(path_to_res)
+    #Check different metrics that can be worth checking
+    slow_preds = []
+    for q in queries:
+        if q.time_cls == 2:
+            slow_preds.append(q.true_time_cls)
 
+    len(slow_preds), len([x for x in slow_preds if x == 0 or x == 1])
 
+#workload_tester('/data/DBpedia_3_class_full/admission_control/workload2_/planrgcn/workload.pck')
+exit()
 objective_file='/data/DBpedia_3_class_full/admission_control/planrgcn_44/../../objective.py'
-nn_res_adm = '/data/DBpedia_3_class_full/admission_control/planrgcn_44'
+
 test_sampled = '/data/DBpedia_3_class_full/test_sampled.tsv'
-ADMCTRLAnalyser(nn_res_adm, 'nn', objective_file=objective_file, test_file=test_sampled)
+a = ADMCTRLAnalyser(test_sampled, objective_file=objective_file)
+
+
+plan_res_adm = '/data/DBpedia_3_class_full/admission_control/workload2_/planrgcn'
+nn_res_adm = '/data/DBpedia_3_class_full/admission_control/workload2_/nn'
+##svm_res_adm = '/data/wikidata_3_class_full/admission_control/workload1_21/svm'
+a.evaluate_dataset(plan_res_adm, 'PlanRGCN', dataset = 'DBpedia')
+a.evaluate_dataset(nn_res_adm, 'NN', dataset = 'DBpedia')
+#a.evaluate_dataset(svm_res_adm, 'SVM', dataset = 'Wikidata')
+
+a.process_results()
+exit()
+
+
+plan_res_adm = '/data/wikidata_3_class_full/admission_control/workload1_21/planrgcn'
+nn_res_adm = '/data/wikidata_3_class_full/admission_control/workload1_21/nn'
+svm_res_adm = '/data/wikidata_3_class_full/admission_control/workload1_21/svm'
+a.evaluate_dataset(plan_res_adm, 'PlanRGCN', dataset = 'Wikidata')
+a.evaluate_dataset(nn_res_adm, 'NN', dataset = 'Wikidata')
+a.evaluate_dataset(svm_res_adm, 'SVM', dataset = 'Wikidata')
+
+plan_res_adm = '/data/DBpedia_3_class_full/admission_control/workload1_/planrgcn'
+nn_res_adm = '/data/DBpedia_3_class_full/admission_control/workload1_/nn'
+svm_res_adm = '/data/DBpedia_3_class_full/admission_control/workload1_/svm'
+a.evaluate_dataset(plan_res_adm, 'PlanRGCN', dataset = 'DBpedia')
+a.evaluate_dataset(nn_res_adm, 'NN', dataset = 'DBpedia')
+a.evaluate_dataset(svm_res_adm, 'SVM', dataset = 'DBpedia')
+
+a.process_results()
+
+
+
+
+
 
 
 
 exit()
+plan_res_adm = '/data/DBpedia_3_class_full/admission_control/planrgcn_44'
+nn_res_adm = '/data/DBpedia_3_class_full/admission_control/nn_44'
+svm_res_adm = '/data/DBpedia_3_class_full/admission_control/svm_44'
+
+a.evaluate_dataset(plan_res_adm, 'PlanRGCN', dataset = 'DBpedia')
+a.evaluate_dataset(nn_res_adm, 'NN', dataset = 'DBpedia')
+a.evaluate_dataset(svm_res_adm, 'SVM', dataset = 'DBpedia')
+
+plan_res_adm = '/data/wikidata_3_class_full/admission_control/planrgcn_44'
+nn_res_adm = '/data/wikidata_3_class_full/admission_control/nn_44'
+svm_res_adm = '/data/wikidata_3_class_full/admission_control/svm_44'
+a.evaluate_dataset(plan_res_adm, 'PlanRGCN', dataset = 'Wikidata')
+a.evaluate_dataset(nn_res_adm, 'NN', dataset = 'Wikidata')
+a.evaluate_dataset(svm_res_adm, 'SVM', dataset = 'Wikidata')
+
+a.process_results()
+
+
+
+exit()
+# Results for wikidata full query logs
+
+
+
+p = QPPResultProcessor(obj_fil='/data/DBpedia_3_class_full/objective.py', dataset="Wikidata")
+p.evaluate_dataset(path_to_pred="/data/wikidata_3_class_full/planRGCN_no_pred_co/test_pred.csv",
+                   sep=',',
+                   ground_truth_col='time_cls',
+                   pred_col='planrgcn_prediction',
+                   id_col='id',
+                   approach_name="P")
+
+p.evaluate_dataset(path_to_pred="/data/wikidata_3_class_full/baseline/svm/test_pred.csv",
+                   sep=',',
+                   ground_truth_col='time',
+                   pred_col='svm_prediction',
+                   id_col='id',
+                   approach_name="SVM")
+p.evaluate_dataset(path_to_pred="/data/wikidata_3_class_full/nn/k25/nn_test_pred.csv",
+                   sep=',',
+                   ground_truth_col='time',
+                   pred_col='nn_prediction',
+                   id_col='id',
+                   approach_name="NN")
+print(p.process_results())
+exit()
+
 
 import pandas as pd
 
@@ -136,27 +322,13 @@ def plot_predictions_vs_actuals(nn_df, svm_df, plan_df, path = None):
     plt.show()
 
 exit()
-p = QPPResultProcessor(obj_fil='/data/DBpedia_3_class_full/objective.py', dataset="DBpedia")
-p.evaluate_dataset(path_to_pred="/data/DBpedia_3_class_full/plan_l14096_l21025_no_pred_co/test_pred.csv",
-                   sep=',',
-                   ground_truth_col='time_cls',
-                   pred_col='planrgcn_prediction',
-                   id_col='id',
-                   approach_name="P")
 
 
-p.evaluate_dataset(path_to_pred="/data/DBpedia_3_class_full/baseline/nn/k25/nn_test_pred.csv",
-                   sep=',',
-                   ground_truth_col='time',
-                   pred_col='nn_prediction',
-                   id_col='id',
-                   approach_name="NN")
-p.evaluate_dataset(path_to_pred="/data/DBpedia_3_class_full/baseline/svm/test_pred_svm.csv",
-                   sep=',',
-                   ground_truth_col='time',
-                   pred_col='svm_prediction',
-                   id_col='id',
-                   approach_name="SVM")
+"""p = QPPResultProcessor(obj_fil='/data/DBpedia_3_class_full/objective.py', dataset="DBpedia")
+p.evaluate_dataset(,
+
+p.evaluate_dataset(,
+p.evaluate_dataset(,
 print(p.process_results())
 
 
@@ -185,25 +357,10 @@ obj_file = '/data/DBpedia_3_class_full/objective.py'
 
 exit()
 p = QPPResultProcessor(obj_fil='/data/DBpedia_3_class_full/objective.py', dataset="DBpedia")
-p.evaluate_dataset(path_to_pred="/data/DBpedia_3_class_full/plan_l14096_l21025_no_pred_co/test_pred.csv",
-                   sep=',',
-                   ground_truth_col='time_cls',
-                   pred_col='planrgcn_prediction',
-                   id_col='id',
-                   approach_name="P")
+p.evaluate_dataset(,
 
-p.evaluate_dataset(path_to_pred="/data/DBpedia_3_class_full/baseline/svm/test_pred_svm.csv",
-                   sep=',',
-                   ground_truth_col='time',
-                   pred_col='svm_prediction',
-                   id_col='id',
-                   approach_name="SVM")
-p.evaluate_dataset(path_to_pred="/data/DBpedia_3_class_full/baseline/nn/k25/nn_test_pred.csv",
-                   sep=',',
-                   ground_truth_col='time',
-                   pred_col='nn_prediction',
-                   id_col='id',
-                   approach_name="NN")
+p.evaluate_dataset(,
+p.evaluate_dataset(,
 print(p.process_results())
 
 
@@ -218,9 +375,9 @@ print(p.process_results())
 import os
 os.environ['QG_JAR']='/PlanRGCN/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar'
 from graph_construction.jar_utils import get_query_graph,get_query_graph_nx
-
+"""
 query = """SELECT ?var1 ?var1Label WHERE { ?var1 (<http://www.wikidata.org/prop/direct/P279>)+/<http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q82955> . ?var1 <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> ; <http://www.w3.org/2000/01/rdf-schema#label> ?var1Label FILTER ( lang(?var1Label) = "en" ) }"""
-get_query_graph_nx(query, to_dot='/PlanRGCN/qg')
+"""get_query_graph_nx(query, to_dot='/PlanRGCN/qg')
 
 
 
@@ -244,7 +401,7 @@ def process_tsv(path):
 
 
 
-
+"""
 exit()
 """
 spl =DataSplitter(tsv_file='/data/wikidataV2/all.tsv',interval_type='percentile', percentiles=[0,50,92,100])
@@ -269,10 +426,10 @@ spl.make_splits_files(train_file='/data/DBpediaV2/train_sampled.tsv', val_file =
                       intervals_file='/data/DBpediaV2/intervals.txt')
 """
 # u_splt = UnseenSplitter('/data/DBpediaV2/train_sampled.tsv', '/data/DBpediaV2/val_sampled.tsv', '/data/DBpediaV2/test_sampled.tsv','/data/DBpediaV2/data_splitter.pickle','/data/DBpediaV2/n_train_sampled.tsv', '/data/DBpediaV2/n_val_sampled.tsv','/data/DBpediaV2/n_test_sampled.tsv', '/data/DBpediaV2/selected_train_val_ids.txt')
-
+"""
 analyze = QueryClassAnalyzer('/data/wikidataV2/n_train_sampled.tsv', '/data/wikidataV2/n_val_sampled.tsv',
                              '/data/wikidataV2/n_test_sampled.tsv', '/data/wikidataV2/data_splitter.pickle')
-
+"""
 """from graph_construction.feats.featurizer_path import FeaturizerPath
 
 import pandas as pd

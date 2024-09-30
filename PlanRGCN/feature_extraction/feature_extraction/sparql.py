@@ -1,5 +1,7 @@
-from SPARQLWrapper import SPARQLWrapper, JSON, POST
 
+
+from SPARQLWrapper import SPARQLWrapper, JSON, POST
+import time
 class Endpoint:
     def __init__(self, endpoint_url):
         self.sparql = SPARQLWrapper(endpoint_url, defaultGraph='http://localhost:8890/dataspace')
@@ -16,3 +18,16 @@ class Endpoint:
             return query_str
         results = self.sparql.query().convert()
         return results
+    def time_and_run_query(self, query_str: str):
+        if not hasattr(self,'sparql'):
+            print('SPARQL Endpoint has not been initialised!!!')
+            exit()
+        start = time.time()
+        try:
+            self.sparql.setQuery(query_str)
+        except Exception as e:
+            print("Query could not be executed!")
+            return e, None
+        results = self.sparql.query().convert()
+        duration = time.time() - start
+        return results, duration

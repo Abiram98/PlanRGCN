@@ -22,6 +22,11 @@ if __name__ == "__main__":
         default="/qpp/dataset/DBpedia_2016_12k_sample/results",
         help="Path to the results directory",
     )
+    parser.add_argument(
+        "--new_test_path",
+        default=None,
+        help="Path to the test new path",
+    )
     parser.add_argument("--k", type=int, help="Value of k", default=25)
 
     args = parser.parse_args()
@@ -66,23 +71,6 @@ if __name__ == "__main__":
             trainer.trainer()
             with open(f"{resultDir}nntrainer.pickle",'wb') as f:
                 pcl.dump(trainer, f)
-        case "nn_pred":
-            prepper = NNDataPrepper(
-                train_algebra_path=os.path.join(data_dir, "baseline", "train_alg.tsv"),
-                val_algebra_path=os.path.join(data_dir, "baseline", "val_alg.tsv"),
-                test_algebra_path=os.path.join(pred_dir, "test_alg.tsv"),
-                train_ged_path=os.path.join(data_dir, "baseline", f"knn{K}/train_ged.csv"),
-                val_ged_path=os.path.join(data_dir, "baseline", f"knn{K}/val_ged.csv"),
-                test_ged_path=os.path.join(pred_dir, f"knn{K}/test_ged.csv"),
-                filter_join_data_path=os.path.join(pred_dir, f"extra"),
-            )
-            train, val, test = prepper.prepare()
-            resultDir = f"{res_dir}/nn/k{K}/"
-            os.system(f"mkdir -p {resultDir}")
-            trainer = NNTrainer(train, val, test, resultDir)
-            trainer.predict_trained( test, path)
-            
-            
         case "two-step":
             prepper = SVMDataPrepper(
                 train_algebra_path=os.path.join(data_dir, "train_sampled.tsv"),
@@ -107,19 +95,3 @@ if __name__ == "__main__":
             os.system(f"mkdir -p {resultDir}")
             trainer = SVMTrainerNoPreprocess(train, val, test, resultDir)
             trainer.trainer()
-        
-        case "svm_pred":
-            prepper = SVMDataPrepper(
-                train_algebra_path=os.path.join(data_dir, "baseline","train_alg.tsv"),
-                val_algebra_path=os.path.join(data_dir, "baseline","val_alg.tsv"),
-                test_algebra_path=os.path.join(pred_dir, "test_alg.tsv"),
-                train_ged_path=os.path.join(data_dir, "baseline", f"knn{K}/train_ged.csv"),
-                val_ged_path=os.path.join(data_dir, "baseline", f"knn{K}/val_ged.csv"),
-                test_ged_path=os.path.join(pred_dir, f"knn{K}/test_ged.csv"),
-            )
-            train, val, test = prepper.prepare()
-            
-            resultDir = f"{res_dir}/svm/"
-            os.system(f"mkdir -p {resultDir}")
-            trainer = SVMTrainer(train, val, test, resultDir)
-            trainer.predict_trained(test= None, output_path= os.path.join(pred_dir, "test_pred.csv"))

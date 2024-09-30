@@ -3,6 +3,7 @@ import json
 import sys
 
 import networkx as nx
+import numpy as np
 from networkx.drawing.nx_pydot import write_dot
 from matplotlib import pyplot as plt
 import itertools as it
@@ -10,6 +11,7 @@ import itertools as it
 DISABLE_WARNING=True
 try:
     PATH_JAR = os.environ["QG_JAR"] #'/qp/target/qp-1.0-SNAPSHOT.jar'
+    PATH_JARQPP = os.environ["QPP_JAR"]
 except KeyError as e:
     print(e)
     print('Please provide path to jar file for QP construction: "QG_JAR"')
@@ -18,7 +20,7 @@ except KeyError as e:
 import jpype
 import jpype.imports
 from jpype.types import *
-jpype.startJVM(classpath=[PATH_JAR])
+jpype.startJVM(classpath=[PATH_JAR,PATH_JARQPP])
 from com.org import App
 
 if DISABLE_WARNING:
@@ -98,3 +100,24 @@ def check_optional(query):
             is_Optional = True
             break
     return is_Optional
+
+class BaselineFeatureExtract:
+    def __init__(self):
+        import jpype
+        import jpype.imports
+        from new_distance import GEDCalculator
+        self.calc = GEDCalculator()
+        from otheralgebra import AlgebraFeatureExtractor
+        self.alg_extract = AlgebraFeatureExtractor()
+
+        from semanticweb.sparql.preprocess import ReinforcementLearningExtractor
+        self.extra = ReinforcementLearningExtractor()
+
+
+    def distance_ged(self, query1:str, query2:str):
+        try:
+            return self.calc.calculateDistance(query1,query2)
+        except:
+            return np.inf
+    def algebra_feat(self, query:str):
+        return np.array(self.alg_extract.extractFeatures(query))

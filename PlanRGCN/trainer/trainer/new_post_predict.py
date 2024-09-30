@@ -57,9 +57,10 @@ class QPPResultProcessor:
     def evaluate_dataset(self, path_to_pred="path_to_pred",
                          sep = ',',
                          ground_truth_col='time_cls',
-                         pred_col='planrgcn_prediction',
+                         pred_col=None,
                          id_col='id',
-                         approach_name="PlanRGCN"
+                         approach_name="PlanRGCN",
+                         reg_to_cls = True
                          ):
 
         self.pred_file = path_to_pred  # prediction file
@@ -134,7 +135,7 @@ class QPPResultProcessor:
 
 
         # Code for baseline analysis
-        if ('svm_prediction' in self.df.columns) or ('nn_prediction' in self.df.columns):
+        if reg_to_cls and (('svm_prediction' in self.df.columns) or ('nn_prediction' in self.df.columns)):
             if 'time' in self.df.columns:
                 self.df[self.ground_truth_col] = self.df['time'].apply(lambda x: np.argmax(QPPResultProcessor.cls_func(x)))
             if 'svm_prediction' in self.df.columns:
@@ -142,7 +143,9 @@ class QPPResultProcessor:
             if 'nn_prediction' in self.df.columns:
                 self.df[self.pred_col] = self.df['nn_prediction'].apply(lambda x: np.argmax(QPPResultProcessor.cls_func(x)))
 
-        if 'nn_prediction' in self.df.columns:
+        if pred_col != None:
+            self.pred_col = pred_col
+        elif 'nn_prediction' in self.df.columns:
             self.pred_col = 'nn_prediction'
         elif 'svm_prediction' in self.df.columns:
             self.pred_col = 'svm_prediction'

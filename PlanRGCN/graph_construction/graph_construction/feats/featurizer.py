@@ -24,8 +24,8 @@ class FeaturizerBase:
 
 class FeaturizerPredStats(FeaturizerBase):
     def __init__(
-        self,
-        pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
+            self,
+            pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
     ) -> None:
         self.pred_stat_path = pred_stat_path
 
@@ -73,7 +73,7 @@ class FeaturizerPredStats(FeaturizerBase):
         stat_vec = np.array([freq, lits, ents])
         return np.concatenate((var_vec, stat_vec, np.zeros(self.filter_size)), axis=0)
 
-    def get_value_dict(self, dct: dict, predicate:str):
+    def get_value_dict(self, dct: dict, predicate: str):
         try:
             if predicate.startswith('<'):
                 predicate = predicate[1:]
@@ -86,9 +86,9 @@ class FeaturizerPredStats(FeaturizerBase):
 
 class FeaturizerPredCo(FeaturizerPredStats):
     def __init__(
-        self,
-        pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
-        pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
+            self,
+            pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
+            pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
     ) -> None:
         super().__init__(pred_stat_path)
 
@@ -121,12 +121,12 @@ class FeaturizerPredCo(FeaturizerPredStats):
 
 class FeaturizerPredCoEnt(FeaturizerPredStats):
     def __init__(
-        self,
-        pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
-        pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
-        ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
-        pred_end_path=None,
-        scaling="None",
+            self,
+            pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
+            pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
+            ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+            pred_end_path=None,
+            scaling="None",
     ) -> None:
         super().__init__(pred_stat_path)
 
@@ -266,12 +266,12 @@ class FeaturizerSubjPred(FeaturizerPredCoEnt):
     """
 
     def __init__(
-        self,
-        pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
-        pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
-        ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
-        pred_end_path="/PlanRGCN/extracted_features_dbpedia2016/pred_ent/batch_response",
-        scaling="None",
+            self,
+            pred_stat_path="/PlanRGCN/extracted_features/predicate/pred_stat/batches_response_stats",
+            pred_com_path="/PlanRGCN/data/pred/pred_co/pred2index_louvain.pickle",
+            ent_path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+            pred_end_path="/PlanRGCN/extracted_features_dbpedia2016/pred_ent/batch_response",
+            scaling="None",
     ) -> None:
         super().__init__(pred_stat_path, pred_com_path, ent_path, scaling)
         if self.scaling == "min-max":
@@ -297,7 +297,7 @@ class FeaturizerSubjPred(FeaturizerPredCoEnt):
 
 class FilterFeatureUtils:
     def isLogical(filter_expr):
-        lst = ["||", "&&"]  #'!' can be confused with '!=' comparison operator
+        lst = ["||", "&&"]  # '!' can be confused with '!=' comparison operator
         return FilterFeatureUtils.isSubstring(filter_expr, lst)
 
     def isArithmetic(filter_expr):
@@ -372,8 +372,8 @@ class FilterFeatureUtils:
 # print(len(list(p.pred_lits.keys())))
 class EntStats:
     def __init__(
-        self,
-        path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
+            self,
+            path="/PlanRGCN/extracted_features/entities/ent_stat/batches_response_stats",
     ) -> None:
         self.path = path
         self.ent_freq = {}
@@ -397,14 +397,14 @@ class EntStats:
         subj_path = self.path + "/subj/"
         obj_path = self.path + "/obj/"
         if not (
-            os.path.exists(freq_path)
-            and os.path.exists(subj_path)
-            and os.path.exists(obj_path)
+                os.path.exists(freq_path)
+                and os.path.exists(subj_path)
+                and os.path.exists(obj_path)
         ):
-            raise Exception("Predicate feature not existing "+ self.path)
+            raise Exception("Predicate feature not existing " + self.path)
         for p, f in zip(
-            [freq_path, subj_path, obj_path],
-            [self.load_pred_freq, self.load_subj_ents, self.load_obj_ents],
+                [freq_path, subj_path, obj_path],
+                [self.load_pred_freq, self.load_subj_ents, self.load_obj_ents],
         ):
             self.load_preds_stat_helper(p, f)
 
@@ -458,8 +458,8 @@ class EntStats:
 
 class LitStats:
     def __init__(
-        self,
-        path=None,
+            self,
+            path=None,
     ) -> None:
         if path is None:
             raise Exception("path must be specified")
@@ -478,7 +478,7 @@ class LitStats:
         )
         for f in files:
             self.load_lit_freq(f)
-    
+
     def load_lit_freq(self, file):
         data = json.load(open(file, "r"))
         data = data["results"]["bindings"]
@@ -494,4 +494,3 @@ class LitStats:
                     self.lits[x["e"]["value"]] = x["entities"]["value"]
             else:
                 self.lits[x["e"]["value"]] = x["entities"]["value"]
-

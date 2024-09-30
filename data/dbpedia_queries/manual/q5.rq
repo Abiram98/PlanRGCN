@@ -1,0 +1,10 @@
+select ?z ?u
+WHERE {
+
+?x <http://dbpedia.org/property/issue> ?y .
+?x <http://dbpedia.org/property/year> ?z .
+?x <http://dbpedia.org/property/last1>  ?u .
+?k <http://dbpedia.org/property/issue> ?y .
+?k <http://dbpedia.org/property/year> ?z .
+
+}
