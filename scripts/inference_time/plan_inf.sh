@@ -1,7 +1,7 @@
 #!/bin/bash
 old_inference () {
 
-python3 /PlanRGCN/PlanRGCN/trainer/trainer/inference.py \
+python3 /PlanRGCN/inference.py \
   --prep_path "$prep_path" \
   --model_path "$model_path" \
   --config_path "$config_path" \
@@ -102,7 +102,25 @@ with open(os.path.join(Path(output_path).parent,'plan_inf_summary.txt'), 'w') as
 
 """
 }
+#
 
+# DBpedia Run GPU
+prep_path="/data/DBpedia_3_class_full/plan_l14096_l21025_no_pred_co/prepper.pcl"
+model_path="/data/DBpedia_3_class_full/plan_l14096_l21025_no_pred_co/best_model.pt"
+config_path="/data/DBpedia_3_class_full/plan_l14096_l21025_no_pred_co/model_config.json"
+output_path="/data/DBpedia_3_class_full/test_inf/plan_GPU_inference.csv"
+query_path="/data/DBpedia_3_class_full/test_sampled.tsv"
+old_inference
+exit
+
+# wikidata Run - GPU
+prep_path="/data/wikidata_3_class_full/planRGCN_no_pred_co/prepper.pcl"
+model_path="/data/wikidata_3_class_full/planRGCN_no_pred_co/best_model.pt"
+config_path="/data/wikidata_3_class_full/planRGCN_no_pred_co/model_config.json"
+output_path="/data/wikidata_3_class_full/test_inf/plan_GPU_inference.csv"
+query_path="/data/wikidata_3_class_full/test_sampled.tsv"
+old_inference
+exit
 
 # DBpedia Run
 prep_path="/data/DBpedia_3_class_full/plan_l14096_l21025_no_pred_co/prepper.pcl"

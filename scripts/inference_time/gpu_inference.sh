@@ -1,16 +1,30 @@
-apt install python3.10-venv
-python3 -m venv torch
-source torch/bin/activate
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
-#pip3 install dgl==1.1.3
-pip3 install  dgl -f https://data.dgl.ai/wheels/torch-2.4/cu124/repo.html
-pip3 install json5==0.9.14
-pip3 install matplotlib==3.8.2
-pip3 install networkx==3.0
-pip3 install notebook==7.0.6
-pip3 install pandas==2.1.4
-pip3 install rdflib==7.0.0
-pip3 install scikit-learn==1.3.2
-pip3 install SPARQLWrapper==2.0.0
-pip3 install tensorboardX==2.6.2.2
-pip3 install tensorflow
+pip3 install virtualenv
+python3 -m venv test
+source test/bin/activate
+
+pip3 install -r /PlanRGCN/requirements.txt
+pip3 uninstall dgl -y
+pip3 install ray[tune]
+pip3 install jpype1
+pip3 install -e /PlanRGCN/utils/
+pip install  dgl -f https://data.dgl.ai/wheels/torch-2.4/cu121/repo.html
+
+
+old_inference () {
+
+python3 -m trainer.inference.py \
+  --prep_path "$prep_path" \
+  --model_path "$model_path" \
+  --config_path "$config_path" \
+  --output_path "$output_path" \
+  --query_path "$query_path"
+}
+#
+# wikidata Run - GPU
+prep_path="/data/wikidata_3_class_full/planRGCN_no_pred_co/prepper.pcl"
+model_path="/data/wikidata_3_class_full/planRGCN_no_pred_co/best_model.pt"
+config_path="/data/wikidata_3_class_full/planRGCN_no_pred_co/model_config.json"
+output_path="/data/wikidata_3_class_full/test_inf/plan_GPU_inference.csv"
+query_path="/data/wikidata_3_class_full/test_sampled.tsv"
+old_inference
+
