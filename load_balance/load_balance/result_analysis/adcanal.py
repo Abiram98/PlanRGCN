@@ -141,3 +141,9 @@ class ADMCTRLAnalyser:
         qtp = f"{(stat['evaluated_qs']/wkl_prc_time_raw)*100:.2f}"
         self.entries.append((dataset, method_name, stat['Correct Rejection Rate'], stat['Correct Acceptance Rate'],
                              stat['Evaluated qs'], wkl_prc_time, fast, med, slow, actd_fast_qs, act_time_outs, qtp, false_rejects,false_rejects_fast,false_rejects_med,stat['Mean Latency']))
+
+
+class ADMCTRLAnalyserV2(ADMCTRLAnalyser):
+
+    def __init__(self, test_file, objective_file=None):
+        super().__init__(test_file, objective_file=objective_file)

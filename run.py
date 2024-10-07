@@ -1,16 +1,208 @@
 import os
+from pathlib import Path
+
 os.environ['QG_JAR']='/PlanRGCN/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar'
 os.environ['QPP_JAR']='/PlanRGCN/qpp/qpp_features/sparql-query2vec/target/sparql-query2vec-0.0.1.jar'
 
 from load_balance.workload.workload import Workload, WorkloadAnalyzer
-from load_balance.result_analysis.adcanal import ADMCTRLAnalyser
+from load_balance.result_analysis.adcanal import ADMCTRLAnalyser,ADMCTRLAnalyserV2
 from query_log_analysis import QueryLogAnalyzer
 from trainer.new_post_predict import QPPResultProcessor
+import pandas as pd
 
 
 
+def qppDBpediaNewqs(exp_type="all"):
+    ordbpedia_plan_path = '/data/DBpedia_3_class_full/additionalPPtestQs/planrgcn_pred.csv'
+    df = pd.read_csv(ordbpedia_plan_path)
+    s = lambda x: np.argmax(x)
+
+    dbpedia_plan_path = '/data/DBpedia_3_class_full/additionalPPtestQs/planrgcn_pred2.csv'
+
+    p = QPPResultProcessor(obj_fil='/data/DBpedia_3_class_full/objective.py', dataset="DBpedia",exp_type=exp_type)
+
+    dbpedia_nn_path = '/data/DBpedia_3_class_full/additionalPPtestQs/test_pred.csv'
+    dbpedia_svm_path = '/data/DBpedia_3_class_full/additionalPPtestQs/test_pred_cls.csv'
+
+    p.evaluate_dataset(path_to_pred=dbpedia_plan_path,
+                             sep = ',',
+                             ground_truth_col='time_cls',
+                             pred_col='planrgcn_prediction',
+                             id_col='id',
+                             approach_name="P",
+                                reg_to_cls=False)
+    p.evaluate_dataset(path_to_pred=dbpedia_nn_path,
+                             sep = ',',
+                             ground_truth_col='time_cls',
+                             pred_col='nn_prediction',
+                             id_col='id',
+                             approach_name="NN",reg_to_cls=True )
+    p.evaluate_dataset(path_to_pred=dbpedia_svm_path,
+                             sep = ',',
+                             ground_truth_col='time_cls',
+                             pred_col='svm_prediction',
+                             id_col='id',
+                             approach_name="SVM",reg_to_cls=True)
+    res = p.process_results()
+    print(res)
+
+def sample_more_test_queries_DBpedia(path='/data/generatedPP/PP_w_Optionals', original_test_sampled='/data/DBpedia_3_class_full/test_sampled.tsv' ,base_exp_path='/data/DBpedia_3_class_full',output_path = '/data/DBpedia_3_class_full/additionalPPtestQs/queries.tsv'):
+    os.listdir(path)
+    slow_q_dir = os.path.join(path, 'above10sec','query_executions.tsv')
+    med_q_dir = os.path.join(path, 'between1_10sec', 'query_executions.tsv')
+    sl = pd.read_csv(slow_q_dir, sep='\t')
+    sl_res = sl[sl['resultsetSize']>0]
+    sl_res = sl_res[sl_res['latency']>sl_res['latency'].quantile(0.5)]
+
+    m = pd.read_csv(med_q_dir, sep='\t')
+    m = m[m['latency']> 1.5]
+    m = m[m['latency'] < 9.5]
+    import numpy as np
+    np.random.seed(21)
 
 
+
+    s_sample = sl_res.sample(60)
+    s_sample = pd.concat([s_sample,m])
+    s_sample['id'] = s_sample['queryID']
+    s_sample['mean_latency'] = s_sample['latency']
+
+    cols = ['id', 'queryString', 'query_string_0', 'latency_0', 'resultset_0', 'query_string_1', 'latency_1', 'resultset_1', 'query_string_2', 'latency_2', 'resultset_2', 'mean_latency', 'min_latency', 'max_latency', 'time_outs', 'path', 'triple_count', 'subject_predicate', 'predicate_object', 'subject_object', 'fully_concrete', 'join_count', 'filter_count', 'left_join_count', 'union_count', 'order_count', 'group_count', 'slice_count', 'zeroOrOne', 'ZeroOrMore', 'OneOrMore', 'NotOneOf', 'Alternative', 'ComplexPath', 'MoreThanOnePredicate', 'queryID', 'Queries with 1 TP', 'Queries with 2 TP', 'Queries with more TP', 'S-P Concrete', 'P-O Concrete', 'S-O Concrete']
+    for c in cols:
+        if c not in s_sample.columns:
+            s_sample[c] = 0
+    test = pd.read_csv(original_test_sampled,sep='\t' )
+    all = pd.concat([test, s_sample])
+    all = all[cols]
+    all.to_csv(output_path,sep='\t',index=False)
+
+    ql = pd.concat([pd.read_csv(f'{base_exp_path}/train_sampled.tsv', sep ='\t'),pd.read_csv(f'{base_exp_path}/val_sampled.tsv', sep ='\t'), all])
+    ql.to_csv(os.path.join(Path(output_path).parent, 'all.tsv'), sep='\t', index=False)
+
+#sample_more_test_queries_DBpedia(path='/data/generatedPP/PP_w_Optionals')
+
+
+def qppWikidata(exp_type="all"):
+    base_path = '/data/wikidata_3_class_full'
+    val_sampled_file = os.path.join(base_path,'val_sampled.tsv')
+    train_sampled_file = os.path.join(base_path,'train_sampled.tsv')
+    test_sampled_file = os.path.join(base_path,'test_sampled.tsv')
+
+    p = QPPResultProcessor(obj_fil='/data/DBpedia_3_class_full/objective.py', dataset="Wikidata",
+                           exp_type=exp_type,
+                           val_sampled_file=val_sampled_file,
+                           train_sampled_file=train_sampled_file,
+                           test_sampled_file=test_sampled_file)
+    p.evaluate_dataset(path_to_pred="/data/wikidata_3_class_full/planRGCN_no_pred_co/test_pred.csv",
+                       sep=',',
+                       ground_truth_col='time_cls',
+                       pred_col='planrgcn_prediction',
+                       id_col='id',
+                       approach_name="P")
+
+    p.evaluate_dataset(path_to_pred="/data/wikidata_3_class_full/nn/k25/nn_test_pred.csv",
+                       sep=',',
+                       ground_truth_col='time',
+                       pred_col='nn_prediction',
+                       id_col='id',
+                       approach_name="NN")
+
+    p.evaluate_dataset(path_to_pred="/data/wikidata_3_class_full/baseline/svm/test_pred.csv",
+                       sep=',',
+                       ground_truth_col='time',
+                       pred_col='svm_prediction',
+                       id_col='id',
+                       approach_name="SVM")
+
+    print(p.process_results(add_symbol=''))
+    print(p.true_counts)
+
+def qppDBpedia(exp_type="all"):
+    base_path = '/data/DBpedia_3_class_full'
+    val_sampled_file = os.path.join(base_path,'val_sampled.tsv')
+    train_sampled_file = os.path.join(base_path,'train_sampled.tsv')
+    test_sampled_file = os.path.join(base_path,'test_sampled.tsv')
+    p = QPPResultProcessor(obj_fil='/data/DBpedia_3_class_full/objective.py',
+                           dataset="DBpedia",
+                           exp_type=exp_type,
+                           test_sampled_file=test_sampled_file,
+                           val_sampled_file=val_sampled_file,
+                           train_sampled_file=train_sampled_file)
+    dbpedia_plan_path = '/data/DBpedia_3_class_full/plan_l14096_l21025_no_pred_co/test_pred.csv'
+    dbpedia_nn_path = '/data/DBpedia_3_class_full/nn/test_pred.csv'
+    dbpedia_svm_path = '/data/DBpedia_3_class_full/svm/test_pred_cls.csv'
+
+    p.evaluate_dataset(path_to_pred=dbpedia_plan_path,
+                             sep = ',',
+                             ground_truth_col='time_cls',
+                             pred_col='planrgcn_prediction',
+                             id_col='id',
+                             approach_name="P")
+    p.evaluate_dataset(path_to_pred=dbpedia_nn_path,
+                             sep = ',',
+                             ground_truth_col='time_cls',
+                             pred_col='nn_prediction',
+                             id_col='id',
+                             approach_name="NN",reg_to_cls=False )
+    p.evaluate_dataset(path_to_pred=dbpedia_svm_path,
+                             sep = ',',
+                             ground_truth_col='time_cls',
+                             pred_col='svm_prediction',
+                             id_col='id',
+                             approach_name="SVM")
+    res = p.process_results(add_symbol='')
+    print(res)
+    print(p.true_counts)
+
+
+
+qppWikidata(exp_type="seen_PP")
+qppDBpedia(exp_type="seen_PP")
+exit()
+#Full query log
+qppWikidata()
+qppDBpedia()
+exit()
+
+
+def evaluate_DBpedia_adm_ctrl_scriptV2(print_results=True):
+    objective_file='/data/DBpedia_3_class_full/admission_control/planrgcn_44/../../objective.py'
+
+    test_sampled = '/data/DBpedia_3_class_full/test_sampled.tsv'
+    a = ADMCTRLAnalyserV2(test_sampled, objective_file=objective_file)
+
+    base_path = '/data/DBpedia_3_class_full/admission_controlV2/workload1'
+    plan_res_adm = f'{base_path}/planrgcn'
+    nn_res_adm = f'{base_path}/nn'
+    svm_res_adm = f'{base_path}/svm'
+    a.evaluate_dataset(plan_res_adm, 'PlanRGCN', dataset = 'DBpedia')
+    a.evaluate_dataset(nn_res_adm, 'NN', dataset = 'DBpedia')
+    a.evaluate_dataset(svm_res_adm, 'SVM', dataset = 'DBpedia')
+
+    if print_results:
+        a.process_results()
+    return a
+def evaluate_wikidata_adm_ctrl_scriptV2(print_results=True):
+    objective_file='/data/DBpedia_3_class_full/admission_control/planrgcn_44/../../objective.py'
+
+    test_sampled = '/data/wikidata_3_class_full/test_sampled.tsv'
+    a = ADMCTRLAnalyserV2(test_sampled, objective_file=objective_file)
+
+    base_path = '/data/wikidata_3_class_full/admission_controlV2/workload1'
+    plan_res_adm = f'{base_path}/planrgcn'
+    nn_res_adm = f'{base_path}/nn'
+    svm_res_adm = f'{base_path}/svm'
+    a.evaluate_dataset(plan_res_adm, 'PlanRGCN', dataset = 'wikidata')
+    a.evaluate_dataset(nn_res_adm, 'NN', dataset = 'wikidata')
+    a.evaluate_dataset(svm_res_adm, 'SVM', dataset = 'wikidata')
+
+    if print_results:
+        a.process_results()
+    return a
+
+#evaluate_DBpedia_adm_ctrl_scriptV2()
+#evaluate_wikidata_adm_ctrl_scriptV2()
+exit()
 
 def query_log_plot(path, dataset):
     import pandas as pd
@@ -61,7 +253,7 @@ def query_log_plot(path, dataset):
 
     analyse = QueryLogAnalyzer(df)
 
-query_log_plot('/data/wikidata_3_class_full', "Wikidata")
+#query_log_plot('/data/wikidata_3_class_full', "Wikidata")
 
 def workload_check_queries(w_f):
     import pickle
@@ -121,31 +313,6 @@ exit()
 
 
 
-p = QPPResultProcessor(obj_fil='/data/DBpedia_3_class_full/objective.py', dataset="DBpedia")
-dbpedia_plan_path = '/data/DBpedia_3_class_full/plan_l14096_l21025_no_pred_co/test_pred.csv'
-dbpedia_nn_path = '/data/DBpedia_3_class_full/nn/test_pred.csv'
-dbpedia_svm_path = '/data/DBpedia_3_class_full/svm/test_pred_cls.csv'
-
-p.evaluate_dataset(path_to_pred=dbpedia_plan_path,
-                         sep = ',',
-                         ground_truth_col='time_cls',
-                         pred_col='planrgcn_prediction',
-                         id_col='id',
-                         approach_name="P")
-p.evaluate_dataset(path_to_pred=dbpedia_nn_path,
-                         sep = ',',
-                         ground_truth_col='time_cls',
-                         pred_col='nn_prediction',
-                         id_col='id',
-                         approach_name="NN",reg_to_cls=False )
-p.evaluate_dataset(path_to_pred=dbpedia_svm_path,
-                         sep = ',',
-                         ground_truth_col='time_cls',
-                         pred_col='svm_prediction',
-                         id_col='id',
-                         approach_name="SVM")
-res = p.process_results()
-res
 
 def workload_tester(workload_file):
     import pickle
@@ -237,27 +404,6 @@ exit()
 
 
 
-p = QPPResultProcessor(obj_fil='/data/DBpedia_3_class_full/objective.py', dataset="Wikidata")
-p.evaluate_dataset(path_to_pred="/data/wikidata_3_class_full/planRGCN_no_pred_co/test_pred.csv",
-                   sep=',',
-                   ground_truth_col='time_cls',
-                   pred_col='planrgcn_prediction',
-                   id_col='id',
-                   approach_name="P")
-
-p.evaluate_dataset(path_to_pred="/data/wikidata_3_class_full/baseline/svm/test_pred.csv",
-                   sep=',',
-                   ground_truth_col='time',
-                   pred_col='svm_prediction',
-                   id_col='id',
-                   approach_name="SVM")
-p.evaluate_dataset(path_to_pred="/data/wikidata_3_class_full/nn/k25/nn_test_pred.csv",
-                   sep=',',
-                   ground_truth_col='time',
-                   pred_col='nn_prediction',
-                   id_col='id',
-                   approach_name="NN")
-print(p.process_results())
 exit()
 
 

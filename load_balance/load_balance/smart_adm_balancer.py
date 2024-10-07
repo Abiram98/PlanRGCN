@@ -162,7 +162,7 @@ def main_admission_runner(w, url='http://172.21.233.23:8891/sparql', save_dir='l
         for k in procs.keys():
             procs[k].start()
 
-        if w.FIFO_queue.empty():
+        if w.rejected.empty() and w.accepted.empty():
             for k in work_names:
                 procs[k].join()
             procs['main'].join()

@@ -190,16 +190,17 @@ class SimplePPGen:
         pass
 
 
-base_path = '/data/DBpedia_3_class_full'
-train_file = f'{base_path}/train_sampled.tsv'
-val_file = f'{base_path}/val_sampled.tsv'
-test_file = f'{base_path}/test_sampled.tsv'
-url= 'http://172.21.233.14:8891/sparql'
-pred_stat_path = '/data/metaKGStat/dbpedia/predicate/pred_stat/batches_response_stats/freq'
-subj_stat_path = '/data/metaKGStat/dbpedia/entity/ent_stat/batches_response_stats/subj'
-outputfolder = '/data/generatedPP'
-os.makedirs(outputfolder, exist_ok=True)
-gen = PPGenerator(train_file, val_file, test_file,pred_stat_path, url, outputfolder, subj_stat_path)
+if __name__ == "__main__":
+    base_path = '/data/DBpedia_3_class_full'
+    train_file = f'{base_path}/train_sampled.tsv'
+    val_file = f'{base_path}/val_sampled.tsv'
+    test_file = f'{base_path}/test_sampled.tsv'
+    url= 'http://172.21.233.14:8891/sparql'
+    pred_stat_path = '/data/metaKGStat/dbpedia/predicate/pred_stat/batches_response_stats/freq'
+    subj_stat_path = '/data/metaKGStat/dbpedia/entity/ent_stat/batches_response_stats/subj'
+    outputfolder = '/data/generatedPP'
+    os.makedirs(outputfolder, exist_ok=True)
+    gen = PPGenerator(train_file, val_file, test_file,pred_stat_path, url, outputfolder, subj_stat_path)
 
 
 

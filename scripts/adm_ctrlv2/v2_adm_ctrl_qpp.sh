@@ -38,6 +38,7 @@ adm_ctrl () {
 #### DBpedia
 
 QUANTILE95=50.83
+QUANTILE95=51
 #General Configurations - DBpedia
 CONTAINER_NAME='dbpedia_virt'
 VIRT_CONFIG=/srv/data/abiram/SPARQLBench/virtuoso_setup/virtuoso_dbpedia_load_balance.ini
@@ -82,6 +83,7 @@ docker stop $CONTAINER_NAME
 #### Wikidata
 
 QUANTILE95=1.294
+QUANTILE95=1
 #General Configurations - Wikidata
 EXP_NAME="wikidata"
 dbpath=/srv/data/abiram/wdbench/virtuoso_dabase

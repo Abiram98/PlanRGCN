@@ -1,3 +1,5 @@
+from collections import Counter
+
 import numpy as np
 import pandas as pd
 from pandas import MultiIndex
@@ -7,6 +9,9 @@ import argparse, ast
 
 
 import os
+
+from q_gen.util import Utility
+
 os.environ['QG_JAR'] = '/PlanRGCN/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar'
 from graph_construction.jar_utils import *
 
@@ -24,6 +29,7 @@ class QPPResultProcessor:
 
 
         # Load correct classification snapper and corresponding data
+        self.true_counts = {}
         self.methods = []
         self.dataset = dataset
         self.exp_type = exp_type
@@ -117,15 +123,58 @@ class QPPResultProcessor:
                 ... # implement filter functionality on unseen relation in test set
             case "PP":
                 self.df = self.df
+                def normalize_id(x):
+                    if x.startswith('http'):
+                        return x[20:]
+                    return x
+
+                self.df['id'] = self.df['id'].apply(normalize_id)
                 assert self.test_sampled_file != None
                 l_df = len(self.df)
                 q_df = pd.read_csv(self.test_sampled_file, sep='\t')[['queryID', 'queryString']].rename(columns={'queryID':'id'})
+                q_df['id'] =q_df['id'].apply(normalize_id)
                 self.df = self.df.merge(q_df, how='inner', on='id')
-                assert len(self.df) == l_df
+                assert l_df>= len(self.df)
 
                 #Filtered for only queries with PP
-                self.df['queryString'].apply(lambda x: check_PP(x))
-                self.df = self.df[self.df['queryString'].apply(lambda x: check_PP(x))].copy()
+                #self.df['queryString'].apply(lambda x: check_PP(x))
+                def pp_filter(x):
+                    try:
+                        return check_PP(x)
+                    except Exception:
+                        return False
+
+                self.df = self.df[self.df['queryString'].apply(lambda x: pp_filter(x))].copy()
+
+            case "seen_PP":
+                self.df = self.df
+
+                def normalize_id(x):
+                    if x.startswith('http'):
+                        return x[20:]
+                    return x
+
+                self.df['id'] = self.df['id'].apply(normalize_id)
+                assert self.test_sampled_file != None
+                l_df = len(self.df)
+                q_df = pd.read_csv(self.test_sampled_file, sep='\t')[['queryID', 'queryString']].rename(
+                    columns={'queryID': 'id'})
+                q_df['id'] = q_df['id'].apply(normalize_id)
+                self.df = self.df.merge(q_df, how='inner', on='id')
+                assert l_df >= len(self.df)
+
+                # Filtered for only queries with PP
+                # self.df['queryString'].apply(lambda x: check_PP(x))
+                def pp_filter(x):
+                    try:
+                        return check_PP(x)
+                    except Exception:
+                        return False
+
+                self.df = self.df[self.df['queryString'].apply(lambda x: pp_filter(x))].copy()
+                train_df = pd.read_csv(self.train_sampled_file, sep='\t')
+                train_rels, train_ents = Utility.get_ent_rels_from_train(train_df)
+
 
 
             case _:
@@ -155,11 +204,13 @@ class QPPResultProcessor:
         self.latex_options = {'decimal': '.', 'float_format': "%.2f"}
 
         self.conf_matrix_entries.extend(self.get_confusion_matrix_tuples())
+        self.true_counts[approach_name] = dict(Counter(self.df[self.ground_truth_col]))
 
-    def process_results(self):
+
+    def process_results(self, add_symbol='\%', version='VLDB'):
         assert len(self.conf_matrix_entries) > 0
-        c_df = self.entry_to_conf_df(self.conf_matrix_entries)
-        latex_options = {'decimal': '.', 'float_format': lambda x: str(round(x*100, 1))+"\%"}
+        c_df = self.entry_to_conf_df(self.conf_matrix_entries, version=version)
+        latex_options = {'decimal': '.', 'float_format': lambda x: str(round(x*100, 1))+add_symbol}
         latex_table = c_df.to_latex(multicolumn=True, multicolumn_format='c', **latex_options)
         return latex_table
 
@@ -196,17 +247,32 @@ class QPPResultProcessor:
         return entries
 
 
-    def entry_to_conf_df(self, entries):
+    def entry_to_conf_df(self, entries, version='VLDB'):
+        if version == 'VLDB':
+            return self.entry_to_conf_df_VLDBrev(entries)
+        else:
+            index_ordering = []
+            for int in self.label_index:
+                for m in self.methods:
+                    index_ordering.append((int, m))
+            index = MultiIndex.from_tuples(index_ordering)
+
+            return pd.DataFrame(entries,
+                         columns=["Method", "ActualInt", "PredInt", "Value"])\
+                .set_index(["ActualInt"])\
+                .pivot(columns=["PredInt", "Method"], values='Value').reindex(index=self.label_index, columns=index)
+
+    def entry_to_conf_df_VLDBrev(self, entries):
         index_ordering = []
-        for int in self.label_index:
-            for m in self.methods:
-                index_ordering.append((int, m))
+        for m in self.methods:
+            for int in self.label_index:
+                index_ordering.append((m,int))
         index = MultiIndex.from_tuples(index_ordering)
 
         return pd.DataFrame(entries,
                      columns=["Method", "ActualInt", "PredInt", "Value"])\
             .set_index(["ActualInt"])\
-            .pivot(columns=["PredInt", "Method"], values='Value').reindex(index=self.label_index, columns=index)
+            .pivot(columns=["Method", "PredInt"], values='Value').reindex(index=self.label_index, columns=index)
     @staticmethod
     def latexify_cf(df_confusion):
         df_confusion.columns.name = 'Predicted'

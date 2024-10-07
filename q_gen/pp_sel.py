@@ -92,15 +92,15 @@ class PPSel:
 
 
 
+if __name__ == "__main__":
+    base_path = '/data/DBpedia_3_class_full'
+    train_file = f'{base_path}/train_sampled.tsv'
+    val_file = f'{base_path}/val_sampled.tsv'
+    test_file = f'{base_path}/test_sampled.tsv'
+    url= 'http://172.21.233.14:8891/sparql'
+    pred_stat_path = '/data/metaKGStat/dbpedia/predicate/pred_stat/batches_response_stats/freq'
+    subj_stat_path = '/data/metaKGStat/dbpedia/entity/ent_stat/batches_response_stats/subj'
+    outputfolder = '/data/generatedPP'
+    os.makedirs(outputfolder, exist_ok=True)
 
-base_path = '/data/DBpedia_3_class_full'
-train_file = f'{base_path}/train_sampled.tsv'
-val_file = f'{base_path}/val_sampled.tsv'
-test_file = f'{base_path}/test_sampled.tsv'
-url= 'http://172.21.233.14:8891/sparql'
-pred_stat_path = '/data/metaKGStat/dbpedia/predicate/pred_stat/batches_response_stats/freq'
-subj_stat_path = '/data/metaKGStat/dbpedia/entity/ent_stat/batches_response_stats/subj'
-outputfolder = '/data/generatedPP'
-os.makedirs(outputfolder, exist_ok=True)
-
-query_selector = PPSel(outputfolder, url=url, train_file=train_file, val_file=val_file, test_file=test_file,q_type_folder='PP_w_Optionals')
+    query_selector = PPSel(outputfolder, url=url, train_file=train_file, val_file=val_file, test_file=test_file,q_type_folder='PP_w_Optionals')

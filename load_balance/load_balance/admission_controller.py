@@ -56,7 +56,7 @@ if __name__ == "__main__":
     parser.add_argument('--rejectWorkers', default=3)
     parser.add_argument('--interval', default=2, type=int)
     parser.add_argument('--seed', default=42, type=int)
-    parser.add_argument('--task', default='v2', type=int)
+    parser.add_argument('--task', default='v2', type=str)
     parser.add_argument('--rejectTimeout', default='50', type=int)
     args = parser.parse_args()
     query_file = args.query_file

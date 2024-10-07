@@ -2,6 +2,10 @@
 
 from SPARQLWrapper import SPARQLWrapper, JSON, POST
 import time
+
+from feature_extraction.res_proc import SelProcUtil
+
+
 class Endpoint:
     def __init__(self, endpoint_url):
         self.sparql = SPARQLWrapper(endpoint_url, defaultGraph='http://localhost:8890/dataspace')
@@ -31,3 +35,7 @@ class Endpoint:
         results = self.sparql.query().convert()
         duration = time.time() - start
         return results, duration
+
+    def run_query_and_results(self, query_str):
+        res = self.run_query(query_str)
+        return SelProcUtil.get_bindings(res)

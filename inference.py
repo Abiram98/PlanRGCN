@@ -31,6 +31,7 @@ import pickle as p
 import time
 
 import argparse
+import numpy as np
 
 def get_args():
     parser = argparse.ArgumentParser(description="Argument parser for model inference")
@@ -49,6 +50,21 @@ def get_args():
                         help='yes if use gpu otherwise will not use gpu. Default uses gpu')
 
     return parser.parse_args()
+
+def cls_func(lat):
+    vec = np.zeros(3)
+    if lat < 1:
+        vec[0] = 1
+    elif (1 < lat) and (lat < 10):
+        vec[1] = 1
+    elif 10 < lat:
+        vec[2] = 1
+    return vec
+
+def snap_pred(pred):
+    if not isinstance(pred, torch.Tensor):
+        pred = torch.tensor(cls_func(pred), dtype=torch.float32)
+    return torch.argmax(pred)
 
 if __name__ == "__main__":
     prep_path = '/data/DBpedia_3_class_full/plan_l14096_l21025_no_pred_co/prepper.pcl'
@@ -139,6 +155,7 @@ if __name__ == "__main__":
             pred = model(qg, feats, edge_types)
             inference_time = time.time() - start
             pred = pred.detach().to('cpu')
+            pred = snap_pred(pred)
             entries.append((row['queryID'], qg_time, inference_time, pred))
     df = pd.DataFrame(entries, columns=['queryID', 'qg_time', 'inference_time', 'pred'])
     df.to_csv(output_path, index=False)

@@ -25,6 +25,19 @@ class Utility:
                 continue
         return train_val_rels, train_val_ents
 
+    @staticmethod
+    def get_ent_rels_from_train(train_df):
+        train_ents = []
+        train_rels = []
+        for idx, row in train_df.iterrows():
+            try:
+                ents, rels = Utility.get_ent_rel(row['queryString'])
+                train_rels.extend(rels)
+                train_ents.extend(ents)
+            except Exception:
+                continue
+        return train_rels, train_ents
+
 
     @staticmethod
     def get_ent_rel(query):
