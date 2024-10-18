@@ -1,4 +1,5 @@
 
+
 # PlanRGCN
 
 ## Prerequisites
@@ -126,4 +127,48 @@ APPROACH="PlanRGCN"
 OUTPUTFOLDER="$SPLIT_DIR"/"$EXP_NAME"/results
 python3 /PlanRGCN/scripts/post_predict.py -s $SPLIT_DIR -t $TIMECLS -f $PRED_FILE -a $APPROACH -o $OUTPUTFOLDER
 
+```
+
+## Starting Virtuoso Instances
+The data should be loaded in.
+
+For DBpedia,
+```
+CONTAINER_NAME='dbpedia_virt'
+VIRT_CONFIG=/srv/data/abiram/SPARQLBench/virtuoso_setup/virtuoso_dbpedia_load_balance.ini
+dbpath=/srv/data/abiram/dbpediaKG/virtuoso-db-new2/virtuoso-db-new
+```
+
+
+For Wikidata,
+```
+CONTAINER_NAME=
+VIRT_CONFIG=
+dbpath=/
+```
+
+For actually running the RDF store:
+```
+db_start (){
+    CPUS="10"
+    docker run --rm -v $dbpath:/database ubuntu bash -c "rm /database/virtuoso.trx"
+    docker run -m 64g --rm --name $CONTAINER_NAME -d --tty --env DBA_PASSWORD=dba --env DAV_PASSWORD=dba --publish 1112:1111 --publish 8891:8890 -v $dbpath:/database -v $VIRT_CONFIG:/database/virtuoso.ini --cpus=$CPUS openlink/virtuoso-opensource-7:7.2.12
+}
+db_start
+```
+
+
+## Live predictions through terminal
+
+```
+python3 /PlanRGCN/online_predictor.py \
+     --prep_path /data/DBpedia_3_class_full/plan16_10_2024/prepper.pcl\
+     --model_path /data/DBpedia_3_class_full/plan16_10_2024/best_model.pt\
+     --config_path /data/DBpedia_3_class_full/plan16_10_2024/model_config.json\
+     --gpu yes
+python3 /PlanRGCN/online_predictor.py \
+     --prep_path /data/DBpedia_3_class_full/plan16_10_2024_4096_2048/prepper.pcl\
+     --model_path /data/DBpedia_3_class_full/plan16_10_2024_4096_2048/best_model.pt\
+     --config_path /data/DBpedia_3_class_full/plan16_10_2024_4096_2048/model_config.json\
+     --gpu yes
 ```

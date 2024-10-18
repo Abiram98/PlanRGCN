@@ -114,6 +114,7 @@ if __name__ == "__main__":
     get_query_graph(query_df['queryString'].iloc[0])
 
 
+
     def single_qg_con(query_text, featurizer, query_plan):
         try:
             query = query_text
@@ -131,7 +132,13 @@ if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
 
-    model = Classifier2RGCN(inputd, l1, l2, 0.0, n_classes)
+    if model_path != None:
+        dct = torch.load(model_path)
+        model = Classifier2RGCN(inputd, l1, l2, 0.0, n_classes)
+        model.load_state_dict(dct['model_state'])
+    else:
+        model = Classifier2RGCN(inputd, l1, l2, 0.0, n_classes)
+
     model = model.to(device)
     model.eval()
 
@@ -154,10 +161,12 @@ if __name__ == "__main__":
             start = time.time()
             pred = model(qg, feats, edge_types)
             inference_time = time.time() - start
-            pred = pred.detach().to('cpu')
             pred = snap_pred(pred)
-            entries.append((row['queryID'], qg_time, inference_time, pred))
-    df = pd.DataFrame(entries, columns=['queryID', 'qg_time', 'inference_time', 'pred'])
+            pred = pred.detach().to('cpu').tolist()
+            time_cls = snap_pred(row['mean_latency'])
+            time_cls = time_cls.detach().to('cpu').tolist()
+            entries.append((row['queryID'], qg_time, inference_time, pred, time_cls))
+    df = pd.DataFrame(entries, columns=['queryID', 'qg_time', 'inference_time', 'pred', 'time_cls'])
     df.to_csv(output_path, index=False)
     info_txt = f'''Inference Statistics
     Features Query Graph: {df['qg_time'].mean()}
@@ -166,4 +175,26 @@ if __name__ == "__main__":
     print(info_txt)
     with open(os.path.join(Path(output_path).parent, 'plan_inf_summary.txt'), 'w') as w:
         w.write(info_txt)
+        w.write(f"Using device: {device}")
 
+
+
+def predict_single_row(row, featurizer, query_plan, device, model):
+    query_text = row['queryString']
+    data = single_qg_con(query_text, featurizer, query_plan)
+    qg, dur = data
+    feats = qg.ndata['node_features']
+    edge_types = qg.edata['rel_type']
+    feats = feats.to(device)
+    edge_types = edge_types.to(device)
+    qg = qg.to(device)
+    pred = model(qg, feats, edge_types)
+    pred2 = snap_pred(pred)
+    pred2 = pred2.detach().to('cpu').tolist()
+    time_cls = snap_pred(row['mean_latency'])
+    time_cls = time_cls.detach().to('cpu').tolist()
+    return pred, pred2, time_cls
+"""
+for i in range(10):
+    predict_single_row(pps.iloc[i], featurizer, query_plan, device, model)
+"""

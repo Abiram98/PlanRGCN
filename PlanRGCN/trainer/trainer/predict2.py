@@ -1,3 +1,13 @@
+import os
+
+from pathlib import Path
+
+if 'QG_JAR' not in os.environ.keys():
+    os.environ['QG_JAR']='/PlanRGCN/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar'
+
+if 'QPP_JAR' not in os.environ.keys():
+    os.environ['QPP_JAR']='/PlanRGCN/qpp/qpp_features/sparql-query2vec/target/sparql-query2vec-0.0.1.jar'
+
 import argparse
 import pickle
 

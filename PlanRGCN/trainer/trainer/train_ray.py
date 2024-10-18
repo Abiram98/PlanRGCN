@@ -187,6 +187,7 @@ def train_function(
             criterion = nn.CrossEntropyLoss()
     elif config["loss_type"] == "mse":
         criterion = nn.MSELoss()
+
     opt = th.optim.AdamW(net.parameters(), lr=config["lr"], weight_decay=config["wd"])
 
     checkpoint = train.get_checkpoint()
@@ -203,7 +204,12 @@ def train_function(
     else:
         start_epoch = 0
     val_f1_lst = []
+    device = th.device("cuda" if th.cuda.is_available() else "cpu")
+    criterion = criterion.to(device)
+    print(f"Using device: {device}")
+
     for epoch in range(start_epoch, config["epochs"]):
+        net = net.to(device)
         print(
             f"Epoch {epoch + 1}\n--------------------------------------------------------------"
         )
@@ -222,7 +228,7 @@ def train_function(
             model=net,
             data_loader=val_loader,
             pp_loader=val_pp_loader,
-            loss_type=config["loss_type"],
+            criterion=criterion,
             metric_default=metric_default,
         )
         val_f1_lst.append(val_f1)
@@ -238,6 +244,7 @@ def train_function(
         }"""
         # checkpoint = Checkpoint.from_dict(checkpoint_data)
         with tempfile.TemporaryDirectory(dir="/data/tmp") as tempdir:
+            net = net.to('cpu')
             th.save(
                 {
                     "epoch": epoch,
@@ -278,11 +285,20 @@ def train_epoch(
     train_f1 = 0
     train_recall = 0
     train_prec = 0
+
+
+    device = th.device("cuda" if th.cuda.is_available() else "cpu")
+    model = model.to(device)
     model.train()
     with th.enable_grad():
         for batch_no, (batched_graph, labels, ids) in enumerate(train_loader):
+            batched_graph = batched_graph.to(device)
             feats = batched_graph.ndata["node_features"]
             edge_types = batched_graph.edata["rel_type"]
+            feats = feats.to(device)
+            edge_types = edge_types.to(device)
+            labels = labels.to(device)
+
             logits = model(batched_graph, feats, edge_types)
             loss = criterion(logits, labels)
             opt.zero_grad()
@@ -294,8 +310,8 @@ def train_epoch(
             # snap_pred(logits,model_thres=pred_thres, add_thres=add_thres)
             # snap_thres = [pred_thres for x in logits]
             # snap_add_thres = [add_thres for x in logits]
-            f1_pred = list(map(snap_pred, logits))
-            snapped_labels = list(map(snap_pred, labels))
+            f1_pred = list(map(snap_pred, logits.cpu()))
+            snapped_labels = list(map(snap_pred, labels.cpu()))
             # f1_batch = f1_score(labels, f1_pred)
             f1_batch = f1_score(
                 snapped_labels,
@@ -332,30 +348,33 @@ def train_epoch(
 
 
 # evaluate on validation data loader and also test
-def evaluate(model, data_loader, loss_type, metric_default=0, pp_loader=None):
+def evaluate(model, data_loader, criterion, metric_default=0, pp_loader=None):
     loss = 0
     f1_val = 0
     recall_val = 0
     precision_val = 0
+    device = th.device("cuda" if th.cuda.is_available() else "cpu")
 
     model.eval()
+
     with th.no_grad():
         for _, (graphs, labels, _) in enumerate(data_loader):
             feats = graphs.ndata["node_features"]
             edge_types = graphs.edata["rel_type"]
-            pred = model(graphs, feats, edge_types)
 
-            if loss_type == "cross-entropy":
-                c_val_loss = F.cross_entropy(pred, labels).item()
-            elif loss_type == "mse":
-                c_val_loss = F.mse_loss(pred, labels).item()
-            else:
-                c_val_loss = loss_type(pred, labels).item()
+            graphs = graphs.to(device)
+            feats = feats.to(device)
+            edge_types = edge_types.to(device)
+
+
+            pred = model(graphs, feats, edge_types)
+            labels = labels.to(device)
+            c_val_loss = criterion(pred, labels).item()
 
             loss += c_val_loss
 
-            f1_pred_val = list(map(snap_pred, pred))
-            snapped_lebls = list(map(snap_pred, labels))
+            f1_pred_val = list(map(snap_pred, pred.cpu()))
+            snapped_lebls = list(map(snap_pred, labels.cpu()))
 
             f1_batch_val = f1_score(
                 snapped_lebls,
@@ -534,6 +553,7 @@ def main(
     os.makedirs(ray_temp_path, exist_ok=True)
     context = ray.init(
         num_cpus=num_cpus,
+        num_gpus=resources_per_trial['gpu'],
         _system_config={
             "local_fs_capacity_threshold": 0.99,
             "object_spilling_config": json.dumps(
@@ -582,7 +602,7 @@ def main(
         config=config,
         num_samples=num_samples,
         scheduler=scheduler,
-        local_dir=ray_save,
+        storage_path=ray_save,
         stop=earlystop,
         resume=resume,
         raise_on_failed_trial=False

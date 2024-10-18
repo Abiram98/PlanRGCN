@@ -1,6 +1,8 @@
 import os
 if 'QG_JAR' not in os.environ.keys():
     os.environ['QG_JAR']='/PlanRGCN/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar'
+
+
 if 'QPP_JAR' not in os.environ.keys():
     os.environ['QPP_JAR']='/PlanRGCN/qpp/qpp_features/sparql-query2vec/target/sparql-query2vec-0.0.1.jar'
 
@@ -28,6 +30,8 @@ sys.path.extend( ['/PlanRGCN/qpp/qpp_new/qpp_new',
  '/usr/local/lib/python3.10/dist-packages',
  '/PlanRGCN/feat_con_time',
  '/usr/lib/python3/dist-packages'])
+
+
 import pandas as pd
 import graph_construction.jar_utils
 import time
@@ -56,7 +60,6 @@ class SPARQLDistCalcular:
     def __init__(self):
         import jpype
         import jpype.imports
-
         from new_distance import GEDCalculator
         self.calc = GEDCalculator()
 

@@ -85,37 +85,55 @@ class QPPResultProcessor:
                 assert self.test_sampled_file != None
                 assert self.val_sampled_file != None
                 assert self.train_sampled_file != None
+                def normalize_id(x):
+                    if x.startswith('http'):
+                        return x[20:]
+                    return x
+
+                if not 'id' in self.df.columns and 'queryID' in self.df.columns:
+                    self.df['id'] = self.df['queryID'].apply(normalize_id)
+                else:
+                    self.df['id'] = self.df['id'].apply(normalize_id)
 
                 l_df = len(self.df)
                 q_df = pd.read_csv(self.test_sampled_file, sep='\t')[['queryID', 'queryString']].rename(
                     columns={'queryID': 'id'})
+                q_df['id'] = q_df['id'].apply(normalize_id)
+
                 self.df = self.df.merge(q_df, how='inner', on='id')
                 assert len(self.df) == l_df
                 non_test_terms = set()
                 train_df = pd.read_csv(self.train_sampled_file, sep='\t')
                 val_df = pd.read_csv(self.train_sampled_file, sep='\t')
                 for idx, row in train_df.iterrows():
-                    ents, rels = get_ent_rel(row['queryString'])
-                    non_test_terms.update(ents)
-                    non_test_terms.update(rels)
+                    try:
+                        ents, rels = get_ent_rel(row['queryString'])
+                        non_test_terms.update(ents)
+                        non_test_terms.update(rels)
+                    except Exception:
+                        continue
 
-                for idx, row in val_df.iterrows():
-                    ents, rels = get_ent_rel(row['queryString'])
-                    non_test_terms.update(ents)
-                    non_test_terms.update(rels)
+                """for idx, row in val_df.iterrows():
+                    try:
+                        ents, rels = get_ent_rel(row['queryString'])
+                        non_test_terms.update(ents)
+                        non_test_terms.update(rels)
+                    except Exception:
+                        continue"""
 
                 complete_unseen_idx = []
                 for idx, row in self.df.iterrows():
-                    ents, rels = get_ent_rel(row['queryString'])
-                    is_completely_unseen = True
-                    for e in ents:
-                        if e in non_test_terms:
-                            is_completely_unseen = False
-                    for r in rels:
-                        if r in non_test_terms:
-                            is_completely_unseen = False
-                    if is_completely_unseen:
-                        complete_unseen_idx.append(row['id'])
+                        ents, rels = get_ent_rel(row['queryString'])
+                        is_completely_unseen = True
+                        for e in ents:
+                            if e in non_test_terms:
+                                is_completely_unseen = False
+                        for r in rels:
+                            if r in non_test_terms:
+                                is_completely_unseen = False
+                        if is_completely_unseen:
+                            complete_unseen_idx.append(row['id'])
+
                 self.df = self.df[self.df['id'].isin(complete_unseen_idx)].copy()
             case "unseen_entity":
                 ... # implement filter functionality on unseen entity in test set
@@ -128,7 +146,11 @@ class QPPResultProcessor:
                         return x[20:]
                     return x
 
-                self.df['id'] = self.df['id'].apply(normalize_id)
+                if not 'id' in self.df.columns and 'queryID' in self.df.columns:
+                    self.df['id'] = self.df['queryID'].apply(normalize_id)
+                else:
+                    self.df['id'] = self.df['id'].apply(normalize_id)
+
                 assert self.test_sampled_file != None
                 l_df = len(self.df)
                 q_df = pd.read_csv(self.test_sampled_file, sep='\t')[['queryID', 'queryString']].rename(columns={'queryID':'id'})
@@ -154,7 +176,10 @@ class QPPResultProcessor:
                         return x[20:]
                     return x
 
-                self.df['id'] = self.df['id'].apply(normalize_id)
+                if not 'id' in self.df.columns and 'queryID' in self.df.columns:
+                    self.df['id'] = self.df['queryID'].apply(normalize_id)
+                else:
+                    self.df['id'] = self.df['id'].apply(normalize_id)
                 assert self.test_sampled_file != None
                 l_df = len(self.df)
                 q_df = pd.read_csv(self.test_sampled_file, sep='\t')[['queryID', 'queryString']].rename(
@@ -174,6 +199,20 @@ class QPPResultProcessor:
                 self.df = self.df[self.df['queryString'].apply(lambda x: pp_filter(x))].copy()
                 train_df = pd.read_csv(self.train_sampled_file, sep='\t')
                 train_rels, train_ents = Utility.get_ent_rels_from_train(train_df)
+                def checkIfSeen(query, train_rels, train_ents):
+                    ents, rels = Utility.get_ent_rel(query)
+                    for e in ents:
+                        if e not in train_ents:
+                            return False
+
+                    for r in rels:
+                        if r not in train_rels:
+                            return False
+
+                    return True
+
+                self.df = self.df[self.df['queryString'].apply(lambda x: checkIfSeen(x, train_rels, train_ents))].copy()
+
 
 
 

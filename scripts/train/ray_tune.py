@@ -1,3 +1,13 @@
+import os
+
+from pathlib import Path
+
+if 'QG_JAR' not in os.environ.keys():
+    os.environ['QG_JAR']='/PlanRGCN/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar'
+
+if 'QPP_JAR' not in os.environ.keys():
+    os.environ['QPP_JAR']='/PlanRGCN/qpp/qpp_features/sparql-query2vec/target/sparql-query2vec-0.0.1.jar'
+
 import pickle
 import sys
 from graph_construction.feats.featurizer_path import FeaturizerPath
@@ -5,7 +15,7 @@ from trainer.train_ray import main
 from graph_construction.query_graph import (
     snap_lat2onehotv2,
 )
-from graph_construction.qp.query_plan_path import QueryPlanPath
+from graph_construction.qp.query_plan_path import QueryPlanPath,QueryGraph
 from ray import tune
 import os
 

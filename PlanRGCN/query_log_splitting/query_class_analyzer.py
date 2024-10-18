@@ -206,6 +206,7 @@ class FineGrainedQueryClassAnalyzer(QueryClassAnalyzer):
         'pp_opt_fil' : [],
         'Total': df.index.tolist()
         }
+
         unbinned = []
         pp_qs = 0
         for idx, row in df.iterrows():
@@ -303,3 +304,78 @@ class FineGrainedQueryClassAnalyzer(QueryClassAnalyzer):
                 entries.append((splt_type, k, 'unseen', '---'))
         return entries
 
+class SemiFineGrainedQueryClassAnalyzer(FineGrainedQueryClassAnalyzer):
+    def __init__(self, train_file, val_file, test_file, data_split_path=None, objective_file=None):
+        super().__init__(train_file, val_file, test_file, data_split_path=data_split_path, objective_file=objective_file)
+
+    def get_query_class(self, df: pd.DataFrame, splt_type: str, print_PPs=True ):
+        tp1 = 'With 1 TP'
+        tp2 = 'With 2 TP'
+        tpmore = 'With more than 2 TP'
+        optional = 'With OPTIONAL'
+        filter_s = 'With FILTER'
+        pp_str = 'With PP'
+        stat = {
+            tp1: [],
+            tp2: [],
+            tpmore: [],
+            optional: [],
+            filter_s: [],
+            pp_str: [],
+            'Total': df.index.tolist()
+        }
+
+        unbinned = []
+        pp_qs = 0
+        for idx, row in df.iterrows():
+            try:
+                qg = get_query_graph(row['queryString'])
+                tps, pps, optionals, filters = self.get_op_count(qg, row['queryString'])
+                if pps > 0:
+                    stat[pp_str].append(idx)
+                if tps > 0:
+                    # TP related info
+                    if optionals > 0:
+                        stat[optional].append(idx)
+                    if filters > 0:
+                        stat[filter_s].append(idx)
+                    if pps > 0:
+                        stat[pp_str].append(idx)
+                    if tps == 1:
+                        stat[tp1].append(idx)
+                    elif tps == 2:
+                        stat[tp2].append(idx)
+                    else:
+                        stat[tpmore].append(idx)
+            except jpype.JException:
+                unbinned.append(idx)
+
+        if print_PPs:
+            print(f"Total PP queries: {pp_qs}")
+            print(f"Total unbinned querires: {len(unbinned)}")
+
+        entries = []
+        for query_class in [tp1, tp2, tpmore, optional, filter_s, pp_str,'Total' ]:
+            df_cls = df.loc[stat[query_class]].copy()
+            df_cls = self.get_assign_interval_df(df_cls)
+            interval_dst = dict(Counter(df_cls['interval']))
+            for k in self.intervals:
+                try:
+                    query_number = interval_dst[k]
+                except Exception:
+                    query_number = 0
+                entries.append((splt_type, k, query_class, query_number))
+
+        #For unseen test query statistics
+        if splt_type == 'Test':
+            df_cls = self.get_unseen_query_distibution()
+            df_cls = self.get_assign_interval_df(df_cls)
+            interval_dst = dict(Counter(df_cls['interval']))
+            for k in self.intervals:
+                query_number = interval_dst[k]
+                entries.append((splt_type, k, 'unseen', query_number))
+        else:
+            #they don't exist for validation and training set
+            for k in self.intervals:
+                entries.append((splt_type, k, 'unseen', '---'))
+        return entries

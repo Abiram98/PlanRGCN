@@ -56,7 +56,7 @@ COPY test_inference_time.py /PlanRGCN/test_inference_time.py
 COPY pp_only_qs.py /PlanRGCN/pp_only_qs.py
 COPY inductive_query/ /PlanRGCN/inductive_query/
 COPY load_balance/ /PlanRGCN/load_balance/
-COPY qpp/ /PlanRGCN/qpp/Z
+COPY qpp/ /PlanRGCN/qpp/
 #COPY install_local_modules.sh /PlanRGCN/install_local_modules.sh
 #RUN bash /PlanRGCN/install_local_modules.sh
 

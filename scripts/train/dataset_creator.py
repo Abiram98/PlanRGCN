@@ -19,6 +19,8 @@ def parse_args():
     parser.add_argument('--feat_path', type=str, default='/data/planrgcn_feat/extracted_features_dbpedia2016', help="Path to metaKG statistics used for the model.")
     parser.add_argument('--use_pred_co', type=str, default="yes", help="whether to use predicat co-occurence features.")
     parser.add_argument('--class_path', type=str, default=None, help="path that defined 'n_classes' and 'cls_func' for prediction objective")
+    #parser.add_argument('--bin', type=int, default=50, help="number of bins to create for each feature, bin size")
+
 
     return parser.parse_args()
 

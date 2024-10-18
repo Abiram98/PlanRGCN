@@ -2,6 +2,8 @@ import os
 
 from pathlib import Path
 
+from ray.air import CheckpointConfig
+
 if 'QG_JAR' not in os.environ.keys():
     os.environ['QG_JAR']='/PlanRGCN/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar'
 
@@ -28,13 +30,10 @@ def parse_args():
     # Required arguments
     parser.add_argument('sample_name', type=str, help="Name of the dataset to use.")
     parser.add_argument('path_to_save', type=str, help="Path to save all artifacts.")
-
     # Optional arguments
     parser.add_argument('--feat_path', type=str, default='/data/planrgcn_feat/extracted_features_dbpedia2016', help="Path to metaKG statistics used for the model.")
-    parser.add_argument('--layer1_size', type=int, default=4096, help="Size of the first layer.")
-    parser.add_argument('--layer2_size', type=int, default=4096, help="Size of the second layer.")
     parser.add_argument('--class_path', type=str, default=None, help="path that defined 'n_classes' and 'cls_func' for prediction objective")
-    parser.add_argument('--use_pred_co', type=str, default="yes", help="whether to use predicat co-occurence features.")
+    parser.add_argument('--use_pred_co', type=str, default="no", help="whether to use predicat co-occurence features.")
     parser.add_argument('--conv_type', type=str, default='RGCN', help="the graph convolution operation to use")
 
     return parser.parse_args()
@@ -44,11 +43,6 @@ print("Sample Name:", args.sample_name)
 print("Path to Save:", args.path_to_save)
 if args.feat_path:
     print("Feature Path:", args.feat_path)
-if args.layer1_size:
-    print("Layer 1 Size:", args.layer1_size)
-if args.layer2_size:
-    print("Layer 2 Size:", args.layer2_size)
-    print("Layer 1 Size:", args.layer1_size)
 if args.conv_type:
     print("conv_type :", args.conv_type)
 
@@ -109,10 +103,8 @@ max_num_epochs = 80
 query_plan_dir = qp_path
 time_col = "mean_latency"
 is_lsq = True
-#featurizer_class = FeaturizerBinning
 featurizer_class = FeaturizerPath
 scaling = "binner"
-query_plan = QueryPlanPath
 query_plan = QueryGraph
 
 if not os.path.exists(save_prep_path):
@@ -127,8 +119,8 @@ resume=False
 os.makedirs(path_to_save, exist_ok=True)
 
 config = {
-    "l1": tune.grid_search([ args.layer1_size]),
-    "l2": tune.grid_search([ args.layer2_size]),
+    "l1": tune.grid_search([4096, 2048]),
+    "l2": tune.grid_search([ 1024, 2048, 4096]),
     "dropout": tune.choice([0.0, 0.6]),
     "wd": 0.01,
     "lr": tune.grid_search([1e-5]),
@@ -198,5 +190,8 @@ main(
     save_prep_path=save_prep_path,
     patience=5,
     prepper=None,
-    resources_per_trial={"cpu": num_cpus, "gpu" : num_gpus}
+    resources_per_trial={"cpu": num_cpus, "gpu" : num_gpus},
+    checkpoint_config=CheckpointConfig(
+            1, "val_f1", "max"
+        )
 )

@@ -42,9 +42,10 @@ QUANTILE95=51
 #General Configurations - DBpedia
 CONTAINER_NAME='dbpedia_virt'
 VIRT_CONFIG=/srv/data/abiram/SPARQLBench/virtuoso_setup/virtuoso_dbpedia_load_balance.ini
+dbpath=/srv/data/abiram/dbpediaKG/virtuoso-db-new2/virtuoso-db-new
 SPLIT_FILE='/data/DBpedia_3_class_full/test_sampled.tsv'
 BASEOUTPUT_FOLDER="/data/DBpedia_3_class_full/admission_controlV2/workload${WORKLOADID}"
-dbpath=/srv/data/abiram/dbpediaKG/virtuoso-db-new2/virtuoso-db-new
+
 
 db_start
 sleep $STARTIME
