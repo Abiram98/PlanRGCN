@@ -1,4 +1,51 @@
+source /virt_env_develop/bin/activate
+EXP_NAME="Hyperparam search WikidataV2"
+FEAT=/data/metaKGStat/wikidata
+DATESTRING=23_10_2024
+EXP=/data/wikidataV2/plan${DATESTRING}
+mkdir -p $EXP
+echo "Train Start" $EXP_NAME $SECONDS >> $EXP/hyper_log.txt
+python3 /PlanRGCN/scripts/train/ray_hyperparam.py DBpediaV2 $EXP --feat_path $FEAT --use_pred_co no --class_path /data/wikidataV2/objective.py
+(cd $EXP && tar --use-compress-program="pigz --best --recursive" -cf ray_save.tar.gz ray_save)
+echo "Train DONE" $EXP_NAME $SECONDS >> $EXP/hyper_log.txt
+#After hyper param search
+#L1=
+#L2=
+#python3 -m trainer.predict2 -p "$EXP"/prepper.pcl -m "$EXP"/best_model.pt -n 3 -o "$EXP" --l1 $L1 --l2 $L2
 
+source /virt_env_develop/bin/activate
+EXP_NAME="Hyperparam search DBpediaV2"
+FEAT=/data/metaKGStat/dbpedia
+DATESTRING=23_10_2024
+EXP=/data/DBpediaV2/plan${DATESTRING}
+mkdir -p $EXP
+echo "Train Start" $EXP_NAME $SECONDS >> $EXP/hyper_log.txt
+python3 /PlanRGCN/scripts/train/ray_hyperparam.py DBpediaV2 $EXP --feat_path $FEAT --use_pred_co no --class_path /data/DBpediaV2/objective.py
+echo "Train DONE" $EXP_NAME $SECONDS >> $EXP/hyper_log.txt
+(cd $EXP && tar --use-compress-program="pigz --best --recursive" -cf ray_save.tar.gz ray_save)
+#After hyper param search
+#L1=
+#L2=
+#python3 -m trainer.predict2 -p "$EXP"/prepper.pcl -m "$EXP"/best_model.pt -n 3 -o "$EXP" --l1 $L1 --l2 $L2
+
+exit
+
+source /virt_env_develop/bin/activate
+EXP_NAME="Hyperparam search WikidataV2"
+FEAT=/data/metaKGStat/wikidata
+DATESTRING=21_10_2024
+EXP=/data/wikidataV2/plan${DATESTRING}
+mkdir -p $EXP
+echo "Train Start" $EXP_NAME $SECONDS >> $EXP/hyper_log.txt
+python3 /PlanRGCN/scripts/train/ray_hyperparam.py DBpediaV2 $EXP --feat_path $FEAT --use_pred_co no
+(cd $EXP && tar --use-compress-program="pigz --best --recursive" -cf ray_save.tar.gz ray_save)
+echo "Train DONE" $EXP_NAME $SECONDS >> $EXP/hyper_log.txt
+#After hyper param search
+L1=4096
+L2=4096
+python3 -m trainer.predict2 -p "$EXP"/prepper.pcl -m "$EXP"/best_model.pt -n 3 -o "$EXP" --l1 $L1 --l2 $L2
+
+exit
 #hyper parameter tune DBpediaV2
 source /virt_env_develop/bin/activate
 EXP_NAME="Hyperparam search DBpediaV2"
@@ -9,7 +56,12 @@ mkdir -p $EXP
 echo "Train Start" $EXP_NAME $SECONDS >> $EXP/hyper_log.txt
 python3 /PlanRGCN/scripts/train/ray_hyperparam.py DBpediaV2 $EXP --feat_path $FEAT --use_pred_co no
 echo "Train DONE" $EXP_NAME $SECONDS >> $EXP/hyper_log.txt
-#python3 -m trainer.predict2 -p "$EXP"/prepper.pcl -m "$EXP"/best_model.pt -n 3 -o "$EXP" --l1 $L1 --l2 $L2
+(cd $EXP && tar --use-compress-program="pigz --best --recursive" -cf ray_save.tar.gz ray_save)
+
+#After hyper param search
+L1=4096
+L2=4096
+python3 -m trainer.predict2 -p "$EXP"/prepper.pcl -m "$EXP"/best_model.pt -n 3 -o "$EXP" --l1 $L1 --l2 $L2
 #echo "Prediction DONE" $EXP_NAME $SECONDS >> $EXP/train_log.txt
 
 
