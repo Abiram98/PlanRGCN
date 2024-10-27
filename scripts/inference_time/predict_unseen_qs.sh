@@ -1,5 +1,6 @@
  #Unseen quereis
 NEW_QUERY_FOLDER=/data/DBpedia_3_class_full/newUnseenQs3
+NEW_QUERY_FOLDER=/data/DBpedia_3_class_full/newUnseenQs4
 
 query_path="${NEW_QUERY_FOLDER}/queries.tsv"
 plan_inference () {
@@ -15,14 +16,15 @@ python3 /PlanRGCN/inference.py \
 # DBpedia Run
 base="/data/DBpedia_3_class_full/planRGCNWOpredCo"
 base="/data/DBpedia_3_class_full/plan_l14096_l21025_no_pred_co"
+base="/data/DBpedia_3_class_full/plan16_10_2024_4096_2048"
 
 prep_path="${base}/prepper.pcl"
 model_path="${base}/best_model.pt"
 #best f1 score model
-model_path="/data/DBpedia_3_class_full/plan_l14096_l21025_no_pred_co/ray_save/train_function_2024-06-12_13-09-48/train_function_0bc66_00000_0_batch_size=256,dropout=0.0000,l1=4096,l2=1024,loss_type=cross-entropy,lr=0.0000,pred_com_path=pred2in_2024-06-12_13-09-48/checkpoint_000020/checkpoint.pt"
+#model_path="/data/DBpedia_3_class_full/plan_l14096_l21025_no_pred_co/ray_save/train_function_2024-06-12_13-09-48/train_function_0bc66_00000_0_batch_size=256,dropout=0.0000,l1=4096,l2=1024,loss_type=cross-entropy,lr=0.0000,pred_com_path=pred2in_2024-06-12_13-09-48/checkpoint_000020/checkpoint.pt"
 config_path="${base}/model_config.json"
 output_path="${NEW_QUERY_FOLDER}/plan_inference.csv"
-plan_inference
+#plan_inference
 
 
 #assimes that a queries.tsv is availble in new queries folder

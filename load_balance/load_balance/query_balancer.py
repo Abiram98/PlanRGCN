@@ -57,6 +57,7 @@ class Worker:
                         q_start_time = time.perf_counter()
                         
                         #execute stuff
+                        time.sleep(q.inference_time)
                         ret = self.execute_query(q.query_string)
                         q_end_time = time.perf_counter()
                         elapsed_time = q_end_time-q_start_time
@@ -82,6 +83,7 @@ class Worker:
                         q_start_time = time.perf_counter()
                         
                         #execute stuff
+                        time.sleep(q.inference_time)
                         ret = self.execute_query(q.query_string)
                         q_end_time = time.perf_counter()
                         elapsed_time = q_end_time-q_start_time
@@ -107,6 +109,7 @@ class Worker:
                         q_start_time = time.perf_counter()
                         
                         #execute stuff
+                        time.sleep(q.inference_time)
                         ret = self.execute_query(q.query_string)
                         q_end_time = time.perf_counter()
                         elapsed_time = q_end_time-q_start_time
