@@ -27,10 +27,11 @@ def create_different_k_ged_dist_matrix(
         distance_matrix_file=f"{basedir}/baseline/distance_matrix.npy",
         vectorization_path=f"{basedir}/knn25/",
         center_cache_file="center_cache_file",
+        save_cluster_obj_file=f"{basedir}/knn25/clusterobj.pickle"
     )
     
     # K=10
-    run(
+    """run(
         train_path=f"{basedir}/train_sampled.tsv",
         val_path=f"{basedir}/val_sampled.tsv",
         test_path=f"{basedir}/test_sampled.tsv",
@@ -41,7 +42,7 @@ def create_different_k_ged_dist_matrix(
         kmediods_max_iters=100,
         distance_matrix_file="/qpp/data/new_features/distance_matrix.npy",
         vectorization_path=f"{basedir}/knn10/",
-    )
+    )"""
     
 def create_different_k_ged(
     basedir="/qpp/dataset/DBpedia_2016_12k_sample",
@@ -87,6 +88,7 @@ def create_different_k_ged(
         kmediods_max_iters=100,
         distance_matrix_file="/qpp/data/new_features/distance_matrix.npy",
         vectorization_path=f"{basedir}/knn20/",
+
     )
 
 
@@ -109,6 +111,7 @@ def run(
     train_graph_path="train_ged.csv",
     val_graph_path="val_ged.csv",
     test_graph_path="test_ged.csv",
+    save_cluster_obj_file = None
     #center_cache_file = None
 ):
     base_dir = Path(train_path).parent
@@ -133,6 +136,7 @@ def run(
         vectorization_path=vectorization_path,
         base_dir=base_dir,
         dist_matrix=dist_matrix,
+        save_cluster_obj_file=save_cluster_obj_file,
     )
 
 def cluster_lsq_datasets(
@@ -154,6 +158,7 @@ def cluster_lsq_datasets(
     save_clust_obj=None,
     base_dir="",
     dist_matrix=None,
+    save_cluster_obj_file = None
 ):
     train_ids = list(train_df["queryID"])
     val_ids = list(val_df["queryID"])
@@ -229,6 +234,8 @@ def cluster_lsq_datasets(
     )
     if not save_clust_obj == None:
         i.save(save_clust_obj)
+    with open(save_cluster_obj_file, 'wb') as f:
+        pickle.dump(i, f)
 
 
 # fixed version of recomputation of distances, efficient version

@@ -1,0 +1,10 @@
+
+select  ?q1 ?x ?z
+WHERE {
+
+?x <http://dbpedia.org/ontology/subFamily>+ ?y .
+?z <http://dbpedia.org/ontology/subFamily>+ ?w .
+?x <http://wikidata.dbpedia.org/property/datum> ?q1 .
+?z <http://wikidata.dbpedia.org/property/datum> ?q1 .
+
+}

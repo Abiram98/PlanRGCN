@@ -1,0 +1,10 @@
+select ?x
+WHERE {
+
+?x <http://dbpedia.org/property/isCitedBy> ?y .
+?z <http://dbpedia.org/property/isCitedBy> ?y .
+?x <http://dbpedia.org/property/isCitedBy> ?z .
+?z <http://dbpedia.org/property/year> ?q1 .
+?y <http://dbpedia.org/property/year> ?q2 .
+
+}

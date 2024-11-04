@@ -1,0 +1,9 @@
+select  ?x ?y
+WHERE {
+
+?x <http://dbpedia.org/property/isCitedBy> ?y .
+?x <http://dbpedia.org/property/year> ?q1 .
+?y <http://dbpedia.org/property/year> ?q2 .
+FILTER (?q1 > ?q2 )
+
+}

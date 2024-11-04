@@ -40,7 +40,7 @@ if __name__ == "__main__":
     parser.add_argument('-c', '--conf', default = None)
     
     parser.add_argument('-d', '--sample_name')
-    parser.add_argument('-b', '--scale')
+    parser.add_argument('-p', '--pred_file')
     parser.add_argument('-t', '--true_field_name')
     parser.add_argument('-o', '--save_dir')
     parser.add_argument('-l', '--add_lsq_url', default='yes')

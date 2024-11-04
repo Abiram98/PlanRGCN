@@ -100,7 +100,13 @@ public class QueryReaderWAlgRunTime {
     public Query readLineIdQuery(String[] record){
         String id = record[0];
         String queryString = record[1];
-        Query t = new Query(id, queryString, Double.parseDouble(record[11]));
+        Query t;
+        try{
+        t = new Query(id, queryString, Double.parseDouble( record[11] ) );
+        }catch(java.lang.ArrayIndexOutOfBoundsException e){
+        t = new Query(id, queryString, Double.parseDouble( record[2]) );
+        }
+
         return t;
     }
 

@@ -1,0 +1,9 @@
+
+select ?y2
+WHERE {
+
+?x <http://dbpedia.org/ontology/position> / <http://wikidata.dbpedia.org/ontology/wikiPageWikiLink> ?y1 .
+?z <http://dbpedia.org/ontology/position> / <http://wikidata.dbpedia.org/ontology/wikiPageWikiLink> ?y2 .
+?y1  <http://dbpedia.org/ontology/position> ?y2
+
+}

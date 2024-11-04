@@ -1,3 +1,14 @@
+import os
+
+from pathlib import Path
+
+if 'QG_JAR' not in os.environ.keys():
+    os.environ['QG_JAR']='/PlanRGCN/PlanRGCN/qpe/target/qpe-1.0-SNAPSHOT.jar'
+
+if 'QPP_JAR' not in os.environ.keys():
+    os.environ['QPP_JAR']='/PlanRGCN/qpp/qpp_features/sparql-query2vec/target/sparql-query2vec-0.0.1.jar'
+
+from graph_construction.jar_utils import get_query_graph
 import json
 import pickle
 import sys
@@ -6,7 +17,7 @@ from trainer.train_ray import main
 from graph_construction.query_graph import (
     snap_lat2onehotv2,
 )
-from graph_construction.qp.query_plan_path import QueryPlanPath
+from graph_construction.qp.query_plan_path import QueryPlanPath, QueryGraph
 from ray import tune
 import os
 import argparse
@@ -93,7 +104,8 @@ lit_path= (
 # Training Configurations
 num_samples = 1
 num_cpus= 8
-max_num_epochs = 40
+num_gpus = 1
+max_num_epochs = 80
 query_plan_dir = qp_path
 time_col = "mean_latency"
 is_lsq = True
@@ -101,6 +113,7 @@ is_lsq = True
 featurizer_class = FeaturizerPath
 scaling = "binner"
 query_plan = QueryPlanPath
+query_plan = QueryGraph
 
 if not os.path.exists(save_prep_path):
     print("Please create datasets first!")
@@ -146,7 +159,16 @@ def earlystop(trial_id: str, result: dict) -> bool:
     #l = np.sum(np.diff(result["val_f1_lst"]))/l_n
     l = result["val_f1_lst"][:-1]
     #if improvement in last patience epochs is less than 1% in validation loss then terminate trial.
-    if result["training_iteration"] >= 20 and np.min(l) <= result["val_f1"]:
+    if result["training_iteration"] >= 30 and np.min(l) >= result["val_f1"]:
+        return True
+    return False
+
+def earlystop(trial_id: str, result: dict) -> bool:
+    #l_n = len(result["val_f1_lst"])
+    #l = np.sum(np.diff(result["val_f1_lst"]))/l_n
+    l = result["val_f1_lst"][:-1]
+    #if improvement in last patience epochs is less than 1% in validation loss then terminate trial.
+    if result["training_iteration"] >= 30 and np.mean(l) >= result["val_f1"]:
         return True
     return False
 
@@ -176,5 +198,5 @@ main(
     save_prep_path=save_prep_path,
     patience=5,
     prepper=None,
-    resources_per_trial={"cpu": num_cpus}
+    resources_per_trial={"cpu": num_cpus, "gpu" : num_gpus}
 )

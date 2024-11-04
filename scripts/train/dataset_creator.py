@@ -3,7 +3,7 @@
 
 from trainer.train_ray import get_dataloaders
 from graph_construction.feats.featurizer_path import FeaturizerPath
-from graph_construction.qp.query_plan_path import QueryPlanPath
+from graph_construction.qp.query_plan_path import QueryPlanPath, QueryGraph
 from ray import tune
 import os,sys
 import argparse
@@ -19,6 +19,8 @@ def parse_args():
     parser.add_argument('--feat_path', type=str, default='/data/planrgcn_feat/extracted_features_dbpedia2016', help="Path to metaKG statistics used for the model.")
     parser.add_argument('--use_pred_co', type=str, default="yes", help="whether to use predicat co-occurence features.")
     parser.add_argument('--class_path', type=str, default=None, help="path that defined 'n_classes' and 'cls_func' for prediction objective")
+    #parser.add_argument('--bin', type=int, default=50, help="number of bins to create for each feature, bin size")
+
 
     return parser.parse_args()
 
@@ -77,7 +79,7 @@ is_lsq = True
 #featurizer_class = FeaturizerBinning
 featurizer_class = FeaturizerPath
 scaling = "binner"
-query_plan = QueryPlanPath
+query_plan = QueryGraph
 prepper = None
 resume=False
 

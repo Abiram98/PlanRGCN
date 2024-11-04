@@ -2,7 +2,9 @@ import json
 import os
 import time
 import dgl
+import jpype
 from graph_construction.feats.featurizer_path import FeaturizerPath
+from graph_construction.jar_utils import get_query_graph
 from graph_construction.nodes.PathComplexException import PathComplexException
 from graph_construction.qp.QueryPlanCommonBi import QueryPlanCommonBi
 from graph_construction.qp.qp_utils import QueryPlanUtils
@@ -28,41 +30,43 @@ def create_query_plan(path, query_plan=QueryPlan):
     q.path = path
     return q
 
+def create_query_graph(query_string, query_plan=QueryPlanPath):
+    return query_plan(get_query_graph(query_string))
 
 def create_query_plans_dir(
-    source_dir, ids: set[str] = None, add_id=False, query_plan=QueryPlanCommonBi
+    df:pd.DataFrame, add_id=False, query_plan=QueryPlanCommonBi
 ):
-    
-    if ids is None:
-        # TODO: check whether lsqQuery is necessary
-        files = [x for x in os.listdir(source_dir) if x.startswith("lsqQuery")]
-    else:
-        ids = [str(x) for x in ids]
-        files = [x for x in os.listdir(source_dir) if x in ids]
+
     durationQP = []
+    temp = []
     if add_id:
-        temp = []
-        for x in files:
+        for idx, row in df.iterrows():
             try:
+                query = row['queryString']
+                query_id = row['queryID']
                 start = time.time()
-                temp.append((create_query_plan(f"{source_dir}{x}", query_plan=query_plan), x))
+                temp.append((create_query_graph(query, query_plan = query_plan), query_id))
                 end = time.time()
                 durationQP.append(end-start)
             except PathComplexException:
-                pass
+                continue
+            except jpype.JException:
+                continue
         return temp, durationQP
-    
-    query_plans = []
-    for x in files:
-        try:
-            start = time.time()
-            query_plans.append(create_query_plan(f"{source_dir}{x}", query_plan=query_plan))
-            end = time.time()
-            durationQP.append(end-start)
-        except PathComplexException:
-            pass
-    return query_plans, durationQP
+    else:
+        for idx, row in df.iterrows():
+            try:
+                query = row['queryString']
+                start = time.time()
+                temp.append(create_query_graph(query, query_plan=query_plan))
+                end = time.time()
+                durationQP.append(end-start)
+            except PathComplexException:
+                continue
+            except jpype.JException:
+                continue
 
+    return temp, durationQP
 
 def create_dgl_graphs(
     qps: list[QueryPlan], featurizer: FeaturizerBase, without_id=True
@@ -94,7 +98,6 @@ def create_dgl_graph_helper(qps: list[QueryPlan], featurizer: FeaturizerBase) ->
 
 
 def create_query_graphs_data_split(
-    source_dir,
     query_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
     query_plan=QueryPlan,
     is_lsq=False,
@@ -102,11 +105,12 @@ def create_query_graphs_data_split(
 ):
     df = pd.read_csv(query_path, sep="\t")
     if is_lsq:
-        ids = set([x[20:] for x in df["queryID"]])
+        #ids = set([x[20:] for x in df["queryID"]])
+        ids = set([x for x in df["queryID"]])
     else:
         ids = set([x for x in df["queryID"]])
 
-    qps, durationQPS = create_query_plans_dir(source_dir, ids, query_plan=query_plan, add_id=True)
+    qps, durationQPS = create_query_plans_dir(df, query_plan=query_plan, add_id=True)
     for qp, id in qps:
         try:
             assert len(qp.G.nodes) > 0
@@ -117,9 +121,7 @@ def create_query_graphs_data_split(
     return create_dgl_graphs(qps, feat, without_id=False),durationQPS
 
 
-def query_graphs_with_lats(
-    source_dir,
-    query_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
+def query_graphs_with_lats( query_path="/qpp/dataset/DBpedia_2016_12k_sample/train_sampled.tsv",
     feat: FeaturizerBase = None,
     query_plan=QueryPlan,
     time_col="mean_latency",
@@ -127,13 +129,12 @@ def query_graphs_with_lats(
     debug = False
 ):
     df = pd.read_csv(query_path, sep="\t")
-    if is_lsq:
-        df["queryID"] = df["queryID"].apply(lambda x: x[20:])
+    #if is_lsq:
+    #    df["queryID"] = df["queryID"].apply(lambda x: x[20:])
     df.set_index("queryID", inplace=True)
     # print(df.loc["lsqQuery-UBZNr7M1ITVUf21mrBIQ9W4f6cdpJr6DQbr0HkWKOnw"][time_col])
 
     graphs_ids,durationQPS = create_query_graphs_data_split(
-        source_dir,
         query_path=query_path,
         feat=feat,
         query_plan=query_plan,
@@ -163,7 +164,6 @@ def query_graph_w_class_vec(
     debug = False
 ):
     samples,durationQPS = query_graphs_with_lats(
-        source_dir=source_dir,
         query_path=query_path,
         feat=feat,
         time_col=time_col,

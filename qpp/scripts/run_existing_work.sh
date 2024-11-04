@@ -30,3 +30,4 @@ mkdir -p "$1/CLEI_NN"
 (cd ../ && mv "$1/nn_test_pred.csv" "$1/CLEI_NN/test_pred.csv")
 
 #(cd ../ && python3 '/qpp/qpp_models/models4LSQ.py' svm -d $1)
+

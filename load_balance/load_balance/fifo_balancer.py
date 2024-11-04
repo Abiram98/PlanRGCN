@@ -1,5 +1,8 @@
 import os
 from urllib.error import URLError
+
+import pandas as pd
+
 from  load_balance.workload.workload import Workload, WorkloadV2, WorkloadV3
 import multiprocessing
 import time
@@ -104,7 +107,86 @@ def dispatcher(workload: WorkloadV3, start_time, path, n_workers):
         with open(f"{path}/main.json", 'w') as f:
             f.write("done")
         exit()           
-    exit()    
+    exit()
+
+
+def admission_dispatcher(workload: WorkloadV3, start_time, path, n_workers):
+    rej_qs = {'query':[],
+              'true_cls': [],
+              'time': []}
+    try:
+        for numb, (q, a) in enumerate(zip(workload.queries, workload.arrival_times)):
+            if numb % 100 == 0:
+                s = {}
+                s['fifo'] = workload.FIFO_queue.qsize()
+                s['time'] = time.perf_counter() - start_time
+                print(f"Main process: query {numb} / {len(workload.queries)}: {s}", flush=True)
+            n_arr = start_time + a
+            q.arrival_time = n_arr
+            try:
+                time.sleep(n_arr - time.perf_counter())
+            except Exception:
+                pass
+
+            q.queue_arrival_time = time.perf_counter()
+            if q.time_cls == 2:
+                rej_qs['query'].append(q.ID)
+                rej_qs['true_cls'].append(q.true_time_cls)
+                rej_qs['time'].append(time.perf_counter())
+                continue
+            workload.FIFO_queue.put(q)
+
+        # Signal stop to workers
+        for _ in range(n_workers):
+            workload.FIFO_queue.put(None)
+
+        with open(f"{path}/main.json", 'w') as f:
+            f.write("done")
+
+        df = pd.DataFrame(rej_qs)
+        df.to_csv(f"{path}/rejected.csv", index=False)
+    except KeyboardInterrupt:
+        s = {}
+        s['fifo'] = workload.FIFO_queue.qsize()
+        s['time'] = time.perf_counter() - start_time
+        print(f"Main process: query {numb} / {len(workload.queries)}: {s}")
+        with open(f"{path}/main.json", 'w') as f:
+            f.write("done")
+        df = pd.DataFrame(rej_qs)
+        df.to_csv(f"{path}/rejected.csv", index=False)
+        exit()
+    exit()
+
+
+def main_admission_runner(w, url='http://172.21.233.23:8891/sparql', save_dir='load_balance', n_workers=8):
+    f_lb = save_dir
+    os.system(f'mkdir -p {f_lb}')
+    path = f_lb
+    procs = {}
+    work_names = [f"w_{x + 1}" for x in range(n_workers)]
+    start_time = time.perf_counter()
+    for work_name in work_names:
+        procs[work_name] = multiprocessing.Process(
+            target=Worker(w, work_name, url, start_time, path).execute_query_worker)
+    procs['main'] = multiprocessing.Process(target=admission_dispatcher, args=(w, start_time, path, n_workers,))
+
+    try:
+        for k in procs.keys():
+            procs[k].start()
+
+        if w.FIFO_queue.empty():
+            for k in work_names:
+                procs[k].join()
+            procs['main'].join()
+        end_time = time.perf_counter()
+        print(f"elapsed time: {end_time - start_time}")
+        with open(os.path.join(save_dir, 'elapsed_time.txt'), 'w') as f:
+            f.write(f"elapsed time: {end_time - start_time}")
+    except KeyboardInterrupt:
+        end_time = time.perf_counter()
+        print(f"elapsed time: {end_time - start_time}")
+        with open(os.path.join(save_dir, 'elapsed_time.txt'), 'w') as f:
+            f.write(f"elapsed time: {end_time - start_time}")
 
 def main_balance_runner(w, url = 'http://172.21.233.23:8891/sparql', save_dir='load_balance',n_workers=8):
     #f_lb =f'/data/{sample_name}/load_balance_FIFO'

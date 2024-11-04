@@ -1,0 +1,21 @@
+Begin Clustering!
+model cost:  355390882.0
+Time to create clusters: 17201.1953895092
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/PlanRGCN/qpp/qpp_new/qpp_new/feature_combiner.py", line 905, in <module>
+    create_different_k_ged_dist_matrix(basedir=sys.argv[1], database_path=sys.argv[2] )
+  File "/PlanRGCN/qpp/qpp_new/qpp_new/feature_combiner.py", line 18, in create_different_k_ged_dist_matrix
+    run(
+  File "/PlanRGCN/qpp/qpp_new/qpp_new/feature_combiner.py", line 121, in run
+    cluster_lsq_datasets(
+  File "/PlanRGCN/qpp/qpp_new/qpp_new/feature_combiner.py", line 238, in cluster_lsq_datasets
+    pickle.dump(i, f)
+  File "/PlanRGCN/qpp/qpp_features/qpp_features/database.py", line 201, in items
+    raise Exception("items operation should not happen")
+Exception: items operation should not happen
+Finished after (DBPEDIA) 21906
