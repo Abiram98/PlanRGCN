@@ -5,7 +5,7 @@ Docker should be installed
 
 A folder containing the dataset, i.e., the query logs divided into training, validation, and test sets should be available at $DATA
 
-For reproducing this work, please download our query logs at [this link]().
+For reproducing this work, please download our query logs at [this link](https://drive.google.com/drive/folders/1mYb6MmhRDFXEN5XmY9S0-Yt3ToJp9CYC?usp=sharing).
 
 
 
@@ -89,8 +89,8 @@ python3 /PlanRGCN/online_predictor.py \
 ```
 NOTE: the SPARQL query should only on a single line, e.g., no newline characters.
 
-To test the model, we provide our trained model [here]().
-Download the tar achieve and extract it folder /data/{expr}.
+To test the model, we provide our trained model [here](https://drive.google.com/drive/folders/1mYb6MmhRDFXEN5XmY9S0-Yt3ToJp9CYC?usp=sharing).
+Download the tar achieve and extract it /data folder in container.
 
 ## Downstream tasks
 See [Downstream tasks documentation](docs/downstream_tasks.md)
