@@ -277,6 +277,16 @@ class FineGrainedQueryClassAnalyzer(QueryClassAnalyzer):
         n['PP OPT F'] = stat['pp_opt_fil']
         n['TP PP F OPT'] = stat['tp_pp_fil_opt']
         n['Total'] = stat['Total']
+        workload_a = {'simple': n['TP 1']+n['TP 2']+n['TP 3']+n['$>$TP 3'],
+                      'C2RPQ': n['TP PP'],
+                      'complex BGP': n['TP F'] +n['TP OPT'] +n['TP OPT F'],
+                      'complex C2RPQ': n['TP OPT PP'] + n['TP PP F OPT'] + n['TP PP F']}
+        print('Workload a')
+        workload_b = {}
+        for k in workload_a.keys():
+            workload_b[k] = len(workload_a[k])
+
+        print(workload_b)
         stat = n
         entries = []
         for query_class in ['TP 1','TP 2','TP 3','$>$TP 3','TP F' ,'TP OPT', 'TP OPT F', 'TP PP F', 'PP', 'TP PP', 'TP OPT PP', 'PP F', 'PP OPT', 'PP OPT F', 'TP PP F OPT','Total' ]:

@@ -89,20 +89,21 @@ def total_workload_runtime():
 
 
 def ql_table():
-    from query_class_analyzer import QueryClassAnalyzer, SemiFineGrainedQueryClassAnalyzer
+    from query_class_analyzer import QueryClassAnalyzer, SemiFineGrainedQueryClassAnalyzer, FineGrainedQueryClassAnalyzer
     base = '/data/wikidata_3_class_full/'
-    SemiFineGrainedQueryClassAnalyzer(f"{base}/train_sampled.tsv",
+    FineGrainedQueryClassAnalyzer(f"{base}/train_sampled.tsv",
                        f"{base}/val_sampled.tsv",
                        f"{base}/test_sampled.tsv",
                        objective_file='/data/wikidata_3_class_full/plan01_n_gq/objective.py'
                        )
     base = '/data/DBpedia_3_class_full/'
-    SemiFineGrainedQueryClassAnalyzer(f"{base}/train_sampled.tsv",
+    FineGrainedQueryClassAnalyzer(f"{base}/train_sampled.tsv",
                        f"{base}/val_sampled.tsv",
                        f"{base}/test_sampled.tsv",
                        objective_file='/data/wikidata_3_class_full/plan01_n_gq/objective.py')
 
-
+#ql_table()
+#exit()
 def qppDBpediaNewqs(exp_type="PP"):
     dbpedia_plan_path = '/data/DBpedia_3_class_full/newPPs/plan_inference.csv'
     base_path = '/data/DBpedia_3_class_full'
@@ -139,7 +140,11 @@ def qppDBpediaNewqs(exp_type="PP"):
                              pred_col='svm_prediction',
                              id_col='id',
                              approach_name="SVM",reg_to_cls=True)
-    print(p.process_results(add_symbol=''))
+    res, aggre = p.process_results(add_symbol='')
+    print(res)
+    print('___')
+    print(aggre)
+    print('___')
     print(p.true_counts)
 
 def qppDBpediaNewqsUnseen(exp_type="completly_unseen"):
@@ -177,13 +182,16 @@ def qppDBpediaNewqsUnseen(exp_type="completly_unseen"):
                              pred_col='svm_prediction',
                              id_col='id',
                              approach_name="SVM",reg_to_cls=True)
-
-    print(p.process_results(add_symbol=''))
+    res, aggre = p.process_results(add_symbol='')
+    print(res)
+    print('___')
+    print(aggre)
+    print('___')
     print(p.true_counts)
 
-qppDBpediaNewqsUnseen()
+#qppDBpediaNewqsUnseen()
 #ql_table()
-exit()
+
 
 def sample_more_test_queries_DBpedia(path='/data/generatedPP/PP_w_Optionals', original_test_sampled='/data/DBpedia_3_class_full/test_sampled.tsv' ,base_exp_path='/data/DBpedia_3_class_full',output_path = '/data/DBpedia_3_class_full/additionalPPtestQs/queries.tsv'):
     os.listdir(path)
@@ -253,7 +261,11 @@ def qppWikidata(exp_type="all", version='VLDB'):
                        id_col='id',
                        approach_name="SVM")
 
-    print(p.process_results(add_symbol='', version=version))
+    res, aggre = p.process_results(add_symbol='', version=version)
+    print(res)
+    print('___')
+    print(aggre)
+    print('___')
     print(p.true_counts)
 
 def qppDBpedia(exp_type="all", version='VLDB'):
@@ -293,8 +305,11 @@ def qppDBpedia(exp_type="all", version='VLDB'):
                              pred_col='svm_prediction',
                              id_col='id',
                              approach_name="SVM")
-    res = p.process_results(add_symbol='', version=version)
+    res, aggre = p.process_results(add_symbol='', version=version)
     print(res)
+    print('___')
+    print(aggre)
+    print('___')
     print(p.true_counts)
 
 def qppWikidataQuantile(exp_type="all", version='VLDB'):
@@ -468,7 +483,7 @@ def query_log_plot(path, dataset):
     plt.tight_layout()
     plt.show()
 
-query_log_plot('/data/wikidata_3_class_full', "Wikidata")
+#query_log_plot('/data/wikidata_3_class_full', "Wikidata")
 
 def workload_check_queries(w_f):
     import pickle
@@ -481,8 +496,9 @@ def workload_check_queries(w_f):
 
 
 #qppDBpedia()
-#qppDBpedia(exp_type='PP')
-#qppDBpedia(exp_type='completly_unseen')
+#qppDBpediaNewqs()
+#qppDBpediaNewqsUnseen()
+qppWikidata()
 
 #evaluate_wikidata_adm_ctrl_scriptV2()
 #evaluate_DBpedia_adm_ctrl_scriptV2()

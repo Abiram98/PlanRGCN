@@ -172,6 +172,17 @@ class PPGenerator:
         }}
         """
 
+    def PP_template1_w_optional(self, pp_pred, pred, ent):
+        return f"""
+        SELECT ?e ?o2 WHERE {{
+        <ent> <{pp_pred}>+ ?e .
+        OPTIONAL {{
+        ?e <{pred}> ?o2
+        }} 
+        FILTER( LANG(?o) == \"\"en\"\")
+        }}
+        """
+
     def is_rel_PP_legilable(self,rel):
         q = f"""
         ASK {{

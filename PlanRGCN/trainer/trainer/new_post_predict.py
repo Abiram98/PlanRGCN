@@ -3,7 +3,7 @@ from collections import Counter
 import numpy as np
 import pandas as pd
 from pandas import MultiIndex
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, precision_score, recall_score
 import argparse, ast
 
 
@@ -59,6 +59,7 @@ class QPPResultProcessor:
         #Metric that we want to compare multiple datasets on:
         self.conf_matrix_entries = [] # to make augmented conf_matrix
         #We need to some for class wise F1, precisio, recall
+        self.method_results = {}
 
     def evaluate_dataset(self, path_to_pred="path_to_pred",
                          sep = ',',
@@ -244,6 +245,7 @@ class QPPResultProcessor:
 
         self.conf_matrix_entries.extend(self.get_confusion_matrix_tuples())
         self.true_counts[approach_name] = dict(Counter(self.df[self.ground_truth_col]))
+        self.method_results[approach_name] = self.compute_aggregated_metrics()
 
 
     def process_results(self, add_symbol='\%', version='VLDB'):
@@ -251,7 +253,8 @@ class QPPResultProcessor:
         c_df = self.entry_to_conf_df(self.conf_matrix_entries, version=version)
         latex_options = {'decimal': '.', 'float_format': lambda x: str(round(x*100, 1))+add_symbol}
         latex_table = c_df.to_latex(multicolumn=True, multicolumn_format='c', **latex_options)
-        return latex_table
+        aggre_latex_table = self.process_aggregated_metrics()
+        return latex_table, aggre_latex_table
 
 
 
@@ -324,6 +327,30 @@ class QPPResultProcessor:
         latex_table = df_confusion.to_latex(multicolumn=True, multicolumn_format='c', **latex_options)
 
         return latex_table
+    def compute_aggregated_metrics(self):
+        t = self.df[self.ground_truth_col]
+        p = self.df[self.pred_col]
+        labels = QPPResultProcessor.gt_labels
+        acc = accuracy_score(y_true=t, y_pred=p)
+        f1_micro = f1_score(y_true=t, y_pred=p, labels=labels, average='micro')
+        f1_macro = f1_score(y_true=t, y_pred=p, labels=labels, average='macro')
+
+        precision_micro = precision_score(y_true=t, y_pred=p, labels=labels, average='micro')
+        precision_macro = precision_score(y_true=t, y_pred=p, labels=labels, average='macro')
+
+        recall_micro = recall_score(y_true=t, y_pred=p, labels=labels, average='micro')
+        recall_macro = recall_score(y_true=t, y_pred=p, labels=labels, average='macro')
+        return {'Accuracy': acc, 'F1-micro': f1_micro, 'F1-macro':f1_macro, 'precision micro': precision_micro, 'precision macro': precision_macro, 'recall micro': recall_micro, 'recall macro': recall_macro
+                }
+    def process_aggregated_metrics(self):
+        re_df = pd.DataFrame(self.method_results).T
+        latex_table = re_df.to_latex(float_format="%.3f", caption="Aggregated Metrics Table",
+                                  label="tab:performance_metrics")
+        return latex_table
+
+
+
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Process input arguments for prediction analysis.")

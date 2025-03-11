@@ -447,7 +447,7 @@ class UnseenGenerator:
     def PP_template1_w_filter(self, pp_pred, pred, ent):
         return f"""
         SELECT ?e ?o2 WHERE {{
-        <ent> <{pp_pred}>+ ?e .
+        <{ent}> <{pp_pred}>+ ?e .
         ?e <{pred}> ?o2 
         FILTER( LANG(?o) == \"\"en\"\")
         }}
